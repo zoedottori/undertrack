@@ -56,23 +56,61 @@
 ---
 
 ### 3. Realidad & Validación Post-Carrera
-*(Esta sección se completa al finalizar la carrera)*
 
-* **Podio Real:** 
-  1. *[Completar]*
-  2. *[Completar]*
-  3. *[Completar]*
-* **Estrategia Empleada por el Ganador:** *[Completar: n° de paradas y compuestos]*
-* **Comportamiento Térmico Observado:**
-  * ¿Sufrió McLaren la degradación anticipada en el S1? *[Completar]*
-  * ¿Cómo respondieron Ferrari y Red Bull en pista caliente? *[Completar]*
-* **Verificación de Perfiles:**
-  * Puestos ganados/perdidos por Élite Metronómico: *[Completar]*
-  * Puestos ganados/perdidos por Gestores de Midfield: *[Completar]*
-* **Balance del Modelo:**
-  * Aciertos: *[Completar]*
-  * Desvíos / Sorpresas no contempladas: *[Completar]*
-  * Aprendizaje para calibrar la regresión: *[Completar]*
+* **Clasificación Oficial (GP de Estados Unidos 2026 — COTA):**
+  1. 🥇 **Andrea Kimi Antonelli (Mercedes #12)** — 1:35:16.650 (25 pts)
+  2. 🥈 **Charles Leclerc (Ferrari #16)** — +13.078s (18 pts)
+  3. 🥉 **Max Verstappen (Red Bull #3)** — +17.485s (15 pts)
+  * **4.** Lewis Hamilton (Ferrari #44) — +18.515s (12 pts)
+  * **5.** Lando Norris (McLaren #1) — +30.521s (10 pts)
+  * **6.** Isack Hadjar (Red Bull #6) — +34.373s (8 pts)
+  * **7.** Oscar Piastri (McLaren #81) — +52.674s (6 pts)
+  * **8.** George Russell (Mercedes #63) — +54.303s (4 pts)
+  * **9.** Liam Lawson (RB #30) — +79.183s (2 pts)
+  * **10.** Pierre Gasly (Alpine #10) — +87.516s (1 pt)
+  * **11.** Nico Hülkenberg (Audi #27) — +94.945s
+  * **12.** Arvid Lindblad (RB #41) — +1 Vuelta
+  * **13.** Gabriel Bortoleto (Audi #5) — +1 Vuelta
+  * **14.** Esteban Ocon (Haas #31) — +1 Vuelta
+  * **15.** Lance Stroll (Aston Martin #18) — +1 Vuelta
+  * **16.** Fernando Alonso (Aston Martin #14) — +1 Vuelta
+  * **17.** Alex Albon (Williams #23) — +1 Vuelta
+  * **18.** Carlos Sainz Jr. (Williams #55) — +1 Vuelta
+  * **19.** Sergio Pérez (Cadillac #11) — +1 Vuelta
+  * **DNF:** Valtteri Bottas (Cadillac #77), Franco Colapinto (Alpine #43), Oliver Bearman (Haas #87).
+
+* **Comportamiento Térmico Observado (El Gran Acierto):**
+  * **Alerta McLaren 100% Confirmada:** Norris (P5 a +30.5s) y Piastri (P7 a +52.6s) quedaron totalmente desconectados de la lucha por la victoria. La degradación térmica del tren delantero en el Sector 1 les impidió sostener el ritmo de Ferrari, Red Bull y Mercedes.
+  * **Solidez Ferrari y Red Bull:** Leclerc (P2) y Hamilton (P4) confirmaron la superioridad térmica de Ferrari en calor. Verstappen (P3) resistió el podio maximizando tracción.
+
+* **La Gran Sorpresa de la Carrera:**
+  * **Victoria de Andrea Kimi Antonelli (Mercedes):** El joven italiano sacó una ventaja de +13 segundos sobre Leclerc gestionando de manera impecable el asfalto caliente, superando a su compañero Russell (P8 a +54s).
+
+* **Verificación de Perfiles & Midfield:**
+  * **Élite Metronómico en el Top 5:** Leclerc (P2), Verstappen (P3), Hamilton (P4) y Norris (P5) confirmaron que los circuitos técnicos premian la regularidad vuelta a vuelta.
+  * **Midfield & Abandonos:** El pelotón medio sufrió neutralizaciones y abandonos duros: Colapinto (Alpine), Bottas (Cadillac) y Bearman (Haas) fuera por DNF. Liam Lawson capitalizó para pescar puntos (P9) junto a Gasly (P10), mientras Audi con Hülkenberg rozó los puntos en P11.
+  * **Williams (Sainz P18 y Albon P17):** Fin de semana negro para el equipo de Grove, perdiendo vuelta en un trazado con baches que castigó su plataforma aerodinámica.
+
+* **Balance del Modelo UNDERTRACK:**
+  * **Aciertos:**
+    1. *Desplome relativo de McLaren:* Pronosticado por la matriz de temperatura (-1.20 en calor). Norris y Piastri terminaron 5° y 7°, a medio minuto de la punta.
+    2. *Dominio de Ferrari sobre McLaren:* Leclerc (P2) y Hamilton (P4) aplastaron el ritmo de los coches papaya.
+    3. *Presencia de Verstappen en el Podio (P3).*
+  * **Desvíos a calibrar:**
+    1. El salto de rendimiento de Antonelli y el paquete de Mercedes en calor frente a Russell.
+    2. El factor de fiabilidad/incidentes que dejó a Colapinto fuera de carrera (DNF) impidiendo ver su remontada proyectada.
+
+* **Tablero Resumen: Pronóstico vs. Realidad**
+
+| Dimensión Analizada | 🔮 Lo que pronosticó UNDERTRACK | 🏁 Lo que pasó en la Carrera | Veredicto | ¿Por qué pasó? / Lectura Analítica |
+| :--- | :--- | :--- | :---: | :--- |
+| **Alerta Térmica McLaren** | Caída drástica en calor (>40°C) por sobrecalentamiento del tren delantero en las eses. Fuera de la pelea por la victoria. | Norris terminó 5° (+30.5s) y Piastri 7° (+52.6s). Perdieron muchísimo ritmo en tandas largas. | ✅ **ACIERTO TOTAL** | La física del asfalto abrasivo a 45°C confirmó la penalidad histórica de McLaren (-1.20 puestos en calor). |
+| **Poderío Ferrari en Calor** | Resistencia térmica superior (+0.11 en data). Candidatos claros a superar a McLaren. | Leclerc 2° (+13s) y Hamilton 4° (+18.5s). Ambos Ferrari terminaron cómodamente por delante de los McLaren. | ✅ **ACIERTO TOTAL** | El chasis de Ferrari gestionó la temperatura sin degradar de golpe los neumáticos. |
+| **Podio de Verstappen** | Ritmo metronómico y tracción tras horquillas para pelear podio. | Verstappen terminó 3° (+17.4s), conteniendo los ataques de Hamilton. | ✅ **ACIERTO TOTAL** | Max maximizó la velocidad en la recta trasera y el sector trabado. |
+| **El Ganador de la Carrera** | Duelo centrado entre Ferrari y Red Bull. | Victoria aplastante de Kimi Antonelli (Mercedes) por +13s sobre Leclerc. | ❌ **DESVÍO** | El modelo no anticipó el ritmo demoledor de Antonelli en calor (dejó a su compañero Russell 8° a +54s). |
+| **Élite Metronómico en Top 5** | Coparían los puestos de vanguardia por su consistencia rítmica (+1.28 puestos). | P2 Leclerc, P3 Verstappen, P4 Hamilton, P5 Norris. Monopolio metronómico del 2° al 5°. | ✅ **ACIERTO TOTAL** | En trazados técnicos, la consistencia vuelta a vuelta no perdona deslices. |
+| **Gestores de Midfield a Puntos** | Remontada y pesca de puntos estirando neumáticos en aire limpio. | Lawson terminó 9° y Gasly 10° en puntos. Hülkenberg 11°. Colapinto DNF (abandono). | ⚠️ **PARCIAL** | Lawson y Gasly cumplieron la hipótesis, pero el abandono mecánico de Colapinto anuló su remontada. |
+| **Comportamiento Williams** | Compromiso grave en asfalto con baches (bumps) y alta carga. | Albon 17° y Sainz 18° a 1 vuelta del puntero. | ✅ **ACIERTO TOTAL** | El suelo del Williams no toleró las ondulaciones de COTA y perdieron carga aerodinámica. |
 
 ---
 
