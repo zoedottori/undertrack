@@ -1266,24 +1266,15 @@
         </button>
       </div>
 
-      <!-- Footer Modal: Configuración de API Key (colapsable) + Botón Copiar -->
-      <div class="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[10px]">
-        <details id="groqKeyDetails" class="cursor-pointer group">
-          <summary class="text-tealSage hover:text-white transition-colors flex items-center gap-1 select-none font-mono">
-            <span>🔑</span>
-            <span id="groqKeyStatusLabel">Configurar API Key de Groq (gsk_...)</span>
-          </summary>
-          <div class="mt-2 flex items-center gap-2 p-2 rounded-xl bg-black/80 border border-white/10">
-            <input id="groqApiKeyInput" type="password" placeholder="Pegá tu API key: gsk_..." 
-                   class="bg-black/50 border border-white/20 rounded-lg px-2.5 py-1 text-[11px] text-white w-60 sm:w-72 focus:border-neonOrange focus:outline-none font-mono">
-            <button type="button" onclick="guardarGroqKey()" class="px-3 py-1 rounded-lg bg-tealSage/30 hover:bg-tealSage text-white hover:text-black font-bold uppercase transition-all">
-              Guardar
-            </button>
-          </div>
-        </details>
+      <!-- Footer Modal: Estado de Conexión + Botón Copiar -->
+      <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2 text-[10px]">
+        <div class="flex items-center gap-1.5 font-mono text-[10px] text-tealSage">
+          <span class="w-1.5 h-1.5 rounded-full bg-tealSage animate-pulse"></span>
+          <span>GROQ · LLAMA 3.3 EN VIVO</span>
+        </div>
 
         <!-- Botón Copiar Texto -->
-        <button id="btnCopyMateo" type="button" onclick="copyMateoText()" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer ml-auto">
+        <button id="btnCopyMateo" type="button" onclick="copyMateoText()" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer">
           <span id="copyBtnIcon">📋</span>
           <span id="copyBtnLabel">Copiar Texto</span>
         </button>
@@ -1377,6 +1368,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script src="data/data.js"></script>
   <script src="script.js" defer></script>
 </body>

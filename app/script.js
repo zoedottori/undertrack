@@ -438,7 +438,9 @@ LÍMITES Y GUARDRAILS OBLIGATORIOS:
     }
 
     async function llamarApiGroq(promptUsuario) {
-      let apiKey = localStorage.getItem('groq_api_key');
+      let apiKey = (typeof window !== 'undefined' && window.GROQ_API_KEY && window.GROQ_API_KEY.startsWith('gsk_')) 
+                   ? window.GROQ_API_KEY 
+                   : localStorage.getItem('groq_api_key');
       if (!apiKey) {
         const inputVal = document.getElementById('groqApiKeyInput')?.value?.trim();
         if (inputVal && inputVal.startsWith('gsk_')) {
@@ -488,22 +490,39 @@ LÍMITES Y GUARDRAILS OBLIGATORIOS:
       }
 
       try {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [
-              { role: 'system', content: buildGroqSystemPrompt() },
-              { role: 'user', content: promptUsuario }
-            ],
-            temperature: 0.5,
-            max_tokens: 300
-          })
-        });
+        let response;
+        // Si estamos desplegados en Vercel y existe /api/groq, usamos el proxy seguro
+        const useProxy = window.location.hostname !== 'localhost' && window.location.protocol.startsWith('http');
+
+        if (useProxy) {
+          response = await fetch('/api/groq', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt: promptUsuario,
+              systemPrompt: buildGroqSystemPrompt(),
+              apiKey: apiKey || undefined
+            })
+          });
+        } else {
+          // Entorno local o file://: llamada directa a Groq
+          response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+              model: 'llama-3.3-70b-versatile',
+              messages: [
+                { role: 'system', content: buildGroqSystemPrompt() },
+                { role: 'user', content: promptUsuario }
+              ],
+              temperature: 0.5,
+              max_tokens: 300
+            })
+          });
+        }
 
         if (!response.ok) {
           const errData = await response.json().catch(() => ({}));

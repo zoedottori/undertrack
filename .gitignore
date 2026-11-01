@@ -29,6 +29,8 @@ __pycache__/
 .env.*.local
 *.key
 *.pem
+app/config.js
+config.js
 
 # Jupyter Notebooks
 .ipynb_checkpoints/

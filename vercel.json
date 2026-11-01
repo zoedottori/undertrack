@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/", "destination": "/app/index.html" },
+    { "source": "/assets/(.*)", "destination": "/app/assets/$1" },
+    { "source": "/data/(.*)", "destination": "/app/data/$1" },
+    { "source": "/(.*\\.(css|js|png|jpg|svg|json|ico))", "destination": "/app/$1" }
+  ]
+}
+

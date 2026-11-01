@@ -2,10 +2,9 @@
    UNDERTRACK - HOJA DE ESTILOS PRINCIPAL (APP)
    ======================================================== */
 
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+html {
+  scroll-behavior: smooth;
+}
     body {
       font-family: 'Inter', sans-serif;
     }
@@ -141,4 +140,3 @@
       transform: translateY(-14px) scale(1.04) !important;
       z-index: 48 !important;
     }
-  </style>
