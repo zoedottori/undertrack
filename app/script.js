@@ -2,8 +2,13 @@
 // UNDERTRACK — MOTOR DE INTERACCIÓN Y SCROLL (APP)
 // ========================================================
 
-    // 1. Interruptor de Idioma (ESP / INGL)
+    // 1. Estado Global e Inicializaciones
     let currentLang = 'ESP';
+    let currentRace = 'brasil';
+    let remainingSeconds = (typeof raceData !== 'undefined' && raceData.brasil) ? raceData.brasil.initialSeconds : 698370;
+    let activePilotId = 'leclerc';
+
+    // 2. Interruptor de Idioma (ESP / INGL)
     function toggleLang() {
       currentLang = currentLang === 'ESP' ? 'INGL' : 'ESP';
       const knob = document.getElementById('langKnob');
@@ -728,4 +733,4 @@ LÍMITES Y GUARDRAILS OBLIGATORIOS:
     setTimeout(() => {
       selectPilot('leclerc');
     }, 100);
-  </script>
+
