@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNDERTRACK — F1 Intelligence & Circuit Physics</title>
+  
+  <!-- Tailwind CSS CDN para renderizado ágil -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            papaya: '#FF5813',
+            tealDeep: '#045259',
+            tealDark: '#082124',
+            sage: '#99B8B8',
+            ochre: '#966237',
+            burgundy: '#380D09',
+            carbonBg: '#0A0E10',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            caveat: ['Caveat', 'cursive'],
+            tech: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --color-teal-deep: #045259;
+  --color-teal-dark: #082124;
+  --color-sage: #99B8B8;
+  --color-ochre: #966237;
+  --color-papaya: #FF5813;
+  --color-burgundy: #380D09;
+  --color-carbon-bg: #0A0E10;
+  --color-card-bg: rgba(18, 25, 28, 0.82);
+  --color-border: rgba(153, 184, 184, 0.18);
+  --color-border-bright: rgba(153, 184, 184, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-carbon-bg);
+  color: #ECEFF1;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ── TIPOGRAFÍA EDITORIAL ── */
+.font-caveat {
+  font-family: 'Caveat', cursive;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── OVERLAY DE GRANO 35MM Y TEXTURA ANALÓGICA ── */
+.film-grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('assets/film_grain_35mm.png');
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+/* ── MOTION BLUR HERO BACKDROP ── */
+.hero-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 640px;
+  background-image: linear-gradient(to bottom, rgba(10, 14, 16, 0.4) 0%, rgba(10, 14, 16, 0.95) 75%, var(--color-carbon-bg) 100%), url('assets/hero_motion_blur.jpg');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.38;
+  filter: saturate(1.4) contrast(1.15);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── CRUCES DE ENCUADRE Y GUÍAS DE PÓSTER (+) ── */
+.crosshair-corner {
+  position: relative;
+}
+.crosshair-corner::before,
+.crosshair-corner::after {
+  content: "+";
+  position: absolute;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-sage);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.crosshair-corner::before {
+  top: 8px;
+  left: 8px;
+}
+.crosshair-corner::after {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* ── TARJETAS Y CONTENEDORES BRUTALISTAS ── */
+.undertrack-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 4px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.undertrack-card:hover {
+  border-color: var(--color-border-bright);
+}
+
+/* ── BOTONES CON ESTÉTICA UNDERTRACK ── */
+.btn-papaya {
+  background: linear-gradient(135deg, var(--color-papaya) 0%, #e04604 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 88, 19, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-papaya:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(255, 88, 19, 0.55);
+}
+
+.btn-secondary {
+  background: rgba(153, 184, 184, 0.08);
+  border: 1px solid var(--color-border);
+  color: #ECEFF1;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: rgba(153, 184, 184, 0.16);
+  border-color: var(--color-sage);
+}
+
+/* ── CORCHETES BRUTALISTAS [ TAG ] ── */
+.tag-bracket {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-sage);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── STATUS PULSANTE ── */
+.live-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-papaya);
+  box-shadow: 0 0 10px var(--color-papaya);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 88, 19, 0.7); }
+  70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(255, 88, 19, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 88, 19, 0); }
+}
+
+/* ── BARRAS DE PROGRESO DE SEVERIDAD ── */
+.bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bar-papaya { background: linear-gradient(90deg, #966237, var(--color-papaya)); }
+.bar-teal { background: linear-gradient(90deg, #022024, var(--color-teal-deep), var(--color-sage)); }
+
+/* ── DIAL CIRCULAR DE MATCH PEARSON (THE SIGNAL) ── */
+.dial-circle-bg {
+  stroke: rgba(153, 184, 184, 0.15);
+  stroke-width: 8;
+  fill: none;
+}
+.dial-circle-progress {
+  stroke: var(--color-papaya);
+  stroke-width: 8;
+  stroke-linecap: round;
+  fill: none;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+/* ── MODAL DE MATEO (IA SCRIPT GENERATOR) ── */
+.mateo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 14, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ── NOTAS MANUSCRITAS DE MATEO EN CAVEAT ── */
+.mateo-note {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: #ffab70;
+  line-height: 1.25;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ── TOOLTIP DEL CIRCUITO ── */
+.circuit-tooltip {
+  position: absolute;
+  background: rgba(8, 33, 36, 0.95);
+  border: 1px solid var(--color-sage);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  max-width: 260px;
+}
+
+/* ── SCROLLBAR PERSONALIZADO ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0E10;
+}
+::-webkit-scrollbar-thumb {
+  background: #045259;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-papaya);
+}
+
+
+</style>
+</head>
+<body class="bg-carbonBg text-[#ECEFF1] antialiased selection:bg-[#FF5813] selection:text-white">
+
+  <!-- CAPA DE GRANO ANALÓGICO 35MM -->
+  <div class="film-grain-overlay"></div>
+
+  <!-- BACKDROP CON MOTION BLUR DE FONDO -->
+  <div class="hero-backdrop"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <header class="relative z-50 border-b border-[rgba(153,184,184,0.15)] bg-[rgba(10,14,16,0.85)] backdrop-blur-md sticky top-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Logo & Temporada Status -->
+      <div class="flex items-center gap-4">
+        <a href="#" class="flex items-center gap-2 group">
+          <span class="w-3 h-3 bg-[#FF5813] rotate-45 group-hover:rotate-90 transition-transform"></span>
+          <span class="font-black tracking-tighter text-xl text-white">UNDERTRACK</span>
+        </a>
+        <div class="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-[#082124] border border-[rgba(153,184,184,0.2)]">
+          <span class="live-pulse"></span>
+          <span class="font-tech text-[11px] font-bold text-[#99B8B8] tracking-widest">2026 // LIVE DATAFEED</span>
+        </div>
+      </div>
+
+      <!-- Selector de Ronda (Carrera Activa / Otras Rondas) -->
+      <div id="round-selector-chips" class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+        <!-- Renderizado dinámico desde data.js -->
+      </div>
+
+      <!-- Botón Estrella IA para Mateo (Periodista) -->
+      <div class="flex items-center gap-3">
+        <button id="btn-open-mateo-modal" class="btn-papaya px-4 py-2 text-xs rounded flex items-center gap-2 group">
+          <span class="text-sm">✦</span>
+          <span>GENERAR SÍNTESIS EDITORIAL</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       HERO & HOOK
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative z-10 pt-10 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    
+    <!-- Meta Chips superiores -->
+    <div class="flex flex-wrap items-center gap-2 mb-6">
+      <span id="chip-round" class="tag-bracket bg-[#082124] px-2.5 py-1 rounded border border-[rgba(153,184,184,0.2)] text-[#FF5813] font-bold">ROUND 20 // 24</span>
+      <span id="chip-city" class="tag-bracket bg-[#082124] px-2.5 py-1 rounded border border-[rgba(153,184,184,0.2)] text-white">Ciudad de México</span>
+      <span id="chip-circuit" class="tag-bracket bg-[#082124] px-2.5 py-1 rounded border border-[rgba(153,184,184,0.2)] text-white">Autódromo Hermanos Rodríguez</span>
+      <span id="chip-altitude" class="tag-bracket bg-[#380D09] px-2.5 py-1 rounded border border-[rgba(255,88,19,0.3)] text-orange-300 font-bold">2,285 msnm (Aire Enrarecido)</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Columna Principal Editorial -->
+      <div class="lg:col-span-8 space-y-4">
+        <!-- Frase Editorial en Caveat (manuscrita estilo póster de autor) -->
+        <p id="editorial-quote" class="font-caveat text-3xl sm:text-4xl text-[#ffaa75] leading-tight drop-shadow-md">
+          "En la delgadez del aire mexicano, la carga aerodinámica es un espejismo y la temperatura de frenos es una trampa mortal."
+        </p>
+
+        <!-- Párrafo Bajada Técnica (3 líneas sólidas en Inter) -->
+        <p id="editorial-bajada" class="text-base sm:text-lg text-[#ECEFF1] font-normal leading-relaxed max-w-3xl">
+          A 2.285 metros de altitud, la densidad atmosférica cae un 22%. Los alerones van configurados al máximo como en Mónaco, pero el coche genera la carga de Monza a 350 km/h. La refrigeración es el verdadero enemigo invisible.
+        </p>
+
+        <!-- Anotación rápida de Mateo -->
+        <div class="inline-flex items-center gap-2 pt-2">
+          <span class="mateo-note">✎ Apunte de Mateo: "McLaren viene de sufrir en Austin; si la pista pasa los 40°C van a penar en el Foro Sol."</span>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Countdown Timer al Semáforo -->
+      <div class="lg:col-span-4">
+        <div class="undertrack-card p-5 crosshair-corner border-t-2 border-t-[#FF5813]">
+          <span class="font-tech text-xs text-[#99B8B8] uppercase tracking-wider block mb-2">[ CUENTA REGRESIVA // APAGADO DE SEMÁFOROS ]</span>
+          
+          <div class="grid grid-cols-4 gap-2 text-center py-2">
+            <div class="bg-[rgba(8,33,36,0.7)] p-2 rounded border border-[rgba(153,184,184,0.15)]">
+              <span id="timer-days" class="font-mono text-2xl sm:text-3xl font-extrabold text-white block">03</span>
+              <span class="text-[10px] uppercase text-[#99B8B8] font-tech">DÍAS</span>
+            </div>
+            <div class="bg-[rgba(8,33,36,0.7)] p-2 rounded border border-[rgba(153,184,184,0.15)]">
+              <span id="timer-hours" class="font-mono text-2xl sm:text-3xl font-extrabold text-white block">04</span>
+              <span class="text-[10px] uppercase text-[#99B8B8] font-tech">HORAS</span>
+            </div>
+            <div class="bg-[rgba(8,33,36,0.7)] p-2 rounded border border-[rgba(153,184,184,0.15)]">
+              <span id="timer-mins" class="font-mono text-2xl sm:text-3xl font-extrabold text-white block">18</span>
+              <span class="text-[10px] uppercase text-[#99B8B8] font-tech">MIN</span>
+            </div>
+            <div class="bg-[rgba(8,33,36,0.7)] p-2 rounded border border-[rgba(153,184,184,0.15)]">
+              <span id="timer-secs" class="font-mono text-2xl sm:text-3xl font-extrabold text-[#FF5813] block">42</span>
+              <span class="text-[10px] uppercase text-[#99B8B8] font-tech">SEG</span>
+            </div>
+          </div>
+
+          <div class="mt-3 pt-2 border-t border-[rgba(153,184,184,0.1)] flex items-center justify-between text-xs text-[#99B8B8]">
+            <span>Horario Local: 14:00 CST</span>
+            <span class="font-tech text-[#FF5813] font-bold">TRANSMISIÓN EN VIVO</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4 KPIs CLAVE DEL TRAZADO -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+      <div class="undertrack-card p-4 crosshair-corner border-b-2 border-b-[#045259]">
+        <span class="font-tech text-[10px] text-[#99B8B8] uppercase tracking-widest block mb-1">[ LONGITUD & VUELTAS ]</span>
+        <div id="kpi-longitud" class="font-mono text-xl sm:text-2xl font-black text-white">4.304 km</div>
+        <div id="kpi-vueltas" class="text-xs text-[#99B8B8] mt-1">71 Vueltas • 305.35 km</div>
+      </div>
+
+      <div class="undertrack-card p-4 crosshair-corner border-b-2 border-b-[#FF5813]">
+        <span class="font-tech text-[10px] text-[#99B8B8] uppercase tracking-widest block mb-1">[ RECTA A CURVA 1 ]</span>
+        <div id="kpi-recta" class="font-mono text-xl sm:text-2xl font-black text-[#FF5813]">1,200 m</div>
+        <div class="text-xs text-[#99B8B8] mt-1">El mayor rebufo del año</div>
+      </div>
+
+      <div class="undertrack-card p-4 crosshair-corner border-b-2 border-b-[#966237]">
+        <span class="font-tech text-[10px] text-[#99B8B8] uppercase tracking-widest block mb-1">[ PARTICULARIDAD FÍSICA ]</span>
+        <div id="kpi-particularidad" class="font-mono text-xl sm:text-2xl font-black text-white">-22% Densidad</div>
+        <div class="text-xs text-[#99B8B8] mt-1">Pérdida neta de refrigeración</div>
+      </div>
+
+      <div class="undertrack-card p-4 crosshair-corner border-b-2 border-b-[#99B8B8]">
+        <span class="font-tech text-[10px] text-[#99B8B8] uppercase tracking-widest block mb-1">[ PROBABILIDAD DE SC/VSC ]</span>
+        <div id="kpi-sc" class="font-mono text-xl sm:text-2xl font-black text-white">68% Histórico</div>
+        <div class="text-xs text-[#99B8B8] mt-1">Zona roja en la largada T1</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 1: UNDER THE SURFACE (LA PISTA)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="section-under-surface" class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#0A0E10] relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Título de Sección -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="tag-bracket text-[#FF5813] mb-1 block">[ ANÁLISIS DE FÍSICA Y SUPERFICIE ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">UNDER THE SURFACE</h2>
+        </div>
+        <div class="bg-[rgba(8,33,36,0.6)] px-4 py-2 rounded border border-[rgba(153,184,184,0.25)]">
+          <span class="font-tech text-xs text-[#99B8B8] block">CLUSTERING K-MEANS:</span>
+          <span id="kmeans-family-badge" class="font-bold text-sm text-[#FF5813]">Familia 3 — Laberintos Urbanos / Baja Densidad</span>
+        </div>
+      </div>
+
+      <!-- Layout: Mapa SVG + Barras de Severidad -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Contenedor del Mapa SVG Interactivo -->
+        <div class="lg:col-span-8 undertrack-card p-6 relative overflow-hidden">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-tech text-xs text-[#99B8B8]">[ TRAZADO TELEMÉTRICO OFICIAL CON SECTORES S1-S3 ]</span>
+            <span class="text-xs text-[#FF5813] font-bold">● Hacé clic en los puntos T1, T7, T13</span>
+          </div>
+
+          <div id="track-svg-container" class="w-full h-80 sm:h-96 flex items-center justify-center">
+            <!-- Render dinámico del SVG -->
+          </div>
+
+          <!-- 3 Cajas Secundarias con Puntos Críticos -->
+          <div id="critical-points-cards" class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6">
+            <!-- Puntos renderizados dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Columna Lateral: Barras de Severidad & Alerta Mecánica -->
+        <div class="lg:col-span-4 space-y-6">
+          
+          <!-- Barras de Severidad -->
+          <div class="undertrack-card p-5">
+            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+              <span class="w-2 h-2 bg-[#FF5813]"></span>
+              <span>Severidad del Circuito (Escala 1 a 5)</span>
+            </h3>
+
+            <div id="severity-bars-container">
+              <!-- Render dinámico de barras -->
+            </div>
+
+            <!-- Neumáticos Pirelli Nominados -->
+            <div class="pt-4 border-t border-[rgba(153,184,184,0.12)]">
+              <span class="font-tech text-[11px] text-[#99B8B8] block mb-2">[ NEUMÁTICOS PIRELLI NOMINADOS ]</span>
+              <div id="pirelli-compounds" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+
+          <!-- 4 Métricas Rápidas de Telemetría -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="undertrack-card p-3 text-center">
+              <span class="font-tech text-[10px] text-[#99B8B8] block">V. MÁXIMA</span>
+              <span id="metric-vmax" class="font-mono text-base font-bold text-white">354 km/h</span>
+            </div>
+            <div class="undertrack-card p-3 text-center">
+              <span class="font-tech text-[10px] text-[#99B8B8] block">% A FONDO</span>
+              <span id="metric-fullthrottle" class="font-mono text-base font-bold text-white">50%</span>
+            </div>
+            <div class="undertrack-card p-3 text-center">
+              <span class="font-tech text-[10px] text-[#99B8B8] block">EN FRENADA</span>
+              <span id="metric-braketime" class="font-mono text-base font-bold text-white">17.4%</span>
+            </div>
+          </div>
+
+          <!-- Alerta Técnica de Pista -->
+          <div class="undertrack-card p-4 border-l-4 border-l-[#FF5813] bg-[rgba(56,13,9,0.3)]">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[#FF5813] text-sm">⚠</span>
+              <span class="font-bold text-xs uppercase tracking-wide text-white">Alerta Técnica de Ingeniería</span>
+            </div>
+            <p id="track-alert-text" class="text-xs text-[#ECEFF1] leading-relaxed"></p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════════════════════
+           BIFURCACIÓN INTERACTIVA (DECISION GUIDE)
+           ══════════════════════════════════════════════════════════════════════════════ -->
+      <div class="mt-12 pt-8 border-t border-[rgba(153,184,184,0.15)]">
+        <div class="text-center max-w-xl mx-auto mb-6">
+          <span class="font-tech text-xs text-[#FF5813] tracking-widest block mb-1">[ BIFURCACIÓN DE INVESTIGACIÓN // SELECCIONÁ TU RUTA ]</span>
+          <h3 class="text-lg font-bold text-white">¿Hacia dónde querés profundizar el análisis?</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <!-- Tarjeta A: Ruta Pista -->
+          <button id="btn-route-a" class="undertrack-card p-6 text-left group hover:border-[#FF5813] hover:bg-[rgba(255,88,19,0.05)] transition-all">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-tech text-xs text-[#99B8B8] font-bold">[ RUTA A // FÍSICA & ENTORNO ]</span>
+              <span class="text-lg text-[#FF5813] group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h4 class="text-base font-black text-white mb-2">Circuitos Gemelos & Sensibilidad Térmica</h4>
+            <p class="text-xs text-[#99B8B8] leading-relaxed mb-4">
+              Compará la telemetría contra el gemelo matemático de Pearson y revisá la matriz de temperatura asfáltica de los constructores.
+            </p>
+            <div class="text-xs font-tech text-[#FF5813] font-bold">IR A THE SIGNAL & UNDER PRESSURE ↓</div>
+          </button>
+
+          <!-- Tarjeta B: Ruta Piloto -->
+          <button id="btn-route-b" class="undertrack-card p-6 text-left group hover:border-[#045259] hover:bg-[rgba(4,82,89,0.1)] transition-all">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-tech text-xs text-[#99B8B8] font-bold">[ RUTA B // CONDUCTA & PILOTOS ]</span>
+              <span class="text-lg text-[#99B8B8] group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h4 class="text-base font-black text-white mb-2">Perfiles de Conducción & Fichas Individuales</h4>
+            <p class="text-xs text-[#99B8B8] leading-relaxed mb-4">
+              Descubrí qué estilos de manejo (Élite Metronómico vs Gestor de Midfield) se benefician en este trazado y explorá el radar de telemetría.
+            </p>
+            <div class="text-xs font-tech text-[#99B8B8] font-bold">IR A THE CROSSOVER & UNDER THE HELMET ↓</div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 2: THE SIGNAL (CIRCUITOS GEMELOS & CORRELACIÓN)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="section-the-signal" class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#070b0d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="tag-bracket text-[#99B8B8] mb-1 block">[ CORRELACIÓN TELEMÉTRICA PEARSON (r) ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">THE SIGNAL</h2>
+        </div>
+        <p class="text-xs text-[#99B8B8] max-w-md">
+          El modelo busca trazados históricos con curvas de igual demanda de energía cinética para predecir qué monoplaza trasladará su ventaja.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Dial de Match Circular -->
+        <div class="lg:col-span-4 undertrack-card p-6 text-center">
+          <span class="font-tech text-xs text-[#99B8B8] block mb-4">[ ÍNDICE DE AFINIDAD MECÁNICA ]</span>
+          
+          <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 100 100">
+              <circle class="dial-circle-bg" cx="50" cy="50" r="45"></circle>
+              <circle id="signal-dial-progress" class="dial-circle-progress" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span id="signal-match-pct" class="font-mono text-3xl font-black text-white">80.8%</span>
+              <span id="signal-pearson-r" class="font-tech text-xs font-bold text-[#FF5813]">r = 0.808</span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[rgba(153,184,184,0.12)]">
+            <span class="text-xs text-[#99B8B8] block">Circuito Gemelo Histórico:</span>
+            <span id="signal-twin-name" class="font-bold text-white text-base">Circuit Paul Ricard (Francia)</span>
+          </div>
+        </div>
+
+        <!-- Tabla Enfrentada de Métricas -->
+        <div class="lg:col-span-8 undertrack-card p-6">
+          <div class="grid grid-cols-2 gap-4 pb-4 border-b border-[rgba(153,184,184,0.15)] mb-4">
+            <div>
+              <span class="font-tech text-[10px] text-[#FF5813] block">[ CIRCUITO ACTUAL ]</span>
+              <h4 id="signal-current-name" class="font-black text-white text-base">Autódromo Hermanos Rodríguez</h4>
+              <p id="signal-current-char" class="text-xs text-[#99B8B8] mt-1"></p>
+            </div>
+            <div class="border-l border-[rgba(153,184,184,0.15)] pl-4">
+              <span class="font-tech text-[10px] text-[#99B8B8] block">[ GEMELO MATEMÁTICO ]</span>
+              <h4 id="signal-twin-name-col" class="font-black text-white text-base">Paul Ricard</h4>
+              <p id="signal-twin-char" class="text-xs text-[#99B8B8] mt-1"></p>
+            </div>
+          </div>
+
+          <!-- Tabla de Telemetría -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="text-[11px] font-tech text-[#99B8B8] border-b border-[rgba(153,184,184,0.1)]">
+                  <th class="pb-2">DIMENSIÓN TELEMÉTRICA</th>
+                  <th class="pb-2 text-center">ACTUAL</th>
+                  <th class="pb-2 text-center">GEMELO</th>
+                  <th class="pb-2 text-right">DIFERENCIAL</th>
+                </tr>
+              </thead>
+              <tbody id="signal-comparison-table">
+                <!-- Inyectado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Conclusión del Modelo Gemelo -->
+          <div class="mt-4 p-3 bg-[rgba(8,33,36,0.6)] rounded border border-[rgba(153,184,184,0.15)] text-xs text-[#ECEFF1] leading-relaxed">
+            <strong class="text-[#FF5813]">Conclusión del Modelo:</strong> <span id="signal-conclusion-text"></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 3: UNDER PRESSURE (CLIMA, TEMPERATURA & ESTRATEGIA)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="section-under-pressure" class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#0A0E10]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="tag-bracket text-[#FF5813] mb-1 block">[ TERMODINÁMICA & SENSIBILIDAD EN PISTA ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">UNDER PRESSURE</h2>
+        </div>
+        
+        <!-- Indicador Térmico de Pista -->
+        <div class="flex items-center gap-3 bg-[rgba(56,13,9,0.5)] px-4 py-2 rounded border border-[rgba(255,88,19,0.4)]">
+          <div>
+            <span class="font-tech text-[10px] text-orange-300 block">TEMP. PROYECTADA ASFALTO:</span>
+            <span id="pressure-temp-track" class="font-mono text-xl font-black text-[#FF5813]">44°C</span>
+          </div>
+          <span id="pressure-temp-status" class="text-xs font-bold font-tech px-2 py-0.5 rounded bg-[#FF5813] text-white">CALIENTE (>40°C)</span>
+        </div>
+      </div>
+
+      <!-- Layout: Alerta Constructores + Popover Explicabilidad IA -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Columna Izquierda: Tabla Constructores -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Diferencial Histórico en Asfalto Caliente</h3>
+            <span class="text-xs text-[#99B8B8] font-mono">Base: 304 GPs cruzados</span>
+          </div>
+
+          <div id="pressure-constructors-table" class="space-y-2">
+            <!-- Inyectado dinámicamente -->
+          </div>
+
+          <!-- Drawer / Modal Expandible de Explicabilidad IA -->
+          <div id="ai-explainability-drawer" class="undertrack-card p-5 border-l-4 border-l-[#FF5813] bg-[rgba(8,33,36,0.9)] shadow-2xl transition-all">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-tech text-xs text-[#FF5813] font-bold">[ RAZONAMIENTO DEL MODELO // EXPLICABILIDAD IA ]</span>
+              <button onclick="toggleExplainabilityModal()" class="text-[#99B8B8] hover:text-white text-xs">✕ CERRAR</button>
+            </div>
+            
+            <div class="space-y-3 text-xs leading-relaxed">
+              <div>
+                <strong class="text-white block font-mono text-[11px]">1. MUESTRA ESTADÍSTICA:</strong>
+                <p id="ai-sample-text" class="text-[#99B8B8]"></p>
+              </div>
+              <div>
+                <strong class="text-white block font-mono text-[11px]">2. FÍSICA MECÁNICA:</strong>
+                <p id="ai-mechanic-text" class="text-[#ECEFF1]"></p>
+              </div>
+              <div>
+                <strong class="text-white block font-mono text-[11px]">3. CONCLUSIÓN OPERATIVA:</strong>
+                <p id="ai-conclusion-text" class="text-[#ffab70] font-semibold"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Estrategia de Paradas & Incidentes -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Estrategias Plan A vs Plan B -->
+          <div class="undertrack-card p-5">
+            <span class="font-tech text-xs text-[#99B8B8] block mb-3">[ MODELO DE NEUMÁTICOS & PARADAS ]</span>
+            
+            <!-- Plan A -->
+            <div class="p-3 rounded bg-[rgba(153,184,184,0.06)] border border-[rgba(153,184,184,0.15)] mb-3">
+              <div class="flex justify-between items-center mb-1">
+                <span id="strategy-plan-a-title" class="font-bold text-white text-sm">Plan A — 1 Parada (Óptima)</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold border border-emerald-700">RECOMENDADO</span>
+              </div>
+              <div id="strategy-plan-a-stint" class="font-mono text-xs text-[#FF5813] font-bold mb-1"></div>
+              <p id="strategy-plan-a-desc" class="text-xs text-[#99B8B8]"></p>
+            </div>
+
+            <!-- Plan B -->
+            <div class="p-3 rounded bg-[rgba(153,184,184,0.06)] border border-[rgba(153,184,184,0.15)]">
+              <div class="flex justify-between items-center mb-1">
+                <span id="strategy-plan-b-title" class="font-bold text-white text-sm">Plan B — 2 Paradas (Agresiva)</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 font-bold border border-amber-700">ALTERNATIVA</span>
+              </div>
+              <div id="strategy-plan-b-stint" class="font-mono text-xs text-[#FF5813] font-bold mb-1"></div>
+              <p id="strategy-plan-b-desc" class="text-xs text-[#99B8B8]"></p>
+            </div>
+          </div>
+
+          <!-- Riesgo de Safety Car & Clima -->
+          <div class="undertrack-card p-5 border-l-2 border-l-[#966237]">
+            <span class="font-tech text-xs text-[#99B8B8] block mb-2">[ CONDICIONES DE CARRERA & CAOS ]</span>
+            <div class="text-xs space-y-2">
+              <p class="text-white font-medium" id="pressure-wind-rain"></p>
+              <p class="text-[#99B8B8] leading-relaxed">
+                <strong class="text-white">Puntos de Alto Riesgo:</strong> <span id="pressure-critical-incidents"></span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 4: THE CROSSOVER (PERFILES DE PILOTO & RENDIMIENTO)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="section-the-crossover" class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#070b0d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="tag-bracket text-[#FF5813] mb-1 block">[ CRUCE PERFILES ML × FAMILIA DE PISTA ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">THE CROSSOVER</h2>
+        </div>
+        <div class="text-right">
+          <span class="font-tech text-xs text-[#99B8B8] block">FAMILIA FÍSICA ASIGNADA:</span>
+          <span id="crossover-circuit-family" class="font-bold text-sm text-white"></span>
+        </div>
+      </div>
+
+      <!-- Insight Editorial de Estilos de Manejo -->
+      <div class="undertrack-card p-4 mb-6 border-l-4 border-l-[#99B8B8] bg-[rgba(8,33,36,0.5)]">
+        <p id="crossover-insight-text" class="text-xs sm:text-sm text-[#ECEFF1] leading-relaxed"></p>
+      </div>
+
+      <!-- Perfiles y Ganancias Promedio -->
+      <div id="crossover-profiles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Render dinámico desde data.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 5: UNDER THE HELMET (PILOTOS & TELEMETRÍA INDIVIDUAL)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section id="section-under-helmet" class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#0A0E10]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <span class="tag-bracket text-[#99B8B8] mb-1 block">[ GRILLA OFICIAL 2026 // 11 ESCUDERÍAS ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">UNDER THE HELMET</h2>
+        </div>
+        <p class="text-xs text-[#99B8B8]">Seleccioná un piloto para visualizar su radar conductual de 5 ejes y notas de telemetría.</p>
+      </div>
+
+      <!-- Selector Carrusel de Pilotos -->
+      <div id="pilot-selector-pills" class="flex gap-2 overflow-x-auto pb-3 mb-8">
+        <!-- Inyectado dinámicamente -->
+      </div>
+
+      <!-- Ficha Expandida del Piloto Activo -->
+      <div class="undertrack-card p-6 crosshair-corner border-t-2 border-t-[#FF5813]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Columna Datos del Piloto -->
+          <div class="lg:col-span-5 space-y-4">
+            <div>
+              <span id="pilot-profile-badge" class="font-tech text-xs font-bold text-[#FF5813] uppercase tracking-wider block mb-1"></span>
+              <h3 id="pilot-full-name" class="font-black text-2xl sm:text-3xl text-white tracking-tight"></h3>
+              <p id="pilot-dorsal-team" class="text-sm font-mono text-[#99B8B8]"></p>
+            </div>
+
+            <!-- Métricas Clave -->
+            <div class="grid grid-cols-2 gap-3 py-2 border-y border-[rgba(153,184,184,0.12)]">
+              <div>
+                <span class="text-[10px] font-tech text-[#99B8B8] uppercase block">POSICIÓN MEDIANA:</span>
+                <span id="pilot-pos-mediana" class="font-mono text-xl font-bold text-white"></span>
+              </div>
+              <div>
+                <span class="text-[10px] font-tech text-[#99B8B8] uppercase block">PUESTOS GANADOS:</span>
+                <span id="pilot-gain-avg" class="font-mono text-xl font-bold text-[#FF5813]"></span>
+              </div>
+            </div>
+
+            <!-- Frase en Cursiva -->
+            <p id="pilot-quote" class="font-caveat text-xl text-[#ffaa75]"></p>
+
+            <!-- Efeméride / Dato Oculto Editorial -->
+            <div class="bg-[rgba(8,33,36,0.6)] p-3 rounded border border-[rgba(153,184,184,0.15)]">
+              <span class="font-tech text-[10px] text-[#99B8B8] block mb-1">[ DATO OCULTO DE TELEMETRÍA ]</span>
+              <p id="pilot-efemeride" class="text-xs text-[#ECEFF1] leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- Columna Canvas Radar Chart 5 Ejes -->
+          <div class="lg:col-span-7 flex flex-col items-center justify-center">
+            <span class="font-tech text-xs text-[#99B8B8] mb-2">[ RADAR TELEMÉTRICO DE 5 EJES: RITMO, FRENADA, GOMAS, CAOS, LARGADA ]</span>
+            <div class="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center">
+              <canvas id="pilot-radar-canvas" width="340" height="340" class="w-full h-full"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN 6: AUDITORÍA PRONÓSTICO VS. REALIDAD (AUSTIN COTA)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <section class="py-14 border-t border-[rgba(153,184,184,0.12)] bg-[#070b0d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="tag-bracket text-[#FF5813] mb-1 block">[ BITÁCORA DE CALIBRACIÓN POST-CARRERA ]</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">PRONÓSTICO VS. REALIDAD (AUSTIN COTA)</h2>
+        </div>
+        <span class="font-mono text-xs text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded border border-emerald-700">
+          ✓ VALIDACIÓN CIENTÍFICA DEL MODELO
+        </span>
+      </div>
+
+      <div id="audit-austin-table" class="space-y-3">
+        <!-- Render dinámico desde data.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <footer class="py-12 border-t border-[rgba(153,184,184,0.15)] bg-[#050809] text-xs text-[#99B8B8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-black tracking-tight text-white text-base">UNDERTRACK</span>
+        <span class="font-mono ml-2 text-[#FF5813]">CircuitDNA Engine v2.4</span>
+        <p class="mt-1 text-[11px]">Modelado de física de pistas (K-Means), correlación de Pearson ($r$) y perfiles de telemetría.</p>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-mono">
+        <a href="#section-under-surface" class="hover:text-white transition-colors">SUPERFICIE</a>
+        <a href="#section-the-signal" class="hover:text-white transition-colors">SEÑAL</a>
+        <a href="#section-under-pressure" class="hover:text-white transition-colors">PRESIÓN</a>
+        <a href="#section-the-crossover" class="hover:text-white transition-colors">CROSSOVER</a>
+        <a href="#section-under-helmet" class="hover:text-white transition-colors">PILOTOS</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════════
+       MODAL DE MATEO (GENERADOR EDITORIAL IA PARA PREVIA / GUION REEL)
+       ══════════════════════════════════════════════════════════════════════════════ -->
+  <div id="mateo-modal" class="mateo-modal-backdrop hidden">
+    <div class="undertrack-card p-6 max-w-2xl w-full border-t-4 border-t-[#FF5813] bg-[#0A0E10] shadow-2xl relative">
+      
+      <!-- Encabezado del Modal -->
+      <div class="flex items-center justify-between pb-4 border-b border-[rgba(153,184,184,0.15)] mb-4">
+        <div>
+          <span class="font-tech text-xs text-[#FF5813] font-bold">[ ASISTENTE EDITORIAL // PARA MATEO ]</span>
+          <h3 class="text-xl font-black text-white">Generador de Previas & Guiones</h3>
+        </div>
+        <button id="btn-close-mateo-modal" class="text-[#99B8B8] hover:text-white text-lg font-mono">✕</button>
+      </div>
+
+      <!-- Tabs de formato -->
+      <div class="flex gap-2 mb-4">
+        <button data-tab="streaming" class="mateo-tab-btn px-3 py-1.5 text-xs font-mono font-bold rounded bg-[#FF5813] text-white">
+          🎙 STREAMING / PODCAST
+        </button>
+        <button data-tab="reel" class="mateo-tab-btn px-3 py-1.5 text-xs font-mono font-bold rounded text-[#99B8B8] bg-[rgba(153,184,184,0.08)] hover:text-white">
+          📱 GUION REEL (30s)
+        </button>
+        <button data-tab="fantasy" class="mateo-tab-btn px-3 py-1.5 text-xs font-mono font-bold rounded text-[#99B8B8] bg-[rgba(153,184,184,0.08)] hover:text-white">
+          🎯 FANTASY & APUESTAS
+        </button>
+      </div>
+
+      <!-- Cuadro de Texto Generado -->
+      <div class="bg-[rgba(8,33,36,0.8)] p-4 rounded border border-[rgba(153,184,184,0.2)] mb-4">
+        <p id="mateo-script-text" class="text-xs sm:text-sm text-[#ECEFF1] leading-relaxed whitespace-pre-line font-mono"></p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[#99B8B8] font-caveat text-base">"Listo para leer en vivo sin titubear."</span>
+        <button id="btn-copy-script" class="btn-papaya px-4 py-2 text-xs rounded font-bold flex items-center gap-2">
+          <span>📋 COPIAR AL PORTAPAPELES</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+/**
+ * UNDERTRACK — Datasets Maestros & Configuración de Rondas F1 2026
+ * Compatible tanto con carga de script clásico (file://) como con ES Modules.
+ */
+
+const UNDERTRACK_DATA = {
+  rounds: [
+    { id: "americas", round: 19, name: "GP de Estados Unidos", circuit: "Circuit of the Americas", city: "Austin, Texas", status: "COMPLETADA", date: "15 Oct 2026" },
+    { id: "rodriguez", round: 20, name: "GP de México", circuit: "Autódromo Hermanos Rodríguez", city: "Ciudad de México", status: "ACTIVA / PRÓXIMA", date: "29 Oct 2026", targetDate: "2026-10-29T14:00:00-06:00" },
+    { id: "interlagos", round: 21, name: "GP de São Paulo", circuit: "Autódromo José Carlos Pace", city: "São Paulo, Brasil", status: "SIGUIENTE", date: "05 Nov 2026" },
+    { id: "vegas", round: 22, name: "GP de Las Vegas", circuit: "Las Vegas Strip Circuit", city: "Las Vegas, USA", status: "PRÓXIMA", date: "19 Nov 2026" },
+    { id: "losail", round: 23, name: "GP de Qatar", circuit: "Losail International Circuit", city: "Lusail, Qatar", status: "PRÓXIMA", date: "26 Nov 2026" },
+    { id: "yas_marina", round: 24, name: "GP de Abu Dhabi", circuit: "Yas Marina Circuit", city: "Yas Island, UAE", status: "GRAN FINAL", date: "03 Dic 2026" }
+  ],
+
+  // ══════════════════════════════════════════════════════════════════════════════
+  // RONDA 20: GP DE MÉXICO (ACTIVA)
+  // ══════════════════════════════════════════════════════════════════════════════
+  rodriguez: {
+    roundNumber: "ROUND 20 // 24",
+    circuitName: "Autódromo Hermanos Rodríguez",
+    cityCountry: "Ciudad de México, México",
+    altitude: "2,285 msnm (Aire Enrarecido)",
+    targetDate: new Date(Date.now() + (3 * 24 * 3600 + 4 * 3600 + 18 * 60) * 1000).toISOString(),
+    
+    // Editorial Hook
+    editorialHandwritten: "En la delgadez del aire mexicano, la carga aerodinámica es un espejismo y la temperatura de frenos es una trampa mortal.",
+    editorialBajada: "A 2.285 metros de altitud, la densidad atmosférica cae un 22%. Los alerones van configurados al máximo como en Mónaco, pero el coche genera la carga de Monza a 350 km/h. La refrigeración es el verdadero enemigo invisible.",
+    
+    // KPIs Clave
+    kpis: {
+      longitud: "4.304 km",
+      vueltas: "71 Vueltas",
+      distanciaTotal: "305.35 km",
+      rectaPrincipal: "1,200 m (hasta T1)",
+      particularidad: "-22% Densidad de Aire",
+      probabilidadSC: "68% Histórico SC/VSC"
+    },
+
+    // Under The Surface
+    kmeansFamily: {
+      id: 3,
+      nombre: "Familia 3 — Laberintos Urbanos / Baja Densidad & Rectas Terminales",
+      descripcion: "Pistas con compromiso térmico asimétrico: frenadas terminales ultra-exigentes combinadas con sectores trabados de nula refrigeración."
+    },
+
+    trackTelemetry: {
+      vMax: "354.2 km/h",
+      fullThrottle: "50%",
+      brakingTime: "17.4%",
+      abrasionLevel: 2, // 1-5
+      brakingSeverity: 4, // 1-5
+      lateralStress: 2, // 1-5
+      gripLevel: 3,
+      pirelli: {
+        hard: "C3 (Blanco)",
+        medium: "C4 (Amarillo)",
+        soft: "C5 (Rojo)"
+      },
+      alertaTecnica: "El turbo debe girar un 12% más rápido para entregar la misma potencia barométrica. Los conductos de freno van abiertos al límite, lo que destruye la eficiencia del flujo aerodinámico hacia el difusor."
+    },
+
+    puntosCriticos: [
+      { id: "T1", nombre: "Curva 1 — Frenada Terminal", kmh: "354 a 89 km/h", desc: "La desaceleración más salvaje del año: 5.2G tras 1.2 km de succión en rebufo.", x: 220, y: 150 },
+      { id: "T7", nombre: "Curvas 7-11 — Complejo de las Eses", kmh: "235 km/h", desc: "Cambios de apoyo rápidos donde el coche sin carga desliza y destruye la goma delantera.", x: 480, y: 220 },
+      { id: "T13", nombre: "Curva 13 — Estadio Foro Sol", kmh: "72 km/h", desc: "Cero refrigeración de aire en el estadio. Frenos y gomas alcanzan pico térmico crítico.", x: 740, y: 310 }
+    ],
+
+    // The Signal: Circuitos Gemelos
+    gemelo: {
+      nombre: "Circuit Paul Ricard",
+      pais: "Francia",
+      correlacionR: 0.808,
+      matchPct: "80.8%",
+      caracteristicaActual: "Alerones High-Downforce pero carga real baja por altitud",
+      caracteristicaGemelo: "Rectas interminables (Mistral) y frenadas de apoyo largo",
+      metricasComparadas: [
+        { metrica: "Velocidad Punta Máxima", actual: "354 km/h", gemelo: "348 km/h", diff: "+6 km/h" },
+        { metrica: "% Tiempo en Frenada", actual: "17.4%", gemelo: "16.8%", diff: "+0.6%" },
+        { metrica: "Consumo de Combustible", actual: "1.68 kg/vta", gemelo: "1.74 kg/vta", diff: "-0.06 kg" },
+        { metrica: "Estrés Térmico Frenos", actual: "Crítico (5/5)", gemelo: "Medio (3/5)", diff: "Extremo" }
+      ],
+      conclusion: "Las escuderías con empaquetado de refrigeración eficiente (chasis con branquias amplias como Ferrari y Red Bull) trasladan de inmediato su ventaja frente a paquetes compactos que sufren asfixia."
+    },
+
+    // Under Pressure: Termodinámica & Clima
+    presion: {
+      tempAmbiente: "24°C",
+      tempAsfalto: "44°C",
+      estadoTermico: "Caliente (>40°C)",
+      viento: "11 km/h NE",
+      lluviaProb: "10%",
+      puntoCriticoIncidentes: "Curva 1 (Vuelta 1) y salida de la Curva 4 tras coche de seguridad.",
+      alertasConstructores: [
+        { constructor: "McLaren", delta: -1.20, status: "ZONA CRÍTICA", nFrio: 209, nCaliente: 95, razon: "Sobrecalentamiento del tren delantero en calor; pérdida de -1.20 puestos en tandas largas." },
+        { constructor: "Aston Martin", delta: -0.97, status: "ALERTA ALTA", nFrio: 135, nCaliente: 59, razon: "Dificultad de tracción al superar 40°C en pista." },
+        { constructor: "Red Bull", delta: -0.68, status: "MODERADO", nFrio: 209, nCaliente: 92, razon: "Sólida tracción en curva lenta que mitiga la penalidad térmica." },
+        { constructor: "Mercedes", delta: -0.21, status: "ESTABLE", nFrio: 220, nCaliente: 96, razon: "Equilibrio neutro, fuerte en frenadas en apoyo." },
+        { constructor: "Ferrari", delta: +0.11, status: "VENTAJA NETA", nFrio: 208, nCaliente: 92, razon: "Resiliencia térmica superior (+0.11 puestos en calor). Excelente tracción mecánica." }
+      ],
+      explicabilidadIA: {
+        titulo: "Razonamiento del Modelo de Calor: McLaren en México",
+        muestra: "Se cruzaron 209 carreras en frío vs 95 con asfalto >40°C en la base maestra.",
+        mecanica: "En las enlazadas del S2, la baja densidad del aire reduce el flujo refrigerante en un 22%. El tren delantero del McLaren sufre un 18% más de micro-deslizamiento térmico, disparando la degradación del neumático C4/C5.",
+        conclusion: "A partir de la vuelta 14 de cada stint, proyectan ceder entre 0.25 y 0.35s por vuelta frente a Ferrari."
+      },
+      estrategia: {
+        planA: {
+          nombre: "Plan A — 1 Parada (Óptima)",
+          compuestos: "Medio (C4) → Duro (C3)",
+          paradaVuelta: "Vuelta 22 – 26",
+          ventaja: "Minimiza la pérdida de 24.2s en la calle de boxes más larga del calendario."
+        },
+        planB: {
+          nombre: "Plan B — 2 Paradas (Agresiva)",
+          compuestos: "Blando (C5) → Duro (C3) → Medio (C4)",
+          paradaVuelta: "V14 y V46",
+          ventaja: "Permite atacar con aire limpio si hay degradación térmica prematura o Safety Car temprano."
+        }
+      }
+    },
+
+    // The Crossover: Perfiles de Piloto
+    crossover: {
+      familia: "Laberintos Urbanos / Pistas de Baja Densidad",
+      insight: "En pistas donde el aire no frena el coche y las paredes/límites perdonan poco, los perfiles agresivos y cazadores de oportunidades superan la regularidad pura.",
+      perfiles: [
+        { perfil: "Piloto de Lluvia / Caos", gananciaPromedio: "+2.07 puestos", color: "#FF5813", pilotos: ["Oliver Bearman", "Lance Stroll"] },
+        { perfil: "Oportunista de Caos", gananciaPromedio: "+1.64 puestos", color: "#966237", pilotos: ["Guanyu Zhou"] },
+        { perfil: "Élite Agresivo", gananciaPromedio: "+1.60 puestos", color: "#045259", pilotos: ["Andrea Kimi Antonelli", "George Russell", "Fernando Alonso", "Sergio Pérez", "Alexander Albon"] },
+        { perfil: "Élite Metronómico", gananciaPromedio: "+0.70 puestos", color: "#99B8B8", pilotos: ["Max Verstappen", "Charles Leclerc", "Lewis Hamilton", "Oscar Piastri", "Lando Norris", "Carlos Sainz"] },
+        { perfil: "Gestor de Midfield", gananciaPromedio: "-0.12 puestos", color: "#666666", pilotos: ["Franco Colapinto", "Nico Hülkenberg", "Liam Lawson", "Yuki Tsunoda", "Gabriel Bortoleto", "Isack Hadjar"] }
+      ]
+    },
+
+    // Mateo AI Scripts
+    mateoAI: {
+      streaming: "«Bienvenidos a la previa técnica de UNDERTRACK para el Gran Premio de México. Mucha atención hoy con la temperatura del asfalto: estamos en 44 grados y a más de dos mil doscientos metros de altura. La física del modelo nos da una alerta roja para McLaren: en asfalto caliente su coche pierde históricamente 1.2 puestos respecto al frío, porque el aire enrarecido no refrigera los frenos ni el tren delantero. Si Ferrari y Red Bull logran contener a Norris y Piastri en las primeras doce vueltas, la carrera se define por gestión térmica en el Foro Sol. Ojo con la Curva 1: sesenta y ocho por ciento de chances de Safety Car en la largada tras el embudo de mil doscientos metros.»",
+      reel: "🔥 ALERTA F1 MÉXICO: ¿Por qué McLaren puede perder la carrera hoy? \n\nA 2.285 metros de altura el aire es 22% más delgado. Los autos van con alerones de Mónaco pero vuelan a 350 km/h como en Monza. \n\nEl modelo de IA de UNDERTRACK analizó más de 300 carreras: cuando el asfalto supera los 40°C, McLaren cae 1.2 puestos en tandas largas por sobrecalentamiento del tren delantero. \n\n¿Los favoritos según la física de pista? Ferrari y Red Bull. ¡Guardá este video antes de la largada!",
+      fantasy: "🎯 CONSEJO FANTASY & APUESTA // UNDERTRACK:\n• Evitar doble alineación de McLaren en tandas largas si la pista supera 42°C.\n• Valor oculto: Ferrari (Leclerc/Hamilton) con +0.11 diferencial positivo en calor y superior tracción en tramos trabados.\n• Piloto de Midfield con mayor potencial de sobrepaso: Sergio Pérez / Albon (Élite Agresivo: +1.60 puestos en esta familia de pistas)."
+    }
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════════
+  // RONDA 19: GP DE ESTADOS UNIDOS — AUSTIN (HISTÓRICA / AUDITADA)
+  // ══════════════════════════════════════════════════════════════════════════════
+  americas: {
+    roundNumber: "ROUND 19 // 24",
+    circuitName: "Circuit of the Americas (COTA)",
+    cityCountry: "Austin, Texas, USA",
+    altitude: "155 msnm (Bumps & Carga Lateral)",
+    targetDate: "2026-10-15T14:00:00-05:00",
+
+    editorialHandwritten: "El asfalto texano a 45 grados convirtió las eses de COTA en una centrifugadora térmica implacable.",
+    editorialBajada: "La pista de Austin castigó el tren delantero en el S1 y la tracción en el S3. McLaren sufrió su mayor colapso térmico mientras Antonelli rompió todos los esquemas coronándose con Mercedes.",
+
+    kpis: {
+      longitud: "5.513 km",
+      vueltas: "56 Vueltas",
+      distanciaTotal: "308.40 km",
+      rectaPrincipal: "1,016 m (Recta Trasera)",
+      particularidad: "Ondulaciones (Bumps) severos en S1",
+      probabilidadSC: "60% SC/VSC"
+    },
+
+    kmeansFamily: {
+      id: 2,
+      nombre: "Familia 2 — Mixtos y Técnicos",
+      descripcion: "Circuitos completos con frenadas ciegas en subida, eses rápidas de alta energía y zonas lentas de tracción."
+    },
+
+    trackTelemetry: {
+      vMax: "338.5 km/h",
+      fullThrottle: "58%",
+      brakingTime: "16.1%",
+      abrasionLevel: 4,
+      brakingSeverity: 4,
+      lateralStress: 4,
+      gripLevel: 3,
+      pirelli: { hard: "C2 (Blanco)", medium: "C3 (Amarillo)", soft: "C4 (Rojo)" },
+      alertaTecnica: "Bumps pronunciados exigieron subir la altura de marcha, comprometiendo la carga del efecto suelo en Williams y Aston Martin."
+    },
+
+    puntosCriticos: [
+      { id: "T1", nombre: "Curva 1 — Horquilla Ciega en Subida", kmh: "315 a 78 km/h", desc: "Frenada vertical con compresión que bloquea el neumático delantero interior.", x: 210, y: 140 },
+      { id: "T3-6", nombre: "Sector 1 — Eses de Silverstone-spec", kmh: "260 km/h", desc: "El mayor estrés térmico de la vuelta: +18% de micro-deslizamiento en calor.", x: 440, y: 260 },
+      { id: "T12", nombre: "Curva 12 — Fin de Recta Trasera", kmh: "338 a 82 km/h", desc: "Zona principal de sobrepaso con frenada extrema a 5.4G.", x: 710, y: 190 }
+    ],
+
+    gemelo: {
+      nombre: "Circuit Paul Ricard & Silverstone",
+      pais: "Francia / UK",
+      correlacionR: 0.811,
+      matchPct: "81.1%",
+      caracteristicaActual: "Compromiso de carga mixta y curvas de apoyo extendido",
+      caracteristicaGemelo: "Curvas de alta energía lateral y degradación térmica frontal",
+      metricasComparadas: [
+        { metrica: "Velocidad Punta", actual: "338 km/h", gemelo: "342 km/h", diff: "-4 km/h" },
+        { metrica: "% Tiempo en Frenada", actual: "16.1%", gemelo: "15.8%", diff: "+0.3%" },
+        { metrica: "Consumo de Combustible", actual: "1.79 kg/vta", gemelo: "1.82 kg/vta", diff: "-0.03 kg" },
+        { metrica: "Abrasión Asfáltica", actual: "4 / 5", gemelo: "3.8 / 5", diff: "Muy Alta" }
+      ],
+      conclusion: "El modelo predijo con precisión que McLaren repetiría el bajón de Paul Ricard y Silverstone al superar 40°C en pista."
+    },
+
+    presion: {
+      tempAmbiente: "29°C",
+      tempAsfalto: "45°C",
+      estadoTermico: "Pista Caliente (>40°C)",
+      viento: "18 km/h Sur",
+      lluviaProb: "0%",
+      puntoCriticoIncidentes: "Curva 1 en largada y baches de Curva 19.",
+      alertasConstructores: [
+        { constructor: "McLaren", delta: -1.20, status: "DESPLOME CONFIRMADO", nFrio: 209, nCaliente: 95, razon: "Norris P5 (+30.5s) y Piastri P7 (+52.6s) desconectados de la victoria." },
+        { constructor: "Ferrari", delta: +0.11, status: "SUPERIORIDAD CONFIRMADA", nFrio: 208, nCaliente: 92, razon: "Leclerc P2 (+13s) y Hamilton P4 aplastaron el ritmo papaya." },
+        { constructor: "Red Bull", delta: -0.68, status: "PODIO RESISTIDO", nFrio: 209, nCaliente: 92, razon: "Verstappen P3 resistiendo con tracción óptima." }
+      ],
+      explicabilidadIA: {
+        titulo: "Razonamiento Validado: Colapso Térmico McLaren",
+        muestra: "Cruce de 209 vs 95 carreras.",
+        mecanica: "La goma delantera izquierda se sobrecalentó a más de 125°C en las eses de Austin.",
+        conclusion: "Acierto total: McLaren perdió medio minuto frente a la punta en solo 40 vueltas."
+      },
+      estrategia: {
+        planA: { nombre: "Plan A — 2 Paradas (Ganador)", compuestos: "Medio → Duro → Duro", paradaVuelta: "V18 y V38", ventaja: "Evitó la caída de ritmo de 1.8s por vuelta en las últimas 12 vueltas." },
+        planB: { nombre: "Plan B — 1 Parada (Riesgosa)", compuestos: "Medio → Duro", paradaVuelta: "V24", ventaja: "Insostenible por degradación térmica en asfalto a 45°C." }
+      }
+    },
+
+    crossover: {
+      familia: "Familia 2 — Mixtos y Técnicos",
+      insight: "Los pilotos metronómicos dominaron el podio y top 5: la consistencia milimétrica no perdona errores en curvas enlazadas.",
+      perfiles: [
+        { perfil: "Élite Metronómico", gananciaPromedio: "+1.28 puestos", color: "#99B8B8", pilotos: ["Leclerc (P2)", "Verstappen (P3)", "Hamilton (P4)", "Norris (P5)"] },
+        { perfil: "Gestores de Midfield", gananciaPromedio: "+1.15 puestos", color: "#666666", pilotos: ["Lawson (P9)", "Gasly (P10)", "Colapinto (DNF)"] },
+        { perfil: "Élite Agresivo", gananciaPromedio: "+1.04 puestos", color: "#045259", pilotos: ["Antonelli (P1 🥇)", "Russell (P8)", "Alonso (P16)"] }
+      ]
+    },
+
+    mateoAI: {
+      streaming: "«Lo que vimos en Austin valida punto por punto la tesis térmica de UNDERTRACK: McLaren se desmoronó en calor como lo anunciaban los datos (-1.2 puestos), mientras Antonelli dio el golpe del año para Mercedes con una victoria histórica.»",
+      reel: "🏁 ACIERTO UNDERTRACK: Dijimos que McLaren se caía en calor... ¡y quedaron a medio minuto! Victoria descomunal de Kimi Antonelli en Austin.",
+      fantasy: "Resultado oficial: Antonelli P1, Leclerc P2, Verstappen P3, Hamilton P4, Norris P5. Acierto de modelo en 85% de las predicciones térmicas."
+    }
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════════
+  // AUDITORÍA DE PRONÓSTICO VS REALIDAD (COTA AUSTIN)
+  // ══════════════════════════════════════════════════════════════════════════════
+  auditAustin: [
+    {
+      dimension: "Alerta Térmica McLaren",
+      pronostico: "Caída drástica en calor (>40°C) por tren delantero. Fuera de la pelea por victoria.",
+      realidad: "Norris terminó 5° (+30.5s) y Piastri 7° (+52.6s).",
+      veredicto: "ACIERTO TOTAL",
+      statusClass: "acierto",
+      analisis: "La física del asfalto abrasivo a 45°C confirmó la penalidad histórica de -1.20 puestos en calor."
+    },
+    {
+      dimension: "Poderío Ferrari en Calor",
+      pronostico: "Resistencia térmica superior (+0.11). Superarían cómodamente a McLaren.",
+      realidad: "Leclerc 2° (+13s) y Hamilton 4° (+18.5s). Ambos delante de McLaren.",
+      veredicto: "ACIERTO TOTAL",
+      statusClass: "acierto",
+      analisis: "El chasis de Ferrari gestionó la temperatura sin degradar de golpe los neumáticos."
+    },
+    {
+      dimension: "Podio de Verstappen",
+      pronostico: "Ritmo metronómico y tracción tras horquillas para pelear podio.",
+      realidad: "Verstappen terminó 3° (+17.4s), conteniendo los ataques de Hamilton.",
+      veredicto: "ACIERTO TOTAL",
+      statusClass: "acierto",
+      analisis: "Max maximizó la velocidad en la recta trasera y el sector trabado."
+    },
+    {
+      dimension: "El Ganador de la Carrera",
+      pronostico: "Duelo centrado entre Ferrari y Red Bull.",
+      realidad: "Victoria de Andrea Kimi Antonelli (Mercedes) por +13s sobre Leclerc.",
+      veredicto: "DESVÍO",
+      statusClass: "desvio",
+      analisis: "El modelo no anticipó el ritmo demoledor del joven italiano de Mercedes frente a Russell (P8)."
+    },
+    {
+      dimension: "Élite Metronómico en Top 5",
+      pronostico: "Coparían la vanguardia por consistencia (+1.28 puestos).",
+      realidad: "P2 Leclerc, P3 Verstappen, P4 Hamilton, P5 Norris. Monopolio del 2° al 5°.",
+      veredicto: "ACIERTO TOTAL",
+      statusClass: "acierto",
+      analisis: "En trazados técnicos, la consistencia vuelta a vuelta no perdona deslices."
+    },
+    {
+      dimension: "Comportamiento Williams",
+      pronostico: "Compromiso grave en asfalto con baches (bumps) y alta carga.",
+      realidad: "Albon 17° y Sainz 18° a 1 vuelta del puntero.",
+      veredicto: "ACIERTO TOTAL",
+      statusClass: "acierto",
+      analisis: "El suelo del Williams no toleró las ondulaciones y perdieron carga aerodinámica."
+    }
+  ],
+
+  // ══════════════════════════════════════════════════════════════════════════════
+  // GRILLA COMPLETA 2026: 11 ESCUDERÍAS & 22 PILOTOS
+  // ══════════════════════════════════════════════════════════════════════════════
+  pilots: [
+    {
+      id: "colapinto",
+      name: "Franco Colapinto",
+      dorsal: 43,
+      team: "Alpine F1 Team",
+      teamColor: "#0093cc",
+      profile: "Gestor de Midfield",
+      posMediana: 15.0,
+      puestosGanados: "+1.26 por carrera",
+      radar: { ritmo: 74, frenada: 82, gomas: 88, caos: 79, largada: 85 },
+      quote: "Especialista en alargar stints con aire limpio y pescar sobrepasos en frenada terminal.",
+      efemeride: "En su primera temporada completa en 2026, Colapinto registra un +1.26 en puestos ganados en circuitos urbanos y técnicos, destacando por su precisión en el cuidado del compuesto medio."
+    },
+    {
+      id: "leclerc",
+      name: "Charles Leclerc",
+      dorsal: 16,
+      team: "Ferrari",
+      teamColor: "#ef1a2d",
+      profile: "Élite Metronómico",
+      posMediana: 4.0,
+      puestosGanados: "+0.78 por carrera",
+      radar: { ritmo: 96, frenada: 94, gomas: 86, caos: 80, largada: 91 },
+      quote: "Tracción quirúrgica y resistencia térmica en chasis SF-26.",
+      efemeride: "Leclerc ostenta una consistencia de ritmo con desviación inferior a 1.27s en tandas largas, siendo el más rápido en salida de curvas de baja velocidad en México."
+    },
+    {
+      id: "hamilton",
+      name: "Lewis Hamilton",
+      dorsal: 44,
+      team: "Ferrari",
+      teamColor: "#ef1a2d",
+      profile: "Élite Metronómico",
+      posMediana: 3.0,
+      puestosGanados: "+1.25 por carrera",
+      radar: { ritmo: 95, frenada: 96, gomas: 94, caos: 88, largada: 90 },
+      quote: "Maestro en gestión de degradación térmica de neumáticos traseros.",
+      efemeride: "En su año con Ferrari, Hamilton mantiene un 96.8% de carreras terminadas en los puntos en pistas de alta altitud y calor."
+    },
+    {
+      id: "max_verstappen",
+      name: "Max Verstappen",
+      dorsal: 1,
+      team: "Red Bull",
+      teamColor: "#1e41ff",
+      profile: "Élite Metronómico",
+      posMediana: 2.0,
+      puestosGanados: "+1.45 por carrera",
+      radar: { ritmo: 99, frenada: 98, gomas: 92, caos: 85, largada: 95 },
+      quote: "Poderío absoluto en recta trasera y estabilidad al límite en frenada de Curva 1.",
+      efemeride: "Verstappen es el piloto con mayor porcentaje de vueltas lideradas en el Autódromo Hermanos Rodríguez en la era híbrida moderna."
+    },
+    {
+      id: "norris",
+      name: "Lando Norris",
+      dorsal: 4,
+      team: "McLaren",
+      teamColor: "#FF5813",
+      profile: "Élite Metronómico",
+      posMediana: 6.0,
+      puestosGanados: "+0.40 por carrera",
+      radar: { ritmo: 93, frenada: 89, gomas: 76, caos: 82, largada: 88 },
+      quote: "Velocidad pura a 1 vuelta, castigado en asfalto >40°C por sobrecalentamiento del tren delantero.",
+      efemeride: "Sufre el diferencial de -1.20 puestos en condiciones de calor extremo, requiriendo aire limpio para evitar degradación prematura."
+    },
+    {
+      id: "piastri",
+      name: "Oscar Piastri",
+      dorsal: 81,
+      team: "McLaren",
+      teamColor: "#FF5813",
+      profile: "Élite Metronómico",
+      posMediana: 4.0,
+      puestosGanados: "+0.29 por carrera",
+      radar: { ritmo: 92, frenada: 90, gomas: 78, caos: 84, largada: 89 },
+      quote: "Gran temple mental, similar compromiso térmico que su compañero de equipo.",
+      efemeride: "Piastri registra una de las trayectorias más limpias en las eses del Sector 2, pero sufre la falta de apoyo con aire enrarecido."
+    },
+    {
+      id: "antonelli",
+      name: "Andrea Kimi Antonelli",
+      dorsal: 12,
+      team: "Mercedes",
+      teamColor: "#00d2be",
+      profile: "Élite Agresivo",
+      posMediana: 6.0,
+      puestosGanados: "+1.37 por carrera",
+      radar: { ritmo: 94, frenada: 91, gomas: 85, caos: 87, largada: 92 },
+      quote: "El ganador de Austin: explosividad y adaptación inmediata al estrés de pista.",
+      efemeride: "Logró su primera victoria en F1 en el GP de Austin 2026 superando a Leclerc por más de 13 segundos con una brillante gestión de gomas."
+    },
+    {
+      id: "russell",
+      name: "George Russell",
+      dorsal: 63,
+      team: "Mercedes",
+      teamColor: "#00d2be",
+      profile: "Élite Agresivo",
+      posMediana: 6.0,
+      puestosGanados: "+1.04 por carrera",
+      radar: { ritmo: 92, frenada: 92, gomas: 80, caos: 85, largada: 90 },
+      quote: "Agresivo en la largada y especialista en clasificatorias.",
+      efemeride: "Russell promedia +1.60 puestos ganados en pistas urbanas y mixtas cuando clasifica en el Top 8."
+    },
+    {
+      id: "perez",
+      name: "Sergio Pérez",
+      dorsal: 11,
+      team: "Cadillac F1",
+      teamColor: "#d4af37",
+      profile: "Élite Agresivo",
+      posMediana: 6.0,
+      puestosGanados: "+2.39 por carrera",
+      radar: { ritmo: 85, frenada: 88, gomas: 93, caos: 90, largada: 86 },
+      quote: "Héroe local en México: rey de la remontada con neumáticos duros estirados.",
+      efemeride: "Pérez lidera históricamente la métrica de puestos ganados desde grilla con +2.39 puestos de promedio en su carrera."
+    },
+    {
+      id: "alonso",
+      name: "Fernando Alonso",
+      dorsal: 14,
+      team: "Aston Martin",
+      teamColor: "#229971",
+      profile: "Élite Agresivo",
+      posMediana: 8.0,
+      puestosGanados: "+0.97 por carrera",
+      radar: { ritmo: 89, frenada: 93, gomas: 89, caos: 94, largada: 93 },
+      quote: "Lectura estratégica veterana y oportunismo letal en relanzadas de Safety Car.",
+      efemeride: "Alonso registra la reacción de largada más consistente de la grilla en la recta de 1.2 km de CDMX."
+    },
+    {
+      id: "hulkenberg",
+      name: "Nico Hülkenberg",
+      dorsal: 27,
+      team: "Audi F1 Team",
+      teamColor: "#e2001a",
+      profile: "Gestor de Midfield",
+      posMediana: 11.0,
+      puestosGanados: "+1.07 por carrera",
+      radar: { ritmo: 84, frenada: 87, gomas: 83, caos: 91, largada: 84 },
+      quote: "La punta de lanza del debut de Audi: ritmo de clasificación implacable.",
+      efemeride: "Hülkenberg gana un promedio de +2.38 posiciones en carreras con intervenciones de Safety Car."
+    },
+    {
+      id: "bearman",
+      name: "Oliver Bearman",
+      dorsal: 87,
+      team: "Haas F1 Team",
+      teamColor: "#b6babd",
+      profile: "Piloto de Lluvia / Caos",
+      posMediana: 11.0,
+      puestosGanados: "+3.33 por carrera",
+      radar: { ritmo: 81, frenada: 85, gomas: 84, caos: 95, largada: 87 },
+      quote: "Máxima ganancia neta en situaciones caóticas y asfalto cambiante.",
+      efemeride: "Bearman tiene el promedio de puestos ganados más alto de la parrilla (+3.33) gracias a su agresividad en condiciones de pista verde."
+    }
+  ]
+};
+
+// Exponer en window para soporte universal file:// y script clásico
+if (typeof window !== 'undefined') {
+  window.UNDERTRACK_DATA = UNDERTRACK_DATA;
+}
+
+// Compatibilidad con módulos
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { UNDERTRACK_DATA };
+}
+
+  </script>
+  <script>
+/**
+ * UNDERTRACK Web Application Controller
+ * Compatible con file:// (script clásico) y http:// (ES module).
+ */
+
+(function() {
+  const DATA = (typeof window !== 'undefined' && window.UNDERTRACK_DATA) 
+    ? window.UNDERTRACK_DATA 
+    : {};
+
+  let currentRoundId = 'rodriguez';
+  let activePilotId = 'colapinto';
+  let activeMateoTab = 'streaming';
+  let countdownInterval = null;
+
+  function init() {
+    if (!DATA.rounds) {
+      console.warn("UNDERTRACK_DATA aún no está disponible.");
+      return;
+    }
+    initRoundSelector();
+    renderAll();
+    initMateoModal();
+    initBifurcation();
+  }
+
+  function initRoundSelector() {
+    const selectorContainer = document.getElementById('round-selector-chips');
+    if (!selectorContainer) return;
+
+    selectorContainer.innerHTML = DATA.rounds.map(r => `
+      <button class="px-3 py-1 text-xs uppercase tracking-wider font-semibold rounded border transition-all ${
+        r.id === currentRoundId
+          ? 'bg-[#FF5813] text-white border-[#FF5813] shadow-[0_0_12px_rgba(255,88,19,0.4)]'
+          : 'bg-[#082124] text-[#99B8B8] border-[rgba(153,184,184,0.2)] hover:border-[#99B8B8]'
+      }" data-round="${r.id}">
+        R${r.round} • ${r.name.replace('GP de ', '')}
+      </button>
+    `).join('');
+
+    selectorContainer.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentRoundId = btn.getAttribute('data-round');
+        initRoundSelector();
+        renderAll();
+      });
+    });
+  }
+
+  function renderAll() {
+    const roundData = DATA[currentRoundId] || DATA.rodriguez;
+    if (!roundData) return;
+    
+    // 1. Header & Chips
+    setTxt('chip-round', roundData.roundNumber);
+    setTxt('chip-city', roundData.cityCountry);
+    setTxt('chip-circuit', roundData.circuitName);
+    setTxt('chip-altitude', roundData.altitude);
+
+    // 2. Editorial Hook
+    setTxt('editorial-quote', `"${roundData.editorialHandwritten}"`);
+    setTxt('editorial-bajada', roundData.editorialBajada);
+
+    // 3. KPIs
+    setTxt('kpi-longitud', roundData.kpis.longitud);
+    setTxt('kpi-vueltas', `${roundData.kpis.vueltas} • ${roundData.kpis.distanciaTotal}`);
+    setTxt('kpi-recta', roundData.kpis.rectaPrincipal);
+    setTxt('kpi-particularidad', roundData.kpis.particularidad);
+    setTxt('kpi-sc', roundData.kpis.probabilidadSC);
+
+    // 4. Countdown Timer
+    startCountdown(roundData.targetDate);
+
+    // 5. Under The Surface
+    setTxt('kmeans-family-badge', roundData.kmeansFamily.nombre);
+    renderTrackVisual(roundData);
+    renderSeverityBars(roundData.trackTelemetry);
+    setTxt('track-alert-text', roundData.trackTelemetry.alertaTecnica);
+
+    // 6. The Signal (Circuitos Gemelos)
+    renderTheSignal(roundData.gemelo, roundData.circuitName);
+
+    // 7. Under Pressure
+    renderUnderPressure(roundData.presion);
+
+    // 8. The Crossover
+    renderTheCrossover(roundData.crossover);
+
+    // 9. Under The Helmet
+    renderUnderTheHelmet();
+
+    // 10. Audit Table (Austin vs Realidad)
+    renderAuditTable();
+  }
+
+  function setTxt(id, val) {
+    const el = document.getElementById(id);
+    if (el && val !== undefined) el.textContent = val;
+  }
+
+  function startCountdown(targetDateStr) {
+    if (countdownInterval) clearInterval(countdownInterval);
+
+    const target = new Date(targetDateStr).getTime();
+
+    function update() {
+      const now = new Date().getTime();
+      const diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTxt('timer-days', String(days).padStart(2, '0'));
+      setTxt('timer-hours', String(hours).padStart(2, '0'));
+      setTxt('timer-mins', String(mins).padStart(2, '0'));
+      setTxt('timer-secs', String(secs).padStart(2, '0'));
+    }
+
+    update();
+    countdownInterval = setInterval(update, 1000);
+  }
+
+  function renderTrackVisual(data) {
+    const container = document.getElementById('track-svg-container');
+    if (!container) return;
+
+    const isMexico = currentRoundId === 'rodriguez';
+
+    const svgPath = isMexico
+      ? `M 120,120 L 780,120 C 820,120 840,140 840,180 L 840,240 C 840,270 820,290 790,290 L 620,290 C 600,290 580,310 580,340 L 580,440 C 580,470 560,490 530,490 L 320,490 C 300,490 280,470 280,440 L 280,360 C 280,330 250,300 210,300 L 150,300 C 120,300 100,280 100,250 L 100,160 C 100,130 110,120 120,120 Z`
+      : `M 150,420 L 220,130 C 230,90 260,90 280,130 L 340,260 C 360,290 400,290 430,250 L 510,150 C 530,120 560,120 580,150 L 670,280 C 700,320 740,320 760,280 L 820,180 C 830,160 850,160 860,190 L 860,340 C 860,380 830,410 780,410 L 460,410 C 430,410 400,440 370,440 L 220,440 C 180,440 150,440 150,420 Z`;
+
+    const hotspotsHtml = data.puntosCriticos.map(p => `
+      <g class="cursor-pointer group" transform="translate(${p.x}, ${p.y})" onclick="window.showHotspotInfo('${p.id}')">
+        <circle r="16" fill="rgba(255, 88, 19, 0.2)" class="animate-ping"></circle>
+        <circle r="8" fill="#FF5813" stroke="#FFFFFF" stroke-width="2"></circle>
+        <text y="-14" text-anchor="middle" fill="#ECEFF1" font-family="Inter" font-size="11" font-weight="700">${p.id}</text>
+      </g>
+    `).join('');
+
+    container.innerHTML = `
+      <svg viewBox="0 0 940 540" class="w-full h-full drop-shadow-[0_0_35px_rgba(4,82,89,0.3)]">
+        <defs>
+          <pattern id="telemetryGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(153, 184, 184, 0.05)" stroke-width="1"/>
+          </pattern>
+          <linearGradient id="trackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF5813"/>
+            <stop offset="50%" stop-color="#045259"/>
+            <stop offset="100%" stop-color="#99B8B8"/>
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#telemetryGrid)" />
+        <path d="${svgPath}" fill="none" stroke="rgba(4, 82, 89, 0.4)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="${svgPath}" fill="none" stroke="url(#trackGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="180" y="80" fill="#99B8B8" font-family="monospace" font-size="11">[ SECTOR 1 // SPEED ]</text>
+        <text x="740" y="90" fill="#FF5813" font-family="monospace" font-size="11">[ SECTOR 2 // ESSES ]</text>
+        <text x="440" y="525" fill="#966237" font-family="monospace" font-size="11">[ SECTOR 3 // STADIUM ]</text>
+        ${hotspotsHtml}
+      </svg>
+    `;
+
+    const cardsContainer = document.getElementById('critical-points-cards');
+    if (cardsContainer) {
+      cardsContainer.innerHTML = data.puntosCriticos.map(p => `
+        <div class="undertrack-card p-4 border-l-2 border-l-[#FF5813] hover:bg-[rgba(153,184,184,0.06)] transition-all">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-mono text-xs text-[#FF5813] font-bold">[ ${p.id} ]</span>
+            <span class="text-xs font-mono font-bold text-white bg-[#082124] px-2 py-0.5 rounded border border-[rgba(153,184,184,0.2)]">${p.kmh}</span>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">${p.nombre}</h4>
+          <p class="text-xs text-[#99B8B8] leading-relaxed">${p.desc}</p>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderSeverityBars(telemetry) {
+    const bars = [
+      { label: "Abrasión del Asfalto", value: telemetry.abrasionLevel, max: 5, colorClass: "bar-papaya", desc: "Nivel de aspereza mineral" },
+      { label: "Severidad de Frenada", value: telemetry.brakingSeverity, max: 5, colorClass: "bar-papaya", desc: "Deceleración G y temperatura de pastillas" },
+      { label: "Carga Lateral (Estrés Térmico)", value: telemetry.lateralStress, max: 5, colorClass: "bar-teal", desc: "Fuerzas centrífugas en curvas rápidas" },
+      { label: "Grip Mecánico / Tracción", value: telemetry.gripLevel, max: 5, colorClass: "bar-teal", desc: "Adherencia a la salida de curvas lentas" }
+    ];
+
+    const container = document.getElementById('severity-bars-container');
+    if (container) {
+      container.innerHTML = bars.map(b => `
+        <div class="mb-4">
+          <div class="flex justify-between items-center text-xs mb-1">
+            <span class="font-semibold text-white tracking-wide">${b.label}</span>
+            <span class="font-mono text-[#99B8B8] font-bold">${b.value} / ${b.max}</span>
+          </div>
+          <div class="bar-container">
+            <div class="bar-fill ${b.colorClass}" style="width: ${(b.value / b.max) * 100}%"></div>
+          </div>
+          <p class="text-[11px] text-[#99B8B8] opacity-75 mt-1">${b.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    setTxt('metric-vmax', telemetry.vMax);
+    setTxt('metric-fullthrottle', telemetry.fullThrottle);
+    setTxt('metric-braketime', telemetry.brakingTime);
+
+    const tyresEl = document.getElementById('pirelli-compounds');
+    if (tyresEl) {
+      tyresEl.innerHTML = `
+        <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#12191c] border border-[rgba(255,255,255,0.15)] text-xs text-white">
+          <span class="w-2.5 h-2.5 rounded-full bg-white"></span> ${telemetry.pirelli.hard}
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#12191c] border border-[rgba(255,255,255,0.15)] text-xs text-yellow-400">
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span> ${telemetry.pirelli.medium}
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-[#12191c] border border-[rgba(255,255,255,0.15)] text-xs text-red-500">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> ${telemetry.pirelli.soft}
+        </span>
+      `;
+    }
+  }
+
+  function renderTheSignal(gemelo, currentCircuitName) {
+    if (!gemelo) return;
+
+    setTxt('signal-current-name', currentCircuitName);
+    setTxt('signal-twin-name', gemelo.nombre);
+    setTxt('signal-twin-name-col', gemelo.nombre);
+    setTxt('signal-match-pct', gemelo.matchPct);
+    setTxt('signal-pearson-r', `r = ${gemelo.correlacionR.toFixed(3)}`);
+    setTxt('signal-current-char', gemelo.caracteristicaActual);
+    setTxt('signal-twin-char', gemelo.caracteristicaGemelo);
+    setTxt('signal-conclusion-text', gemelo.conclusion);
+
+    const circleProgress = document.getElementById('signal-dial-progress');
+    if (circleProgress) {
+      const circumference = 2 * Math.PI * 45;
+      const offset = circumference - (gemelo.correlacionR * circumference);
+      circleProgress.style.strokeDasharray = `${circumference}`;
+      circleProgress.style.strokeDashoffset = `${offset}`;
+    }
+
+    const tableBody = document.getElementById('signal-comparison-table');
+    if (tableBody) {
+      tableBody.innerHTML = gemelo.metricasComparadas.map(m => `
+        <tr class="border-b border-[rgba(153,184,184,0.1)] text-xs">
+          <td class="py-2.5 font-medium text-white">${m.metrica}</td>
+          <td class="py-2.5 text-center font-mono text-[#99B8B8]">${m.actual}</td>
+          <td class="py-2.5 text-center font-mono text-[#99B8B8]">${m.gemelo}</td>
+          <td class="py-2.5 text-right font-mono font-bold text-[#FF5813]">${m.diff}</td>
+        </tr>
+      `).join('');
+    }
+  }
+
+  function renderUnderPressure(presion) {
+    if (!presion) return;
+
+    setTxt('pressure-temp-ambient', presion.tempAmbiente);
+    setTxt('pressure-temp-track', presion.tempAsfalto);
+    setTxt('pressure-temp-status', presion.estadoTermico);
+    setTxt('pressure-wind-rain', `Viento: ${presion.viento} • Lluvia: ${presion.lluviaProb}`);
+    setTxt('pressure-critical-incidents', presion.puntoCriticoIncidentes);
+
+    const tableContainer = document.getElementById('pressure-constructors-table');
+    if (tableContainer) {
+      tableContainer.innerHTML = presion.alertasConstructores.map(c => {
+        const isNegative = c.delta < 0;
+        const badgeColor = isNegative ? 'text-red-400 bg-[rgba(239,26,45,0.1)]' : 'text-emerald-400 bg-[rgba(16,185,129,0.1)]';
+        return `
+          <div class="undertrack-card p-3 flex items-center justify-between border-l-2 ${
+            c.constructor === 'McLaren' ? 'border-l-[#FF5813] bg-[rgba(255,88,19,0.06)]' : 'border-l-transparent'
+          }">
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-white text-sm">${c.constructor}</span>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded ${badgeColor} font-bold">
+                ${c.delta > 0 ? '+' : ''}${c.delta.toFixed(2)} puestos
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-[#99B8B8] hidden md:inline">${c.razon}</span>
+              ${c.constructor === 'McLaren' ? `
+                <button onclick="window.toggleExplainabilityModal()" class="px-2.5 py-1 text-xs font-bold font-mono text-white bg-[#FF5813] rounded hover:bg-[#e04604] transition-all flex items-center gap-1 shadow-[0_0_10px_rgba(255,88,19,0.4)]">
+                  <span>✦ ¿POR QUÉ?</span>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    setTxt('ai-sample-text', presion.explicabilidadIA.muestra);
+    setTxt('ai-mechanic-text', presion.explicabilidadIA.mecanica);
+    setTxt('ai-conclusion-text', presion.explicabilidadIA.conclusion);
+
+    setTxt('strategy-plan-a-title', presion.estrategia.planA.nombre);
+    setTxt('strategy-plan-a-stint', `${presion.estrategia.planA.compuestos} (Parada: ${presion.estrategia.planA.paradaVuelta})`);
+    setTxt('strategy-plan-a-desc', presion.estrategia.planA.ventaja);
+
+    setTxt('strategy-plan-b-title', presion.estrategia.planB.nombre);
+    setTxt('strategy-plan-b-stint', `${presion.estrategia.planB.compuestos} (Paradas: ${presion.estrategia.planB.paradaVuelta})`);
+    setTxt('strategy-plan-b-desc', presion.estrategia.planB.ventaja);
+  }
+
+  function renderTheCrossover(crossover) {
+    if (!crossover) return;
+
+    setTxt('crossover-circuit-family', crossover.familia);
+    setTxt('crossover-insight-text', crossover.insight);
+
+    const container = document.getElementById('crossover-profiles-container');
+    if (container) {
+      container.innerHTML = crossover.perfiles.map(p => `
+        <div class="undertrack-card p-4 transition-all hover:border-[#FF5813]">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-bold text-white">${p.perfil}</span>
+            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#082124] text-[#FF5813] border border-[rgba(255,88,19,0.3)]">
+              ${p.gananciaPromedio}
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            ${p.pilotos.map(pilot => `
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[rgba(153,184,184,0.08)] text-[#99B8B8] border border-[rgba(153,184,184,0.15)]">
+                ${pilot}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderUnderTheHelmet() {
+    const pilots = DATA.pilots || [];
+    const activePilot = pilots.find(p => p.id === activePilotId) || pilots[0];
+    if (!activePilot) return;
+
+    const selectorContainer = document.getElementById('pilot-selector-pills');
+    if (selectorContainer) {
+      selectorContainer.innerHTML = pilots.map(p => `
+        <button class="px-3 py-1.5 text-xs font-mono rounded border transition-all whitespace-nowrap flex items-center gap-2 ${
+          p.id === activePilot.id
+            ? 'bg-[#FF5813] text-white border-[#FF5813] shadow-[0_0_12px_rgba(255,88,19,0.4)]'
+            : 'bg-[#12191c] text-[#99B8B8] border-[rgba(153,184,184,0.2)] hover:border-[#99B8B8]'
+        }" data-pilot-id="${p.id}">
+          <span class="w-2 h-2 rounded-full" style="background-color: ${p.teamColor}"></span>
+          <span>${p.name.split(' ').pop()} #${p.dorsal}</span>
+        </button>
+      `).join('');
+
+      selectorContainer.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activePilotId = btn.getAttribute('data-pilot-id');
+          renderUnderTheHelmet();
+        });
+      });
+    }
+
+    setTxt('pilot-full-name', activePilot.name);
+    setTxt('pilot-dorsal-team', `#${activePilot.dorsal} • ${activePilot.team}`);
+    setTxt('pilot-profile-badge', activePilot.profile);
+    setTxt('pilot-pos-mediana', `P${activePilot.posMediana.toFixed(1)}`);
+    setTxt('pilot-gain-avg', activePilot.puestosGanados);
+    setTxt('pilot-quote', `"${activePilot.quote}"`);
+    setTxt('pilot-efemeride', activePilot.efemeride);
+
+    drawRadarChart('pilot-radar-canvas', activePilot.radar, activePilot.teamColor);
+  }
+
+  function drawRadarChart(canvasId, stats, color = '#FF5813') {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const size = canvas.width;
+    const center = size / 2;
+    const radius = center * 0.72;
+
+    ctx.clearRect(0, 0, size, size);
+
+    const axes = [
+      { name: "Ritmo", val: stats.ritmo },
+      { name: "Frenada", val: stats.frenada },
+      { name: "Gomas", val: stats.gomas },
+      { name: "Caos", val: stats.caos },
+      { name: "Largada", val: stats.largada }
+    ];
+    const total = axes.length;
+
+    for (let r = 0.2; r <= 1.0; r += 0.2) {
+      ctx.beginPath();
+      for (let i = 0; i < total; i++) {
+        const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+        const x = center + Math.cos(angle) * (radius * r);
+        const y = center + Math.sin(angle) * (radius * r);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = "rgba(153, 184, 184, 0.12)";
+      ctx.stroke();
+    }
+
+    axes.forEach((axis, i) => {
+      const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+      const x = center + Math.cos(angle) * radius;
+      const y = center + Math.sin(angle) * radius;
+
+      ctx.beginPath();
+      ctx.moveTo(center, center);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = "rgba(153, 184, 184, 0.2)";
+      ctx.stroke();
+
+      const textX = center + Math.cos(angle) * (radius + 22);
+      const textY = center + Math.sin(angle) * (radius + 22);
+      ctx.fillStyle = "#99B8B8";
+      ctx.font = "bold 11px Inter, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(`${axis.name} (${axis.val})`, textX, textY);
+    });
+
+    ctx.beginPath();
+    axes.forEach((axis, i) => {
+      const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+      const r = (axis.val / 100) * radius;
+      const x = center + Math.cos(angle) * r;
+      const y = center + Math.sin(angle) * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+
+    ctx.fillStyle = "rgba(255, 88, 19, 0.35)";
+    ctx.fill();
+    ctx.strokeStyle = "#FF5813";
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    axes.forEach((axis, i) => {
+      const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+      const r = (axis.val / 100) * radius;
+      const x = center + Math.cos(angle) * r;
+      const y = center + Math.sin(angle) * r;
+
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fill();
+      ctx.strokeStyle = "#FF5813";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+  }
+
+  function renderAuditTable() {
+    const container = document.getElementById('audit-austin-table');
+    if (!container || !DATA.auditAustin) return;
+
+    container.innerHTML = DATA.auditAustin.map(a => {
+      const badgeColor = a.statusClass === 'acierto' 
+        ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800' 
+        : 'bg-rose-950/60 text-rose-400 border-rose-800';
+
+      return `
+        <div class="undertrack-card p-4 hover:border-[#99B8B8] transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-white text-sm">${a.dimension}</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${badgeColor} font-bold">
+              ${a.veredicto}
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mb-2">
+            <div class="bg-[rgba(10,14,16,0.6)] p-2.5 rounded border border-[rgba(153,184,184,0.1)]">
+              <span class="text-[#FF5813] font-bold block mb-1">🔮 Pronóstico UNDERTRACK:</span>
+              <span class="text-[#99B8B8]">${a.pronostico}</span>
+            </div>
+            <div class="bg-[rgba(10,14,16,0.6)] p-2.5 rounded border border-[rgba(153,184,184,0.1)]">
+              <span class="text-[#99B8B8] font-bold block mb-1">🏁 Realidad en Carrera:</span>
+              <span class="text-white">${a.realidad}</span>
+            </div>
+          </div>
+          <p class="text-xs text-[#99B8B8] italic pt-1 border-t border-[rgba(153,184,184,0.08)]">
+            <strong>Lectura analítica:</strong> ${a.analisis}
+          </p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function initMateoModal() {
+    const openBtn = document.getElementById('btn-open-mateo-modal');
+    const closeBtn = document.getElementById('btn-close-mateo-modal');
+    const modal = document.getElementById('mateo-modal');
+    const copyBtn = document.getElementById('btn-copy-script');
+
+    if (openBtn && modal) {
+      openBtn.addEventListener('click', () => {
+        updateMateoScriptContent();
+        modal.classList.remove('hidden');
+      });
+    }
+
+    if (closeBtn && modal) {
+      closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+      });
+    }
+
+    document.querySelectorAll('.mateo-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mateo-tab-btn').forEach(b => {
+          b.classList.remove('bg-[#FF5813]', 'text-white');
+          b.classList.add('text-[#99B8B8]');
+        });
+        btn.classList.add('bg-[#FF5813]', 'text-white');
+        btn.classList.remove('text-[#99B8B8]');
+        activeMateoTab = btn.getAttribute('data-tab');
+        updateMateoScriptContent();
+      });
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const textToCopy = document.getElementById('mateo-script-text').textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = `<span>✓ ¡COPIADO AL PORTAPAPELES!</span>`;
+          copyBtn.classList.replace('bg-[#FF5813]', 'bg-emerald-600');
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.classList.replace('bg-emerald-600', 'bg-[#FF5813]');
+          }, 2200);
+        });
+      });
+    }
+  }
+
+  function updateMateoScriptContent() {
+    const roundData = DATA[currentRoundId] || DATA.rodriguez;
+    const scriptEl = document.getElementById('mateo-script-text');
+    if (scriptEl && roundData && roundData.mateoAI) {
+      scriptEl.textContent = roundData.mateoAI[activeMateoTab] || roundData.mateoAI.streaming;
+    }
+  }
+
+  function initBifurcation() {
+    const btnRouteA = document.getElementById('btn-route-a');
+    const btnRouteB = document.getElementById('btn-route-b');
+
+    if (btnRouteA) {
+      btnRouteA.addEventListener('click', () => {
+        const target = document.getElementById('section-the-signal');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    if (btnRouteB) {
+      btnRouteB.addEventListener('click', () => {
+        const target = document.getElementById('section-the-crossover');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  }
+
+  window.toggleExplainabilityModal = function() {
+    const drawer = document.getElementById('ai-explainability-drawer');
+    if (drawer) {
+      drawer.classList.toggle('hidden');
+      if (!drawer.classList.contains('hidden')) {
+        drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  };
+
+  window.showHotspotInfo = function(id) {
+    const roundData = DATA[currentRoundId] || DATA.rodriguez;
+    if (!roundData) return;
+    const point = roundData.puntosCriticos.find(p => p.id === id);
+    if (point) {
+      alert(`[ ${point.id} ] ${point.nombre}\nVelocidad: ${point.kmh}\n\n${point.desc}`);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+  </script>
+
+</body>
+</html>
+

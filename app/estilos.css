@@ -1,0 +1,144 @@
+/* ========================================================
+   UNDERTRACK - HOJA DE ESTILOS PRINCIPAL (APP)
+   ======================================================== */
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Caja de placeholder con X diagonal exacta */
+    .box-x {
+      position: relative;
+      background-color: #E9ECF0;
+      border: 1px solid #DDE2E8;
+      overflow: hidden;
+    }
+    .box-x::before, .box-x::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 142%;
+      height: 1px;
+      background-color: #CBD3DC;
+      transform-origin: center;
+    }
+    .box-x::before {
+      transform: translate(-50%, -50%) rotate(32deg);
+    }
+    .box-x::after {
+      transform: translate(-50%, -50%) rotate(-32deg);
+    }
+
+    /* Grilla de puntos para los 3 gráficos pequeños */
+    .dotted-chart {
+      background-image: radial-gradient(#CBD3DC 1px, transparent 1px);
+      background-size: 8px 8px;
+    }
+
+    /* Glassmorphism cinematográfico de alta fidelidad */
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(8, 14, 18, 0.72);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    /* Header Navigation Pills */
+    .nav-link {
+      transition: all 0.25s ease;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      color: rgba(6, 21, 23, 0.7);
+    }
+    .nav-link:hover {
+      color: #061517;
+      background: rgba(153, 191, 187, 0.2);
+    }
+    .nav-link.active-nav {
+      background: #061517 !important;
+      color: #FFFFFF !important;
+      font-weight: 900 !important;
+      box-shadow: 0 4px 14px rgba(6, 21, 23, 0.25);
+    }
+
+    /* Barra de progreso lateral derecha (Más grande y notoria) */
+    #sidebarProgressContainer {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+    #sidebarProgressCar {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: top 0.1s linear;
+      will-change: top;
+      filter: drop-shadow(0 0 12px rgba(242, 86, 29, 0.7));
+    }
+
+    /* Animaciones del Monoplaza entrando y saliendo en Under the Helmet */
+    @keyframes carDriveIn {
+      0% {
+        transform: translateX(-140%) scale(0.9);
+        opacity: 0;
+      }
+      65% {
+        transform: translateX(10px) scale(1.02);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes carDriveOut {
+      0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+      35% {
+        transform: translateX(25px) scale(0.98);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateX(150%) scale(0.88);
+        opacity: 0;
+      }
+    }
+
+    .car-drive-in {
+      animation: carDriveIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .car-drive-out {
+      animation: carDriveOut 0.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+    }
+
+    /* Abanico de cartas de pilotos (Animación ultrasuave y sutil) */
+    .pilot-fan-card {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.4s ease;
+      transform-origin: center bottom;
+      will-change: transform;
+    }
+    .pilot-fan-card:hover {
+      transform: translateY(-10px) scale(1.03) !important;
+      z-index: 45 !important;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85) !important;
+    }
+    .pilot-fan-card.active-pilot {
+      transform: translateY(-14px) scale(1.04) !important;
+      z-index: 48 !important;
+    }
+  </style>

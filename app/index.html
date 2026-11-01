@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNDERTRACK // F1 Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tealDeep: '#045159',
+            tealSage: '#99BFBB',
+            sienna: '#8C5B30',
+            neonOrange: '#F2561D',
+            oxblood: '#400D09',
+            wfBg: '#FFFFFF',
+            wfSection: '#F8F9FA',
+            wfBorder: '#DDE2E8',
+            wfDark: '#323B49',
+            wfMid: '#717D8E',
+            wfLight: '#CBD3DC',
+            wfBox: '#E9ECF0',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            hand: ['Caveat', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+</head>
+<body class="bg-[#070b0d] text-white font-sans antialiased min-h-screen selection:bg-neonOrange selection:text-white" style="overflow-x: clip;">
+
+  <div class="w-full mx-auto relative bg-[#070b0d]" style="overflow-x: clip;">
+
+    <!-- ============================================== -->
+    <!-- 0. HEADER FLOTANTE Y REDONDEADO (ANCHO)       -->
+    <!-- ============================================== -->
+    <div class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 w-full max-w-[1440px] mx-auto pointer-events-none">
+      <header class="w-full bg-white/95 backdrop-blur-md border border-tealSage/50 shadow-2xl shadow-black/40 rounded-full px-6 sm:px-8 py-3 flex items-center justify-between transition-all pointer-events-auto">
+        
+        <!-- Izquierda: Logo largo oficial -->
+        <a href="#inicio" class="flex items-center shrink-0 group">
+          <img src="assets/logo/LOGO%20LARGO.png" alt="UNDERTRACK" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
+        </a>
+
+        <!-- Centro: Enlaces de navegación con indicador activo prominente -->
+        <nav id="headerNav" class="hidden lg:flex items-center gap-1.5 text-[11px] xl:text-[12px] uppercase tracking-wider">
+          <a id="nav-inicio" href="#inicio" class="nav-link active-nav">INICIO</a>
+          <a id="nav-surface" href="#surface" class="nav-link">UNDER THE SURFACE</a>
+          <a id="nav-signal" href="#signal" class="nav-link">THE SIGNAL</a>
+          <a id="nav-helmet" href="#helmet" class="nav-link">UNDER THE HELMET</a>
+          <a id="nav-crossover" href="#crossover" class="nav-link">THE CROSSOVER</a>
+        </nav>
+
+        <!-- Derecha: Botón Síntesis Mateo + Selector de Idioma -->
+        <div class="flex items-center gap-3">
+          <button id="btnMateoModal" type="button" onclick="openMateoModal()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neonOrange hover:bg-neonOrange/90 text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-md shadow-neonOrange/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+            <span class="text-xs">✦</span>
+            <span class="hidden sm:inline">SÍNTESIS EDITORIAL</span>
+            <span class="sm:hidden">SÍNTESIS</span>
+          </button>
+
+          <button id="langToggleBtn" type="button" onclick="toggleLang()" class="relative inline-flex h-8 w-24 items-center rounded-full bg-tealSage/25 border border-tealSage/50 p-1 cursor-pointer select-none transition-colors" title="Cambiar idioma">
+            <span id="langKnob" class="absolute left-1 w-11 h-6 rounded-full bg-tealDeep shadow-md transition-all duration-300 ease-out"></span>
+            <span id="textEsp" class="relative z-10 w-1/2 text-center text-[10px] font-black text-white transition-colors duration-200">ESP</span>
+            <span id="textIng" class="relative z-10 w-1/2 text-center text-[10px] font-bold text-tealDeep/70 transition-colors duration-200">INGL</span>
+          </button>
+        </div>
+
+      </header>
+    </div>
+
+  <!-- ============================================== -->
+  <!-- BARRA DE PROGRESO LATERAL DERECHA (AUTITO F1)  -->
+  <!-- ============================================== -->
+  <aside id="sidebarProgressContainer" aria-label="Progreso de página">
+    <div class="relative w-2 h-64 sm:h-80 bg-white/15 rounded-full overflow-visible backdrop-blur-sm border border-white/15 flex items-start justify-center shadow-lg">
+      
+      <!-- Línea indicadora de progreso llena -->
+      <div id="sidebarProgressLine" class="w-full bg-neonOrange rounded-full transition-all duration-75 shadow-[0_0_10px_rgba(242,86,29,0.8)]" style="height: 0%;"></div>
+
+      <!-- Puntos marcadores de pantallas -->
+      <div class="absolute top-[0%] w-2.5 h-2.5 rounded-full bg-white/50 -translate-x-[0.5px]"></div>
+      <div class="absolute top-[25%] w-2 h-2 rounded-full bg-white/30 -translate-x-[0.5px]"></div>
+      <div class="absolute top-[50%] w-2 h-2 rounded-full bg-white/30 -translate-x-[0.5px]"></div>
+      <div class="absolute top-[75%] w-2 h-2 rounded-full bg-white/30 -translate-x-[0.5px]"></div>
+      <div class="absolute top-[100%] w-2.5 h-2.5 rounded-full bg-neonOrange -translate-x-[0.5px]"></div>
+
+      <!-- AUTITO DE FÓRMULA 1 MÁS GRANDE (32px x 52px) ORIENTADO VERTICAL HACIA ABAJO -->
+      <div id="sidebarProgressCar" class="pointer-events-none select-none" style="top: 0%;">
+        <div class="relative flex items-center justify-center">
+          <svg class="w-8 h-13 sm:w-9 sm:h-14" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sombra difusa -->
+            <ellipse cx="20" cy="30" rx="16" ry="24" fill="rgba(0,0,0,0.7)" filter="blur(3px)"/>
+
+            <!-- Alerón trasero negro -->
+            <rect x="5" y="4" width="30" height="7" rx="2" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="1.2"/>
+            <path d="M12 11 L12 18 M28 11 L28 18" stroke="#FFFFFF" stroke-width="1.2"/>
+
+            <!-- Ruedas traseras negras -->
+            <rect x="1" y="12" width="9" height="16" rx="3" fill="#000000" stroke="#FFFFFF" stroke-width="1"/>
+            <rect x="30" y="12" width="9" height="16" rx="3" fill="#000000" stroke="#FFFFFF" stroke-width="1"/>
+
+            <!-- Chasis central y pontones negros con líneas blancas -->
+            <path d="M13 11 L27 11 L30 28 L27 42 L23 52 L17 52 L13 42 L10 28 Z" fill="#000000" stroke="#FFFFFF" stroke-width="1.2"/>
+            
+            <!-- Cockpit / Halo negro con acento naranja neón brillante -->
+            <ellipse cx="20" cy="30" rx="4.5" ry="7" fill="#1A1A1A" stroke="#FFFFFF" stroke-width="0.8"/>
+            <circle cx="20" cy="29" r="3" fill="#F2561D" stroke="#FFFFFF" stroke-width="0.5"/>
+
+            <!-- Ruedas delanteras negras -->
+            <rect x="2" y="42" width="8" height="14" rx="2.5" fill="#000000" stroke="#FFFFFF" stroke-width="1"/>
+            <rect x="30" y="42" width="8" height="14" rx="2.5" fill="#000000" stroke="#FFFFFF" stroke-width="1"/>
+
+            <!-- Alerón delantero negro -->
+            <path d="M6 56 L34 56 L31 60 L9 60 Z" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="1.1"/>
+            <!-- Nariz aerodinámica -->
+            <polygon points="17,52 23,52 20,59" fill="#000000"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+
+    <!-- ============================================== -->
+    <!-- 1. HOOK / HERO SECTION (AESTHETIC EDITORIAL)  -->
+    <!-- ============================================== -->
+    <!-- 1. HOOK / HERO SECTION (AESTHETIC EDITORIAL)  -->
+    <!-- ============================================== -->
+    <section id="inicio" class="h-screen max-h-screen min-h-[640px] px-6 sm:px-12 md:px-16 pt-24 sm:pt-28 pb-6 flex flex-col justify-between text-white relative overflow-hidden border-b border-white/10 select-none">
+      
+      <!-- Imagen de fondo oficial directa con capa negra al 50% de opacidad según Figma -->
+      <img src="assets/fondos/vintage.jpeg" alt="F1 Pit Stop Vintage" class="absolute inset-0 w-full h-full object-cover object-[center_32%] pointer-events-none select-none">
+      <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
+
+      <!-- Viñeta suave inferior izquierda para garantizar máxima legibilidad editorial -->
+      <div class="absolute bottom-0 left-0 w-full sm:w-2/3 h-1/2 bg-gradient-to-tr from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+
+      <!-- 1.1 SELECTOR DE CARRERAS (Pills como ya están en el HTML) -->
+      <div class="relative z-10 flex flex-wrap items-center justify-center gap-2 mt-0.5">
+        <!-- Brasil (Default Activo) -->
+        <button id="pill-brasil" type="button" onclick="switchRace('brasil')" class="race-pill flex items-center gap-1.5 px-4 py-1 rounded-full bg-neonOrange text-white text-[11px] font-sans font-black tracking-wider uppercase shadow-md shadow-neonOrange/25 transition-all duration-300 cursor-pointer">
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+          <span>BRASIL</span>
+        </button>
+
+        <!-- Las Vegas -->
+        <button id="pill-lasvegas" type="button" onclick="switchRace('lasvegas')" class="race-pill flex items-center gap-1.5 px-4 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-tealSage hover:text-white hover:border-tealSage/50 text-[11px] font-sans font-normal tracking-wider uppercase transition-all duration-300 cursor-pointer">
+          <span class="w-1 h-1 rounded-full bg-transparent"></span>
+          <span>LAS VEGAS</span>
+        </button>
+
+        <!-- Qatar -->
+        <button id="pill-qatar" type="button" onclick="switchRace('qatar')" class="race-pill flex items-center gap-1.5 px-4 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-tealSage hover:text-white hover:border-tealSage/50 text-[11px] font-sans font-normal tracking-wider uppercase transition-all duration-300 cursor-pointer">
+          <span class="w-1 h-1 rounded-full bg-transparent"></span>
+          <span>QATAR</span>
+        </button>
+      </div>
+
+      <!-- CONTENEDOR HERO: TIMER + SCRIPT OVERLAY + HOOK COPY -->
+      <div class="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between pt-4 pb-2">
+        
+        <!-- 1.2 TIMER CON BLEND MODE OVERLAY + LEYENDAS + OPACIDAD 50% + SCRIPT A LA DERECHA -->
+        <div class="flex flex-col items-center justify-center my-auto select-none w-full text-center">
+          
+          <!-- Elementos ocultos para sincronización con switchRace -->
+          <span id="circuitRound" class="hidden">RONDA 21</span>
+          <span id="circuitDateBadge" class="hidden">DOMINGO, 8 NOVIEMBRE, 14:00hs</span>
+
+          <!-- Bloque relativo del Timer: Dígitos + Leyendas + Nombre alineado a la derecha sobre el timer -->
+          <div class="w-full max-w-4xl mx-auto flex flex-col items-center select-none">
+            
+            <!-- Nombre del Circuito FIJO a la derecha SOBRE el timer (según Figma) -->
+            <div class="w-full text-right mb-1 sm:mb-2 select-none pointer-events-none pr-2 sm:pr-4">
+              <span id="circuitName" class="font-hand text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] inline-block">
+                Autódromo de Interlagos, São Paulo
+              </span>
+            </div>
+
+            <!-- Fila del Timer con números de ancho fijo (tabular-nums) para que jamás vibren ni muevan el layout -->
+            <div id="heroCountdownTimer" 
+                 class="flex items-start justify-center gap-3 sm:gap-5 md:gap-8 text-white select-none w-full" 
+                 style="color: #FFF; font-family: Inter, sans-serif; font-size: clamp(3.25rem, 9.5vw, 190px); font-weight: 900; line-height: 0.95; mix-blend-mode: overlay; opacity: 0.5; font-variant-numeric: tabular-nums; font-feature-settings: 'tnum';">
+              
+              <!-- DÍAS -->
+              <div class="flex flex-col items-center">
+                <span id="tDays" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">08</span>
+                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">DÍAS</span>
+              </div>
+
+              <span class="select-none leading-[0.9] text-white/50">:</span>
+
+              <!-- HORAS -->
+              <div class="flex flex-col items-center">
+                <span id="tHours" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">01</span>
+                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">HORAS</span>
+              </div>
+
+              <span class="select-none leading-[0.9] text-white/50">:</span>
+
+              <!-- MINUTOS -->
+              <div class="flex flex-col items-center">
+                <span id="tMins" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">59</span>
+                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">MINUTOS</span>
+              </div>
+
+              <span class="select-none leading-[0.9] text-white/50">:</span>
+
+              <!-- SEGUNDOS -->
+              <div class="flex flex-col items-center">
+                <span id="tSecs" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">30</span>
+                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">SEGUNDOS</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 1.3 COPY EDITORIAL DE HOOK (ABAJO A LA IZQUIERDA - ELEVADO PARA MÁXIMA LECTURA) -->
+        <div class="w-full max-w-md lg:pl-6 xl:pl-10 text-left select-none z-20 relative mb-12 sm:mb-16 md:mb-20 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <h2 class="font-sans font-light text-lg sm:text-xl md:text-2xl text-white uppercase tracking-wider leading-tight">
+            LA CARRERA TODAVÍA<br>NO EMPEZÓ.
+          </h2>
+          <p class="font-hand text-3xl sm:text-4xl md:text-5xl text-white leading-tight my-1.5 sm:my-2">
+            la historia, sí.
+          </p>
+          <p class="font-sans font-light text-xs sm:text-[13px] text-white/80 tracking-normal mt-1">
+            descubrí los patrones que pueden anticipar lo que viene.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- DEGRADÉ DE INTEGRACIÓN SUAVE INFERIOR CON PANTALLA 2 -->
+      <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#070b0d] via-[#070b0d]/70 to-transparent pointer-events-none z-10"></div>
+
+      <!-- GATILLO DE SCROLL CENTRADO: TANTEAR EL TERRENO -->
+      <a href="#surface" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/60 hover:text-white transition-colors text-[10px] font-sans font-light tracking-[0.25em] uppercase cursor-pointer select-none group">
+        <span class="group-hover:text-neonOrange transition-colors">TANTEAR EL TERRENO</span>
+        <svg class="w-4 h-4 animate-bounce text-neonOrange mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- ============================================== -->
+    <!-- 2. UNDER THE SURFACE (SPATIAL HUD DASHBOARD)   -->
+    <!-- ============================================== -->
+    <!-- ============================================== -->
+    <!-- 2. UNDER THE SURFACE (SECUENCIA DE SCROLL INTERACTIVA) -->
+    <!-- ============================================== -->
+    <div id="surface-scroll-container" class="relative w-full" style="height: 480vh;">
+      <!-- Ancla de navegación para header / scroll suave -->
+      <div id="surface" class="absolute -top-16"></div>
+
+      <section class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between items-center bg-[#070b0d] text-white select-none border-b border-white/10">
+        
+        <!-- 2.1 FONDO MAPA DE LA CIUDAD (CIRCUITO_BRASIL 4) -->
+        <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/circuitos/circuito_brasil 4.png');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/55 pointer-events-none"></div>
+
+        <!-- 2.2 TÍTULO QUE SUBE DE CENTRO A TOP: LA GEOMETRÍA TAMBIÉN CUENTA (NUNCA TAPADO POR EL HEADER) -->
+        <div id="surfaceHookText" class="absolute left-1/2 -translate-x-1/2 pointer-events-none z-30 text-center whitespace-nowrap will-change-transform" style="top: 50%; transform: translate(-50%, -50%);">
+          <h2 class="font-sans font-black text-xl sm:text-2xl md:text-3xl text-white tracking-[0.25em] uppercase text-center drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] px-4">
+            LA GEOMETRÍA TAMBIÉN CUENTA.
+          </h2>
+        </div>
+
+        <!-- 2.3 CIRCUITO 3D ILUMINADO (CIRCUITO_BRASIL 2) -->
+        <div id="surfaceTrackWrapper" class="absolute inset-0 flex items-center justify-center pointer-events-none z-20 will-change-transform" style="opacity: 0; transform: scale(0.96);">
+          <img id="surfaceCircuitImg" 
+               src="assets/circuitos/circuito_brasil 2.png" 
+               alt="Circuito de Interlagos 3D" 
+               class="w-full h-full max-w-[1440px] max-h-[82vh] object-contain object-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
+        </div>
+
+        <!-- 2.4 CAPA DE INFORMACIÓN HUD (PANTALLA 3 FIGMA - MARGEN SUPERIOR AMPLIADO) -->
+        <div id="surfaceHudLayer" class="relative z-30 w-full max-w-7xl h-full flex flex-col justify-between p-4 sm:p-6 md:p-8 pt-20 sm:pt-24 pb-6 sm:pb-8 pointer-events-none transition-all duration-500" style="opacity: 0;">
+          
+          <!-- FILA SUPERIOR: LÍNEA DE TIEMPO VERTICAL (IZQ) + CONTROLES PERMANENTES (DER) -->
+          <div class="w-full flex items-start justify-between shrink-0 pointer-events-none">
+            
+            <!-- LÍNEA DE TIEMPO VERTICAL DE 3 DATOS DE COLOR (SOLICITADOS POR ZOE) -->
+            <div id="surfaceTimelineContainer" class="pointer-events-auto flex flex-col items-start gap-4 max-w-[290px] sm:max-w-[340px] select-none transition-all duration-300">
+              
+              <!-- Hito 01: ENTRE DOS LAGOS -->
+              <div id="timelineNode1" class="flex items-start gap-3 transition-all duration-500 opacity-0 translate-y-3">
+                <div class="flex flex-col items-center pt-1 shrink-0">
+                  <div class="w-2.5 h-2.5 bg-white shadow-[0_0_10px_rgba(255,255,255,0.95)]"></div>
+                  <div id="timelineStem1" class="w-[1.5px] h-12 bg-gradient-to-b from-white to-white/40 transition-all duration-500 scale-y-0 origin-top"></div>
+                </div>
+                <div class="flex flex-col text-left">
+                  <span class="text-[10px] font-sans font-black text-white uppercase tracking-wider mb-0.5">01. ENTRE DOS LAGOS</span>
+                  <p class="font-sans font-light text-[11px] sm:text-xs text-white/90 leading-relaxed tracking-normal">
+                    El nombre Interlagos significa literalmente «entre lagos». El autódromo se construyó entre los embalses de Guarapiranga y Billings, en São Paulo.
+                  </p>
+                  <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-widest mt-1">Dato geográfico e histórico</span>
+                </div>
+              </div>
+
+              <!-- Hito 02: ANTES ERA EL DOBLE DE LARGO -->
+              <div id="timelineNode2" class="flex items-start gap-3 transition-all duration-500 opacity-0 translate-y-3">
+                <div class="flex flex-col items-center pt-1 shrink-0">
+                  <div class="w-2.5 h-2.5 bg-neonOrange shadow-[0_0_10px_rgba(242,86,29,0.95)]"></div>
+                  <div id="timelineStem2" class="w-[1.5px] h-12 bg-gradient-to-b from-neonOrange to-tealSage/50 transition-all duration-500 scale-y-0 origin-top"></div>
+                </div>
+                <div class="flex flex-col text-left">
+                  <span class="text-[10px] font-sans font-black text-neonOrange uppercase tracking-wider mb-0.5">02. ANTES ERA EL DOBLE DE LARGO</span>
+                  <p class="font-sans font-light text-[11px] sm:text-xs text-white/90 leading-relaxed tracking-normal">
+                    El trazado original medía casi 8 km. En 1990 fue rediseñado y acortado para volver a recibir la Fórmula 1. ¡El circuito actual es prácticamente la mitad!
+                  </p>
+                  <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-widest mt-1">Historia del trazado</span>
+                </div>
+              </div>
+
+              <!-- Hito 03: EL S DE SENNA LO DISEÑÓ SENNA -->
+              <div id="timelineNode3" class="flex items-start gap-3 transition-all duration-500 opacity-0 translate-y-3">
+                <div class="flex flex-col items-center pt-1 shrink-0">
+                  <div class="w-2.5 h-2.5 bg-tealSage shadow-[0_0_10px_rgba(153,191,187,0.95)]"></div>
+                </div>
+                <div class="flex flex-col text-left">
+                  <span class="text-[10px] font-sans font-black text-white uppercase tracking-wider mb-0.5">03. EL S DE SENNA LO DISEÑÓ SENNA</span>
+                  <p class="font-sans font-light text-[11px] sm:text-xs text-white/90 leading-relaxed tracking-normal">
+                    La famosa curva fue incorporada en la reforma de 1989 siguiendo una propuesta de Ayrton Senna. Después, recibió su nombre como homenaje al piloto brasileño.
+                  </p>
+                  <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-widest mt-1">Homenaje y trazado mítico</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- PÍLDORAS FIJAS A LA DERECHA: SWITCH CIRCUIT INFO (NUNCA DESAPARECE) + GRAN PREMIO DE BRASIL -->
+            <div id="circuitPermanentControls" class="pointer-events-auto flex items-center gap-2 select-none z-40">
+              <!-- Switch de control de Circuit Info -->
+              <label class="flex items-center gap-2 cursor-pointer select-none px-3 sm:px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 hover:border-white/35 transition-all shadow-md group">
+                <span class="text-[9px] font-sans font-normal uppercase tracking-wider text-tealSage group-hover:text-white transition-colors">Circuit Info</span>
+                <div class="relative inline-flex items-center">
+                  <input id="toggleCircuitInfo" type="checkbox" checked class="sr-only peer">
+                  <div class="w-7 h-3.5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1.5px] after:left-[1.5px] after:bg-white after:rounded-full after:h-2.5 after:w-2.5 after:transition-all peer-checked:bg-neonOrange"></div>
+                </div>
+              </label>
+
+              <!-- Píldora Gran Premio de Brasil -->
+              <div class="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 shadow-md">
+                <span class="w-1.5 h-1.5 rounded-full bg-neonOrange animate-pulse"></span>
+                <span id="surfaceCircuitRound" class="hidden">ROUND 21</span>
+                <span id="surfaceCircuitName" class="text-[9px] font-sans font-black uppercase tracking-wider text-white">GRAN PREMIO DE BRASIL</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FILA MEDIA: DATOS DEL CIRCUITO (ENTRAN PROGRESIVAMENTE DESPUÉS DE LA LÍNEA DE TIEMPO) -->
+          <div id="circuitDataRow" class="circuit-telemetry-hud w-full flex-1 flex justify-between items-end my-auto pointer-events-none pb-2 transition-all duration-500 opacity-0">
+            
+            <!-- TARJETA IZQUIERDA: ESPACIO LIBRE / ENFOQUE LIMPIO DEL TRAZADO -->
+            <div class="pointer-events-none w-72 sm:w-80 hidden md:block"></div>
+
+            <!-- TARJETA DERECHA: DATOS TÉCNICOS HUD GLASSMORPHISM -->
+            <div class="pointer-events-auto flex flex-col items-end my-auto transition-all duration-300">
+              
+              <div id="circuitSideCard" class="glass-card w-64 sm:w-72 p-4 rounded-2xl flex flex-col gap-3">
+                <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                  <span class="text-[9px] font-sans font-light uppercase tracking-widest text-tealSage">DATOS TÉCNICOS</span>
+                  <span class="text-[9px] font-sans font-black text-neonOrange">TELEMETRÍA</span>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                  <!-- Desnivel: 43 m -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/10">
+                    <div class="flex flex-col">
+                      <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Desnivel</span>
+                      <span class="text-[10px] text-white/50 font-light">Elevación Natural</span>
+                    </div>
+                    <div class="flex items-baseline">
+                      <span class="text-2xl font-black text-neonOrange tracking-tight leading-none">43</span>
+                      <span class="text-xs font-light text-white/70 ml-1">m</span>
+                    </div>
+                  </div>
+
+                  <!-- Abrasión: 3/5 -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/10">
+                    <div class="flex flex-col">
+                      <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Abrasión</span>
+                      <span class="text-[10px] text-white/50 font-light">Rugosidad Pirelli</span>
+                    </div>
+                    <div class="flex flex-col items-end">
+                      <div class="flex items-baseline">
+                        <span class="text-xl font-black text-white tracking-tight leading-none">3</span>
+                        <span class="text-xs font-light text-white/50 ml-1">/ 5</span>
+                      </div>
+                      <div class="flex items-center gap-1 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-tealSage shadow-[0_0_6px_rgba(153,191,187,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-tealSage shadow-[0_0_6px_rgba(153,191,187,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-tealSage shadow-[0_0_6px_rgba(153,191,187,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Frenada: 3/5 -->
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/10">
+                    <div class="flex flex-col">
+                      <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Frenada</span>
+                      <span class="text-[10px] text-white/50 font-light">Severidad Brembo</span>
+                    </div>
+                    <div class="flex flex-col items-end">
+                      <div class="flex items-baseline">
+                        <span class="text-xl font-black text-white tracking-tight leading-none">3</span>
+                        <span class="text-xs font-light text-white/50 ml-1">/ 5</span>
+                      </div>
+                      <div class="flex items-center gap-1 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neonOrange shadow-[0_0_6px_rgba(242,86,29,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neonOrange shadow-[0_0_6px_rgba(242,86,29,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neonOrange shadow-[0_0_6px_rgba(242,86,29,0.8)]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- FILA INFERIOR: INFORMACIÓN PRIMARIA DOCK (GLASSMORPHISM CON NÚMEROS GRANDES EN INTER BLACK + UNIDADES EN THIN) -->
+          <div id="circuitPrimaryDock" class="circuit-telemetry-hud w-full flex justify-center mb-1 sm:mb-2 shrink-0 pointer-events-auto transition-all duration-300">
+            <div class="glass-card px-8 sm:px-12 py-3.5 rounded-2xl flex items-center justify-around gap-8 sm:gap-14">
+              <!-- 1. Longitud: 4.309 km -->
+              <div class="flex flex-col items-center text-center">
+                <span class="text-[9px] font-sans font-light tracking-[0.2em] text-tealSage uppercase mb-0.5">LONGITUD</span>
+                <div class="flex items-baseline">
+                  <span class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-none">4.309</span>
+                  <span class="text-xs sm:text-[13px] font-light text-tealSage lowercase ml-1.5">km</span>
+                </div>
+              </div>
+
+              <div class="w-[1px] h-10 bg-white/15"></div>
+
+              <!-- 2. Vueltas: 71 vueltas -->
+              <div class="flex flex-col items-center text-center">
+                <span class="text-[9px] font-sans font-light tracking-[0.2em] text-tealSage uppercase mb-0.5">VUELTAS</span>
+                <div class="flex items-baseline">
+                  <span class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-none">71</span>
+                  <span class="text-xs sm:text-[13px] font-light text-tealSage lowercase ml-1.5">vueltas</span>
+                </div>
+              </div>
+
+              <div class="w-[1px] h-10 bg-white/15"></div>
+
+              <!-- 3. Curvas: 15 curvas -->
+              <div class="flex flex-col items-center text-center">
+                <span class="text-[9px] font-sans font-light tracking-[0.2em] text-tealSage uppercase mb-0.5">CURVAS</span>
+                <div class="flex items-baseline">
+                  <span class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-none">15</span>
+                  <span class="text-xs sm:text-[13px] font-light text-tealSage lowercase ml-1.5">curvas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- 3. THE SIGNAL (CIRCUITOS GEMELOS: INTERLAGOS VS RED BULL RING) -->
+    <!-- ============================================== -->
+    <section id="signal" class="h-screen max-h-screen min-h-[680px] px-6 sm:px-10 md:px-16 pt-20 sm:pt-22 pb-6 flex flex-col justify-between items-center text-white relative overflow-hidden border-b border-white/10 select-none">
+      
+      <!-- 3.0 FONDO MOTION BLUR ASFALTO LIMPIO Y GRADIENTES DE INTEGRACIÓN NATURAL -->
+      <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/fondos/fondo 3.jpg');"></div>
+      <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#070b0d] via-[#070b0d]/80 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#070b0d] via-[#070b0d]/80 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute inset-0 bg-black/45 pointer-events-none"></div>
+
+      <!-- 3.1 ESCENARIO PRINCIPAL: INTERLAGOS (IZQ) + LENTE 84.6% AUTO (CENTRO ABSOLUTO) + RED BULL RING (DER) -->
+      <div class="w-full max-w-7xl flex-1 flex flex-col md:flex-row items-center justify-between my-auto relative z-10 px-2 sm:px-4">
+        
+        <!-- ==================== LADO IZQUIERDO: INTERLAGOS + BANDERA BRASIL GRANDE ==================== -->
+        <div class="w-full md:w-[38%] lg:w-[40%] flex flex-col items-start justify-center select-none z-10">
+          
+          <!-- Contenedor con Bandera de Brasil grande superpuesta por debajo -->
+          <div class="relative text-left mb-2 sm:mb-4 select-none">
+            <!-- Bandera de Brasil grande en segundo plano -->
+            <div class="absolute -top-3 -left-3 w-36 sm:w-44 h-24 sm:h-28 opacity-35 pointer-events-none z-0 overflow-hidden rounded-2xl filter blur-[0.3px] shadow-lg">
+              <svg class="w-full h-full object-cover" viewBox="0 0 720 504" fill="none">
+                <rect width="720" height="504" fill="#009C3B"/>
+                <polygon points="360,45 675,252 360,459 45,252" fill="#FEDF00"/>
+                <circle cx="360" cy="252" r="115" fill="#002776"/>
+                <path d="M255,275 Q360,215 465,245" stroke="#FFFFFF" stroke-width="16" fill="none"/>
+              </svg>
+            </div>
+            <!-- Nombre del Circuito por encima -->
+            <h3 class="font-hand text-5xl sm:text-6xl lg:text-7xl text-white font-normal leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] relative z-10">
+              Interlagos
+            </h3>
+          </div>
+
+          <!-- Pista 3D Neón Interlagos -->
+          <div class="w-full flex items-center justify-start pointer-events-none">
+            <img src="assets/circuitos/circuito_brasil 2.png" 
+                 alt="Trazado Interlagos 3D" 
+                 class="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-[0_15px_35px_rgba(242,86,29,0.35)] transition-transform duration-500 hover:scale-105">
+          </div>
+        </div>
+
+        <!-- ==================== CENTRO: LENTE CIRCULAR 84.6% QUE ENFOCA EL AUTO DE FONDO 3 ==================== -->
+        <div class="relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col items-center justify-center shrink-0 my-4 md:my-0 z-20">
+          
+          <!-- Lente Circular con Glassmorphism / Frosted sobre el auto de fondo 3.jpg -->
+          <div class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border border-[#F2561D]/60 shadow-[0_0_60px_rgba(242,86,29,0.45),0_20px_50px_rgba(0,0,0,0.95)] flex flex-col items-center justify-center text-center p-4 backdrop-blur-[2px] bg-black/40">
+            
+            <!-- Resplandor radial ámbar / neón -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(242,86,29,0.15)_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.7)_100%)] pointer-events-none"></div>
+
+            <!-- Textos de Coincidencia -->
+            <div class="relative z-10 flex flex-col items-center justify-center select-none">
+              <span class="font-sans font-black text-5xl sm:text-6xl lg:text-[76px] text-[#F2561D] tracking-tight leading-none drop-shadow-[0_4px_24px_rgba(242,86,29,0.85)]">
+                84.6%
+              </span>
+              <span class="font-sans font-light text-[11px] sm:text-xs lg:text-[13px] tracking-[0.25em] text-white uppercase mt-2 drop-shadow-md">
+                DE COINCIDENCIA
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ==================== LADO DERECHO: RED BULL RING + BANDERA AUSTRIA GRANDE ==================== -->
+        <div class="w-full md:w-[38%] lg:w-[40%] flex flex-col items-end justify-center select-none z-10">
+          
+          <!-- Contenedor con Bandera de Austria grande superpuesta por debajo -->
+          <div class="relative text-right mb-2 sm:mb-4 select-none flex flex-col items-end">
+            <!-- Bandera de Austria grande en segundo plano -->
+            <div class="absolute -top-3 -right-3 w-36 sm:w-44 h-24 sm:h-28 opacity-35 pointer-events-none z-0 overflow-hidden rounded-2xl filter blur-[0.3px] shadow-lg">
+              <svg class="w-full h-full object-cover" viewBox="0 0 720 504" fill="none">
+                <rect width="720" height="168" fill="#ED2939"/>
+                <rect y="168" width="720" height="168" fill="#FFFFFF"/>
+                <rect y="336" width="720" height="168" fill="#ED2939"/>
+              </svg>
+            </div>
+            <!-- Nombre del Circuito por encima -->
+            <h3 class="font-hand text-5xl sm:text-6xl lg:text-7xl text-white font-normal leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] relative z-10">
+              Red Bull Ring
+            </h3>
+          </div>
+
+          <!-- Pista 3D Neón Red Bull Ring -->
+          <div class="w-full flex items-center justify-end pointer-events-none">
+            <img src="assets/circuitos/circuito_austria.png" 
+                 alt="Trazado Red Bull Ring 3D" 
+                 class="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-[0_15px_35px_rgba(242,86,29,0.35)] transition-transform duration-500 hover:scale-105">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3.2 POST-ITS DE TELEMETRÍA // CREATIVOS, SIN "HERMANAS DE...", CON CONTRASTE TIPOGRÁFICO Y CINTAS -->
+      <div class="w-full max-w-5xl relative z-20 shrink-0 select-none mb-3 px-2">
+        
+        <!-- Fila de 3 Post-its con inclinaciones orgánicas, cintas y densidades tipográficas -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          
+          <!-- Post-it 1: Trampa del Desnivel (Tono Ámbar Telemetría, ligera inclinación izquierda) -->
+          <div class="relative p-4 rounded-xl bg-[#1c1815]/95 backdrop-blur-md border border-[#F59E0B]/40 shadow-[0_10px_30px_rgba(0,0,0,0.7)] text-left transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+            <!-- Cinta de fijación superior -->
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-4 bg-white/20 backdrop-blur-sm border border-white/30 rotate-2 pointer-events-none rounded-sm"></div>
+            
+            <div class="flex items-baseline justify-between mb-1 pt-1">
+              <span class="font-sans font-black text-[10px] text-[#F59E0B] uppercase tracking-widest">NOTA 01 // FRENO EN BAJADA</span>
+              <span class="font-hand text-white/50 text-xs">¡ojo acá!</span>
+            </div>
+
+            <div class="flex items-baseline gap-2 my-1">
+              <span class="font-sans font-black text-3xl sm:text-4xl text-white tracking-tight leading-none">43</span>
+              <span class="font-sans font-light text-sm text-[#F59E0B] uppercase">metros</span>
+            </div>
+
+            <p class="font-sans font-light text-[11px] text-white/85 leading-relaxed mt-1">
+              Curva 1 de Brasil y Curva 4 de Austria son <strong class="font-black text-white">frenadas a ciegas en descenso</strong>. Descargan el tren trasero con la misma violencia milimétrica.
+            </p>
+          </div>
+
+          <!-- Post-it 2: Tracción a Fondo (Tono Naranja Neón Destacado, ligera inclinación derecha) -->
+          <div class="relative p-4 rounded-xl bg-[#20140e]/95 backdrop-blur-md border-2 border-neonOrange shadow-[0_12px_35px_rgba(242,86,29,0.35)] text-left transform rotate-1 hover:rotate-0 transition-transform duration-300">
+            <!-- Cinta de fijación superior -->
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 w-14 h-4 bg-neonOrange/30 backdrop-blur-sm border border-neonOrange/50 -rotate-1 pointer-events-none rounded-sm"></div>
+            
+            <div class="flex items-baseline justify-between mb-1 pt-1">
+              <span class="font-sans font-black text-[10px] text-neonOrange uppercase tracking-widest">NOTA 02 // SUBIR A FONDO</span>
+              <span class="font-sans font-mono text-[9px] px-1.5 py-0.5 rounded bg-neonOrange text-white font-black">CLAVE</span>
+            </div>
+
+            <div class="flex items-baseline gap-1.5 my-1">
+              <span class="font-sans font-black text-3xl sm:text-4xl text-neonOrange tracking-tight leading-none">+88%</span>
+              <span class="font-sans font-light text-xs text-white/70 uppercase">gas pleno</span>
+            </div>
+
+            <p class="font-sans font-light text-[11px] text-white/95 leading-relaxed mt-1">
+              <strong class="font-black text-white">Junção = Curva 3 austríaca.</strong> Trepadas pronunciadas donde la tracción mecánica manda: si el motor y el piso empujan en Spielberg, vuelan en San Pablo.
+            </p>
+          </div>
+
+          <!-- Post-it 3: Vuelta Corta Sin Respiro (Tono Teal Sage Técnico) -->
+          <div class="relative p-4 rounded-xl bg-[#11191a]/95 backdrop-blur-md border border-tealSage/40 shadow-[0_10px_30px_rgba(0,0,0,0.7)] text-left transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+            <!-- Cinta de fijación superior -->
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-4 bg-tealSage/20 backdrop-blur-sm border border-tealSage/40 rotate-1 pointer-events-none rounded-sm"></div>
+            
+            <div class="flex items-baseline justify-between mb-1 pt-1">
+              <span class="font-sans font-black text-[10px] text-tealSage uppercase tracking-widest">NOTA 03 // CERO DESCANSO</span>
+              <span class="font-hand text-tealSage text-xs">ritmo brutal</span>
+            </div>
+
+            <div class="flex items-baseline gap-1.5 my-1">
+              <span class="font-sans font-black text-3xl sm:text-4xl text-white tracking-tight leading-none">71</span>
+              <span class="font-sans font-light text-sm text-tealSage uppercase">vueltas</span>
+            </div>
+
+            <p class="font-sans font-light text-[11px] text-white/85 leading-relaxed mt-1">
+              Giros de apenas 70 segundos. Curvas enlazadas continuas donde el piloto no relaja el cuello y el <strong class="font-black text-white">neumático derecho hierve</strong> sin respiro.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- ============================================== -->
+    <!-- 4. UNDER THE HELMET (LOS 5 ESTILOS DE MANEJO)  -->
+    <!-- ============================================== -->
+    <section id="helmet" class="h-screen max-h-screen min-h-[700px] px-4 sm:px-8 md:px-12 pt-16 sm:pt-20 pb-0 flex flex-col justify-between items-center text-white relative overflow-hidden border-b border-white/10 select-none">
+      
+      <!-- FONDO PANTALLA 4 con viñetas oscuras para lectura de datos -->
+      <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/fondos/pantalla 4.jpg');"></div>
+      <div class="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#070b0d] via-[#070b0d]/80 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#070b0d] via-[#070b0d]/90 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute inset-0 bg-black/45 pointer-events-none"></div>
+
+      <!-- CARTEL HUD ELEVADO CON AUTO RECORTADO SOBREPUESTO Y ANIMADO -->
+      <div class="w-full max-w-4xl relative z-20 mt-2 sm:mt-4 mb-auto">
+        
+        <!-- Contenedor relativo del cartel -->
+        <div id="pilotHudCard" class="relative rounded-3xl p-5 sm:p-6 transition-all duration-500 shadow-2xl border border-red-500/50 bg-[#2b0d0f]/90 backdrop-blur-xl">
+          
+          <!-- Encabezado del cartel: # + Escudería a la izquierda, Estilo a la derecha -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-2.5 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <span id="pilotNumberBadge" class="font-sans font-black text-xs text-red-500 tracking-wide">#16</span>
+              <span class="text-white/30 text-xs">•</span>
+              <span id="pilotTeam" class="font-sans font-light text-[11px] sm:text-xs text-tealSage uppercase tracking-wider">SCUDERIA FERRARI · SF-26</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] font-sans font-light text-white/50 uppercase tracking-widest hidden sm:inline">ESTILO DE MANEJO // K-MEANS</span>
+              <span id="pilotClusterBadge" class="px-3.5 py-1 rounded-full bg-red-600 text-white font-sans font-black text-xs uppercase tracking-wider shadow-md">
+                ÉLITE METRONÓMICO
+              </span>
+            </div>
+          </div>
+
+          <!-- Nombre del piloto en grande -->
+          <div class="pt-2 pb-1 text-left">
+            <h3 id="pilotName" class="font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase leading-none">
+              CHARLES LECLERC
+            </h3>
+          </div>
+
+          <!-- Descripción de telemetría / estilo -->
+          <div class="pb-3 text-left">
+            <p id="pilotQuote" class="font-sans font-light text-xs sm:text-[13px] text-white/90 leading-relaxed max-w-2xl">
+              Precisión milimétrica en curvas lentas enlazadas y resistencia a la degradación térmica. Chasis Ferrari con ventaja neta (+0.11) si el asfalto sube de temperatura.
+            </p>
+          </div>
+
+          <!-- Fila de 4 KPIs / Métricas -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/10 text-left">
+            <div class="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-col justify-between">
+              <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Consistencia</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="kpiConsistencia" class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">1.27</span>
+                <span class="text-[11px] font-light text-tealSage ml-0.5">s</span>
+              </div>
+            </div>
+
+            <div class="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-col justify-between">
+              <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Puestos Ganados</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="kpiPuestos" class="text-lg sm:text-xl font-black text-red-500 tracking-tight leading-none">+1.28</span>
+                <span class="text-[11px] font-light text-white/60 ml-0.5">/ cta</span>
+              </div>
+            </div>
+
+            <div class="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-col justify-between">
+              <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">En Puntos (Top 10)</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="kpiPuntos" class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">91</span>
+                <span class="text-[11px] font-light text-tealSage ml-0.5">%</span>
+              </div>
+            </div>
+
+            <div class="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-col justify-between">
+              <span class="text-[9px] font-sans font-light text-tealSage uppercase tracking-wider">Gestión Stints</span>
+              <div class="flex items-baseline mt-0.5">
+                <span id="kpiGestion" class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">0.534</span>
+                <span class="text-[11px] font-light text-tealSage ml-0.5">ratio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Predicción Interlagos -->
+          <div id="pilotPredictionBox" class="mt-2.5 p-2 sm:p-2.5 rounded-xl bg-red-600/15 border border-red-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 text-left transition-all">
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span id="pilotPredictionDot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span id="pilotPredictionBadge" class="text-[9px] sm:text-[10px] font-sans font-black uppercase text-red-500 tracking-wider">INTERLAGOS 2026:</span>
+            </div>
+            <span id="pilotPredictionText" class="text-[11px] sm:text-xs font-sans font-normal text-white/95">
+              ♥ MATCH // Favorable por balance mecánico en el Sector 2 y tolerancia del chasis SF-26 a pista caliente.
+            </span>
+          </div>
+
+          <!-- MONOPLAZA RECORTADO SIN FONDO SOBREPUESTO AL CARTEL (ANIMADO: ENTRA POR LA IZQ Y FRENA) -->
+          <div id="pilotCarWrapper" class="absolute -bottom-8 -left-6 sm:-bottom-10 sm:-left-10 lg:-bottom-12 lg:-left-14 z-30 pointer-events-none" style="width: clamp(210px, 30vw, 380px);">
+            <img id="pilotOverlaidCar" 
+                 src="assets/escuderias/ferrari.png" 
+                 alt="F1 Monoplaza" 
+                 class="w-full h-auto object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)]"
+                 style="transform: translateX(0); opacity: 1; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;">
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CONTENEDOR INFERIOR: ABANICO DE CARTAS + RECTÁNGULO SHELF BASE CON HOOK INTRIGANTE -->
+      <div class="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-end select-none z-30 pb-2">
+        
+        <!-- ABANICO CURVO DE CARTAS DE PILOTOS -->
+        <div class="relative flex items-end justify-center w-full h-[180px] sm:h-[210px] md:h-[230px] overflow-visible z-20">
+          
+          <!-- Card 1: Bottas (#77) -->
+          <div onclick="selectPilot('bottas')" id="fan-bottas" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% - 21rem); transform: rotate(-22deg) translateY(45px); z-index: 10;">
+            <img src="assets/pilotos/bottas.jpeg" alt="Bottas" class="w-full h-full object-cover" style="object-position: 24% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#77 Bottas</span>
+          </div>
+
+          <!-- Card 2: Verstappen (#1) -->
+          <div onclick="selectPilot('verstappen')" id="fan-verstappen" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% - 16.5rem); transform: rotate(-17deg) translateY(32px); z-index: 12;">
+            <img src="assets/pilotos/max.jpeg" alt="Verstappen" class="w-full h-full object-cover" style="object-position: 28% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#1 Verstappen</span>
+          </div>
+
+          <!-- Card 3: Russell (#63) -->
+          <div onclick="selectPilot('russel')" id="fan-russel" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% - 11.5rem); transform: rotate(-12deg) translateY(20px); z-index: 14;">
+            <img src="assets/pilotos/russel.jpeg" alt="Russell" class="w-full h-full object-cover" style="object-position: 26% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#63 Russell</span>
+          </div>
+
+          <!-- Card 4: Colapinto (#43) -->
+          <div onclick="selectPilot('colapinto')" id="fan-colapinto" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% - 6.5rem); transform: rotate(-6deg) translateY(8px); z-index: 16;">
+            <img src="assets/pilotos/colapinto.jpeg" alt="Colapinto" class="w-full h-full object-cover" style="object-position: 28% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#43 Colapinto</span>
+          </div>
+
+          <!-- Card 5: Norris (#4) -->
+          <div onclick="selectPilot('norris')" id="fan-norris" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% - 1.8rem); transform: rotate(0deg) translateY(0px); z-index: 20;">
+            <img src="assets/pilotos/norris.jpeg" alt="Norris" class="w-full h-full object-cover" style="object-position: center 10%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#4 Norris</span>
+          </div>
+
+          <!-- Card 6: Bearman (#87) -->
+          <div onclick="selectPilot('bearman')" id="fan-bearman" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% + 3rem); transform: rotate(6deg) translateY(8px); z-index: 18;">
+            <img src="assets/pilotos/bearman.jpeg" alt="Bearman" class="w-full h-full object-cover" style="object-position: 24% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#87 Bearman</span>
+          </div>
+
+          <!-- Card 7: Leclerc (#16 - Activo por defecto como en la imagen) -->
+          <div onclick="selectPilot('leclerc')" id="fan-leclerc" 
+               class="pilot-fan-card active-pilot absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-red-500 shadow-[0_0_35px_rgba(239,68,68,0.7)] bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% + 7.8rem); transform: rotate(12deg) translateY(-8px) scale(1.04); z-index: 30;">
+            <img src="assets/pilotos/leclerc.jpeg" alt="Leclerc" class="w-full h-full object-cover" style="object-position: 25% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-red-600/30 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#16 Leclerc</span>
+          </div>
+
+          <!-- Card 8: Sainz (#55) -->
+          <div onclick="selectPilot('sainz')" id="fan-sainz" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% + 12.5rem); transform: rotate(17deg) translateY(30px); z-index: 16;">
+            <img src="assets/pilotos/sainz.jpeg" alt="Sainz" class="w-full h-full object-cover" style="object-position: 24% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#55 Sainz</span>
+          </div>
+
+          <!-- Card 9: Stroll (#18) -->
+          <div onclick="selectPilot('stroll')" id="fan-stroll" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% + 17.2rem); transform: rotate(22deg) translateY(44px); z-index: 14;">
+            <img src="assets/pilotos/stroll.jpeg" alt="Stroll" class="w-full h-full object-cover" style="object-position: 25% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#18 Stroll</span>
+          </div>
+
+          <!-- Card 10: Hülkenberg (#27) -->
+          <div onclick="selectPilot('hulkenberg')" id="fan-hulkenberg" 
+               class="pilot-fan-card absolute cursor-pointer rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-xl bg-black"
+               style="width: clamp(80px, 9vw, 130px); height: clamp(130px, 14.5vw, 205px); left: calc(50% + 22rem); transform: rotate(26deg) translateY(60px); z-index: 12;">
+            <img src="assets/pilotos/hulkenberg.jpg" alt="Hülkenberg" class="w-full h-full object-cover" style="object-position: 25% 15%;">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-1 right-1 text-center text-[9px] font-sans font-black uppercase text-white tracking-wider">#27 Hülkenberg</span>
+          </div>
+
+        </div>
+
+        <!-- RECTÁNGULO SHELF BASE INFERIOR (CUBRE LAS TERMINACIONES DE LAS CARTAS) CON HOOK INTRIGANTE -->
+        <div class="w-full -mt-6 sm:-mt-8 z-35 relative">
+          <div class="w-full bg-[#0a0e12]/95 backdrop-blur-xl border border-white/10 rounded-2xl px-5 sm:px-8 py-3 shadow-[0_-12px_35px_rgba(0,0,0,0.9)] flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            
+            <!-- Hook Pregunta Intrigante -->
+            <div class="flex items-center gap-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-neonOrange animate-ping"></span>
+              <span class="font-sans font-black text-xs sm:text-sm text-white tracking-wide uppercase">
+                ¿CÓMO LE PEGA LA FÍSICA A TU PILOTO?
+              </span>
+            </div>
+
+            <!-- Llamado a la Acción -->
+            <div class="flex items-center gap-2 text-[11px] sm:text-xs text-white/70 font-sans font-light">
+              <span>Tocá un casco para ver su categoría K-Means y predecir su carrera</span>
+              <span class="text-neonOrange text-sm font-bold animate-pulse">➔</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+<!-- ============================================== -->
+    <!-- 5. THE CROSSOVER (INSPIRADO EN EL DASHBOARD / CLIMA ADJUNTO) -->
+    <!-- ============================================== -->
+    <section id="crossover" class="h-screen max-h-screen min-h-[680px] px-6 sm:px-12 md:px-16 pt-16 sm:pt-20 pb-8 flex flex-col justify-center items-center text-white relative overflow-hidden border-b border-white/10 select-none">
+      
+      <!-- Fondo oficial fondo 5.webp con viñetas oscuras para lectura de datos -->
+      <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/fondos/fondo 5.webp');"></div>
+      <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
+      <div class="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#070b0d] via-[#070b0d]/70 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#070b0d] to-transparent pointer-events-none z-10"></div>
+
+      <!-- CONTENEDOR CENTRAL BIEN CENTRADO CON MÁRGENES GENEROSOS (ESTILO DASHBOARD / WEATHER FLUID) -->
+      <div class="w-full max-w-3xl flex flex-col justify-center gap-3.5 relative z-20 my-auto py-2">
+        
+        <!-- ==================== WIDGET SUPERIOR (AIR QUALITY CARD STYLE) ==================== -->
+        <div class="p-4 sm:p-5 rounded-3xl bg-[#181628]/85 backdrop-blur-xl border border-white/15 shadow-2xl flex flex-col justify-between text-left">
+          
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] font-sans font-bold tracking-[0.2em] text-white/60 uppercase">
+              MATCH vs MISMATCH // PREDICTIVE ENGINE
+            </span>
+            <span class="text-[9px] font-mono text-neonOrange font-bold px-2 py-0.5 rounded-full bg-neonOrange/15 border border-neonOrange/30">
+              K-MEANS × TELEMETRÍA
+            </span>
+          </div>
+
+          <!-- Título Grande y Limpio -->
+          <div class="my-1">
+            <h3 class="font-sans font-black text-lg sm:text-xl text-white tracking-tight leading-tight">
+              Neutralización de Ventaja Mecánica en Desnivel
+            </h3>
+          </div>
+
+          <!-- Barra Slider Gradiente Suave (Azul a Naranja/Rosa) con indicador activo -->
+          <div class="mt-2 pt-2 border-t border-white/10">
+            <div class="flex items-center justify-between text-[9px] font-sans text-white/50 mb-1">
+              <span>Tracción y Chasis</span>
+              <span class="text-neonOrange font-black text-[10px]">74% Factor Chasis / Térmico</span>
+              <span>Motor Dominante</span>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-sky-400 via-indigo-500 to-[#F2561D]"></div>
+              <div class="absolute top-1/2 -translate-y-1/2 left-[74%] w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.9)] border border-black/40"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================== FILA MEDIA: 2 SQUIRCLE CARDS (WIND COMPASS + RAINFALL KPI) ==================== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
+          
+          <!-- Card Izquierda: RADAR TÉRMICO (ESTILO WIND COMPASS) -->
+          <div class="p-4 rounded-3xl bg-[#181628]/85 backdrop-blur-xl border border-neonOrange/30 shadow-xl flex items-center justify-between text-left">
+            <div class="flex flex-col justify-between pr-2">
+              <div>
+                <div class="flex items-center gap-1.5 text-neonOrange text-[9px] font-sans font-black tracking-wider uppercase mb-0.5">
+                  <span>≈ RADAR TÉRMICO</span>
+                </div>
+                <div class="flex items-baseline gap-1">
+                  <span class="font-sans font-black text-3xl sm:text-4xl text-white tracking-tight leading-none">38.4</span>
+                  <span class="text-xs font-light text-neonOrange">°C</span>
+                </div>
+                <span class="text-[9px] font-sans font-light text-white/50 block mt-0.5">Asfalto São Paulo</span>
+              </div>
+              <div class="mt-2 text-[11px] font-sans font-light text-white/80 leading-tight">
+                <span class="text-neonOrange font-black">Umbral 40°C:</span> McLaren cae <strong class="text-white font-black">-1.20 puestos</strong> en calor.
+              </div>
+            </div>
+
+            <!-- Compass circular como en la imagen -->
+            <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full border border-white/20 bg-white/[0.03] flex items-center justify-center shrink-0">
+              <span class="absolute top-0.5 text-[7px] font-mono text-white/60 font-bold">N</span>
+              <span class="absolute right-0.5 text-[7px] font-mono text-white/60 font-bold">E</span>
+              <span class="absolute bottom-0.5 text-[7px] font-mono text-white/60 font-bold">S</span>
+              <span class="absolute left-0.5 text-[7px] font-mono text-white/60 font-bold">W</span>
+              <div class="w-11 h-0.5 bg-gradient-to-r from-transparent via-neonOrange to-white transform -rotate-45 shadow-[0_0_6px_rgba(242,86,29,0.8)]"></div>
+              <div class="w-2 h-2 rounded-full bg-neonOrange border border-white"></div>
+            </div>
+          </div>
+
+          <!-- Card Derecha: FACTOR CAOS & SAFETY CAR (ESTILO RAINFALL DROP KPI) -->
+          <div class="p-4 rounded-3xl bg-[#181628]/85 backdrop-blur-xl border border-tealSage/30 shadow-xl flex items-center justify-between text-left">
+            <div class="flex flex-col justify-between pr-2">
+              <div>
+                <div class="flex items-center gap-1.5 text-tealSage text-[9px] font-sans font-black tracking-wider uppercase mb-0.5">
+                  <span>💧 FACTOR CAOS & SC</span>
+                </div>
+                <div class="flex items-baseline gap-1">
+                  <span class="font-sans font-black text-3xl sm:text-4xl text-tealSage tracking-tight leading-none">44.6</span>
+                  <span class="text-xs font-light text-tealSage/80">%</span>
+                </div>
+                <span class="text-[9px] font-sans font-light text-white/50 block mt-0.5">Probabilidad Remontada</span>
+              </div>
+              <div class="mt-2 text-[11px] font-sans font-light text-white/80 leading-tight">
+                <span class="text-tealSage font-black">+13.4 pp</span> de sobrepaso con Safety Car en S de Senna.
+              </div>
+            </div>
+
+            <!-- Gota indicador estilo Rainfall de la imagen -->
+            <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full border border-tealSage/30 bg-tealSage/[0.05] flex flex-col items-center justify-center shrink-0 text-center p-1.5">
+              <svg class="w-4 h-4 text-tealSage mb-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2s-6 7.5-6 10.5A6 6 0 0016 12.5C16 9.5 10 2 10 2z"/>
+              </svg>
+              <span class="text-[8px] font-mono text-tealSage font-black">+1.60</span>
+              <span class="text-[7px] font-sans font-light text-white/50">en mojado</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================== WIDGET INFERIOR: CÁPSULAS DE PRONÓSTICO (HOURLY FORECAST STYLE) ==================== -->
+        <div class="p-3.5 sm:p-4 rounded-3xl bg-[#181628]/85 backdrop-blur-xl border border-white/15 shadow-2xl flex flex-col text-left">
+          
+          <div class="w-8 h-1 bg-white/20 rounded-full mx-auto mb-1.5"></div>
+
+          <div class="flex items-center justify-between pb-1.5 border-b border-white/10 mb-2">
+            <span class="text-[9px] font-sans font-black text-white uppercase tracking-wider">Fases de Carrera // Gran Premio</span>
+            <span class="text-[9px] font-mono text-tealSage font-bold uppercase tracking-wider">DOM 8 NOV</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2 w-full">
+            
+            <!-- Cápsula 1: Largada -->
+            <div class="flex flex-col items-center justify-between py-2 px-1 rounded-full bg-white/[0.04] border border-white/10 text-center hover:bg-white/[0.08] transition-all">
+              <span class="text-[9px] font-sans font-light text-white/60">14:00</span>
+              <div class="my-1.5 flex flex-col items-center">
+                <span class="text-sm">🚥</span>
+                <span class="text-[8px] font-sans font-black text-neonOrange">73%</span>
+              </div>
+              <span class="text-[10px] font-sans font-bold text-white">Curva 1</span>
+            </div>
+
+            <!-- Cápsula 2: Stint 1 (ACTIVA / DESTACADA COMO "NOW" EN LA IMAGEN) -->
+            <div class="flex flex-col items-center justify-between py-2 px-1 rounded-full bg-gradient-to-b from-[#2E2050] to-[#452878] border border-neonOrange/60 text-center shadow-[0_0_15px_rgba(242,86,29,0.35)] transform -translate-y-0.5">
+              <span class="text-[9px] font-sans font-black text-neonOrange uppercase tracking-wider">AHORA</span>
+              <div class="my-1.5 flex flex-col items-center">
+                <span class="text-sm">🔥</span>
+                <span class="text-[8px] font-sans font-black text-white">41°C</span>
+              </div>
+              <span class="text-[10px] font-sans font-bold text-white">Alerta</span>
+            </div>
+
+            <!-- Cápsula 3: Stint 2 (Box) -->
+            <div class="flex flex-col items-center justify-between py-2 px-1 rounded-full bg-white/[0.04] border border-white/10 text-center hover:bg-white/[0.08] transition-all">
+              <span class="text-[9px] font-sans font-light text-white/60">14:45</span>
+              <div class="my-1.5 flex flex-col items-center">
+                <span class="text-sm">🛞</span>
+                <span class="text-[8px] font-sans font-black text-tealSage">C3</span>
+              </div>
+              <span class="text-[10px] font-sans font-bold text-white">Tracción</span>
+            </div>
+
+            <!-- Cápsula 4: Stint 3 (Clima / Lluvia) -->
+            <div class="flex flex-col items-center justify-between py-2 px-1 rounded-full bg-white/[0.04] border border-white/10 text-center hover:bg-white/[0.08] transition-all">
+              <span class="text-[9px] font-sans font-light text-white/60">15:15</span>
+              <div class="my-1.5 flex flex-col items-center">
+                <span class="text-sm">🌧️</span>
+                <span class="text-[8px] font-sans font-black text-sky-400">40%</span>
+              </div>
+              <span class="text-[10px] font-sans font-bold text-white">Lluvia</span>
+            </div>
+
+            <!-- Cápsula 5: Bandera Cuadros -->
+            <div class="flex flex-col items-center justify-between py-2 px-1 rounded-full bg-white/[0.04] border border-white/10 text-center hover:bg-white/[0.08] transition-all">
+              <span class="text-[9px] font-sans font-light text-white/60">15:40</span>
+              <div class="my-1.5 flex flex-col items-center">
+                <span class="text-sm">🏁</span>
+                <span class="text-[8px] font-sans font-black text-tealSage">Vta 71</span>
+              </div>
+              <span class="text-[10px] font-sans font-bold text-white">Podio</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+<!-- ============================================== -->
+    <!-- 7. FOOTER // UNDERTRACK INTEL & DISCLAIMER     -->
+    <!-- ============================================== -->
+    <footer class="relative bg-black/60 backdrop-blur-md text-white border-t border-white/10 px-6 sm:px-12 pt-16 pb-12 overflow-hidden select-none">
+      
+      <!-- Efectos ambientales de luz sutil de cabina -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-tealDeep/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div class="absolute bottom-0 right-10 w-80 h-80 bg-neonOrange/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-6xl mx-auto space-y-12">
+        
+        <!-- PARTE SUPERIOR: 4 COLUMNAS (BRAND, NAVEGACIÓN, DATA STACK, NEWSLETTER) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+          
+          <!-- Col 1: Marca & Propósito (4 cols) -->
+          <div class="lg:col-span-4 space-y-4">
+            <a href="#inicio" class="inline-block group">
+              <img src="assets/logo/LOGO%20LARGO.png" alt="UNDERTRACK" class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+            </a>
+            <p class="text-xs text-white/80 leading-relaxed font-light">
+              Plataforma de inteligencia predictiva y física de trazados de Fórmula 1. Diseñada como consola técnica de trabajo para <strong class="text-white font-medium">Mateo</strong> en transmisiones de streaming, producción de reels y análisis de podcast.
+            </p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/15">
+              <span class="w-2 h-2 rounded-full bg-neonOrange animate-pulse"></span>
+              <span class="text-[10px] font-mono text-tealSage tracking-wider uppercase font-bold">2026 LIVE TELEMETRY ENGINE</span>
+            </div>
+          </div>
+
+          <!-- Col 2: Pantallas & Flujo (2 cols) -->
+          <div class="lg:col-span-2 space-y-3">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-tealSage block">PANTALLAS</span>
+            <ul class="space-y-2 text-xs font-mono text-white/70">
+              <li><a href="#inicio" class="hover:text-neonOrange transition-colors">01 // INICIO</a></li>
+              <li><a href="#surface" class="hover:text-neonOrange transition-colors">02 // SURFACE</a></li>
+              <li><a href="#signal" class="hover:text-neonOrange transition-colors">03 // THE SIGNAL</a></li>
+              <li><a href="#helmet" class="hover:text-neonOrange transition-colors">04 // UNDER THE HELMET</a></li>
+              <li><a href="#crossover" class="hover:text-neonOrange transition-colors">05 // THE CROSSOVER</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Datasets & Ciencia (3 cols) -->
+          <div class="lg:col-span-3 space-y-3">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-tealSage block">STACK CIENTÍFICO</span>
+            <ul class="space-y-2 text-xs font-mono text-white/70">
+              <li class="flex items-center gap-1.5">
+                <span class="w-1 h-1 rounded-full bg-neonOrange"></span>
+                <span>FastF1 & Ergast API 2026</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="w-1 h-1 rounded-full bg-tealSage"></span>
+                <span>Clustering K-Means de Pistas</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="w-1 h-1 rounded-full bg-sienna"></span>
+                <span>Correlación Pearson r (Match)</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="w-1 h-1 rounded-full bg-neonOrange"></span>
+                <span>Matriz Térmica (304 GPs cruzados)</span>
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="w-1 h-1 rounded-full bg-tealSage"></span>
+                <span>5 Clusters de Comportamiento</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Newsletter / Suscripción (3 cols) -->
+          <div class="lg:col-span-3 space-y-3">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-neonOrange block">SÍNTESIS PRE-QUALY</span>
+            <p class="text-xs text-white/80 font-light leading-snug">
+              Recibí el informe de correlación térmica en tu correo 2 horas antes de que comience el Gran Premio.
+            </p>
+            <form onsubmit="event.preventDefault(); alert('¡Gracias por sumarte a la comunidad de Mateo!');" class="space-y-2 pt-1">
+              <input type="email" placeholder="tu@correo.com" required class="w-full px-3.5 py-2 rounded-xl bg-white/[0.06] border border-white/20 text-xs text-white placeholder-white/40 focus:outline-none focus:border-neonOrange transition-colors font-mono" />
+              <button type="submit" class="w-full py-2 px-4 rounded-xl bg-neonOrange hover:bg-neonOrange/90 text-white text-[11px] font-black uppercase tracking-wider shadow-md shadow-neonOrange/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
+                Suscribirme
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- SEPARADOR -->
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+
+        <!-- PARTE INFERIOR: DISCLAIMER Y AVISO LEGAL EDITORIAL -->
+        <div class="space-y-4 pt-2">
+          
+          <!-- Tarjeta de Disclaimer -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-neonOrange text-sm">⚠</span>
+              <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-white/90">
+                DISCLAIMER & AVISO LEGAL DE CONTENIDO
+              </span>
+            </div>
+            <p class="text-[11px] text-white/70 leading-relaxed font-light">
+              <strong class="text-white/90 font-medium">UNDERTRACK</strong> es una plataforma analítica y periodística independiente desarrollada exclusivamente con fines educativos, de divulgación científica y análisis deportivo para creadores de contenido. Este proyecto <strong class="text-white/90 font-medium">no está afiliado, asociado, patrocinado, respaldado ni autorizado de forma alguna</strong> por Formula One Group, Formula One Licensing B.V., Formula One Management (FOM), Federation Internationale de l'Automobile (FIA), ni por ninguna de las escuderías, pilotos o patrocinadores del Campeonato Mundial de Fórmula 1 de la FIA.
+            </p>
+            <p class="text-[11px] text-white/70 leading-relaxed font-light mt-2">
+              Todas las marcas registradas, nombres de circuitos, logotipos, nombres de equipos, monoplazas y pilotos citados o exhibidos en este sitio son propiedad exclusiva de sus respectivos titulares de derechos. Las predicciones de rendimiento, correlaciones matemáticas de Pearson ($r$), clasificaciones de Machine Learning y simulaciones térmicas son modelos probabilísticos derivados de bases de datos públicas e históricas, y no constituyen garantías de resultados deportivos, recomendaciones de inversión ni asesoramiento formal de apuestas.
+            </p>
+          </div>
+
+          <!-- Copyright y Créditos Finales -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-mono text-white/50 pt-2">
+            <div>
+              © 2026 UNDERTRACK // Desarrollado para Mateo (Streaming & Motorsport Intelligence).
+            </div>
+            <div class="flex items-center gap-4">
+              <span>BUILD 2.6.4-STABLE</span>
+              <span>•</span>
+              <span class="text-tealSage">FASTF1 PIPELINE ENGINE</span>
+              <span>•</span>
+              <a href="#inicio" class="text-neonOrange hover:underline">SUBIR ARRIBA ↑</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL SÍNTESIS EDITORIAL PARA MATEO (STREAM/REEL/FANTASY)  -->
+  <!-- ======================================================== -->
+  <div id="mateoModal" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden select-none">
+    <div class="w-full max-w-2xl bg-[#082124] border border-tealSage/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Botón Cerrar -->
+      <button type="button" onclick="closeMateoModal()" class="absolute top-5 right-5 text-white/60 hover:text-white text-xl cursor-pointer">✕</button>
+
+      <!-- Encabezado Modal -->
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-3 h-3 bg-neonOrange rotate-45"></span>
+        <div>
+          <span class="text-[10px] font-mono text-neonOrange uppercase font-bold tracking-widest block">ASISTENTE EDITORIAL // MATEO AI</span>
+          <h3 class="text-xl font-black text-white tracking-tight">Síntesis para Transmisión en Vivo</h3>
+        </div>
+      </div>
+
+      <!-- Selector de 3 Formatos / Pestañas -->
+      <div class="grid grid-cols-3 gap-2 p-1 bg-black/40 rounded-xl border border-white/10 mb-4">
+        <button id="tabBtnStream" onclick="setMateoTab('stream')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-neonOrange text-white shadow-md cursor-pointer transition-all">
+          🎙️ Stream / Intro
+        </button>
+        <button id="tabBtnReel" onclick="setMateoTab('reel')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
+          📱 Reel (30s)
+        </button>
+        <button id="tabBtnFantasy" onclick="setMateoTab('fantasy')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
+          🎯 Fantasy / Apuesta
+        </button>
+      </div>
+
+      <!-- Caja de Texto del Guion -->
+      <div class="p-4 sm:p-5 rounded-2xl bg-black/50 border border-white/10 min-h-[160px] max-h-[260px] overflow-y-auto mb-4 font-sans text-xs sm:text-sm font-light text-white/95 leading-relaxed" id="mateoModalText">
+        <!-- Contenido dinámico -->
+      </div>
+
+      <!-- Footer Modal con Botón Copiar -->
+      <div class="flex items-center justify-between pt-2 border-t border-white/10">
+        <span class="text-[10px] font-mono text-tealSage">Datos cruzados: 304 GPs • Modelos K-Means & Pearson</span>
+        <button id="btnCopyMateo" type="button" onclick="copyMateoText()" class="flex items-center gap-2 px-5 py-2 rounded-full bg-neonOrange hover:bg-neonOrange/90 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-neonOrange/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          <span id="copyBtnIcon">📋</span>
+          <span id="copyBtnLabel">Copiar Guion</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL EXPLICATIVO: CLÚSTER FAMILIA 2 (K-MEANS TELEMETRÍA) -->
+  <!-- ======================================================== -->
+  <div id="clusterModal" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden select-none">
+    <div class="glass-card w-full max-w-2xl border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl text-white relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Botón Cerrar -->
+      <button type="button" onclick="closeClusterModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white text-base transition-colors cursor-pointer">✕</button>
+
+      <!-- Encabezado Modal -->
+      <div class="flex items-center gap-3.5 mb-5 pb-4 border-b border-white/10">
+        <span class="w-3.5 h-3.5 rounded-full bg-neonOrange shadow-[0_0_12px_rgba(242,86,29,0.9)] animate-pulse"></span>
+        <div>
+          <span class="text-[10px] font-sans font-light text-tealSage uppercase tracking-[0.25em] block">ALGORITMO NO SUPERVISADO · K-MEANS</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-baseline gap-2">
+            <span>FAMILIA 2: MIXTOS Y TÉCNICOS</span>
+          </h3>
+        </div>
+      </div>
+
+      <!-- Cuerpo Explicativo en 3 Bloques -->
+      <div class="space-y-3.5 font-sans text-xs sm:text-[13px] leading-relaxed text-white/85">
+        
+        <!-- Bloque 1: Definición del Modelo -->
+        <div class="p-3.5 sm:p-4 rounded-xl bg-white/[0.04] border border-white/10">
+          <h4 class="font-black text-white text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 mb-1 text-neonOrange">
+            <span>1. ¿QUÉ DEFINE A ESTE CLÚSTER?</span>
+          </h4>
+          <p class="font-light text-white/80">
+            El modelo clasifica los circuitos según <strong class="font-black text-white">14 variables físicas de telemetría</strong> (desnivel, velocidad angular, severidad de frenada Brembo y tracción Pirelli). La Familia 2 agrupa trazados donde el balance mecánico y la estabilidad en frenada pesan más que la potencia lineal de motor.
+          </p>
+        </div>
+
+        <!-- Bloque 2: Por qué Interlagos pertenece aquí -->
+        <div class="p-3.5 sm:p-4 rounded-xl bg-white/[0.04] border border-white/10">
+          <h4 class="font-black text-white text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 mb-1.5 text-neonOrange">
+            <span>2. LAS TRES HUELLAS CRÍTICAS DE INTERLAGOS</span>
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left pt-1">
+            <div class="p-2.5 rounded-lg bg-black/40 border border-white/5">
+              <span class="block font-black text-white text-xs">43m Desnivel</span>
+              <span class="block font-light text-[11px] text-tealSage mt-0.5">Frenada en bajada ciega (T1) con balance crítico.</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-black/40 border border-white/5">
+              <span class="block font-black text-white text-xs">Subida Junção</span>
+              <span class="block font-light text-[11px] text-tealSage mt-0.5">Aceleración en pendiente castiga el neumático trasero.</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-black/40 border border-white/5">
+              <span class="block font-black text-white text-xs">Anti-horario</span>
+              <span class="block font-light text-[11px] text-tealSage mt-0.5">Carga asimétrica extrema en el lateral derecho.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloque 3: Circuitos Gemelos -->
+        <div class="p-3.5 sm:p-4 rounded-xl bg-white/[0.04] border border-white/10">
+          <h4 class="font-black text-white text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 mb-1.5 text-tealSage">
+            <span>3. CIRCUITOS HERMANOS EN EL CALENDARIO</span>
+          </h4>
+          <div class="flex flex-wrap items-center gap-2 pt-0.5">
+            <span class="px-3 py-1 rounded-full bg-neonOrange/20 border border-neonOrange/40 text-xs font-black text-white">
+              🇦🇹 Red Bull Ring (84.6% coincidencia)
+            </span>
+            <span class="px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-xs font-light text-white/80">
+              🇺🇸 Austin COTA (79.2%)
+            </span>
+            <span class="px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-xs font-light text-white/80">
+              🇳🇱 Zandvoort (76.5%)
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Modal -->
+      <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/10">
+        <span class="text-[10px] font-sans font-light text-white/50">UNDERTRACK · Telemetry Data Engine</span>
+        <button type="button" onclick="closeClusterModal()" class="px-6 py-2 rounded-full bg-neonOrange hover:bg-neonOrange/90 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-neonOrange/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          ENTENDIDO
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  <script src="data/data.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --color-teal-deep: #045259;
+  --color-teal-dark: #082124;
+  --color-sage: #99B8B8;
+  --color-ochre: #966237;
+  --color-papaya: #FF5813;
+  --color-burgundy: #380D09;
+  --color-carbon-bg: #0A0E10;
+  --color-card-bg: rgba(18, 25, 28, 0.82);
+  --color-border: rgba(153, 184, 184, 0.18);
+  --color-border-bright: rgba(153, 184, 184, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-carbon-bg);
+  color: #ECEFF1;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ── TIPOGRAFÍA EDITORIAL ── */
+.font-caveat {
+  font-family: 'Caveat', cursive;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── OVERLAY DE GRANO 35MM Y TEXTURA ANALÓGICA ── */
+.film-grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('assets/film_grain_35mm.png');
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+/* ── MOTION BLUR HERO BACKDROP ── */
+.hero-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 640px;
+  background-image: linear-gradient(to bottom, rgba(10, 14, 16, 0.4) 0%, rgba(10, 14, 16, 0.95) 75%, var(--color-carbon-bg) 100%), url('assets/hero_motion_blur.jpg');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.38;
+  filter: saturate(1.4) contrast(1.15);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── CRUCES DE ENCUADRE Y GUÍAS DE PÓSTER (+) ── */
+.crosshair-corner {
+  position: relative;
+}
+.crosshair-corner::before,
+.crosshair-corner::after {
+  content: "+";
+  position: absolute;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-sage);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.crosshair-corner::before {
+  top: 8px;
+  left: 8px;
+}
+.crosshair-corner::after {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* ── TARJETAS Y CONTENEDORES BRUTALISTAS ── */
+.undertrack-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 4px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.undertrack-card:hover {
+  border-color: var(--color-border-bright);
+}
+
+/* ── BOTONES CON ESTÉTICA UNDERTRACK ── */
+.btn-papaya {
+  background: linear-gradient(135deg, var(--color-papaya) 0%, #e04604 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 88, 19, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-papaya:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(255, 88, 19, 0.55);
+}
+
+.btn-secondary {
+  background: rgba(153, 184, 184, 0.08);
+  border: 1px solid var(--color-border);
+  color: #ECEFF1;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: rgba(153, 184, 184, 0.16);
+  border-color: var(--color-sage);
+}
+
+/* ── CORCHETES BRUTALISTAS [ TAG ] ── */
+.tag-bracket {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-sage);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── STATUS PULSANTE ── */
+.live-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-papaya);
+  box-shadow: 0 0 10px var(--color-papaya);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 88, 19, 0.7); }
+  70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(255, 88, 19, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 88, 19, 0); }
+}
+
+/* ── BARRAS DE PROGRESO DE SEVERIDAD ── */
+.bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bar-papaya { background: linear-gradient(90deg, #966237, var(--color-papaya)); }
+.bar-teal { background: linear-gradient(90deg, #022024, var(--color-teal-deep), var(--color-sage)); }
+
+/* ── DIAL CIRCULAR DE MATCH PEARSON (THE SIGNAL) ── */
+.dial-circle-bg {
+  stroke: rgba(153, 184, 184, 0.15);
+  stroke-width: 8;
+  fill: none;
+}
+.dial-circle-progress {
+  stroke: var(--color-papaya);
+  stroke-width: 8;
+  stroke-linecap: round;
+  fill: none;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+/* ── MODAL DE MATEO (IA SCRIPT GENERATOR) ── */
+.mateo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 14, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ── NOTAS MANUSCRITAS DE MATEO EN CAVEAT ── */
+.mateo-note {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: #ffab70;
+  line-height: 1.25;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ── TOOLTIP DEL CIRCUITO ── */
+.circuit-tooltip {
+  position: absolute;
+  background: rgba(8, 33, 36, 0.95);
+  border: 1px solid var(--color-sage);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  max-width: 260px;
+}
+
+/* ── SCROLLBAR PERSONALIZADO ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0E10;
+}
+::-webkit-scrollbar-thumb {
+  background: #045259;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-papaya);
+}
+
