@@ -170,56 +170,63 @@
       <!-- CONTENEDOR HERO: TIMER + SCRIPT OVERLAY + HOOK COPY -->
       <div class="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between pt-4 pb-2">
         
-        <!-- 1.2 TIMER CON BLEND MODE OVERLAY + LEYENDAS + OPACIDAD 50% + SCRIPT A LA DERECHA -->
-        <div class="flex flex-col items-center justify-center my-auto select-none w-full text-center">
+        <!-- 1.2 TIMER CON BLEND MODE OVERLAY + LEYENDAS + OPACIDAD 50% + SCRIPT SUPERPUESTO A LA DERECHA -->
+        <div class="flex flex-col items-center justify-center my-auto select-none w-full text-center px-4">
           
-          <!-- Elementos ocultos para sincronización con switchRace -->
-          <span id="circuitRound" class="hidden">RONDA 21</span>
-          <span id="circuitDateBadge" class="hidden">DOMINGO, 8 NOVIEMBRE, 14:00hs</span>
-
-          <!-- Bloque relativo del Timer: Dígitos + Leyendas + Nombre alineado a la derecha sobre el timer -->
-          <div class="w-full max-w-4xl mx-auto flex flex-col items-center select-none">
+          <div class="w-full max-w-5xl mx-auto flex flex-col select-none relative">
             
-            <!-- Nombre del Circuito FIJO a la derecha SOBRE el timer (según Figma) -->
-            <div class="w-full text-right mb-1 sm:mb-2 select-none pointer-events-none pr-2 sm:pr-4">
-              <span id="circuitName" class="font-hand text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] inline-block">
-                Autódromo de Interlagos, São Paulo
+            <!-- Encabezado sutil sobre el timer (izquierda): RONDA 21 · FECHA (visible tal cual Figma) -->
+            <div class="w-full text-left mb-1 pl-2 sm:pl-4">
+              <span class="text-[11px] sm:text-xs font-sans font-light tracking-[0.2em] text-white/70 uppercase">
+                <span id="circuitRound">RONDA 21</span> · <span id="circuitDateBadge">DOMINGO, 8 NOVIEMBRE, 14:00hs</span>
               </span>
             </div>
 
-            <!-- Fila del Timer con números de ancho fijo (tabular-nums) para que jamás vibren ni muevan el layout -->
-            <div id="heroCountdownTimer" 
-                 class="flex items-start justify-center gap-3 sm:gap-5 md:gap-8 text-white select-none w-full" 
-                 style="color: #FFF; font-family: Inter, sans-serif; font-size: clamp(3.25rem, 9.5vw, 190px); font-weight: 900; line-height: 0.95; mix-blend-mode: overlay; opacity: 0.5; font-variant-numeric: tabular-nums; font-feature-settings: 'tnum';">
+            <!-- Contenedor relativo del Timer donde el Nombre del Circuito se superpone abajo a la derecha -->
+            <div class="relative w-full flex items-center justify-center">
               
-              <!-- DÍAS -->
-              <div class="flex flex-col items-center">
-                <span id="tDays" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">08</span>
-                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">DÍAS</span>
+              <!-- Fila del Timer con números de ancho fijo (tabular-nums) -->
+              <div id="heroCountdownTimer" 
+                   class="flex items-start justify-center gap-3 sm:gap-5 md:gap-8 text-white select-none w-full" 
+                   style="color: #FFF; font-family: Inter, sans-serif; font-size: clamp(3.25rem, 9.5vw, 190px); font-weight: 900; line-height: 0.95; mix-blend-mode: overlay; opacity: 0.5; font-variant-numeric: tabular-nums; font-feature-settings: 'tnum';">
+                
+                <!-- DÍAS -->
+                <div class="flex flex-col items-center">
+                  <span id="tDays" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">08</span>
+                  <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">DÍAS</span>
+                </div>
+
+                <span class="select-none leading-[0.9] text-white/50">:</span>
+
+                <!-- HORAS -->
+                <div class="flex flex-col items-center">
+                  <span id="tHours" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">01</span>
+                  <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">HORAS</span>
+                </div>
+
+                <span class="select-none leading-[0.9] text-white/50">:</span>
+
+                <!-- MINUTOS -->
+                <div class="flex flex-col items-center">
+                  <span id="tMins" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">59</span>
+                  <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">MINUTOS</span>
+                </div>
+
+                <span class="select-none leading-[0.9] text-white/50">:</span>
+
+                <!-- SEGUNDOS -->
+                <div class="flex flex-col items-center">
+                  <span id="tSecs" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">30</span>
+                  <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">SEGUNDOS</span>
+                </div>
+
               </div>
 
-              <span class="select-none leading-[0.9] text-white/50">:</span>
-
-              <!-- HORAS -->
-              <div class="flex flex-col items-center">
-                <span id="tHours" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">01</span>
-                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">HORAS</span>
-              </div>
-
-              <span class="select-none leading-[0.9] text-white/50">:</span>
-
-              <!-- MINUTOS -->
-              <div class="flex flex-col items-center">
-                <span id="tMins" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">59</span>
-                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">MINUTOS</span>
-              </div>
-
-              <span class="select-none leading-[0.9] text-white/50">:</span>
-
-              <!-- SEGUNDOS -->
-              <div class="flex flex-col items-center">
-                <span id="tSecs" class="inline-block min-w-[2ch] text-center" style="font-variant-numeric: tabular-nums;">30</span>
-                <span class="text-[9px] sm:text-[11px] md:text-xs font-sans font-light tracking-[0.25em] text-white uppercase mt-1.5 sm:mt-2.5">SEGUNDOS</span>
+              <!-- Nombre del Circuito SUPERPUESTO (SOBRE EL TIMER) Y ALINEADO A LA DERECHA (según Figma) -->
+              <div class="absolute right-0 sm:right-2 md:right-4 bottom-1 sm:bottom-2 md:bottom-3 z-20 pointer-events-none text-right">
+                <span id="circuitName" class="font-hand text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-normal drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] -rotate-1 inline-block whitespace-nowrap">
+                  Autódromo de Interlagos, São Paulo
+                </span>
               </div>
 
             </div>
@@ -264,14 +271,14 @@
     <!-- ============================================== -->
     <!-- 2. UNDER THE SURFACE (SECUENCIA DE SCROLL INTERACTIVA) -->
     <!-- ============================================== -->
-    <div id="surface-scroll-container" class="relative w-full" style="height: 480vh;">
+    <div id="surface-scroll-container" class="relative w-full" style="height: 560vh;">
       <!-- Ancla de navegación para header / scroll suave -->
       <div id="surface" class="absolute -top-16"></div>
 
       <section class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between items-center bg-[#070b0d] text-white select-none border-b border-white/10">
         
         <!-- 2.1 FONDO MAPA DE LA CIUDAD (CIRCUITO_BRASIL 4) -->
-        <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/circuitos/circuito_brasil 4.png');"></div>
+        <div class="absolute inset-0 bg-cover bg-center pointer-events-none" style="background-image: url('assets/circuitos/circuito_brasil_4.png');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/55 pointer-events-none"></div>
 
         <!-- 2.2 TÍTULO QUE SUBE DE CENTRO A TOP: LA GEOMETRÍA TAMBIÉN CUENTA (NUNCA TAPADO POR EL HEADER) -->
@@ -284,19 +291,19 @@
         <!-- 2.3 CIRCUITO 3D ILUMINADO (CIRCUITO_BRASIL 2) -->
         <div id="surfaceTrackWrapper" class="absolute inset-0 flex items-center justify-center pointer-events-none z-20 will-change-transform" style="opacity: 0; transform: scale(0.96);">
           <img id="surfaceCircuitImg" 
-               src="assets/circuitos/circuito_brasil 2.png" 
+               src="assets/circuitos/circuito_brasil_2.png" 
                alt="Circuito de Interlagos 3D" 
                class="w-full h-full max-w-[1440px] max-h-[82vh] object-contain object-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
         </div>
 
-        <!-- 2.4 CAPA DE INFORMACIÓN HUD (PANTALLA 3 FIGMA - MARGEN SUPERIOR AMPLIADO) -->
-        <div id="surfaceHudLayer" class="relative z-30 w-full max-w-7xl h-full flex flex-col justify-between p-4 sm:p-6 md:p-8 pt-20 sm:pt-24 pb-6 sm:pb-8 pointer-events-none transition-all duration-500" style="opacity: 0;">
+        <!-- 2.4 CAPA DE INFORMACIÓN HUD (PANTALLA 3 FIGMA - MARGEN SUPERIOR AMPLIADO PARA NO TOCAR EL HEADER) -->
+        <div id="surfaceHudLayer" class="relative z-30 w-full max-w-7xl h-full flex flex-col justify-between p-4 sm:p-6 md:p-8 pt-32 sm:pt-36 md:pt-40 pb-6 sm:pb-8 pointer-events-none transition-all duration-500" style="opacity: 0;">
           
           <!-- FILA SUPERIOR: LÍNEA DE TIEMPO VERTICAL (IZQ) + CONTROLES PERMANENTES (DER) -->
           <div class="w-full flex items-start justify-between shrink-0 pointer-events-none">
             
-            <!-- LÍNEA DE TIEMPO VERTICAL DE 3 DATOS DE COLOR (SOLICITADOS POR ZOE) -->
-            <div id="surfaceTimelineContainer" class="pointer-events-auto flex flex-col items-start gap-4 max-w-[290px] sm:max-w-[340px] select-none transition-all duration-300">
+            <!-- LÍNEA DE TIEMPO VERTICAL DE 3 DATOS DE COLOR (TOTALMENTE DESPEJADA DEL HEADER) -->
+            <div id="surfaceTimelineContainer" class="pointer-events-auto flex flex-col items-start gap-4 max-w-[290px] sm:max-w-[340px] select-none transition-all duration-300 mt-2 sm:mt-4">
               
               <!-- Hito 01: ENTRE DOS LAGOS -->
               <div id="timelineNode1" class="flex items-start gap-3 transition-all duration-500 opacity-0 translate-y-3">
@@ -345,7 +352,7 @@
             </div>
 
             <!-- PÍLDORAS FIJAS A LA DERECHA: SWITCH CIRCUIT INFO (NUNCA DESAPARECE) + GRAN PREMIO DE BRASIL -->
-            <div id="circuitPermanentControls" class="pointer-events-auto flex items-center gap-2 select-none z-40">
+            <div id="circuitPermanentControls" class="pointer-events-auto flex items-center gap-2 select-none z-40 mt-2 sm:mt-4">
               <!-- Switch de control de Circuit Info -->
               <label class="flex items-center gap-2 cursor-pointer select-none px-3 sm:px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 hover:border-white/35 transition-all shadow-md group">
                 <span class="text-[9px] font-sans font-normal uppercase tracking-wider text-tealSage group-hover:text-white transition-colors">Circuit Info</span>
@@ -519,7 +526,7 @@
 
           <!-- Pista 3D Neón Interlagos -->
           <div class="w-full flex items-center justify-start pointer-events-none">
-            <img src="assets/circuitos/circuito_brasil 2.png" 
+            <img src="assets/circuitos/circuito_brasil_2.png" 
                  alt="Trazado Interlagos 3D" 
                  class="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-[0_15px_35px_rgba(242,86,29,0.35)] transition-transform duration-500 hover:scale-105">
           </div>

@@ -123,12 +123,12 @@
 
         const progress = Math.min(1, Math.max(0, -rect.top / scrollableDist));
 
-        // Resting title position (top: 7rem / 112px, completely free of header)
-        const restingTopPx = 112; 
+        // Resting title position (120px: completamente despejado debajo del header flotante)
+        const restingTopPx = 120; 
         const centerTopPx = windowH * 0.5;
 
-        // FASE 1: 0.00 -> 0.15: Fondo mapa + Título centrado grande
-        if (progress <= 0.15) {
+        // FASE 1: 0.00 -> 0.06: Fondo mapa + Título centrado grande
+        if (progress <= 0.06) {
           hookText.style.top = '50%';
           hookText.style.transform = 'translate(-50%, -50%) scale(1)';
           hookText.style.opacity = '1';
@@ -146,9 +146,9 @@
           if (circuitDataRow) { circuitDataRow.style.opacity = '0'; circuitDataRow.style.pointerEvents = 'none'; }
           if (circuitPrimaryDock) { circuitPrimaryDock.style.opacity = '0'; circuitPrimaryDock.style.pointerEvents = 'none'; }
         }
-        // FASE 2: 0.15 -> 0.28: Título sube a la cabecera + Aparece el circuito 3D
-        else if (progress <= 0.28) {
-          const t = (progress - 0.15) / (0.28 - 0.15);
+        // FASE 2: 0.06 -> 0.16: Título sube a la cabecera + Aparece la pista 3D iluminada
+        else if (progress <= 0.16) {
+          const t = (progress - 0.06) / (0.16 - 0.06);
           const curY = centerTopPx - t * (centerTopPx - restingTopPx);
           const curScale = 1 - t * 0.22;
           
@@ -170,8 +170,8 @@
           if (circuitDataRow) { circuitDataRow.style.opacity = '0'; circuitDataRow.style.pointerEvents = 'none'; }
           if (circuitPrimaryDock) { circuitPrimaryDock.style.opacity = '0'; circuitPrimaryDock.style.pointerEvents = 'none'; }
         }
-        // FASE 3: 0.28 -> 0.55: Línea de tiempo vertical progresiva con scroll (los 3 datos de color)
-        else if (progress <= 0.55) {
+        // FASE 3: 0.16 -> 0.35: Línea de tiempo vertical progresiva con scroll (los 3 datos de color)
+        else if (progress <= 0.35) {
           hookText.style.top = `${restingTopPx}px`;
           hookText.style.transform = 'translate(-50%, 0) scale(0.78)';
           hookText.style.opacity = '1';
@@ -181,7 +181,7 @@
           hudLayer.style.opacity = '1';
           hudLayer.style.pointerEvents = 'auto';
 
-          const tLine = (progress - 0.28) / (0.55 - 0.28);
+          const tLine = (progress - 0.16) / (0.35 - 0.16);
 
           // Hito 1 (0.00 -> 0.33)
           const op1 = Math.min(1, tLine * 3);
@@ -203,12 +203,11 @@
           const op3 = Math.max(0, Math.min(1, (tLine - 0.65) / 0.35));
           if (node3) { node3.style.opacity = String(op3); node3.style.transform = `translateY(${12 * (1 - op3)}px)`; }
 
-          // Datos del circuito aún completamente ocultos
           if (circuitDataRow) { circuitDataRow.style.opacity = '0'; circuitDataRow.style.pointerEvents = 'none'; }
           if (circuitPrimaryDock) { circuitPrimaryDock.style.opacity = '0'; circuitPrimaryDock.style.pointerEvents = 'none'; }
         }
-        // FASE 4: 0.55 -> 0.85: PAUSA AMPLIA Y LIMPIA (Solo se ven el circuito y los datos de color)
-        else if (progress <= 0.85) {
+        // FASE 4: 0.35 -> 0.45: Entrada suave de los datos técnicos HUD
+        else if (progress <= 0.45) {
           hookText.style.top = `${restingTopPx}px`;
           hookText.style.transform = 'translate(-50%, 0) scale(0.78)';
           hookText.style.opacity = '1';
@@ -224,42 +223,55 @@
           if (stem2) { stem2.style.transform = 'scaleY(1)'; }
           if (node3) { node3.style.opacity = '1'; node3.style.transform = 'translateY(0)'; }
 
-          // Los datos técnicos se mantienen ocultos para que el usuario pueda apreciar la pista y la historia
-          if (circuitDataRow) { circuitDataRow.style.opacity = '0'; circuitDataRow.style.pointerEvents = 'none'; }
-          if (circuitPrimaryDock) { circuitPrimaryDock.style.opacity = '0'; circuitPrimaryDock.style.pointerEvents = 'none'; }
-        }
-        // FASE 5: 0.85 -> 0.96: RECIÉN AL SEGUIR SCROLLEANDO aparecen los datos técnicos del circuito
-        else if (progress <= 0.96) {
-          hookText.style.top = `${restingTopPx}px`;
-          hookText.style.transform = 'translate(-50%, 0) scale(0.78)';
-          hookText.style.opacity = '1';
-
-          trackWrapper.style.opacity = '1';
-          trackWrapper.style.transform = 'scale(1)';
-          hudLayer.style.opacity = '1';
-          hudLayer.style.pointerEvents = 'auto';
-
-          if (node1) { node1.style.opacity = '1'; node1.style.transform = 'translateY(0)'; }
-          if (stem1) { stem1.style.transform = 'scaleY(1)'; }
-          if (node2) { node2.style.opacity = '1'; node2.style.transform = 'translateY(0)'; }
-          if (stem2) { stem2.style.transform = 'scaleY(1)'; }
-          if (node3) { node3.style.opacity = '1'; node3.style.transform = 'translateY(0)'; }
-
-          const tData = (progress - 0.85) / (0.96 - 0.85);
-          const opData = Math.min(1, tData * 1.4);
+          const tData = (progress - 0.35) / (0.45 - 0.35);
+          const opData = Math.min(1, tData * 1.2);
+          const isInfoOn = toggle ? toggle.checked : true;
           if (circuitDataRow) { 
-            circuitDataRow.style.opacity = String(opData); 
-            circuitDataRow.style.pointerEvents = opData > 0.4 ? 'auto' : 'none'; 
+            circuitDataRow.style.opacity = isInfoOn ? String(opData) : '0'; 
+            circuitDataRow.style.pointerEvents = (isInfoOn && opData > 0.4) ? 'auto' : 'none'; 
           }
           if (circuitPrimaryDock) { 
-            circuitPrimaryDock.style.opacity = String(opData); 
-            circuitPrimaryDock.style.pointerEvents = opData > 0.4 ? 'auto' : 'none'; 
+            circuitPrimaryDock.style.opacity = isInfoOn ? String(opData) : '0'; 
+            circuitPrimaryDock.style.pointerEvents = (isInfoOn && opData > 0.4) ? 'auto' : 'none'; 
           }
         }
-        // FASE 6: 0.96 -> 1.00: Atenuación suave final para que jamás se corte con la Pantalla 3
+        // FASE 5: 0.45 -> 0.88: ¡GRAN MESETA TÉCNICA ESTABLE! (Lectura completa, tranquila y sin apuros)
+        else if (progress <= 0.88) {
+          hookText.style.top = `${restingTopPx}px`;
+          hookText.style.transform = 'translate(-50%, 0) scale(0.78)';
+          hookText.style.opacity = '1';
+
+          trackWrapper.style.opacity = '1';
+          trackWrapper.style.transform = 'scale(1)';
+          hudLayer.style.opacity = '1';
+          hudLayer.style.pointerEvents = 'auto';
+
+          if (node1) { node1.style.opacity = '1'; node1.style.transform = 'translateY(0)'; }
+          if (stem1) { stem1.style.transform = 'scaleY(1)'; }
+          if (node2) { node2.style.opacity = '1'; node2.style.transform = 'translateY(0)'; }
+          if (stem2) { stem2.style.transform = 'scaleY(1)'; }
+          if (node3) { node3.style.opacity = '1'; node3.style.transform = 'translateY(0)'; }
+
+          const isInfoOn = toggle ? toggle.checked : true;
+          if (circuitDataRow) { 
+            circuitDataRow.style.opacity = isInfoOn ? '1' : '0'; 
+            circuitDataRow.style.pointerEvents = isInfoOn ? 'auto' : 'none'; 
+          }
+          if (circuitPrimaryDock) { 
+            circuitPrimaryDock.style.opacity = isInfoOn ? '1' : '0'; 
+            circuitPrimaryDock.style.pointerEvents = isInfoOn ? 'auto' : 'none'; 
+          }
+        }
+        // FASE 6: 0.88 -> 1.00: Transición gradual hacia la Pantalla 3 (The Signal)
         else {
-          const tOut = (progress - 0.96) / (1.00 - 0.96);
-          const fadeOut = Math.max(0, 1 - tOut * 2.2);
+          hookText.style.top = `${restingTopPx}px`;
+          hookText.style.transform = 'translate(-50%, 0) scale(0.78)';
+          hookText.style.opacity = '1';
+
+          const tOut = (progress - 0.88) / (1.00 - 0.88);
+          const fadeOut = Math.max(0, 1 - tOut * 1.8);
+          trackWrapper.style.opacity = String(fadeOut);
+          hudLayer.style.opacity = String(fadeOut);
           if (circuitPrimaryDock) { circuitPrimaryDock.style.opacity = String(fadeOut); }
         }
       }
@@ -685,8 +697,14 @@ LÍMITES Y GUARDRAILS OBLIGATORIOS:
       ];
 
       function onScroll() {
-        const scrollY = window.scrollY;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        const docHeight = Math.max(
+          document.body.scrollHeight, 
+          document.documentElement.scrollHeight, 
+          document.body.offsetHeight, 
+          document.documentElement.offsetHeight
+        );
+        const maxScroll = docHeight - window.innerHeight;
         const progress = Math.max(0, Math.min(1, maxScroll > 0 ? scrollY / maxScroll : 0));
 
         // Actualizar barra de progreso y posición del autito

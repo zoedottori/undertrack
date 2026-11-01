@@ -23,11 +23,6 @@
       }
     };
 
-    let currentRace = 'brasil';
-    let remainingSeconds = raceData[currentRace].initialSeconds;
-
-
-
     // ========================================================
     // 5. MÓDULO DE PILOTOS (UNDER THE HELMET // PANTALLA 4)
     // ========================================================
@@ -257,10 +252,6 @@
       stroll:      { rot: 22,  translateY: 44, z: 14 },
       hulkenberg:  { rot: 26,  translateY: 60, z: 12 }
     };
-
-    let activePilotId = 'leclerc';
-
-
 
 // Exponer datos al ámbito global para la app
 if (typeof window !== 'undefined') {
