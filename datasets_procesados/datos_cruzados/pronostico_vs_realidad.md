@@ -114,18 +114,78 @@
 
 ---
 
-## Ronda 20: GP de México — Autódromo Hermanos Rodríguez *(Próxima)*
-* **Fecha:** Octubre 2026
-* **Familia UNDERTRACK:** Familia 4 — *Baja Carga / Aire Enrarecido / Rectas Largas*
-* **Gemelo de Referencia:** COTA / Monza (compromiso de refrigeración y frenada)
-* *[Se habilitará al cerrar Ronda 19]*
+## Ronda 20: GP de México — Autódromo Hermanos Rodríguez *(EN CURSO // HOY DOMINGO)*
+* **Fecha:** Domingo 1 de noviembre de 2026 — 14:00hs local (17:00hs ARG)
+* **Circuito:** Autódromo Hermanos Rodríguez (Ciudad de México)
+* **Longitud del Trazado:** 4.304 km (71 vueltas — 305.354 km)
+* **Familia UNDERTRACK:** Familia 4 — *Baja Densidad Aerodinámica / Recta Extrema + Estadio Foro Sol*
+* **Gemelos de Referencia:** 
+  * Monza ($r = 0.792$ en velocidad punta y drag reducido).
+  * Red Bull Ring ($r = 0.785$ en tracción mecánica tras horquillas).
 
 ---
 
-## Ronda 21: GP de São Paulo — Interlagos *(Próxima)*
-* **Fecha:** Noviembre 2026
-* **Familia UNDERTRACK:** Familia 2 — *Mixtos y Técnicos* (Gemelo directo de COTA: $r > 0.75$)
-* *[Se habilitará al cerrar Ronda 20]*
+### 1. Condiciones y Variables Físicas del Entorno
+
+* **Altitud Extrema:** **2.285 metros sobre el nivel del mar**.
+  * Presión atmosférica reducida ($\sim 78$ kPa), lo que provoca una **pérdida del 22% en la densidad del aire**.
+  * **La Paradoja Aerodinámica:** Todos los equipos montan sus paquetes de **máxima carga aerodinámica** (alerones gigantescos de Mónaco / Hungría), pero debido a la poca densidad del aire, la carga real que apoya el monoplaza equivale a la de **Monza (baja carga)**. Los autos se vuelven flotantes e inestables en frenada.
+* **La Recta más Larga hacia la Curva 1:** **1.314 metros** desde la línea de largada hasta el vértice de Curva 1.
+  * El rebufo es brutal. Largadas desde la Pole Position quedan expuestas ante el 2° y 3° puesto. Velocidades punta de hasta **354 km/h**.
+* **Temperatura de Pista:** **46°C – 49°C** (Pista caliente y asfalto muy resbaladizo por poco uso durante el año).
+* **Compromiso Crítico de Refrigeración:**
+  * Al haber menos masa de aire, los radiadores y conductos de freno reciben un 22% menos de partículas de enfriamiento.
+  * Turbocompresor girando a **más de 105.000 RPM** para forzar oxígeno a la cámara de combustión, rozando el límite térmico del motor.
+
+---
+
+### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera de Hoy)
+
+#### A. Tesis del Embudo en Curva 1 y Riesgo de Caos
+* **Probabilidad de Safety Car en Vueltas 1 a 3: 54.2%.**  
+  Tras 1.3 km de acelerador a fondo, tres monoplazas intentarán entrar en paralelo a una chicana cerrada (Curva 1 a 88 km/h). El riesgo de toques y roturas de alerones delanteros es el más alto del calendario junto a Monza.
+* **Tesis de Pole Position:** El poleman tiene una penalidad por drag: en el 68% de las últimas ediciones, el auto que largó 2° o 3° tomó la punta antes de la Curva 1 aprovechando la estela aerodinámica.
+
+#### B. Tesis Térmica y Sensibilidad de Motores
+* **Ferrari & Red Bull:** Chasis con empaquetamiento eficiente de pontones. Ferrari gestiona mejor el flujo interno hacia el MGU-K en aire caliente. Verstappen cuenta con ventaja en la tracción mecánica lenta del Foro Sol (Curvas 12 a 16).
+* **McLaren:** Pese a contar con buena velocidad de punta, el modelo de temperatura proyecta estrés en los frenos traseros si ruedan en tráfico sucio más de 6 vueltas seguidas sin aire limpio.
+
+#### C. Cruce de Perfiles de Piloto en México
+* **Élite Metronómico (Verstappen, Leclerc, Hamilton):**
+  * Tienen el desafío de gestionar el sobrecalentamiento de frenos sin perder consistencia en las eses enlazadas del Sector 2 (Curvas 7 a 11). Si consiguen aire limpio, son candidatos firmes al podio.
+* **Gestores de Midfield (Colapinto, Hülkenberg):**
+  * **Estrategia Objetivo:** Estirar el neumático Medio (C4) hasta la vuelta 36–40. En México el desgaste por abrasión es bajo (2/5), pero el sobrecalentamiento superficial (graining) es alto. Pilotos que no bloqueen en Curva 1 y conserven el tren trasero escalarán entre **+2 y +3 puestos** netos cuando el resto pare por degradación.
+  * **Caso Franco Colapinto (Alpine #43):** Tras el abandono en Austin, el motor nuevo y la configuración de frenos refrigerados le permiten atacar en las frenadas de la recta. Pronóstico: pelea en el pelotón del P8 al P11.
+* **Pilotos del Caos (Bearman, Stroll):**
+  * Su única ventana de puntos radica en una neutralización temprana (VSC / SC) que les permita una parada gratis ("cheap pit stop") para colocar compuesto Duro (C3) e ir hasta el final.
+
+#### D. Estrategia Óptima Nominal de Paradas
+* **Plan A (Recomendado):** **1 Parada:** Medio (C4) $\to$ Duro (C3).
+  * Ventana de parada: Vueltas 28 a 34.
+  * El pitlane de México es largo (pérdida de 23.5 segundos); hacer 2 paradas exige recortar 1.1s por vuelta en pista, algo matemáticamente inviable por el tráfico y la falta de aire limpio.
+
+---
+
+### 3. Tablero de Predicciones Concretas (Para Validar Post-Carrera)
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK (Pre-Carrera México) | Parámetro Físico / Algorítmico |
+| :--- | :--- | :--- |
+| **Líder al salir de Curva 1** | El auto que larga 2° o 3° liderará la carrera superando al poleman por rebufo en los 1.314m. | Efecto estela aerodinámica en recta de baja densidad (-22%). |
+| **Incidencias en Largada** | Al menos una neutralización (Safety Car o Virtual Safety Car) en las primeras 5 vueltas. | Embudo masivo en frenada de 350 a 88 km/h. |
+| **Estrategia Ganadora** | 1 sola parada en boxes (C4 Medio $\to$ C3 Duro) entre vueltas 28 y 35. | Pérdida de 23.5s en pitlane castiga la doble parada. |
+| **Rendimiento Colapinto (Alpine)** | Ganancia neta de puestos ($\ge +2$) con ritmo regular y gestión de temperatura en frenos. | Cluster Gestor de Midfield en circuito de baja abrasión asfáltica. |
+| **Duelo por la Victoria** | Batalla cerrada entre Red Bull y Ferrari, con ventaja para quien conserve gomas traseras en Foro Sol. | Tracción mecánica en horquillas lentas (Familia Mixta/Técnica). |
+| **Alerta de Confiabilidad** | Al menos un abandono por causa de sobrecalentamiento de motor, frenos o turbo. | Estrés térmico por aire enrarecido a 2.285m de altitud. |
+
+---
+
+## Ronda 21: GP de São Paulo — Interlagos *(Próxima — Domingo 8 de Noviembre)*
+* **Fecha:** Domingo 8 de noviembre de 2026 — 14:00hs local (14:00hs ARG)
+* **Circuito:** Autódromo José Carlos Pace (Interlagos, São Paulo)
+* **Familia UNDERTRACK:** Familia 2 — *Mixtos y Técnicos*
+* **Gemelo de Referencia:** Red Bull Ring (Spielberg, Austria) con **84.6% de correlación mecánica**.
+* **Particularidad Central:** 43 metros de desnivel natural, tracción en subida desde Junção hacia la recta principal, y alta exigencia en balance mecánico.
+* *[Se habilitará al concluir la validación del GP de México]*
 
 ---
 
