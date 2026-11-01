@@ -36,7 +36,6 @@
   </script>
   <link rel="stylesheet" href="estilos.css">
 </head>
-</head>
 <body class="bg-[#070b0d] text-white font-sans antialiased min-h-screen selection:bg-neonOrange selection:text-white" style="overflow-x: clip;">
 
   <div class="w-full mx-auto relative bg-[#070b0d]" style="overflow-x: clip;">
@@ -1185,44 +1184,101 @@
   <!-- MODAL SÍNTESIS EDITORIAL PARA MATEO (STREAM/REEL/FANTASY)  -->
   <!-- ======================================================== -->
   <div id="mateoModal" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden select-none">
-    <div class="w-full max-w-2xl bg-[#082124] border border-tealSage/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white relative animate-in fade-in zoom-in-95 duration-200">
+    <div class="w-full max-w-2xl bg-[#082124] border border-tealSage/40 rounded-3xl p-5 sm:p-7 shadow-2xl text-white relative animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]">
       
       <!-- Botón Cerrar -->
       <button type="button" onclick="closeMateoModal()" class="absolute top-5 right-5 text-white/60 hover:text-white text-xl cursor-pointer">✕</button>
 
       <!-- Encabezado Modal -->
-      <div class="flex items-center gap-3 mb-4">
-        <span class="w-3 h-3 bg-neonOrange rotate-45"></span>
-        <div>
-          <span class="text-[10px] font-mono text-neonOrange uppercase font-bold tracking-widest block">ASISTENTE EDITORIAL // MATEO AI</span>
-          <h3 class="text-xl font-black text-white tracking-tight">Síntesis para Transmisión en Vivo</h3>
+      <div class="flex items-center justify-between gap-3 mb-3 pr-8">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 bg-neonOrange rotate-45"></span>
+          <div>
+            <span class="text-[10px] font-mono text-neonOrange uppercase font-bold tracking-widest block">ASISTENTE EDITORIAL // MATEO AI</span>
+            <h3 class="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2">
+              <span>Síntesis para Transmisión</span>
+              <span id="groqLiveBadge" class="hidden text-[9px] font-mono uppercase bg-neonOrange/20 border border-neonOrange text-neonOrange px-2 py-0.5 rounded-full animate-pulse">Llama 3 en vivo</span>
+            </h3>
+          </div>
+        </div>
+        
+        <!-- Piloto Activo Badge -->
+        <div id="modalPilotBadge" class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-sans font-bold uppercase text-white/90">
+          <span class="text-neonOrange">Piloto:</span>
+          <span id="modalActivePilotName">Charles Leclerc</span>
         </div>
       </div>
 
-      <!-- Selector de 3 Formatos / Pestañas -->
-      <div class="grid grid-cols-3 gap-2 p-1 bg-black/40 rounded-xl border border-white/10 mb-4">
-        <button id="tabBtnStream" onclick="setMateoTab('stream')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-neonOrange text-white shadow-md cursor-pointer transition-all">
-          🎙️ Stream / Intro
+      <!-- Selector de Formatos / Pestañas (Stream, Reel, Fantasy + Chat Groq) -->
+      <div class="grid grid-cols-4 gap-1.5 p-1 bg-black/40 rounded-xl border border-white/10 mb-2.5 text-center">
+        <button id="tabBtnStream" onclick="setMateoTab('stream')" type="button" class="py-2 px-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-neonOrange text-white shadow-md cursor-pointer transition-all">
+          🎙️ Stream
         </button>
-        <button id="tabBtnReel" onclick="setMateoTab('reel')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
-          📱 Reel (30s)
+        <button id="tabBtnReel" onclick="setMateoTab('reel')" type="button" class="py-2 px-1 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
+          📱 Reel 30s
         </button>
-        <button id="tabBtnFantasy" onclick="setMateoTab('fantasy')" type="button" class="py-2 px-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
-          🎯 Fantasy / Apuesta
+        <button id="tabBtnFantasy" onclick="setMateoTab('fantasy')" type="button" class="py-2 px-1 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all">
+          🎯 Fantasy
+        </button>
+        <button id="tabBtnGroq" onclick="setMateoTab('groq')" type="button" class="py-2 px-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-white/10 text-neonOrange hover:bg-neonOrange/20 border border-neonOrange/40 cursor-pointer transition-all flex items-center justify-center gap-1">
+          <span>⚡</span>
+          <span>Groq IA</span>
         </button>
       </div>
 
-      <!-- Caja de Texto del Guion -->
-      <div class="p-4 sm:p-5 rounded-2xl bg-black/50 border border-white/10 min-h-[160px] max-h-[260px] overflow-y-auto mb-4 font-sans text-xs sm:text-sm font-light text-white/95 leading-relaxed" id="mateoModalText">
+      <!-- Botones Rápidos para Generar con Groq IA en 1 clic -->
+      <div id="groqActionChips" class="flex flex-wrap items-center gap-1.5 mb-2">
+        <span class="text-[9px] font-mono uppercase text-tealSage/70 mr-1 hidden sm:inline">Generar con Groq:</span>
+        <button type="button" onclick="generarGuionConGroq('stream')" class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-neonOrange/20 border border-white/10 text-[10px] text-white hover:text-neonOrange font-sans transition-all cursor-pointer">
+          ✦ Guion en vivo del piloto
+        </button>
+        <button type="button" onclick="generarGuionConGroq('reel')" class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-neonOrange/20 border border-white/10 text-[10px] text-white hover:text-neonOrange font-sans transition-all cursor-pointer">
+          ✦ Hook picante para Reel
+        </button>
+        <button type="button" onclick="generarGuionConGroq('austria')" class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-neonOrange/20 border border-white/10 text-[10px] text-white hover:text-neonOrange font-sans transition-all cursor-pointer">
+          ✦ ¿Por qué Austria anticipa Brasil?
+        </button>
+      </div>
+
+      <!-- Caja de Texto del Guion / Respuesta de Groq -->
+      <div class="relative p-4 sm:p-5 rounded-2xl bg-black/60 border border-white/10 flex-1 min-h-[170px] max-h-[250px] overflow-y-auto mb-2.5 font-sans text-xs sm:text-sm font-light text-white/95 leading-relaxed" id="mateoModalText">
         <!-- Contenido dinámico -->
       </div>
 
-      <!-- Footer Modal con Botón Copiar -->
-      <div class="flex items-center justify-between pt-2 border-t border-white/10">
-        <span class="text-[10px] font-mono text-tealSage">Datos cruzados: 304 GPs • Modelos K-Means & Pearson</span>
-        <button id="btnCopyMateo" type="button" onclick="copyMateoText()" class="flex items-center gap-2 px-5 py-2 rounded-full bg-neonOrange hover:bg-neonOrange/90 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-neonOrange/30 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+      <!-- Campo de Entrada para Preguntarle a Groq -->
+      <div id="groqInputContainer" class="flex items-center gap-2 mb-2">
+        <div class="relative flex-1">
+          <input id="groqCustomInput" type="text" placeholder="Preguntale a la telemetría de Interlagos (ej: ¿quién cuida mejor las gomas si llueve?)..." 
+                 class="w-full bg-black/60 border border-tealSage/30 focus:border-neonOrange focus:outline-none rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/40 font-sans"
+                 onkeydown="if(event.key==='Enter') enviarPreguntaGroq()">
+        </div>
+        <button id="btnGroqSend" type="button" onclick="enviarPreguntaGroq()" 
+                class="px-4 py-2 rounded-xl bg-neonOrange hover:bg-neonOrange/90 text-white text-xs font-black tracking-wider uppercase shadow-md shadow-neonOrange/30 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <span id="groqSendIcon">⚡</span>
+          <span id="groqSendText">Preguntar</span>
+        </button>
+      </div>
+
+      <!-- Footer Modal: Configuración de API Key (colapsable) + Botón Copiar -->
+      <div class="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[10px]">
+        <details id="groqKeyDetails" class="cursor-pointer group">
+          <summary class="text-tealSage hover:text-white transition-colors flex items-center gap-1 select-none font-mono">
+            <span>🔑</span>
+            <span id="groqKeyStatusLabel">Configurar API Key de Groq (gsk_...)</span>
+          </summary>
+          <div class="mt-2 flex items-center gap-2 p-2 rounded-xl bg-black/80 border border-white/10">
+            <input id="groqApiKeyInput" type="password" placeholder="Pegá tu API key: gsk_..." 
+                   class="bg-black/50 border border-white/20 rounded-lg px-2.5 py-1 text-[11px] text-white w-60 sm:w-72 focus:border-neonOrange focus:outline-none font-mono">
+            <button type="button" onclick="guardarGroqKey()" class="px-3 py-1 rounded-lg bg-tealSage/30 hover:bg-tealSage text-white hover:text-black font-bold uppercase transition-all">
+              Guardar
+            </button>
+          </div>
+        </details>
+
+        <!-- Botón Copiar Texto -->
+        <button id="btnCopyMateo" type="button" onclick="copyMateoText()" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer ml-auto">
           <span id="copyBtnIcon">📋</span>
-          <span id="copyBtnLabel">Copiar Guion</span>
+          <span id="copyBtnLabel">Copiar Texto</span>
         </button>
       </div>
 
@@ -1314,7 +1370,6 @@
     </div>
   </div>
 
-  <script>
   <script src="data/data.js"></script>
   <script src="script.js" defer></script>
 </body>

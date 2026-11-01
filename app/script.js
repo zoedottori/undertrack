@@ -289,12 +289,13 @@
     })();
 
     // ========================================================
-    // 4. MÓDULO EDITORIAL DE MATEO (MODAL SÍNTESIS)
+    // 4. MÓDULO EDITORIAL DE MATEO (MODAL SÍNTESIS CON GROQ IA)
     // ========================================================
     const mateoEditorialData = {
       stream: `«Bienvenidos a la previa técnica de UNDERTRACK para el Gran Premio de São Paulo. Mucha atención hoy con la temperatura del asfalto: si pasa los 40 grados en San Pablo, el modelo de IA le prende fuego la alarma roja a McLaren. Pierden 1.2 puestos promedio en tandas largas por fatiga del tren delantero. Si Ferrari y Verstappen aguantan los primeros doce giros, la carrera cambia de manos en la subida de Junção. Ojo con la S do Senna en la largada: setenta y tres por ciento de probabilidad histórica de neutralización. Franco Colapinto larga con gomas medias y aire limpio: si el pelotón medio degrada rápido, tiene ritmo para pescar puntos.»`,
       reel: `🔥 ALERTA F1 BRASIL: ¿Por qué McLaren puede perder la carrera aunque hagan la Pole?\n\nEl modelo de IA de UNDERTRACK analizó más de 300 Grandes Premios: cuando el asfalto supera los 40°C, McLaren se cae a pedazos (-1.20 puestos en tandas largas) por micro-deslizamiento en curva lenta.\n\n¿Los favoritos según la física del circuito? Ferrari (+0.11 en calor) y Max Verstappen con su tracción mecánica. \n\n¿Y Franco Colapinto? En circuitos técnicos los gestores de gomas promedian +1.15 puestos ganados. ¡Guardá este video antes de la largada!`,
-      fantasy: `🎯 CONSEJO FANTASY & APUESTA // UNDERTRACK BRASIL:\n• Evitar doble alineación de McLaren si el domingo hay sol y el asfalto pasa los 40°C (penalidad histórica de -1.20 puestos).\n• Valor Máximo: Charles Leclerc y Lewis Hamilton (+0.11 diferencial positivo en calor y chasis SF-26 superior en tracción en Junção).\n• Sleeper del Pelotón Medio: Franco Colapinto (#43 Alpine) con 88 en gestión de gomas y promedio de +1.26 puestos en pistas técnicas.`
+      fantasy: `🎯 CONSEJO FANTASY & APUESTA // UNDERTRACK BRASIL:\n• Evitar doble alineación de McLaren si el domingo hay sol y el asfalto pasa los 40°C (penalidad histórica de -1.20 puestos).\n• Valor Máximo: Charles Leclerc y Lewis Hamilton (+0.11 diferencial positivo en calor y chasis SF-26 superior en tracción en Junção).\n• Sleeper del Pelotón Medio: Franco Colapinto (#43 Alpine) con 88 en gestión de gomas y promedio de +1.26 puestos en pistas técnicas.`,
+      groq: `⚡ ASISTENTE EN VIVO CON GROQ // LLAMA 3.3\n\nEscribí una pregunta técnica abajo o tocá uno de los botones rápidos para que la IA genere un análisis periodístico al instante en base a la telemetría real de Interlagos.\n\nEjemplos:\n• ¿Por qué el desnivel de 43m castiga a Williams?\n• ¿Quién tiene ventaja en tracción en la subida de Junção?\n• ¿Cómo impacta la lluvia en los pilotos de mitad de grilla?`
     };
 
     let activeMateoTab = 'stream';
@@ -302,6 +303,21 @@
     function openMateoModal() {
       const modal = document.getElementById('mateoModal');
       if (modal) modal.classList.remove('hidden');
+      
+      // Sincronizar badge de piloto activo
+      const pilotNameBadge = document.getElementById('modalActivePilotName');
+      const p = (typeof pilotsData !== 'undefined' && pilotsData[activePilotId]) ? pilotsData[activePilotId] : null;
+      if (pilotNameBadge && p) pilotNameBadge.textContent = p.name;
+
+      // Verificar si hay API key guardada
+      const savedKey = localStorage.getItem('groq_api_key');
+      const statusLabel = document.getElementById('groqKeyStatusLabel');
+      const keyInput = document.getElementById('groqApiKeyInput');
+      if (savedKey) {
+        if (statusLabel) statusLabel.textContent = 'API Key de Groq configurada ✓';
+        if (keyInput) keyInput.value = savedKey;
+      }
+
       setMateoTab(activeMateoTab);
     }
 
@@ -330,32 +346,211 @@
     function setMateoTab(tabKey) {
       activeMateoTab = tabKey;
       const textBox = document.getElementById('mateoModalText');
-      if (textBox) textBox.textContent = mateoEditorialData[tabKey];
+      if (textBox && mateoEditorialData[tabKey]) {
+        textBox.innerHTML = `<div class="whitespace-pre-line">${mateoEditorialData[tabKey]}</div>`;
+      }
 
-      const tabs = ['stream', 'reel', 'fantasy'];
+      const tabs = ['stream', 'reel', 'fantasy', 'groq'];
       tabs.forEach(t => {
         const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
         if (!btn) return;
         if (t === tabKey) {
-          btn.className = 'py-2 px-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-neonOrange text-white shadow-md cursor-pointer transition-all';
+          btn.className = 'py-2 px-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-neonOrange text-white shadow-md cursor-pointer transition-all';
         } else {
-          btn.className = 'py-2 px-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all';
+          btn.className = 'py-2 px-1 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider text-tealSage hover:text-white cursor-pointer transition-all';
         }
       });
     }
 
     function copyMateoText() {
-      const text = mateoEditorialData[activeMateoTab];
+      const text = mateoEditorialData[activeMateoTab] || '';
       navigator.clipboard.writeText(text).then(() => {
         const label = document.getElementById('copyBtnLabel');
         const icon = document.getElementById('copyBtnIcon');
         if (label) label.textContent = '¡Copiado!';
         if (icon) icon.textContent = '✓';
         setTimeout(() => {
-          if (label) label.textContent = 'Copiar Guion';
+          if (label) label.textContent = 'Copiar Texto';
           if (icon) icon.textContent = '📋';
         }, 2000);
       });
+    }
+
+    // ========================================================
+    // 4.1 INTEGRACIÓN EN VIVO CON GROQ (LLAMA 3.3)
+    // ========================================================
+    function guardarGroqKey() {
+      const input = document.getElementById('groqApiKeyInput');
+      const label = document.getElementById('groqKeyStatusLabel');
+      const details = document.getElementById('groqKeyDetails');
+      if (!input) return;
+      const key = input.value.trim();
+      if (key.startsWith('gsk_')) {
+        localStorage.setItem('groq_api_key', key);
+        if (label) label.textContent = 'API Key guardada con éxito ✓';
+        if (details) details.open = false;
+      } else {
+        alert('Por favor pegá una API Key válida de Groq (debe comenzar con gsk_).');
+      }
+    }
+
+    function buildGroqSystemPrompt() {
+      const p = (typeof pilotsData !== 'undefined' && pilotsData[activePilotId]) 
+                ? pilotsData[activePilotId] 
+                : { name: 'Charles Leclerc', team: 'Ferrari', cluster: 'ÉLITE METRONÓMICO', kpiConsistencia: '1.27', kpiPuestos: '+1.28', prediction: 'Favorable por balance en S2' };
+
+      return `Sos el copiloto editorial y analista técnico de Mateo, periodista de F1 en streaming y podcasts.
+Respondé en español rioplatense, directo, contundente y con lenguaje de automovilismo profesional (stints, graining, carga lateral, balance mecánico, telemetría).
+Tus respuestas deben ser breves (2 a 4 oraciones), ideales para leer en voz alta al aire o armar un reel.
+
+DATOS OFICIALES DE UNDERTRACK (CONTEXTO EMPÍRICO):
+- Circuito: Autódromo de Interlagos (San Pablo, Brasil).
+- Física de la pista: 43 metros de desnivel, tracción en subida desde Junção hacia la recta, frenada Brembo 4/5, abrasión Pirelli 3/5.
+- Familia K-Means: Familia 2 (Mixtos y Técnicos, K=4, inercia 59.78).
+- Gemelo mecánico: Red Bull Ring (Austria) con 84.6% de coincidencia de Pearson. Si un chasis o motor rindió en Austria, se replica en Brasil.
+- Sensibilidad térmica: McLaren pierde -1.20 puestos en calor (>40°C de asfalto). Ferrari (+0.11) y Red Bull dominan en pista caliente.
+- Piloto seleccionado en la pantalla: ${p.name} (${p.team}).
+  * Estilo de manejo: ${p.cluster}
+  * Consistencia en tanda: ${p.kpiConsistencia}s
+  * Puestos ganados promedio: ${p.kpiPuestos}
+  * Diagnóstico en pista: ${p.prediction}
+
+LÍMITES Y GUARDRAILS OBLIGATORIOS:
+1. Usá ÚNICAMENTE los datos de telemetría de UNDERTRACK provistos en este contexto.
+2. Si te preguntan algo que no esté en estos datos o fuera del automovilismo, respondé exactamente: "Ese dato no forma parte de la telemetría de UNDERTRACK." y no inventes nada.`;
+    }
+
+    async function llamarApiGroq(promptUsuario) {
+      let apiKey = localStorage.getItem('groq_api_key');
+      if (!apiKey) {
+        const inputVal = document.getElementById('groqApiKeyInput')?.value?.trim();
+        if (inputVal && inputVal.startsWith('gsk_')) {
+          apiKey = inputVal;
+          localStorage.setItem('groq_api_key', apiKey);
+        }
+      }
+
+      const textBox = document.getElementById('mateoModalText');
+      const liveBadge = document.getElementById('groqLiveBadge');
+      const sendBtn = document.getElementById('btnGroqSend');
+      const sendIcon = document.getElementById('groqSendIcon');
+      const sendText = document.getElementById('groqSendText');
+
+      // Si no hay key, invitar a colocarla de forma prolija
+      if (!apiKey) {
+        if (textBox) {
+          textBox.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-neonOrange/15 border border-neonOrange/40 text-white">
+              <span class="font-black text-neonOrange block mb-1">🔑 FALTA TU API KEY DE GROQ</span>
+              <p class="text-xs text-white/90 mb-2">Para que Llama 3 responda en vivo desde tu navegador, pegá tu clave gratuita de Groq (empieza con <code class="font-mono bg-black/60 px-1 py-0.5 rounded text-neonOrange">gsk_...</code>) en el campo inferior de configuración.</p>
+              <p class="text-[11px] text-tealSage">La podés generar gratis en 30 segundos en <a href="https://console.groq.com/keys" target="_blank" class="underline text-neonOrange font-bold">console.groq.com/keys</a>.</p>
+            </div>
+          `;
+        }
+        const details = document.getElementById('groqKeyDetails');
+        if (details) details.open = true;
+        return;
+      }
+
+      // Estado de carga visual
+      if (sendBtn) sendBtn.disabled = true;
+      if (sendIcon) sendIcon.textContent = '⏳';
+      if (sendText) sendText.textContent = 'Pensando...';
+      if (liveBadge) liveBadge.classList.remove('hidden');
+
+      if (textBox) {
+        textBox.innerHTML = `
+          <div class="flex items-center gap-3 py-8 justify-center text-tealSage">
+            <svg class="animate-spin h-5 w-5 text-neonOrange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span class="text-xs font-mono uppercase tracking-wider text-white">Consultando telemetría en Groq (Llama 3.3)...</span>
+          </div>
+        `;
+      }
+
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: buildGroqSystemPrompt() },
+              { role: 'user', content: promptUsuario }
+            ],
+            temperature: 0.5,
+            max_tokens: 300
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error?.message || `Error ${response.status}: no se pudo conectar con Groq.`);
+        }
+
+        const data = await response.json();
+        const textoRespuesta = data.choices?.[0]?.message?.content || 'No se recibió respuesta.';
+
+        if (textBox) {
+          textBox.innerHTML = `
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
+              <span class="text-[10px] font-mono text-neonOrange uppercase font-bold tracking-wider">⚡ RESPUESTA GROQ // LLAMA 3.3</span>
+              <span class="text-[9px] font-mono text-tealSage">${new Date().toLocaleTimeString()}</span>
+            </div>
+            <div class="whitespace-pre-line text-white/95 leading-relaxed font-sans text-xs sm:text-sm">
+              ${textoRespuesta}
+            </div>
+          `;
+          mateoEditorialData['groq'] = textoRespuesta;
+          activeMateoTab = 'groq';
+        }
+      } catch (error) {
+        if (textBox) {
+          textBox.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-red-900/30 border border-red-500/50 text-white">
+              <span class="font-black text-red-400 block mb-1">⚠️ ERROR DE CONEXIÓN CON GROQ</span>
+              <p class="text-xs text-white/90">${error.message}</p>
+              <p class="text-[11px] text-tealSage mt-2">Verificá que tu API Key comience con gsk_ y esté activa en console.groq.com.</p>
+            </div>
+          `;
+        }
+      } finally {
+        if (sendBtn) sendBtn.disabled = false;
+        if (sendIcon) sendIcon.textContent = '⚡';
+        if (sendText) sendText.textContent = 'Preguntar';
+      }
+    }
+
+    function generarGuionConGroq(tipo) {
+      const p = (typeof pilotsData !== 'undefined' && pilotsData[activePilotId]) 
+                ? pilotsData[activePilotId] 
+                : { name: 'Charles Leclerc' };
+
+      let prompt = '';
+      if (tipo === 'stream') {
+        prompt = `Generá una apertura de streaming de 3 oraciones analizando las chances de ${p.name} en el GP de Interlagos según su estilo de manejo y la física de la pista.`;
+      } else if (tipo === 'reel') {
+        prompt = `Generá un guion de 30 segundos para reel con un gancho picante sobre ${p.name}, el asfalto caliente de Brasil y su predicción técnica.`;
+      } else if (tipo === 'austria') {
+        prompt = `Explicá en 3 oraciones por qué la correlación mecánica del 84.6% entre el Red Bull Ring de Austria e Interlagos permite anticipar el rendimiento de los monoplazas en Brasil.`;
+      }
+      llamarApiGroq(prompt);
+    }
+
+    function enviarPreguntaGroq() {
+      const input = document.getElementById('groqCustomInput');
+      if (!input) return;
+      const pregunta = input.value.trim();
+      if (!pregunta) {
+        generarGuionConGroq('stream');
+        return;
+      }
+      llamarApiGroq(pregunta);
     }
 
 
