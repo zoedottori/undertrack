@@ -389,6 +389,25 @@
     .animate-spin-slow {
       animation: spinSlow 18s linear infinite;
     }
+  
+    /* Adaptaciones Mobile & Touch */
+    @media (max-width: 640px) {
+      .fan-card {
+        width: 205px !important;
+        height: 320px !important;
+        border-radius: 20px !important;
+      }
+      .fan-card.is-active {
+        transform: translateX(0px) translateY(-14px) rotate(0deg) scale(1.06) !important;
+      }
+    }
+
+    /* Prevenir overflow horizontal en toda la web */
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
   </style>
 </head>
 <body class="bg-canvas text-carbon antialiased selection:bg-carbon selection:text-pureWhite">
@@ -425,7 +444,7 @@
        FLOATING ROUNDED HEADER (ADAPTABLE DINÁMICAMENTE)
        ======================================================== -->
   <div class="fixed top-5 left-0 right-0 z-50 px-5 sm:px-8 pointer-events-none">
-    <header id="mainHeaderPill" class="header-dark-mode max-w-5xl mx-auto h-14 bg-pureWhite/90 pill-blur border border-hairline rounded-full px-6 sm:px-8 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] pointer-events-auto transition-all duration-300">
+    <header id="mainHeaderPill" class="header-dark-mode w-[94%] sm:w-full max-w-5xl mx-auto h-12 sm:h-14 bg-pureWhite/90 pill-blur border border-hairline rounded-full px-4 sm:px-8 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] pointer-events-auto transition-all duration-300">
       
       <!-- Marca: RONDA 21 en mayúscula completa -->
       <a href="#" class="flex items-baseline gap-1.5 group">
@@ -445,7 +464,7 @@
       </nav>
 
       <!-- Botón Mateo -->
-      <a href="#verdict" class="desk-cta px-5 py-2 rounded-full bg-carbon text-pureWhite text-xs font-[600] tracking-tight hover:scale-105 transition-all">
+      <a href="#verdict" class="desk-cta px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-carbon text-pureWhite text-[11px] sm:text-xs font-[700] tracking-tight hover:scale-105 transition-all shrink-0">
         editorial desk_
       </a>
 
@@ -459,7 +478,7 @@
        - Timer centrado en Inter Black (font-[900]) con efecto overlay
        - Etiquetas (días, horas, minutos, segundos) debajo de cada número
        ======================================================== -->
-  <section id="hero" class="relative w-full min-h-[640px] h-screen max-h-screen flex flex-col justify-between overflow-hidden select-none text-pureWhite">
+  <section id="hero" class="relative w-full min-h-[580px] h-[100dvh] lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-hidden select-none text-pureWhite">
     
     <!-- FONDO PANTALLA 01: IMAGEN_PORTADA.PNG EDGE TO EDGE -->
     <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
@@ -492,7 +511,7 @@
           <div class="absolute inset-0 bg-white/[0.04] blur-3xl pointer-events-none mix-blend-overlay"></div>
 
           <!-- Bloque con números más transparentes (text-white/40 mix-blend-overlay) -->
-          <div class="flex items-start justify-center font-[900] text-[clamp(2.5rem,8.2vw,8.2rem)] text-white/40 mix-blend-overlay tracking-tight leading-none tabular-nums select-none drop-shadow-[0_0_35px_rgba(255,255,255,0.3)]">
+          <div class="flex items-start justify-center font-[900] text-[clamp(1.85rem,7.5vw,7.8rem)] text-white/40 mix-blend-overlay tracking-tight leading-none tabular-nums select-none drop-shadow-[0_0_35px_rgba(255,255,255,0.3)]">
             
             <!-- DÍAS -->
             <div class="flex flex-col items-center">
@@ -629,7 +648,7 @@
   <section id="surface" class="relative w-full bg-[#000000] text-pureWhite overflow-hidden scroll-mt-0">
     
     <!-- PANTALLA COMPLETA 1: DASHBOARD DEL CIRCUITO -->
-    <div class="relative w-full h-screen max-h-screen min-h-[620px] flex flex-col justify-between overflow-hidden">
+    <div class="relative w-full min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-hidden py-16 sm:py-20 lg:py-0">
       
       <!-- Fondo: ÚNICAMENTE pantalla03.png sin recortes extraños -->
       <img src="assets/circuitos/pantalla03.png" alt="Circuito Interlagos Fondo" 
@@ -639,7 +658,7 @@
       <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60 pointer-events-none"></div>
 
       <!-- CONTENEDOR DE CONTENIDO SUPERPUESTO (AJUSTADO A VIEWPORT) -->
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pt-20 sm:pt-24 pb-4 sm:pb-5 h-full flex flex-col justify-between">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 pt-16 sm:pt-24 pb-6 sm:pb-5 h-full flex flex-col justify-between space-y-8 lg:space-y-0">
 
         <!-- ENCABEZADO SUPERPUESTO LIMPIO -->
         <div class="text-left shrink-0 mb-1 sm:mb-2">
@@ -1310,7 +1329,7 @@
       <div class="absolute inset-0" onclick="closePilotModal()"></div>
 
       <!-- POP-UP RECTANGULAR ELEGANTE CON EFECTO VIDRIO TRASLÚCIDO Y TIPOGRAFÍA CLARA -->
-      <div class="relative z-10 w-full max-w-3xl bg-white/85 backdrop-blur-2xl rounded-2xl p-6 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-white/70 overflow-hidden max-h-[88vh] overflow-y-auto transform transition-all duration-300 scale-95" id="pilotModalContent">
+      <div class="relative z-10 w-full max-w-3xl bg-white/90 sm:bg-white/85 backdrop-blur-2xl rounded-2xl p-4 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-white/70 overflow-hidden max-h-[90vh] sm:max-h-[88vh] overflow-y-auto transform transition-all duration-300 scale-95" id="pilotModalContent">
         
         <!-- Botón de Cierre ✕ -->
         <button onclick="closePilotModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/5 text-[#111114] hover:bg-[#111114] hover:text-white flex items-center justify-center font-[800] text-xs transition-all shadow-sm z-30">
@@ -2237,6 +2256,38 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     }
 
     // Algoritmo de despliegue en abanico simétrico para 11 cartas
+    
+    // NAVEGACIÓN TÁCTIL Y FLECHAS PARA EL MAZO DE CARTAS
+    window.cyclePilot = function(direction) {
+      if (!pilotsDB || pilotsDB.length === 0) return;
+      activePilotIndex = (activePilotIndex + direction + pilotsDB.length) % pilotsDB.length;
+      renderFanSpread(1.0);
+    };
+
+    // SOPORTE TOUCH SWIPE PARA CELULARES
+    (function setupTouchSwipe() {
+      const container = document.getElementById('fanDeckContainer');
+      if (!container) return;
+      let startX = 0;
+      let endX = 0;
+
+      container.addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        const diff = endX - startX;
+        if (Math.abs(diff) > 40) {
+          if (diff < 0) {
+            cyclePilot(1); // Swipe izquierda -> siguiente
+          } else {
+            cyclePilot(-1); // Swipe derecha -> anterior
+          }
+        }
+      }, { passive: true });
+    })();
+
     function renderFanSpread(spreadFactor = 1.0) {
       if (!fanStage) return;
 
