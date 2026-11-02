@@ -66,7 +66,8 @@ nombre_proyecto/
 │   └── modelado_y_evaluacion.py
 ├── entregas/               # Registro documental por entrega
 │   ├── entrega_1/
-│   └── entrega_2/
+│   ├── entrega_2/
+│   └── entrega_3/
 └── app/                    # Directorio de producción para publicación web
     ├── index.html          # Estructura principal
     ├── estilos.css         # Hoja de estilos
@@ -92,12 +93,4 @@ nombre_proyecto/
 4. FIA CIRCUIT HOMOLOGATION & BREMBO DATA
    Topografía, longitud oficial, cantidad de curvas y escalas de severidad de frenada.
 
----
 
-## DESPLIEGUE EN VERCEL / NETLIFY
-
-Para publicar el sitio en plataformas de hosting estático:
-1. Conectar el repositorio de GitHub.
-2. Configurar la carpeta `app` como Root Directory (directorio raíz del proyecto).
-3. No se requiere comando de compilación (Build Command vacío).
-4. El directorio de salida (Output Directory) es la misma carpeta `app`.
