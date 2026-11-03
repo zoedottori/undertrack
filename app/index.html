@@ -262,18 +262,20 @@
 
     .fan-card {
       position: absolute;
-      width: 240px;
-      height: 375px;
-      border-radius: 28px;
+      width: 245px;
+      height: 345px;
+      border-radius: 24px;
       overflow: hidden;
       cursor: pointer;
-      transform-origin: center 130%;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
-                  box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
-                  filter 0.5s ease,
-                  opacity 0.5s ease;
-      will-change: transform, box-shadow, filter;
+      transform-origin: center 115%;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.35s ease;
+      will-change: transform, box-shadow;
       user-select: none;
+      background-color: #121316;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
     }
 
     .fan-card.is-active {
@@ -397,9 +399,9 @@
     /* Adaptaciones Mobile & Touch */
     @media (max-width: 640px) {
       .fan-card {
-        width: 205px !important;
-        height: 320px !important;
-        border-radius: 20px !important;
+        width: 175px !important;
+        height: 245px !important;
+        border-radius: 18px !important;
       }
       .fan-card.is-active {
         transform: translateX(0px) translateY(-14px) rotate(0deg) scale(1.06) !important;
@@ -553,7 +555,7 @@
         <a href="#transition-weather" id="nav-pressure" class="nav-link text-muted hover:text-carbon transition-colors">clima</a>
         <a href="#signal" id="nav-signal" class="nav-link text-muted hover:text-carbon transition-colors">gemelo</a>
         <a href="#helmet" id="nav-helmet" class="nav-link text-muted hover:text-carbon transition-colors">pilotos</a>
-        <a href="#crossover" id="nav-crossover" class="nav-link text-muted hover:text-carbon transition-colors">choque</a>
+        <a href="#crossover" id="nav-crossover" class="nav-link text-muted hover:text-carbon transition-colors">el cruce</a>
         
       </nav>
 
@@ -793,8 +795,7 @@
         <div class="text-left shrink-0 mb-1 sm:mb-2">
           <span class="text-[11px] sm:text-xs text-white/70 uppercase font-[700] block mb-1 tracking-wider drop-shadow-md">01 / superficie</span>
           <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            INTERLAGOS EN TELEMETRÍA <br>
-            <span class="font-[200] text-white/80 normal-case text-base sm:text-2xl md:text-3xl">43 metros de desnivel entre dos lagos</span>
+            INTERLAGOS EN TELEMETRÍA
           </h2>
         </div>
 
@@ -952,17 +953,14 @@
       <div id="taxonomySection" class="absolute inset-0 z-20 flex flex-col justify-center items-center px-4 sm:px-10 pointer-events-none will-change-transform opacity-0 bg-transparent">
         <div class="w-full max-w-7xl mx-auto py-8 sm:py-12">
           
-          <!-- ENCABEZADO SIMPLIFICADO: MINIMALISTA EN VISUAL Y TEXTO -->
+          <!-- ENCABEZADO MINIMALISTA: MENOR TAMAÑO Y GRIS CLARO -->
           <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-8 pb-3 border-b border-white/10 gap-2 px-1">
-            <div class="space-y-0.5">
-              <span class="text-[10px] uppercase font-mono font-[700] tracking-widest text-[#d4ff32] block">
-                telemetría // clasificación
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-[900] uppercase text-white tracking-tight leading-none">
+            <div>
+              <h3 class="text-xs sm:text-sm font-[700] uppercase tracking-widest text-zinc-400">
                 TAXONOMÍA DE PISTAS
               </h3>
             </div>
-            <div class="text-[11px] sm:text-xs text-white/50 font-[300] tracking-wide">
+            <div class="text-[11px] text-zinc-500 font-[400] tracking-wide">
               4 familias según la exigencia física del monoplaza
             </div>
           </div>
@@ -1074,7 +1072,7 @@
        - Primera vista casi vacía con apenas el primer bloque asomándose
        - Amplio espacio entre bloques para máxima elegancia y legibilidad
        ======================================================== -->
-  <section id="pressure" class="relative w-full h-[400vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
+  <section id="pressure" class="relative w-full h-[480vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
     
     <!-- GRADIENTE SUPERIOR DE INTEGRACIÓN CON LA TRANSICIÓN -->
     <div class="absolute top-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20"></div>
@@ -1087,10 +1085,10 @@
       <path d="M200 800 C500 700, 750 850, 1100 750 C1300 700, 1600 850, 1900 800" stroke="#FFFFFF" stroke-width="1" />
     </svg>
 
-    <!-- ESCENARIO PINNED STICKY QUE SE MANTIENE FIJO DURANTE TODO EL SCROLL DE 400VH -->
-    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-6 sm:py-8 px-6 sm:px-12">
+    <!-- ESCENARIO PINNED STICKY: PADDING SUPERIOR AUMENTADO (pt-24 sm:pt-28) PARA QUE EL HEADER FIJO NO TAPE EL TÍTULO -->
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 sm:px-12">
       
-      <!-- CABECERA EDITORIAL SUPERIOR -->
+      <!-- CABECERA EDITORIAL SUPERIOR (DESPEJADA Y CÓMODA DEBAJO DEL NAVBAR GLOBAL) -->
       <div class="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-between pb-3 border-b border-white/20 shrink-0">
         <div class="text-left">
           <span class="text-[10px] uppercase font-[900] tracking-widest text-[#d4ff32] block mb-0.5">02 / clima & presión</span>
@@ -1110,13 +1108,13 @@
         </div>
       </div>
 
-      <!-- ESCENARIO CENTRAL: CENTRADO VERTICALMENTE EN PANTALLA PARA LECTURA PERFECTA -->
-      <div class="relative z-10 w-full flex-1 flex items-center overflow-visible py-4">
+      <!-- ESCENARIO CENTRAL: TRACK HORIZONTAL CON BLOQUES ASIMÉTRICOS (UNOS MÁS ARRIBA, OTROS MÁS ABAJO) -->
+      <div class="relative z-10 w-full flex-1 flex items-center overflow-visible py-2">
         
-        <div id="pressureGalleryTrack" class="flex items-center gap-20 sm:gap-32 md:gap-40 w-max will-change-transform pl-4 pr-32">
+        <div id="pressureGalleryTrack" class="flex items-center gap-20 sm:gap-32 md:gap-40 w-max will-change-transform pl-4 pr-48">
           
-          <!-- ITEM 1: 48°C ASFALTO CALIENTE (IMPACTO TÉRMICO) -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+          <!-- ITEM 1: 48°C ASFALTO CALIENTE (MÁS ARRIBA: -translate-y-8 sm:-translate-y-12) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group -translate-y-8 sm:-translate-y-12 transition-transform duration-500">
             <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
               <span class="text-white/60 font-mono">asfalto · 48°c</span>
               <span class="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-mono text-[9px] border border-red-500/30">colapso térmico</span>
@@ -1141,8 +1139,8 @@
             </div>
           </div>
 
-          <!-- ITEM 2 (CITA 1 - AYRTON SENNA): INTERCALADA -->
-          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+          <!-- ITEM 2: CITA 1 AYRTON SENNA (MÁS ABAJO: translate-y-6 sm:translate-y-10) -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2 translate-y-6 sm:translate-y-10 transition-transform duration-500">
             <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
               ayrton senna // gp de brasil
             </span>
@@ -1158,15 +1156,15 @@
             </div>
           </div>
 
-          <!-- ITEM 3 (DATO - HERO CARD): 29°C ÓPTIMO CON NORRIS & MCLAREN -->
-          <div class="w-[340px] sm:w-[440px] shrink-0 space-y-3 group">
+          <!-- ITEM 3: 29°C VENTANA FRÍA NORRIS & MCLAREN (CENTRAL MONUMENTAL: translate-y-0) -->
+          <div class="w-[340px] sm:w-[440px] shrink-0 space-y-3 group translate-y-0 transition-transform duration-500">
             <div class="flex items-center justify-between text-[10px] uppercase tracking-widest font-[800] text-white/80 px-1">
               <span>interlagos · 29°c asfalto</span>
               <span class="text-[#d4ff32] font-[900] bg-[#d4ff32]/10 px-2 py-0.5 rounded-full border border-[#d4ff32]/30 font-mono text-[9px]">ventana dorada</span>
             </div>
 
             <div class="aspect-[4/5] sm:aspect-[1/1.12] rounded-3xl overflow-hidden relative border-2 border-[#d4ff32] bg-black/60 shadow-[0_0_40px_rgba(212,255,50,0.25)]">
-              <img src="assets/pilotos/norris.jpeg" alt="Lando Norris McLaren" 
+              <img src="assets/pilotos/centered/norris.jpeg" alt="Lando Norris McLaren" 
                    class="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] group-hover:scale-102 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-transparent"></div>
               
@@ -1194,8 +1192,8 @@
             </div>
           </div>
 
-          <!-- ITEM 4 (CITA 2 - MAX VERSTAPPEN): INTERCALADA -->
-          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+          <!-- ITEM 4: CITA 2 MAX VERSTAPPEN (MÁS ARRIBA: -translate-y-6 sm:-translate-y-10) -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2 -translate-y-6 sm:-translate-y-10 transition-transform duration-500">
             <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
               max verstappen // gp de brasil
             </span>
@@ -1211,8 +1209,8 @@
             </div>
           </div>
 
-          <!-- ITEM 5: 65% LLUVIA CONVECTIVA (RULETA RUSA) -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+          <!-- ITEM 5: 65% LLUVIA CONVECTIVA (MÁS ABAJO: translate-y-10 sm:translate-y-14) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group translate-y-10 sm:translate-y-14 transition-transform duration-500">
             <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
               <span class="text-[#d4ff32] font-mono">interlagos · 65% agua</span>
               <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[9px] border border-blue-400/30">alerta tormenta</span>
@@ -1237,8 +1235,8 @@
             </div>
           </div>
 
-          <!-- ITEM 6 (CITA 3 - LEWIS HAMILTON): INTERCALADA -->
-          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+          <!-- ITEM 6: CITA 3 LEWIS HAMILTON (MÁS ARRIBA: -translate-y-8 sm:-translate-y-12) -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2 -translate-y-8 sm:-translate-y-12 transition-transform duration-500">
             <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
               lewis hamilton // gp de brasil
             </span>
@@ -1254,8 +1252,8 @@
             </div>
           </div>
 
-          <!-- ITEM 7: SAFETY CAR 73% (EL FACTOR CAOS) -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+          <!-- ITEM 7: SAFETY CAR 73% (MÁS ABAJO: translate-y-6 sm:translate-y-8) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group translate-y-6 sm:translate-y-8 transition-transform duration-500">
             <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
               <span class="text-white/60 font-mono">neutralizaciones</span>
               <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 font-mono text-[9px] border border-yellow-400/30">73% probabilidad</span>
@@ -1286,12 +1284,12 @@
 
     </div>
 
-    <!-- DIFUMINADO INFERIOR DIRECTO AL BLANCO DE GEMELO SIN LÍNEA -->
-    <div class="absolute bottom-0 inset-x-0 h-44 sm:h-64 bg-gradient-to-b from-transparent via-white/70 to-white pointer-events-none z-20"></div>
+    <!-- DIFUMINADO INFERIOR CON GENEROSO ESPACIO VACÍO HACIA GEMELO -->
+    <div class="absolute bottom-0 inset-x-0 h-56 sm:h-80 bg-gradient-to-b from-transparent via-white/80 to-white pointer-events-none z-20"></div>
 
   </section>
 
-  <section id="signal" class="relative w-full min-h-screen bg-white text-carbon overflow-hidden pt-4 sm:pt-6 pb-6 px-4 sm:px-8 scroll-mt-20 flex flex-col justify-between">
+  <section id="signal" class="relative w-full min-h-screen bg-white text-carbon overflow-hidden pt-6 sm:pt-10 pb-12 sm:pb-16 px-4 sm:px-8 scroll-mt-20 flex flex-col justify-center">
     
     <!-- LÍNEAS TOPOGRÁFICAS CURVAS DE FONDO -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
@@ -1300,11 +1298,13 @@
       <path d="M150 150 C450 300, 850 180, 1150 400 C1350 550, 1500 250, 1600 200" stroke="#111114" stroke-width="0.8" />
     </svg>
 
-    <div class="relative z-10 max-w-7xl mx-auto w-full flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
+    <div class="relative z-10 max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center space-y-6 sm:space-y-10 my-auto">
       
-      <!-- ENCABEZADO EDITORIAL SUBIDO HACIA ARRIBA -->
-      <div class="text-left pt-1 sm:pt-2">
-        <span class="text-[11px] sm:text-xs uppercase font-[800] tracking-widest text-[#00875A] block mb-0.5">03 / gemelo cinemático</span>
+      <!-- ENCABEZADO EDITORIAL SUBIDO (CON VERDE FLÚOR #d4ff32) -->
+      <div class="text-left">
+        <span class="inline-block bg-[#d4ff32] text-black font-[900] text-[10px] uppercase font-mono tracking-widest px-3 py-1 rounded-full mb-2 shadow-xs">
+          03 / gemelo cinemático
+        </span>
         <h2 class="font-[900] text-3xl sm:text-5xl lg:text-6xl uppercase leading-[1.02] tracking-tight text-carbon">
           AUSTRIA Y BRASIL COMPARTEN ADN
         </h2>
@@ -1313,16 +1313,19 @@
         </p>
       </div>
 
-      <!-- COMPARATIVA EN 3 COLUMNAS: MÁS ESPACIO ENTRE BLOQUES (GAP-10 A GAP-16) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-16 items-center my-auto py-2">
+      <!-- COMPARATIVA EN 3 COLUMNAS: MÁS ESPACIO ENTRE BLOQUES (GAP-12 A GAP-20) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-center py-4">
         
-        <!-- LADO IZQUIERDO: SÃO PAULO / INTERLAGOS (MONUMENTAL) -->
+        <!-- LADO IZQUIERDO: SÃO PAULO / INTERLAGOS (ESCRITURA LETRA POR LETRA AL SCROLLEAR) -->
         <div class="lg:col-span-5 flex flex-col justify-between space-y-4 relative group">
           <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end">
             <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
               SÃO<br>PAULO
             </h3>
-            <div class="font-caveat font-[700] text-5xl sm:text-6xl absolute -top-3 sm:-top-4 left-2 select-none pointer-events-none z-20 leading-none anim-circuit-interlagos">
+            
+            <!-- CONTENEDOR ESCRITO LETRA POR LETRA EN VERDE FLÚOR -->
+            <div id="typewriterInterlagos" 
+                 class="font-caveat font-[700] text-3xl sm:text-4xl md:text-5xl absolute -top-2 sm:-top-4 left-0 lg:left-2 select-none pointer-events-none z-20 leading-none text-[#111114] bg-[#d4ff32] px-3.5 py-1 rounded-xl shadow-[0_4px_25px_rgba(212,255,50,0.7)] border border-black/15 whitespace-nowrap">
               Interlagos
             </div>
           </div>
@@ -1332,7 +1335,7 @@
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
                 43M DE DESNIVEL VERTICAL
               </strong>
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#00875A]/15 text-[#00875A] font-[800]">+43m cota</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4ff32] text-black font-[900] shadow-xs">+43m cota</span>
             </div>
             <p class="text-xs sm:text-sm font-[300] text-carbon/80 leading-relaxed max-w-sm">
               la curva 12 desemboca en una subida ciega a fondo que anula el downforce tradicional y premia la tracción mecánica.
@@ -1340,29 +1343,29 @@
           </div>
 
           <div class="flex items-center gap-2 pt-1">
-            <span class="text-[11px] font-[800] uppercase tracking-wider text-[#00875A] bg-[#00875A]/10 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-[#00875A]"></span>
+            <span class="text-[11px] font-[900] uppercase tracking-wider text-black bg-[#d4ff32] px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+              <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
               Trazado Anfitrión
             </span>
             <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 21 · 71 Vueltas</span>
           </div>
         </div>
 
-        <!-- CENTRO: DIAL CIRCULAR DE CORRELACIÓN CON AIRE Y ESPACIADO -->
+        <!-- CENTRO: DIAL CIRCULAR DE CORRELACIÓN CON VERDE FLÚOR #d4ff32 -->
         <div class="lg:col-span-2 flex flex-col items-center justify-center py-2 relative px-2">
           <div class="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-52 lg:h-52 flex items-center justify-center">
-            <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-[#00875A]/25 via-[#d4ff32]/35 to-[#00875A]/25 blur-xl animate-pulse pointer-events-none"></div>
+            <div class="absolute -inset-2 rounded-full bg-[#d4ff32]/35 blur-xl animate-pulse pointer-events-none"></div>
 
             <svg class="w-full h-full -rotate-90 filter drop-shadow-lg" viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r="68" class="dial-circle-bg"/>
-              <circle cx="80" cy="80" r="68" class="dial-circle-progress stroke-[#00875A]" id="dialProgress"/>
+              <circle cx="80" cy="80" r="68" class="dial-circle-bg stroke-black/10" stroke-width="10" fill="none"/>
+              <circle cx="80" cy="80" r="68" class="dial-circle-progress stroke-[#d4ff32]" stroke-width="12" fill="none" stroke-linecap="round" id="dialProgress"/>
             </svg>
 
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-2 z-20">
               <span class="font-[900] text-4xl sm:text-5xl text-carbon tracking-tighter leading-none" id="dialValue">
                 84.6%
               </span>
-              <span class="text-xs font-[800] text-[#00875A] uppercase tracking-wider mt-1">
+              <span class="text-[10px] font-[900] bg-[#d4ff32] text-black px-2.5 py-0.5 rounded-full uppercase tracking-wider mt-1.5 shadow-xs">
                 Afinidad
               </span>
               <span class="text-[10px] font-mono text-carbon/50 uppercase mt-0.5">r = 0.846</span>
@@ -1373,20 +1376,24 @@
           </span>
         </div>
 
-        <!-- LADO DERECHO: SPIELBERG / RED BULL RING (MONUMENTAL) -->
+        <!-- LADO DERECHO: SPIELBERG / RED BULL RING (ESCRITURA LETRA POR LETRA SEGUNDA) -->
         <div class="lg:col-span-5 flex flex-col justify-between space-y-4 relative group text-left lg:text-right">
           <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end items-start lg:items-end">
             <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
               SPIEL<br>BERG
             </h3>
-            <div class="font-caveat font-[700] text-5xl sm:text-6xl absolute -top-3 sm:-top-4 right-2 select-none pointer-events-none z-20 leading-none anim-circuit-redbull">
+            
+            <!-- CONTENEDOR ESCRITO LETRA POR LETRA EN ROJO ACCENT: ALTA LEGIBILIDAD -->
+            <!-- CONTENEDOR ESCRITO EN LILA ELEGANTE Y DE ALTA LEGIBILIDAD -->
+            <div id="typewriterRedBull" 
+                 class="font-caveat font-[700] text-3xl sm:text-4xl md:text-5xl absolute -top-2 sm:-top-4 right-0 lg:right-2 select-none pointer-events-none z-20 leading-none text-[#0A0A0C] bg-[#C084FC] px-4 py-1.5 rounded-xl shadow-[0_4px_25px_rgba(192,132,252,0.45)] border border-black/10 whitespace-nowrap">
               Red Bull Ring
             </div>
           </div>
 
           <div class="space-y-1.5">
             <div class="flex items-center gap-2 justify-start lg:justify-end">
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-accentRed/15 text-accentRed font-[800]">+65m cota</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#C084FC] text-black font-[900] shadow-xs">+65m cota</span>
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
                 65M DE DESNIVEL ALPINO
               </strong>
@@ -1398,29 +1405,13 @@
 
           <div class="flex items-center gap-2 justify-start lg:justify-end pt-1">
             <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 11 · Correlación directa</span>
-            <span class="text-[11px] font-[800] uppercase tracking-wider text-accentRed bg-accentRed/10 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-accentRed"></span>
+            <span class="text-[11px] font-[800] uppercase tracking-wider text-[#C084FC] bg-[#C084FC]/15 px-3.5 py-1 rounded-full flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#C084FC]"></span>
               El Gemelo Oculto
             </span>
           </div>
         </div>
 
-      </div>
-
-      <!-- CTA SUBIDO PARA QUE QUEDE PERFECTAMENTE DENTRO DE PANTALLA -->
-      <div class="w-full bg-canvas/95 rounded-2xl p-3.5 sm:p-4 border border-hairline flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm shrink-0 mt-1">
-        <div class="space-y-0.5 max-w-3xl">
-          <span class="text-[10px] uppercase font-[800] tracking-wider text-accentRed block">
-            lectura clave para la transmisión
-          </span>
-          <p class="text-xs sm:text-[13px] font-[400] text-carbon/90 leading-snug">
-            red bull y ferrari dominaron en spielberg porque su suspensión trasera absorbe el desnivel sin patinar las ruedas. en interlagos, la tracción en subida define si llegás a fondo a senna s o te sobrepasan en la recta de 1.200 metros.
-          </p>
-        </div>
-
-        <a href="#helmet" class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-carbon text-pureWhite text-xs font-[700] hover:scale-105 transition-transform shadow-xs">
-          ver arquetipos conductuales ↓
-        </a>
       </div>
 
     </div>
@@ -1471,7 +1462,7 @@
 
     <!-- ESCENARIO DEL ABANICO DE CARTAS SIMÉTRICO (DESPLIEGUE A AMBOS LADOS) -->
     <div class="relative w-full my-10">
-      <div class="fan-stage relative h-[440px] sm:h-[480px] flex items-center justify-center" id="fanDeckContainer">
+      <div class="fan-stage relative h-[440px] sm:h-[490px] flex items-center justify-center" id="fanDeckContainer">
         <!-- Inyectado dinámicamente con JS -->
       </div>
 
@@ -1500,7 +1491,7 @@
       <!-- Fondo cerrable con click suave sin oscurecer en negro opaco -->
       <div class="absolute inset-0 cursor-pointer" onclick="closePilotModal()"></div>
 
-      <!-- FICHERO TÉCNICO ULTRA VIDRIOSO (FROSTED GLASS BLUR) -->
+      <!-- MODAL VIDRIOSO ELEGANTE (FROSTED GLASS BLUR) -->
       <div id="pilotModalContent" class="relative z-10 w-full max-w-2xl bg-white/20 dark:bg-[#121316]/80 backdrop-blur-3xl rounded-3xl p-6 sm:p-8 border border-white/35 text-white shadow-[0_30px_90px_rgba(0,0,0,0.45),inset_0_1px_2px_rgba(255,255,255,0.4)] max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 space-y-6">
         
         <!-- BARRA SUPERIOR: ESCUDERÍA Y BOTÓN CERRAR -->
@@ -1509,7 +1500,7 @@
             <img id="pilotTeamLogo" src="assets/escuderias/mclaren.png" alt="Escudería" class="h-6 w-auto object-contain">
             <div>
               <span id="pilotTeam" class="text-xs font-[800] text-white uppercase block tracking-wider leading-tight">McLaren F1 Team</span>
-              <span id="pilotCategoryTag" class="text-[10px] text-[#d4ff32] uppercase font-mono tracking-widest block">fichero técnico // telemetría</span>
+              <span id="pilotCategoryTag" class="text-[10px] text-[#d4ff32] uppercase font-mono tracking-widest block">arquetipo conductual</span>
             </div>
           </div>
 
@@ -1595,108 +1586,215 @@
        - Anotaciones editoriales manuscritas en lápiz graso rojo (Caveat)
        - Botones de Audio Waveform para Mateo
        ======================================================== -->
-  <section id="crossover" class="relative w-full min-h-screen bg-[#0A0A0C] text-pureWhite overflow-hidden pt-16 sm:pt-20 pb-16 px-6 sm:px-12 scroll-mt-12 border-t border-white/10">
+    <!-- ========================================================
+       PANTALLA 05: EL CRUCE (INTERSECCIÓN TELEMÉTRICA)
+       IDEA UNO: HUD TELEMÉTRICO CON RADAR POLIGONAL DE COMBATE
+       - Selector de arquetipos: Max Verstappen, Oliver Bearman, Charles Leclerc
+       - Display central con Radar Poligonal SVG interactivo y morphing
+       - Análisis telemétrico de vértice crítico en Interlagos
+       ======================================================== -->
+    <!-- ========================================================
+       PANTALLA 05: EL CRUCE (INTERSECCIÓN TELEMÉTRICA)
+       LAYOUT EDITORIAL LIMPIO Y MINIMALISTA
+       ======================================================== -->
+    <!-- ========================================================
+       PANTALLA 05: EL CRUCE (LÍNEA VERTICAL TELEMÉTRICA)
+       ANIMACIÓN DE SCROLL: LÍNEA CENTRAL QUE SE ILUMINA
+       Y BLOQUES DE DATOS ALTERNADOS A IZQUIERDA Y DERECHA
+       ======================================================== -->
+    <!-- ========================================================
+       PANTALLA 05: EL CRUCE (INTERSECCIÓN CONDUCTUAL)
+       - Título sticky fijo a la izquierda esquivado por la línea
+       - Línea curva orgánica que une los 3 vértices de combate
+       - Máxima jerarquía tipográfica, datos al grano, sin fotos
+       ======================================================== -->
+    <!-- ========================================================
+       PANTALLA 05: EL CRUCE (INTERSECCIÓN CONDUCTUAL)
+       - STICKY PINNED STAGE (h-[360vh])
+       - ARRANCA VACÍA: LA LÍNEA Y EL AUTITO SUBEN CON EL SCROLL
+       - LA LÍNEA IMITA LA TRAZADA DE INTERLAGOS
+       - UN AUTITO GUÍA EL RECORRIDO Y ROTA EN LAS CURVAS
+       - LOS 3 INSIGHTS SE PRESENTAN DE A UNO (NUNCA JUNTOS)
+       - TEXTOS INFORMALES, DIRECTOS Y MÍNIMOS
+       ======================================================== -->
+  <section id="crossover" class="relative w-full h-[360vh] bg-[#0A0A0C] text-pureWhite select-none scroll-mt-0 border-t border-white/10">
     
-    <div class="max-w-6xl mx-auto space-y-8 sm:space-y-10">
+    <!-- GRADIENTE CINEMÁTICO DE FONDO -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_40%,rgba(212,255,50,0.03),transparent_70%)] pointer-events-none"></div>
+
+    <!-- ESCENARIO PINNED STICKY QUE SE MANTIENE FIJO EN EL VIEWPORT DURANTE LOS 360VH -->
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-center px-6 sm:px-12 md:px-16 overflow-hidden">
       
-      <!-- CABECERA DE CHOQUE: ALINEADA A LA IZQUIERDA Y SIN FÓRMULA/RECUADRO -->
-      <div class="reveal-blur text-left space-y-2">
-        <span class="text-xs uppercase font-[800] tracking-widest text-[#d4ff32] block">05 / choque conductual</span>
-        <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl uppercase leading-[1.05] tracking-tight text-white max-w-4xl">
-          HAY PISTAS QUE NEUTRALIZAN <br>
-          <span class="font-[100] text-white/60 normal-case">a los mejores y premian</span> A LOS CAZADORES.
-        </h2>
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
-        <!-- FRASE LIMPIA EN MINÚSCULA Y BLANCO SIN RECUADRO NI FÓRMULA -->
-        <p class="text-xs sm:text-sm md:text-base font-[400] text-white/90 max-w-3xl leading-relaxed pt-1">
-          el cruce matemático entre la familia de pista (mixtos y técnicos) y los arquetipos conductuales revela quiénes ganan posiciones sobre la grilla de salida.
-        </p>
+        <!-- LADO IZQUIERDO: TÍTULO FIJO LIMPIO -->
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-xs uppercase font-[800] tracking-widest text-[#d4ff32] block">05 / el cruce conductual</span>
+          
+          <h2 class="font-[900] text-3xl sm:text-5xl lg:text-[3.2rem] uppercase leading-[0.98] tracking-tight text-white">
+            HAY PISTAS QUE <br>
+            NEUTRALIZAN <br>
+            <span class="font-[100] text-white/60 normal-case">a los mejores y premian</span> <br>
+            A LOS CAZADORES.
+          </h2>
+
+          <div class="pt-2 flex items-center gap-2 text-xs font-mono text-zinc-400">
+            <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-pulse"></span>
+            <span>PRONÓSTICO TELEMÉTRICO · SÃO PAULO</span>
+          </div>
+        </div>
+
+        <!-- CENTRO: CIRCUITO SVG CON EL AUTITO QUE GUÍA POR DÓNDE LEER (2 COLS) -->
+        <div class="hidden lg:flex lg:col-span-2 items-center justify-center relative h-[440px]">
+          <svg id="crossoverSvgTrack" viewBox="0 0 100 440" class="w-full h-full overflow-visible select-none">
+            <!-- Trazada tenue base de Interlagos -->
+            <path id="circuitBaseTrack" d="M 50 20 C 95 80, 95 150, 40 210 C -10 270, 20 350, 75 420" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5" stroke-dasharray="4 4" />
+            <!-- Trazada viva iluminada (gradiente neón) -->
+            <path id="circuitLiveTrack" d="M 50 20 C 95 80, 95 150, 40 210 C -10 270, 20 350, 75 420" fill="none" stroke="url(#circuitNeonGrad)" stroke-width="3" stroke-linecap="round" />
+            
+            <!-- 3 puntos clave del trazado -->
+            <circle cx="50" cy="20" r="4.5" fill="#FFA726" />
+            <circle cx="40" cy="210" r="4.5" fill="#d4ff32" />
+            <circle cx="75" cy="420" r="4.5" fill="#C084FC" />
+
+            <defs>
+              <linearGradient id="circuitNeonGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFA726" />
+                <stop offset="50%" stop-color="#d4ff32" />
+                <stop offset="100%" stop-color="#C084FC" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- AUTITO F1 QUE RECORRE EL CIRCUITO (POSICIONADO EXACTAMENTE POR JS) -->
+          <div id="crossoverCar" class="absolute top-0 left-0 w-9 h-auto pointer-events-none z-30 will-change-transform filter drop-shadow-[0_0_10px_rgba(212,255,50,0.8)]" style="opacity: 0; transform: translate3d(0,0,0);">
+            <img src="assets/car_tracker.png" alt="Auto F1" class="w-full h-auto object-contain">
+          </div>
+        </div>
+
+        <!-- LADO DERECHO: DISPLAY DE INSIGHTS INDIVIDUALES (5 COLS) -->
+        <!-- EN NINGÚN MOMENTO ESTÁN LOS TRES INSIGHTS JUNTOS -->
+        <div class="lg:col-span-5 relative min-h-[260px] flex items-center">
+          
+          <!-- ESTADO INICIAL VACÍO -->
+          <div id="crossoverEmptyHint" class="text-zinc-600 font-mono text-xs uppercase tracking-widest transition-opacity duration-300">
+            [ Scrolleá para recorrer el pronóstico en pista ]
+          </div>
+
+          <!-- INSIGHT 1: MCLAREN AL HORNO (SE PRESENTA SOLO) -->
+          <div id="crossoverInsight1" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-mono font-[900] text-[#FFA726] uppercase tracking-wider">01 / Curva 1 y 2 (Senna S)</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full border border-[#FFA726]/40 text-[#FFA726] uppercase font-[700]">-1.20 pos en calor</span>
+            </div>
+            
+            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
+              Olvídense del frío: <br>
+              <span class="text-[#FFA726]">McLaren al horno.</span>
+            </h3>
+
+            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
+              En San Pablo va a hacer 46°C en pista. A McLaren el asfalto caliente le destruye las gomas delanteras en las curvas largas. Norris no se escapa ni de casualidad.
+            </p>
+          </div>
+
+          <!-- INSIGHT 2: RED BULL VS FERRARI (SE PRESENTA SOLO) -->
+          <div id="crossoverInsight2" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-mono font-[900] text-[#d4ff32] uppercase tracking-wider">02 / Curva 12 (Junção)</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full border border-[#d4ff32]/40 text-[#d4ff32] uppercase font-[700]">+0.20s en subida</span>
+            </div>
+            
+            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
+              La trepada de 43m <br>
+              <span class="text-[#d4ff32]">decide la carrera.</span>
+            </h3>
+
+            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
+              Red Bull tracciona como nadie en subida y le va a pelear la victoria mano a mano a Ferrari. Y ojo con Antonelli que ya salió campeón y va a correr en modo kamikaze al podio.
+            </p>
+          </div>
+
+          <!-- INSIGHT 3: FRANCO COLAPINTO (SE PRESENTA SOLO) -->
+          <div id="crossoverInsight3" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-mono font-[900] text-[#C084FC] uppercase tracking-wider">03 / La Ficha del Midfield</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full border border-[#C084FC]/40 text-[#C084FC] uppercase font-[700]">P8 a P10 genuino</span>
+            </div>
+            
+            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
+              La apuesta por <br>
+              <span class="text-[#C084FC]">Franco Colapinto.</span>
+            </h3>
+
+            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
+              Franco viene de ser 8° en pista en México. En una carrera de 71 vueltas donde todos queman las gomas medias en 15 giros, su estilo suave lo mete directo en los puntos.
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
-      <!-- LOS TRES BLOQUES CIRCULARES PROPORCIONADOS (SIN CORTARSE ABAJO) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center justify-items-center py-2">
-        
-        <!-- CÍRCULO 01: Max Verstappen (Piloto de Lluvia) -->
-        <div class="w-64 sm:w-72 h-64 sm:h-72 rounded-full border-2 border-[#d4ff32]/70 bg-gradient-to-b from-[#00875A]/25 via-black/90 to-[#0A0A0C] p-4 sm:p-5 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-[0_0_35px_rgba(212,255,50,0.2)] hover:scale-105 hover:border-[#d4ff32] transition-all duration-500 group">
-          
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-[#d4ff32] shadow-md mb-1.5 relative shrink-0">
-            <img src="assets/pilotos/centered/max.jpeg" alt="Max Verstappen" class="w-full h-full object-cover object-center filter grayscale-0 contrast-125 saturate-125 group-hover:scale-110 transition-transform duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-          </div>
+    </div>
 
-          <span class="text-[9px] font-[900] uppercase tracking-wider text-black bg-[#d4ff32] px-2.5 py-0.5 rounded-full mb-1">
-            caza en mojado
+  </section>
+
+<!-- ========================================================
+       PANTALLA DE TRANSICIÓN ESCÉNICA: EL MINI HOOK DE PREGUNTA
+       CONDUCE DIRECTAMENTE AL EDITORIAL DESK
+       ANIMADA CON EL MISMO EFECTO CINÉTICO HORIZONTAL
+       ======================================================== -->
+  <section id="transition-desk" class="relative w-full h-[180vh] bg-pureWhite text-carbon select-none">
+    
+    <!-- CONTENEDOR STICKY: PANTALLA EN BLANCO TOTAL -->
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden px-4 sm:px-8 bg-pureWhite pt-20 sm:pt-28 pb-6">
+      
+      <!-- CAPA 1: LA PREGUNTA INFORMAL ANIMADA HORIZONTALMENTE -->
+      <div id="transDeskQuestionWrap" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none w-full px-4 overflow-visible will-change-transform opacity-0 pt-20 sm:pt-28">
+        <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] uppercase leading-[1.04] tracking-tight text-carbon select-none text-center max-w-4xl mx-auto">
+          ¿Y AHORA CÓMO TRADUZCO<br>
+          ESTO AL AIRE?<br>
+          <span class="font-[300] text-muted lowercase text-xl sm:text-3xl md:text-4xl lg:text-[2.6rem] tracking-normal inline-block mt-3 sm:mt-5">
+            ¿cómo cuento toda esta telemetría en un streaming sin aburrir a nadie?
           </span>
+        </h2>
+      </div>
 
-          <h3 class="font-[900] text-base sm:text-lg uppercase text-white leading-tight">
-            Piloto de Lluvia
-          </h3>
-          <span class="text-[11px] font-[700] text-[#00875A] block">Max Verstappen · #1</span>
-
-          <div class="mt-2 pt-1.5 border-t border-[#d4ff32]/25 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#d4ff32] font-[700] text-[10px] uppercase">ganancia agua:</span>
-            <span class="font-[900] text-white text-xs">+2.70 pos</span>
-          </div>
-          <div class="mt-0.5 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#778562] font-[700] text-[10px] uppercase">riesgo c1:</span>
-            <span class="font-[900] text-[#d4ff32] text-[11px] uppercase">control extremo</span>
-          </div>
+      <!-- CAPA 2: TEXTO SECUNDARIO QUE DA EL PIE A EDITORIAL DESK -->
+      <div id="transDeskSecondaryWrap" class="relative z-10 max-w-2xl mx-auto px-4 text-center space-y-6 opacity-0 will-change-transform pointer-events-none transition-all duration-300 my-auto">
+        <div class="py-2 flex items-center justify-center gap-3 text-xs sm:text-sm md:text-base font-[800] lowercase tracking-wide">
+          <span class="text-carbon/40 line-through decoration-accentRed decoration-2">datos sueltos</span>
+          <span class="text-accentRed font-[900] text-base">➔</span>
+          <span class="text-carbon font-[900]">el guion listo para leer</span>
         </div>
 
-        <!-- CÍRCULO 02: Oliver Bearman (Cazador de Caos) -->
-        <div class="w-64 sm:w-72 h-64 sm:h-72 rounded-full border-2 border-[#E10600]/70 bg-gradient-to-b from-[#E10600]/20 via-black/90 to-[#0A0A0C] p-4 sm:p-5 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-[0_0_35px_rgba(225,6,0,0.2)] hover:scale-105 hover:border-[#E10600] transition-all duration-500 group">
-          
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-[#E10600] shadow-md mb-1.5 relative shrink-0">
-            <img src="assets/pilotos/centered/bearman.jpeg" alt="Oliver Bearman" class="w-full h-full object-cover object-center filter grayscale-0 contrast-125 saturate-125 group-hover:scale-110 transition-transform duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-          </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm font-[300] text-carbon/80 lowercase leading-relaxed pt-1">
+          la pizarra de undertrack: el párrafo perfecto listo para abrir tu transmisión, podcast o reel antes de la largada.
+        </p>
 
-          <span class="text-[9px] font-[900] uppercase tracking-wider text-white bg-[#E10600] px-2.5 py-0.5 rounded-full mb-1">
-            oportunismo puro
-          </span>
-
-          <h3 class="font-[900] text-base sm:text-lg uppercase text-white leading-tight">
-            Cazador de Caos
-          </h3>
-          <span class="text-[11px] font-[700] text-[#FF8A80] block">Oliver Bearman · #87</span>
-
-          <div class="mt-2 pt-1.5 border-t border-[#E10600]/25 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#FFA726] font-[700] text-[10px] uppercase">ganancia sc:</span>
-            <span class="font-[900] text-white text-xs">+3.33 pos</span>
-          </div>
-          <div class="mt-0.5 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#FF8A80] font-[700] text-[10px] uppercase">tasa sc:</span>
-            <span class="font-[900] text-[#FFA726] text-[11px] uppercase">73% probabilidad</span>
-          </div>
+        <div class="pt-2">
+          <a href="#verdict" class="inline-flex items-center gap-2 text-xs font-[700] text-accentRed hover:text-carbon lowercase tracking-tight transition-colors group">
+            <span>abrir la pizarra editorial</span>
+            <span class="text-sm transition-transform group-hover:translate-y-1">↓</span>
+          </a>
         </div>
+      </div>
 
-        <!-- CÍRCULO 03: Charles Leclerc (Élite Metronómico) -->
-        <div class="w-64 sm:w-72 h-64 sm:h-72 rounded-full border-2 border-[#00C0F0]/70 bg-gradient-to-b from-[#00C0F0]/20 via-black/90 to-[#0A0A0C] p-4 sm:p-5 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-[0_0_35px_rgba(0,192,240,0.2)] hover:scale-105 hover:border-[#00C0F0] transition-all duration-500 group">
-          
-          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-[#00C0F0] shadow-md mb-1.5 relative shrink-0">
-            <img src="assets/pilotos/centered/leclerc.jpeg" alt="Charles Leclerc" class="w-full h-full object-cover object-center filter grayscale-0 contrast-125 saturate-125 group-hover:scale-110 transition-transform duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-          </div>
-
-          <span class="text-[9px] font-[900] uppercase tracking-wider text-black bg-[#00C0F0] px-2.5 py-0.5 rounded-full mb-1">
-            regularidad milimétrica
-          </span>
-
-          <h3 class="font-[900] text-base sm:text-lg uppercase text-white leading-tight">
-            Élite Metronómico
-          </h3>
-          <span class="text-[11px] font-[700] text-[#80D8FF] block">Charles Leclerc · #16</span>
-
-          <div class="mt-2 pt-1.5 border-t border-[#00C0F0]/25 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#00C0F0] font-[700] text-[10px] uppercase">varianza ritmo:</span>
-            <span class="font-[900] text-white text-xs">1.27 seg</span>
-          </div>
-          <div class="mt-0.5 w-full max-w-[180px] flex justify-between items-center text-xs">
-            <span class="text-[#80D8FF] font-[700] text-[10px] uppercase">tracción junção:</span>
-            <span class="font-[900] text-[#00C0F0] text-[11px] uppercase">100% en seco</span>
-          </div>
+      <!-- TICKER INFERIOR ELEGANTE -->
+      <div class="w-full max-w-full overflow-hidden py-1.5 sm:py-2 border-y border-carbon/10 bg-pureWhite select-none z-10 shrink-0">
+        <div class="animate-ticker-loop flex items-center gap-6 whitespace-nowrap text-[10px] sm:text-[11px] font-[800] uppercase tracking-[0.24em] text-carbon">
+          <span class="text-carbon font-[900]">EDITORIAL DESK</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32] inline-block"></span>
+          <span>GUION STREAMING</span>
+          <span class="text-carbon/25">•</span>
+          <span>REEL 30S</span>
+          <span class="text-carbon/25">•</span>
+          <span>APUESTA / FANTASY</span>
+          <span class="text-carbon/25">•</span>
+          <span>TELEMETRÍA EN VIVO</span>
+          <span class="text-carbon/25">•</span>
         </div>
-
       </div>
 
     </div>
@@ -1705,70 +1803,144 @@
 
   <!-- ========================================================
        PANTALLA 06: LA PIZARRA (EDITORIAL DESK)
+       OCUPA TODA LA PANTALLA EN MODO ESTUDIO (SIN CORTARSE)
        ======================================================== -->
-  <section id="verdict" class="min-h-screen flex flex-col justify-start max-w-6xl mx-auto px-6 sm:px-10 pt-36 sm:pt-44 pb-28 border-t border-hairline scroll-mt-36">
+  <section id="verdict" class="relative w-full min-h-screen bg-pureWhite text-carbon flex flex-col justify-center items-center py-12 sm:py-16 px-6 sm:px-12 scroll-mt-12 border-t border-hairline">
     
-    <div class="reveal-blur mb-16">
-      <span class="text-xs text-accentRed uppercase font-[600] block mb-3">06 / la pizarra</span>
-      <h2 class="font-[900] text-4xl sm:text-6xl uppercase leading-[1.05] tracking-tight max-w-4xl text-carbon">
-        EDITORIAL <br>
-        <span class="font-[100] text-muted normal-case">desk</span>
-      </h2>
-      <p class="text-base sm:text-lg font-[300] text-muted mt-4 max-w-2xl leading-relaxed">
-        El párrafo listo para leer al aire en tu streaming, podcast o reel antes de la largada.
-      </p>
-    </div>
-
-    <div class="bg-pureWhite p-8 sm:p-14 rounded-3xl border border-hairline shadow-[0_12px_40px_rgb(0,0,0,0.02)] space-y-10 reveal-mask">
+    <div class="w-full max-w-5xl mx-auto space-y-6">
       
-      <div class="flex flex-wrap gap-3 pb-8 border-b border-hairline">
-        <button id="tabStream" class="px-6 py-3 rounded-full bg-carbon text-pureWhite text-xs font-[600] tracking-tight">
-          streaming / podcast
-        </button>
-        <button id="tabReel" class="px-6 py-3 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
-          guion reel (30s)
-        </button>
-        <button id="tabFantasy" class="px-6 py-3 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
-          apuesta / fantasy
-        </button>
+      <!-- CABECERA EDITORIAL COMPACTA -->
+      <div class="reveal-blur text-left space-y-1.5">
+        <span class="text-xs text-accentRed uppercase font-[700] tracking-wider block">06 / la pizarra</span>
+        <h2 class="font-[900] text-3xl sm:text-5xl uppercase leading-[1.05] tracking-tight text-carbon">
+          EDITORIAL <br>
+          <span class="font-[100] text-muted normal-case">desk</span>
+        </h2>
+        <p class="text-xs sm:text-sm font-[300] text-muted max-w-xl leading-relaxed">
+          El párrafo listo para leer al aire en tu streaming, podcast o reel antes de la largada.
+        </p>
       </div>
 
-      <div class="p-8 sm:p-10 bg-canvas rounded-2xl border border-hairline text-base sm:text-lg font-[300] leading-relaxed text-carbon whitespace-pre-line select-all relative">
-        <div id="verdictOutput">«Bienvenidos a la previa de UNDERTRACK para el Gran Premio de São Paulo. Mucha atención hoy con el clima en Interlagos: estamos con 28 grados y 65% de probabilidad de lluvia. 
+      <!-- EL ESCRITORIO EDITORIAL (ENCUADRADO PERFECTO DE PANTALLA) -->
+      <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-hairline shadow-[0_12px_40px_rgb(0,0,0,0.03)] space-y-5">
+        
+        <!-- PESTAÑAS DE FORMATO -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-hairline">
+          <div class="flex flex-wrap gap-2">
+            <button id="tabStream" class="px-5 py-2 rounded-full bg-carbon text-pureWhite text-xs font-[600] tracking-tight transition-all">
+              streaming / podcast
+            </button>
+            <button id="tabReel" class="px-5 py-2 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
+              guion reel (30s)
+            </button>
+            <button id="tabFantasy" class="px-5 py-2 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
+              apuesta / fantasy
+            </button>
+          </div>
+
+          <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[700] px-4 py-1.5 bg-canvas hover:bg-carbon hover:text-pureWhite rounded-full border border-hairline text-carbon transition-colors shadow-xs flex items-center gap-1.5">
+            <span>copiar guion</span> 📋
+          </button>
+        </div>
+
+        <!-- CUADRO DE GUION EDITORIAL ELEGANTE -->
+        <div class="p-6 sm:p-8 bg-canvas rounded-2xl border border-hairline text-sm sm:text-base md:text-[17px] font-[300] leading-relaxed text-carbon whitespace-pre-line select-all relative">
+          <div id="verdictOutput">«Bienvenidos a la previa de UNDERTRACK para el Gran Premio de São Paulo. Mucha atención hoy con el clima en Interlagos: estamos con 28 grados y 65% de probabilidad de lluvia. 
 
 A diferencia de Austin, acá McLaren respira porque la pista está fresca (29°C), pero el verdadero desafío es la tracción en subida desde Junção. En pistas mixtas con agua, los pilotos de lluvia promedian un salto demoledor de +2.70 puestos ganados. 
 
 Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frenada ciega de la S do Senna, los datos marcan ritmo para raspar los puntos.»</div>
-        
-        <button onclick="copyVerdict()" class="absolute top-5 right-5 text-[10px] uppercase font-[600] px-3.5 py-1.5 bg-pureWhite rounded-full border border-hairline text-carbon hover:bg-carbon hover:text-pureWhite transition-colors shadow-sm">
-          copiar guion
-        </button>
-      </div>
+        </div>
 
-      <div class="flex flex-col sm:flex-row gap-3 pt-2">
-        <input type="text" id="groqInput" placeholder="Consultá a la telemetría (ej: ¿por qué Colapinto tiene ventaja cuidando gomas?)..."
-               class="flex-1 px-6 py-4 bg-canvas border border-hairline rounded-full text-xs text-carbon focus:outline-none focus:border-carbon">
-        <button id="btnGroqQuery" class="px-8 py-4 bg-carbon text-pureWhite text-xs font-[600] rounded-full hover:bg-black transition-transform active:scale-95 shadow-sm">
-          consultar
-        </button>
+        <!-- BARRA ELEGANTE PARA PERSONALIZAR EL GUION CON TELEMETRÍA -->
+        <form onsubmit="event.preventDefault(); handleGroqQuery();" class="flex flex-col sm:flex-row gap-2.5 pt-1">
+          <div class="relative flex-1">
+            <input type="text" id="groqInput" placeholder="Personalizá el guion con tu enfoque (ej: ¿qué pasa si llueve a mitad de carrera?)..."
+                   class="w-full px-5 py-3.5 bg-canvas border border-hairline rounded-full text-xs text-carbon focus:outline-none focus:border-carbon shadow-inner font-mono">
+          </div>
+          <button type="submit" id="btnGroqQuery" class="px-7 py-3.5 bg-carbon text-pureWhite text-xs font-[600] rounded-full hover:bg-black transition-transform active:scale-95 shadow-sm shrink-0">
+            actualizar guion
+          </button>
+        </form>
+
       </div>
 
     </div>
 
   </section>
 
-  <!-- ========================================================
-       FOOTER
-       ======================================================== -->
-  <footer class="max-w-6xl mx-auto px-6 sm:px-10 py-16 border-t border-hairline text-xs font-[400] text-muted flex flex-col sm:flex-row items-center justify-between gap-6">
-    <div class="flex items-baseline gap-2">
-      <span class="font-[900] text-sm text-carbon uppercase tracking-tight">undertrack</span>
-      <span>/ circuitdna v3.0</span>
-    </div>
-    <div>
-      autódromo josé carlos pace · são paulo · ronda 21
+<footer class="w-full bg-[#0A0A0C] text-pureWhite pt-16 pb-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 space-y-12">
+      
+      <!-- CABECERA DE FOOTER Y METADATOS -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-10 border-b border-white/10">
+        <div class="space-y-1">
+          <div class="flex items-center gap-3">
+            <span class="font-[900] text-lg uppercase tracking-tight text-white">UNDERTRACK</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA V3.0</span>
+          </div>
+          <p class="text-xs text-white/60 font-[300]">
+            Sistema de análisis cinemático y reclasificación conductual de Fórmula 1 · Ronda 21: Autódromo José Carlos Pace.
+          </p>
+        </div>
+        <div class="text-xs font-mono text-white/50 text-left md:text-right">
+          <span>Temporada 2024</span> · <span class="text-[#d4ff32]">São Paulo GP</span>
+        </div>
+      </div>
+
+      <!-- GRILLA DEL DISCLAIMER METODOLÓGICO Y TÉCNICO -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-[300] leading-relaxed text-white/70">
+        
+        <!-- COLUMNA 1: CÓMO SE CALCULA LA TELEMETRÍA -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-mono text-[11px] text-[#d4ff32] tracking-wider">
+            01 / Metodología de Cálculo
+          </h4>
+          <p>
+            <strong class="text-white">Clustering K-Means:</strong> Clasificación matemática en 4 familias genéticas procesando variables de violencia física: aceleración lateral ($>200$ km/h), frenadas bruscas ($>5G$), pendiente altimétrica ($\Delta h$) y porcentaje de vuelta con acelerador a fondo.
+          </p>
+          <p>
+            <strong class="text-white">Ganancia Neta ($\Delta 	ext{pos}$):</strong> Cálculo del diferencial de posiciones sobre la grilla oficial de largada en las últimas 5 ediciones cruzado con registros meteorológicos en tiempo real (temperatura de pista y pluviometría).
+          </p>
+        </div>
+
+        <!-- COLUMNA 2: ARQUETIPOS CONDUCTUALES -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-mono text-[11px] text-[#C084FC] tracking-wider">
+            02 / Arquetipos de Pilotos
+          </h4>
+          <p>
+            <strong class="text-white">Agrupamiento Conductual:</strong> Los 22 pilotos de la grilla se agrupan según su consistencia cronometrada ($\sigma_{	ext{ritmo}}$), telemetría de frenada tardía respecto a la referencia del circuito y capacidad de gestión térmica del compuesto.
+          </p>
+          <p>
+            <strong class="text-white">Correlación Gemela:</strong> El índice de afinidad del 84.6% entre São Paulo y Spielberg surge del análisis cinemático de curvas de aceleración lenta que trepan pendientes ciegas.
+          </p>
+        </div>
+
+        <!-- COLUMNA 3: LÍMITES Y AVISO LEGAL -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-mono text-[11px] text-white tracking-wider">
+            03 / Alcance y Límites del Trabajo
+          </h4>
+          <p>
+            <strong class="text-white">Factores Estocásticos:</strong> Este modelo analiza patrones históricos y telemetría de ingeniería. No puede predecir factores aleatorios como fallas mecánicas de la unidad de potencia, errores humanos en paradas de boxes o penalizaciones deportivas.
+          </p>
+          <p class="text-white/40 text-[11px]">
+            Proyecto independiente de periodismo de datos y análisis telemétrico para Mateo y la comunidad de F1. No afiliado, patrocinado ni vinculado a Formula One Licensing B.V., FIA o Formula 1.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- COPYRIGHT INFERIOR -->
+      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-white/40">
+        <span>© 2024 UNDERTRACK · Diseñado con precisión milimétrica para streaming y editorial deportiva.</span>
+        <span>Interlagos · 4.309 km · 71 vueltas</span>
+      </div>
+
     </div>
   </footer>
+
 
   <script src="config.js"></script>
   <script>
@@ -1787,7 +1959,10 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
         { id: 'pressure', el: document.getElementById('pressure'), dark: true, link: document.getElementById('nav-pressure') },
         { id: 'signal', el: document.getElementById('signal'), dark: false, link: document.getElementById('nav-signal') },
         { id: 'helmet', el: document.getElementById('helmet'), dark: false, link: document.getElementById('nav-helmet') },
-        { id: 'crossover', el: document.getElementById('crossover'), dark: true, link: document.getElementById('nav-crossover') }
+        { id: 'crossover', el: document.getElementById('crossover'), dark: true, link: document.getElementById('nav-crossover') },
+        { id: 'transition-desk', el: document.getElementById('transition-desk'), dark: false, link: null, isTransition: true },
+        { id: 'verdict', el: document.getElementById('verdict'), dark: false, link: null },
+        { id: 'verdict', el: document.getElementById('verdict'), dark: false, link: null }
       ];
 
       // Determinar qué sección está activa según la posición de scroll
@@ -2695,31 +2870,38 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
   }
 
   // ANIMACIÓN EN ABANICO DESDE EL CENTRO (NORRIS EN EL ÍNDICE 5 ES EL CENTRO NATURAL)
-  function renderFanSpread(spreadFactor = 1.0) {
+  function renderFanSpread(spreadFactor = 0.0) {
     if (!fanStage) return;
 
     const isMobile = window.innerWidth < 640;
-    const centerIdx = 5; // El centro de 11 cartas (índice 5)
+    const centerIdx = 5; // El centro exacto de 11 cartas (Norris en mazo 1, Piastri en mazo 2)
 
     pilotsDB.forEach((p, idx) => {
       const card = document.getElementById(`fanCard_${idx}`);
       if (!card) return;
 
       const offset = idx - centerIdx; // -5 a +5
-      const rot = offset * (isMobile ? 3.5 : 4.8) * spreadFactor;
-      const transX = offset * (isMobile ? 42 : 78) * spreadFactor;
-      const transY = Math.abs(offset) * (isMobile ? 6 : 12) * spreadFactor;
-      const zIndex = 20 - Math.abs(offset);
+      
+      // Curvatura optimizada para cartas cuadraditas (referencia usuario):
+      // Rotación angular suave
+      const rot = offset * (isMobile ? 4.2 : 5.2) * spreadFactor;
+      // Desplazamiento horizontal más amplio para cartas más anchas
+      const transX = offset * (isMobile ? 22 : 42) * spreadFactor;
+      // Caída arqueada parabólica
+      const transY = Math.pow(Math.abs(offset), 1.45) * (isMobile ? 4.5 : 8.5) * spreadFactor;
+      
+      // Z-Index en capas idéntico a la referencia:
+      // El centro queda al frente (30), y hacia los costados quedan progresivamente detrás
+      const zIndex = 30 - Math.abs(offset);
 
       card.style.setProperty('--x', `${transX.toFixed(1)}px`);
       card.style.setProperty('--y', `${transY.toFixed(1)}px`);
       card.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
-      card.style.zIndex = zIndex;
+      card.style.zIndex = idx === activePilotIndex ? 100 : zIndex;
 
       if (idx === activePilotIndex) {
         card.classList.add('is-active');
-        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 24).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
-        card.style.zIndex = 50;
+        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 36).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
       } else {
         card.classList.remove('is-active');
         card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg)`;
@@ -2764,23 +2946,175 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     renderFanSpread(1.0);
   };
 
+  // MOTOR DE APERTURA DEL FICHERO VIDRIOSO ELEGANTE (FROSTED GLASS BLUR)
+  window.openPilotModal = function(p) {
+    const modal = document.getElementById('pilotModal');
+    const content = document.getElementById('pilotModalContent');
+    if (!modal) return;
+
+    const logo = document.getElementById('pilotTeamLogo');
+    if (logo) logo.src = p.teamLogo;
+    const team = document.getElementById('pilotTeam');
+    if (team) team.textContent = p.team;
+    const catTag = document.getElementById('pilotCategoryTag');
+    if (catTag) catTag.textContent = p.category.toUpperCase();
+    
+    const portrait = document.getElementById('pilotPortrait');
+    if (portrait) portrait.src = p.portrait;
+    
+    const dorsal = document.getElementById('pilotDorsal');
+    if (dorsal) {
+      dorsal.textContent = p.dorsal;
+      dorsal.style.color = p.teamColor || '#d4ff32';
+    }
+    const name = document.getElementById('pilotName');
+    if (name) name.textContent = p.name;
+    const car = document.getElementById('pilotCarModel');
+    if (car) car.textContent = p.carModel || p.team;
+    const matchTag = document.getElementById('pilotMatchTag');
+    if (matchTag) matchTag.textContent = p.matchTag;
+    
+    const gain = document.getElementById('pilotGain');
+    if (gain) gain.textContent = p.gain;
+    const consist = document.getElementById('pilotConsist');
+    if (consist) consist.textContent = p.consist;
+    const tyre = document.getElementById('pilotTyre');
+    if (tyre) tyre.textContent = p.tyre;
+    const fact = document.getElementById('pilotFact');
+    if (fact) fact.textContent = p.fact;
+    const hook = document.getElementById('pilotHook');
+    if (hook) hook.textContent = p.hook;
+
+    const wrap = document.getElementById('pilotPortraitWrap');
+    if (wrap && p.teamColor) {
+      wrap.style.borderColor = p.teamColor;
+      wrap.style.boxShadow = `0 0 35px ${p.teamGlow || 'rgba(212,255,50,0.35)'}`;
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => {
+      if (content) {
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+      }
+    }, 10);
+  };
+
+  window.closePilotModal = function() {
+    const modal = document.getElementById('pilotModal');
+    const content = document.getElementById('pilotModalContent');
+    if (!modal) return;
+    if (content) {
+      content.classList.remove('scale-100');
+      content.classList.add('scale-95');
+    }
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }, 200);
+  };
+
+  window.copyPilotHook = function() {
+    const text = document.getElementById('pilotHook');
+    if (!text) return;
+    const clean = text.textContent.replace(/«|»/g, '').trim();
+    navigator.clipboard.writeText(clean);
+    const btn = document.getElementById('btnCopyHook');
+    if (btn) {
+      btn.innerHTML = '<span class="text-[#d4ff32]">¡copiado!</span> ✓';
+      setTimeout(() => {
+        btn.innerHTML = '<span>copiar</span> 📋';
+      }, 2000);
+    }
+  };
+
+  // ========================================================
+  // ANIMACIÓN TYPEWRITER DE GEMELO (SÃO PAULO & SPIELBERG)
+  // Se activa EXACTAMENTE cuando el usuario scrollea hasta tener la sección visible
+  // ========================================================
+  let gemeloTypewriterPlayed = false;
+
+  function runGemeloTypewriter() {
+    const elInterlagos = document.getElementById('typewriterInterlagos');
+    const elRedBull = document.getElementById('typewriterRedBull');
+    if (!elInterlagos || !elRedBull) return;
+
+    const text1 = "Interlagos";
+    const text2 = "Red Bull Ring";
+
+    elInterlagos.textContent = "";
+    elRedBull.textContent = "";
+
+    let i = 0;
+    const timer1 = setInterval(() => {
+      i++;
+      elInterlagos.textContent = text1.slice(0, i);
+      if (i >= text1.length) {
+        clearInterval(timer1);
+        // Pausa de 350ms antes de Red Bull Ring
+        setTimeout(() => {
+          let j = 0;
+          const timer2 = setInterval(() => {
+            j++;
+            elRedBull.textContent = text2.slice(0, j);
+            if (j >= text2.length) {
+              clearInterval(timer2);
+            }
+          }, 85);
+        }, 350);
+      }
+    }, 85);
+  }
+
+  // Listener de scroll de alta precisión: dispara cuando el título entra en la vista del usuario
+  function checkGemeloScrollTrigger() {
+    const triggerEl = document.getElementById('typewriterInterlagos');
+    if (!triggerEl) return;
+
+    const rect = triggerEl.getBoundingClientRect();
+    const winH = window.innerHeight;
+
+    // Cuando el contenedor de Interlagos entra entre el 15% y el 75% del alto de pantalla
+    if (rect.top > 0 && rect.top < winH * 0.75) {
+      if (!gemeloTypewriterPlayed) {
+        gemeloTypewriterPlayed = true;
+        runGemeloTypewriter();
+      }
+    } else if (rect.top > winH) {
+      // Si el usuario scrollea hacia arriba más allá de Gemelo, reseteamos para que se vuelva a ver al bajar
+      gemeloTypewriterPlayed = false;
+      const el1 = document.getElementById('typewriterInterlagos');
+      const el2 = document.getElementById('typewriterRedBull');
+      if (el1) el1.textContent = "";
+      if (el2) el2.textContent = "";
+    }
+  }
+
+  window.addEventListener('scroll', checkGemeloScrollTrigger, { passive: true });
+  // Vaciar textos al inicio
+  const initEl1 = document.getElementById('typewriterInterlagos');
+  const initEl2 = document.getElementById('typewriterRedBull');
+  if (initEl1) initEl1.textContent = "";
+  if (initEl2) initEl2.textContent = "";
+
   // INICIALIZACIÓN
   createFanCards();
   renderFanSpread(1.0);
 
   // Scroll listener para animar el despliegue en abanico al entrar a la sección
+  // SINCRONIZACIÓN DE LA APERTURA EN ABANICO CON EL SCROLL (IDÉNTICA AL VIDEO)
   function updateHelmetFanScroll() {
-    const helmetSec = document.getElementById('helmet');
-    if (!helmetSec) return;
-    const rect = helmetSec.getBoundingClientRect();
+    const stage = document.getElementById('fanDeckContainer');
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
     const winH = window.innerHeight;
     
-    // Entrando a la sección
-    const enterProgress = Math.max(0, Math.min(1, (winH - rect.top) / (winH * 0.75)));
-    if (enterProgress > 0) {
-      const spread = Math.min(1, 0.2 + (enterProgress * 0.8));
-      renderFanSpread(spread);
-    }
+    // Conforme el mazo de cartas entra desde abajo (winH * 0.95)
+    // hasta que llega cómodamente a la vista central (winH * 0.45):
+    // Las cartas se abren desde la pila central (0.0) hasta el abanico completo (1.0)
+    const progress = Math.max(0.0, Math.min(1.0, (winH * 0.95 - rect.top) / (winH * 0.50)));
+    renderFanSpread(progress);
   }
 
   window.addEventListener('scroll', updateHelmetFanScroll, { passive: true });
@@ -2807,14 +3141,7 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
         }
       }
 
-      // Fan Deck Bloom en la sección de Pilotos
-      const helmetSec = document.getElementById('helmet');
-      if (helmetSec && !userHasInteracted) {
-        const rect = helmetSec.getBoundingClientRect();
-        let progress = (vh * 0.85 - rect.top) / (vh * 0.55);
-        progress = Math.max(0.1, Math.min(1.0, progress));
-        renderFanSpread(progress);
-      }
+      
     }, { passive: true });
 
     // 6. ACCIONES EDITORIALES PARA MATEO
@@ -2870,8 +3197,15 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
 
     window.copyVerdict = function() {
       const output = document.getElementById('verdictOutput');
-      navigator.clipboard.writeText(output.textContent);
-      alert('Guion editorial copiado al portapapeles.');
+      const btn = document.getElementById('btnCopyVerdictMain');
+      if (!output) return;
+      navigator.clipboard.writeText(output.textContent.trim());
+      if (btn) {
+        btn.innerHTML = '<span class="text-emerald-600 font-[800]">¡Copiado!</span> ✓';
+        setTimeout(() => {
+          btn.innerHTML = '<span>copiar guion</span> 📋';
+        }, 2000);
+      }
     };
 
     // 7. SCROLL NARRATIVO: OBSERVER & CONTADORES
@@ -2930,102 +3264,264 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     tabReel?.addEventListener('click', () => setActiveTab(tabReel, 'reel'));
     tabFantasy?.addEventListener('click', () => setActiveTab(tabFantasy, 'fantasy'));
 
-    // 9. CONEXIÓN CON GROQ LLAMA 3.3 CON FALLBACK TELEMÉTRICO INTELIGENTE
-    const btnGroq = document.getElementById('btnGroqQuery');
-    const inputGroq = document.getElementById('groqInput');
-    const verdictOutput = document.getElementById('verdictOutput');
+    // 9. ACTUALIZACIÓN EDITORIAL EN VIVO CON GROQ LLAMA 3.3
+    window.handleGroqQuery = async function() {
+      const input = document.getElementById('groqInput');
+      const btn = document.getElementById('btnGroqQuery');
+      const output = document.getElementById('verdictOutput');
+      const q = input ? input.value.trim() : '';
+      if (!q || !output) return;
 
-    async function handleGroqQuery() {
-      const q = inputGroq ? inputGroq.value.trim() : '';
-      if (!q) return;
-
-      if (verdictOutput) {
-        verdictOutput.textContent = 'Consultando telemetría de Interlagos con Groq Llama 3.3...';
+      input.value = '';
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'analizando...';
       }
-      if (btnGroq) btnGroq.disabled = true;
 
-      const systemPrompt = 'Sos el analista y redactor de UNDERTRACK. Circuito: Interlagos (São Paulo). 43m desnivel, lluvia 65%, temperatura 28°C templada. McLaren rinde bien en frío (+1.32), pilotos de agua ganan +2.70 puestos, Colapinto es gestor de gomas (+1.15). Respondé en máximo 3 oraciones contundentes con tono periodístico de streaming.';
+      output.textContent = '«Consultando telemetría de Interlagos para adaptar el guion editorial...»';
+
+      const systemPrompt = 'Sos el analista de UNDERTRACK. Circuito: Interlagos (São Paulo). 43m desnivel, lluvia 65%, temperatura 28°C templada. McLaren rinde bien en frío (+1.32), pilotos de agua ganan +2.70 puestos, Colapinto es gestor de gomas (+1.15). Respondé en máximo 3 oraciones contundentes con tono periodístico de streaming listo para leer al aire.';
+
+      let answer = null;
+      const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
 
       try {
-        let answer = null;
-        const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
-
-        // Intento 1: Proxy de Vercel (/api/groq)
-        try {
-          const resProxy = await fetch('/api/groq', {
+        if (apiKey && apiKey.startsWith('gsk_')) {
+          const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: q, systemPrompt })
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: 'llama-3.3-70b-versatile',
+              messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: q }],
+              temperature: 0.5,
+              max_tokens: 300
+            })
           });
-          if (resProxy.ok) {
-            const dataP = await resProxy.json();
-            answer = dataP.choices?.[0]?.message?.content;
-          }
-        } catch (e) {
-          // Servidor local o proxy no disponible
-        }
-
-        // Intento 2: Conexión directa a Groq API si tenemos API key
-        if (!answer && apiKey && apiKey.startsWith('gsk_')) {
-          try {
-            const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-              },
-              body: JSON.stringify({
-                model: 'llama-3.3-70b-versatile',
-                messages: [
-                  { role: 'system', content: systemPrompt },
-                  { role: 'user', content: q }
-                ],
-                temperature: 0.5,
-                max_tokens: 300
-              })
-            });
-            if (resDirect.ok) {
-              const dataD = await resDirect.json();
-              answer = dataD.choices?.[0]?.message?.content;
-            }
-          } catch (e) {
-            // Error de red
+          if (resDirect.ok) {
+            const d = await resDirect.json();
+            answer = d.choices?.[0]?.message?.content;
           }
         }
+      } catch(e) {}
 
-        // Intento 3: Fallback Analítico Telemétrico Local (Si la API falla o está offline)
-        if (!answer) {
-          const lower = q.toLowerCase();
-          if (lower.includes('colapinto') || lower.includes('franco') || lower.includes('williams')) {
-            answer = '«La telemetría de Williams en Interlagos marca una ganancia potencial de +1.15 puestos cuidando el neumático medio en la subida de Junção. Con asfalto a 28°C, Franco no sufre el sobrecalentamiento de Austin y su velocidad final en Arquibancadas es de las más altas de la grilla.»';
-          } else if (lower.includes('lluvia') || lower.includes('agua') || lower.includes('clima')) {
-            answer = '«Con 65% de probabilidad de lluvia dominical en San Pablo, el cruce cinemático proyecta una ventaja descomunal de +2.70 posiciones ganadas para los pilotos de tracción agresiva. Verstappen y Hamilton son los arquetipos que mejor leen el asfalto mojado en la bajada de Senna.»';
-          } else if (lower.includes('norris') || lower.includes('mclaren')) {
-            answer = '«McLaren tiene revancha técnica directa: a diferencia de los 45°C que destrozaron sus gomas en Texas, los 28°C de Interlagos colocan al MCL38 en su ventana de downforce ideal con una proyección de +1.32 puestos frente a Ferrari.»';
-          } else {
-            answer = `«Análisis telemétrico para "${q}": En una pista mixta y técnica como Interlagos, los 43 metros de desnivel premian la tracción mecánica en Junção y castigan a los monoplazas con alto drag. La combinación de baja temperatura y lluvia proyecta una carrera de supervivencia con alta probabilidad de Safety Car (73%).»`;
-          }
+      if (!answer) {
+        const lower = q.toLowerCase();
+        if (lower.includes('colapinto') || lower.includes('franco') || lower.includes('williams')) {
+          answer = '«Atención en el stream con Franco Colapinto: la telemetría de Williams marca que su degradación en neumático medio es un 14% menor a la media. Con pista a 28°C, puede alargar el primer stint y ganar posiciones netas en Senna S.»';
+        } else if (lower.includes('lluvia') || lower.includes('agua') || lower.includes('clima')) {
+          answer = '«Con 65% de probabilidad de lluvia dominical en San Pablo, el cruce cinemático proyecta una ventaja de +2.70 posiciones ganadas para los pilotos de tracción agresiva. Verstappen y Hamilton son los arquetipos que mejor leen el asfalto mojado en Senna S.»';
+        } else if (lower.includes('norris') || lower.includes('mclaren')) {
+          answer = '«McLaren tiene revancha técnica directa: a diferencia de los 45°C que destrozaron sus gomas en Texas, los 28°C de Interlagos colocan al MCL38 en su ventana de downforce ideal con una proyección de +1.32 puestos frente a Ferrari.»';
+        } else if (lower.includes('safety car') || lower.includes('bearman')) {
+          answer = '«Con 73% de probabilidad histórica de Safety Car, Oliver Bearman es el cazador a seguir: en relanzadas con gomas frías gana +3.33 puestos tirándose por el exterior de la Curva do Sol.»';
+        } else {
+          answer = `«Análisis telemétrico para "${q}": En una pista mixta y técnica como Interlagos, los 43 metros de desnivel premian la tracción mecánica en Junção y castigan a los monoplazas con alto drag. La combinación de baja temperatura y lluvia proyecta una carrera de supervivencia.»`;
         }
+      }
 
-        if (verdictOutput) {
-          verdictOutput.textContent = answer;
-        }
-      } catch (err) {
-        if (verdictOutput) {
-          verdictOutput.textContent = '«Interlagos presenta 43m de desnivel vertical y 65% de lluvia: los pilotos que traccionen limpios desde Junção ganarán la posición con el DRS en la recta principal.»';
-        }
-      } finally {
-        if (btnGroq) btnGroq.disabled = false;
+      output.textContent = answer;
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'actualizar guion';
+      }
+    };
+
+    // ========================================================
+  // MOTOR DEL RADAR POLIGONAL TELEMÉTRICO (IDEA UNO: EL CRUCE)
+  // ========================================================
+  
+
+  // ========================================================
+  // ANIMACIÓN DE SCROLL: LÍNEA VERTICAL Y REVELADO DE NODOS EN EL CRUCE
+  // ========================================================
+  function updateCrossoverSpineScroll() {
+    const spineContainer = document.getElementById('crossoverSpineContainer');
+    const scrollLine = document.getElementById('crossoverScrollLine');
+    if (!spineContainer || !scrollLine) return;
+
+    const rect = spineContainer.getBoundingClientRect();
+    const winH = window.innerHeight;
+
+    // Calcular progreso del scroll a través del contenedor
+    const totalDist = rect.height;
+    const currentPos = winH * 0.7 - rect.top;
+    let progress = Math.max(0, Math.min(1, currentPos / totalDist));
+    
+    // Animar altura de la línea con resplandor
+    scrollLine.style.height = `${(progress * 100).toFixed(1)}%`;
+
+    // Revelar nodos conforme la línea los alcanza
+    const nodes = spineContainer.querySelectorAll('.crossover-node');
+    nodes.forEach(node => {
+      const nodeRect = node.getBoundingClientRect();
+      if (nodeRect.top < winH * 0.85) {
+        node.style.opacity = '1';
+        node.style.transform = 'translateY(0)';
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateCrossoverSpineScroll, { passive: true });
+  updateCrossoverSpineScroll();
+
+
+  // ========================================================
+  // ANIMACIÓN DE TRANSICIÓN ESCÉNICA: MINI HOOK "¿Y AHORA CÓMO TRADUZCO ESTO AL AIRE?"
+  // ========================================================
+  function updateDeskTransitionScrollParallax() {
+    const section = document.getElementById('transition-desk');
+    const qWrap = document.getElementById('transDeskQuestionWrap');
+    const sWrap = document.getElementById('transDeskSecondaryWrap');
+    if (!section || !qWrap || !sWrap) return;
+
+    const rect = section.getBoundingClientRect();
+    const winH = window.innerHeight;
+    const winW = window.innerWidth;
+
+    const maxScroll = rect.height - winH;
+    if (maxScroll <= 0) return;
+
+    const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
+
+    if (p < 0.15) {
+      qWrap.style.opacity = '0';
+      qWrap.style.transform = `translate3d(${winW * 0.75}px, 0, 0)`;
+      sWrap.style.opacity = '0';
+      sWrap.style.pointerEvents = 'none';
+      return;
+    }
+
+    if (p < 0.65) {
+      const subP = (p - 0.15) / 0.50;
+      const shiftX = (1 - (2 * subP)) * (winW * 0.78);
+      const opQ = Math.min(1, Math.min(subP * 6, (1 - subP) * 6));
+
+      qWrap.style.opacity = Math.max(0, opQ).toFixed(2);
+      qWrap.style.transform = `translate3d(${shiftX.toFixed(1)}px, 0, 0)`;
+      sWrap.style.opacity = '0';
+      sWrap.style.pointerEvents = 'none';
+      return;
+    }
+
+    qWrap.style.opacity = '0';
+    qWrap.style.transform = `translate3d(-${winW * 0.85}px, 0, 0)`;
+
+    const revealP = Math.min(1, Math.max(0, (p - 0.65) / 0.20));
+    sWrap.style.opacity = revealP.toFixed(2);
+    sWrap.style.pointerEvents = revealP > 0.5 ? 'auto' : 'none';
+  }
+
+  // ANIMACIÓN DE LÍNEA CURVA DE EL CRUCE AL SCROLLEAR
+  // ========================================================
+  // ANIMACIÓN DE SCROLL EN EL CRUCE:
+  // - El autito F1 recorre la trazada del circuito
+  // - Los insights se presentan estrictamente de a uno (nunca juntos)
+  // - Al principio la pantalla está vacía
+  // ========================================================
+  function updateCrossoverCarProgress() {
+    const section = document.getElementById('crossover');
+    const svgTrack = document.getElementById('circuitLiveTrack');
+    const car = document.getElementById('crossoverCar');
+    const emptyHint = document.getElementById('crossoverEmptyHint');
+    const in1 = document.getElementById('crossoverInsight1');
+    const in2 = document.getElementById('crossoverInsight2');
+    const in3 = document.getElementById('crossoverInsight3');
+
+    if (!section || !svgTrack || !car) return;
+
+    const rect = section.getBoundingClientRect();
+    const winH = window.innerHeight;
+    const maxScroll = rect.height - winH;
+    if (maxScroll <= 0) return;
+
+    // Progreso de 0.0 (al entrar a la sección) a 1.0 (al salir hacia transition-desk)
+    const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
+
+    // Longitud total del path SVG del circuito
+    const totalLength = svgTrack.getTotalLength();
+    
+    // Trazada viva iluminada: se llena progresivamente
+    svgTrack.style.strokeDasharray = totalLength;
+    const dashOffset = totalLength * (1 - Math.max(0, (p - 0.08) / 0.88));
+    svgTrack.style.strokeDashoffset = Math.max(0, dashOffset).toFixed(1);
+
+    // Calcular posición del autito a lo largo de la curva del circuito
+    if (p < 0.06) {
+      // Al principio la pantalla está vacía y el autito oculto
+      car.style.opacity = '0';
+      if (emptyHint) emptyHint.style.opacity = '0.7';
+    } else {
+      car.style.opacity = '1';
+      if (emptyHint) emptyHint.style.opacity = '0';
+
+      const carP = Math.max(0, Math.min(1, (p - 0.06) / 0.90));
+      const dist = carP * totalLength;
+      const pt = svgTrack.getPointAtLength(dist);
+      const ptNext = svgTrack.getPointAtLength(Math.min(totalLength, dist + 2));
+      const angle = (Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * 180 / Math.PI) + 90;
+
+      // El SVG está escalado en viewBox="0 0 100 440" dentro de un contenedor de alto 440px
+      // Calculamos escala real
+      const svgRect = document.getElementById('crossoverSvgTrack')?.getBoundingClientRect();
+      const scaleX = svgRect ? svgRect.width / 100 : 1;
+      const scaleY = svgRect ? svgRect.height / 440 : 1;
+
+      const posX = pt.x * scaleX;
+      const posY = pt.y * scaleY;
+
+      car.style.transform = `translate3d(${posX.toFixed(1)}px, ${posY.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
+    }
+
+    // CONTROL DE INSIGHTS ESTRICTAMENTE INDIVIDUALES (DE A UNO, NUNCA JUNTOS):
+    // Fase 1: Insight 1 (p: 0.12 a 0.40)
+    // Fase 2: Insight 2 (p: 0.44 a 0.70)
+    // Fase 3: Insight 3 (p: 0.74 a 0.98)
+    function setInsightState(el, active, subProg) {
+      if (!el) return;
+      if (active) {
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'auto';
+        // Entrada suave de abajo hacia el centro
+        const shiftY = (1 - subProg) * 14;
+        el.style.transform = `translate3d(0, ${shiftY.toFixed(1)}px, 0)`;
+      } else {
+        el.style.opacity = '0';
+        el.style.pointerEvents = 'none';
+        el.style.transform = 'translate3d(0, -18px, 0)';
       }
     }
 
-    btnGroq?.addEventListener('click', handleGroqQuery);
-    inputGroq?.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleGroqQuery();
-      }
-    });
-  </script>
+    // Insight 1
+    if (p >= 0.10 && p <= 0.40) {
+      const subP = Math.min(1, (p - 0.10) / 0.08);
+      setInsightState(in1, true, subP);
+    } else {
+      setInsightState(in1, false, 0);
+    }
+
+    // Insight 2
+    if (p >= 0.43 && p <= 0.71) {
+      const subP = Math.min(1, (p - 0.43) / 0.08);
+      setInsightState(in2, true, subP);
+    } else {
+      setInsightState(in2, false, 0);
+    }
+
+    // Insight 3
+    if (p >= 0.74 && p <= 0.99) {
+      const subP = Math.min(1, (p - 0.74) / 0.08);
+      setInsightState(in3, true, subP);
+    } else {
+      setInsightState(in3, false, 0);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    updateDeskTransitionScrollParallax();
+    updateCrossoverCarProgress();
+  }, { passive: true });
+
+
+</script>
 </body>
 </html>
