@@ -3443,11 +3443,12 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
 
       // Intento 1: Servidor proxy Vercel (/api/groq)
+      const preferredModel = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
       try {
         const resProxy = await fetch('/api/groq', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: q, systemPrompt })
+          body: JSON.stringify({ prompt: q, systemPrompt, model: preferredModel })
         });
         if (resProxy.ok) {
           const dataP = await resProxy.json();
@@ -3455,27 +3456,34 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
         }
       } catch (e) {}
 
-      // Intento 2: Conexión directa con API Key
+      // Intento 2: Conexión directa con API Key (probando modelo principal y alternativo)
       if (!answer && apiKey && apiKey.startsWith('gsk_')) {
-        try {
-          const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-            body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
-              messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: q }
-              ],
-              temperature: 0.7,
-              max_tokens: 150
-            })
-          });
-          if (resDirect.ok) {
-            const d = await resDirect.json();
-            answer = d.choices?.[0]?.message?.content?.trim();
-          }
-        } catch(e) {}
+        const modelsToTry = [preferredModel, 'openai/gpt-oss-120b'];
+        for (const m of modelsToTry) {
+          try {
+            const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+              body: JSON.stringify({
+                model: m,
+                messages: [
+                  { role: 'system', content: systemPrompt },
+                  { role: 'user', content: q }
+                ],
+                temperature: 0.6,
+                max_tokens: 220
+              })
+            });
+            if (resDirect.ok) {
+              const d = await resDirect.json();
+              const text = d.choices?.[0]?.message?.content?.trim();
+              if (text) {
+                answer = text;
+                break;
+              }
+            }
+          } catch(e) {}
+        }
       }
 
       // Intento 3: Motor telemétrico dinámico (respuestas directas sin repetir la pregunta)
@@ -3943,55 +3951,160 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
   // INICIALIZAR FORMATOS DINÁMICOS AL CARGAR
   renderDynamicFormatButtons();
 
-  // GENERAR GUION PERSONALIZADO Y DESPLAZAR FLUIDO HACIA LA PIZARRA
+  // GENERAR GUION O CONTENIDO PERSONALIZADO SEGÚN PLATAFORMA Y FORMATO
   window.generateCustomScript = async function() {
     const btn = document.getElementById('btnGenerateCustomScript');
     if (btn) {
-      btn.innerHTML = '<span class="w-3 h-3 rounded-full bg-white animate-ping mr-2"></span> Adaptando contenido...';
+      btn.innerHTML = '<span class="w-3 h-3 rounded-full bg-white animate-ping mr-2"></span> Adaptando formato con IA...';
       btn.disabled = true;
     }
 
     const plat = currentDeskPlatform || 'instagram';
     const fmt = currentDeskFormat || 'reel';
 
-    // 1. Variación aleatoria rica local para evitar repetición
+    // 1. Variación aleatoria de respaldo local si no hay conexión
     const pool = (scriptVariationsDB[plat] && scriptVariationsDB[plat][fmt]) || scriptVariationsDB.instagram.reel;
     const randomIdx = Math.floor(Math.random() * pool.length);
     let chosenScript = pool[randomIdx];
 
-    // 2. Si hay API key de Groq, generamos una versión ultra fresca e informal con alta temperatura
-    const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
-    if (apiKey && apiKey.startsWith('gsk_')) {
-      try {
-        const dynamicPrompt = `Sos el productor de contenidos y streaming de UNDERTRACK. Circuito: GP de São Paulo (Interlagos).
-Red social elegida: ${plat.toUpperCase()}
-Formato elegido: ${fmt.toUpperCase()}
-Generá el guion o texto perfecto listo para salir al aire o publicar (máximo 55 palabras, tono súper canchero, picante y de streaming F1, rioplatense pero profesional, con datos técnicos clave: 43m de subida ciega en Junção, asfalto abrasivo a 46°C, degradación térmica y chances de Colapinto o el duelo Red Bull vs Ferrari).
-Variación creativa #${Math.floor(Math.random() * 1000)}: Redacción fresca, directa al hueso y con remate enganchador.`;
-
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-          body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: dynamicPrompt }],
-            temperature: 0.85,
-            max_tokens: 250
-          })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.choices?.[0]?.message?.content) {
-            chosenScript = data.choices[0].message.content.trim();
-          }
-        }
-      } catch(e) {}
+    // 2. Construcción de prompt ultra específico según la red social y el formato elegido
+    let dynamicPrompt = '';
+    if (plat === 'instagram' && fmt === 'post') {
+      dynamicPrompt = `Sos el estratega de contenido y telemetría de UNDERTRACK para F1. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí el texto completo de un POST DE INSTAGRAM (publicación para el feed de Instagram).
+Estructura obligatoria:
+- Gancho inicial contundente sobre los datos telemétricos de Interlagos.
+- 3 puntos clave con datos técnicos en viñetas: asfalto a 46°C, degradación en apoyos largos (Curva do Sol), y el delta de gestión de Franco Colapinto (14% menos desgaste en compuesto medio) o el duelo Red Bull vs Ferrari.
+- Llamado a la acción final con una pregunta picante para generar comentarios en la comunidad.
+- Hashtags técnicos al final (#F1 #Interlagos #FrancoColapinto #Telemetria #Undertrack).
+Tono: profesional, afilado, de streaming F1 de elite. Entregá DIRECTAMENTE el texto del post listo para publicar, sin meta-comentarios ni introducciones ajenas.`;
+    } else if (plat === 'instagram' && fmt === 'historia') {
+      dynamicPrompt = `Sos el creador de contenido de UNDERTRACK. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí el texto para una HISTORIA DE INSTAGRAM (Story interactiva).
+Requisitos:
+- Máximo 40 palabras.
+- 1 dato telemétrico demoledor (ej: asfalto a 46°C castigando a McLaren, o Colapinto estirando el neumático medio).
+- Una pregunta directa de votación para el sticker de encuesta (ej: "¿Puntos para Franco o rotura de neumáticos? Votá acá 👇").
+Tono fresco, picante y al hueso. Entregá directamente el texto de la historia.`;
+    } else if (plat === 'instagram' && fmt === 'reel') {
+      dynamicPrompt = `Sos el productor audiovisual de UNDERTRACK. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí el guion para un REEL DE INSTAGRAM (video vertical de 30-40 segundos).
+Requisitos:
+- [0:00 - 0:03] Gancho inicial verbal demoledor para retener el scroll.
+- [0:04 - 0:25] Locución rápida con datos telemétricos (43m de trepada en Junção, degradación térmica, Colapinto cuidando gomas).
+- [0:26 - 0:35] Remate picante y llamado a seguir a @undertrack.
+Formato claro de guion con marcas de tiempo.`;
+    } else if (plat === 'tiktok' && fmt === 'video_corto') {
+      dynamicPrompt = `Sos el creador de contenido de UNDERTRACK para TikTok. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí un guion para un VIDEO CORTO DE TIKTOK (15-30 segundos).
+Requisitos:
+- Gancho al segundo cero: "Paren todo, esto nadie te lo contó de Interlagos..."
+- 2 datos telemétricos brutales (pista a 46°C, tracción de Red Bull vs Ferrari, Colapinto).
+- Remate rápido obligando a opinar en comentarios. Tono ultra dinámico.`;
+    } else if (plat === 'tiktok' && fmt === 'video_largo') {
+      dynamicPrompt = `Sos el analista de UNDERTRACK para TikTok. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí la estructura y locución para un VIDEO DE ANÁLISIS EN TIKTOK (1 a 2 minutos).
+Requisitos:
+- Introducción con la tesis telemétrica de la carrera.
+- Desglose de 3 sectores clave de Interlagos (Senna S, Curva do Sol, subida de Junção).
+- Conclusión con pronóstico sobre Colapinto y la pelea por la punta.`;
+    } else if (plat === 'x' && fmt === 'post') {
+      dynamicPrompt = `Sos el analista de telemetría de UNDERTRACK para X (Twitter). Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí un POST / TWEET PARA X (máximo 260 caracteres).
+Requisitos:
+- Un dato telemétrico demoledor (asfalto a 46°C, -1.20 pos para McLaren o Colapinto + 14% preservación).
+- Tono incisivo y pregunta que abra debate inmediato.`;
+    } else if (plat === 'x' && fmt === 'hilo') {
+      dynamicPrompt = `Sos el redactor técnico de UNDERTRACK para X (Twitter). Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí un HILO DE X DE 3 TWEETS (1/3, 2/3, 3/3) que abra debate con la comunidad.
+Requisitos:
+- 1/3: Gancho telemétrico sobre el GP de São Paulo y el peligro térmico en Interlagos.
+- 2/3: El cruce de datos: telemetría en subida de Junção, degradación de neumáticos y el rendimiento de Colapinto.
+- 3/3: Pregunta de cierre y veredicto para que la gente responda y cite.`;
+    } else if (plat === 'youtube' && fmt === 'short') {
+      dynamicPrompt = `Sos el guionista de YOUTUBE SHORTS de UNDERTRACK. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí un guion de locución para un YOUTUBE SHORT (30 a 45 segundos).
+Requisitos:
+- Gancho en los primeros 3 segundos.
+- Datos de telemetría al aire con ritmo rápido y contundente.
+- Remate invitando a suscribirse al canal de UNDERTRACK.`;
+    } else if (plat === 'youtube' && fmt === 'video') {
+      dynamicPrompt = `Sos el conductor de UNDERTRACK en YouTube. Circuito: GP de São Paulo (Interlagos).
+Tarea: Escribí la INTRODUCCIÓN Y TESIS DE ANÁLISIS para un video de YouTube sobre el GP de São Paulo.
+Requisitos:
+- Apertura profesional sobre el asfalto abrasivo a 46°C y 43m de trepada ciega.
+- Hipótesis sobre la degradación de neumáticos, McLaren vs Ferrari y el papel de Colapinto.
+- Tono analítico de transmisión internacional.`;
+    } else {
+      dynamicPrompt = `Sos el analista de contenidos de UNDERTRACK para F1. Circuito: GP de São Paulo (Interlagos).
+Plataforma: ${plat.toUpperCase()}, Formato: ${fmt.toUpperCase()}.
+Escribí un contenido telemétrico picante, directo al hueso y con remate de debate sobre Interlagos, degradación de neumáticos y Franco Colapinto.`;
     }
 
-    // Actualizar el output en Editorial Desk
+    // 3. Consulta a Groq con modelos activos (qwen3.8-27b o gpt-oss-120b)
+    const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+    const preferredModel = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
+    const modelsToTry = [preferredModel, 'openai/gpt-oss-120b'];
+
+    if (apiKey && apiKey.startsWith('gsk_')) {
+      for (const model of modelsToTry) {
+        try {
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: model,
+              messages: [{ role: 'user', content: dynamicPrompt }],
+              temperature: 0.7,
+              max_tokens: 600
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const text = data.choices?.[0]?.message?.content?.trim();
+            if (text) {
+              chosenScript = text;
+              break;
+            }
+          }
+        } catch(e) {}
+      }
+    }
+
+    // 4. Actualizar el output en Editorial Desk
     const output = document.getElementById('verdictOutput');
     if (output) {
       output.textContent = chosenScript;
+    }
+
+    // 5. Actualizar el badge del formato y el botón de copiar según la elección
+    const formatBadges = {
+      instagram: {
+        post: { badge: '📱 Post listo para Instagram', copy: 'copiar post' },
+        historia: { badge: '📸 Historia lista para Instagram', copy: 'copiar historia' },
+        reel: { badge: '🎬 Reel listo para Instagram', copy: 'copiar guion' }
+      },
+      tiktok: {
+        video_corto: { badge: '⚡ Video Corto para TikTok', copy: 'copiar guion' },
+        video_largo: { badge: '🎥 Video Largo para TikTok', copy: 'copiar guion' }
+      },
+      x: {
+        post: { badge: '𝕏 Post listo para X', copy: 'copiar post' },
+        hilo: { badge: '🧵 Hilo de Debate para X', copy: 'copiar hilo' }
+      },
+      youtube: {
+        short: { badge: '▶️ Short listo para YouTube', copy: 'copiar guion' },
+        video: { badge: '📺 Video Análisis para YouTube', copy: 'copiar guion' }
+      }
+    };
+    const meta = (formatBadges[plat] && formatBadges[plat][fmt]) || { badge: '🎙️ Guion listo para el aire', copy: 'copiar guion' };
+    const badgeEl = document.getElementById('verdictCardBadge');
+    if (badgeEl) {
+      badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accentRed animate-pulse"></span> ${meta.badge}`;
+    }
+    const copyBtn = document.getElementById('btnCopyVerdictMain');
+    if (copyBtn) {
+      copyBtn.innerHTML = `<span>${meta.copy}</span> 📋`;
     }
 
     // Scroll suave hacia Editorial Desk

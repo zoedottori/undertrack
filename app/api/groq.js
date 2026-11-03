@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const model = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+  const model = process.env.GROQ_MODEL || req.body?.model || 'qwen/qwen3.8-27b';
 
   try {
     const { prompt, systemPrompt } = req.body;
