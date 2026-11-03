@@ -11,6 +11,16 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 
 ---
 
+## ENTREGA 3
+
+* URL del prototipo online funcional (lo que presente en la entrega 3):
+  https://undertrackentregatres.vercel.app/
+
+* link de presentación de la entrega 3 - zoe:
+  https://www.figma.com/deck/lLHgU3QCCDDmR7rKRdABd2
+
+---
+
 ## DESCRIPCIÓN DEL PROYECTO
 
 UNDERTRACK aborda la previa del Gran Premio de Brasil analizando cómo las variables físicas de la pista condicionan el rendimiento mecánico y el estilo de manejo de los pilotos:
