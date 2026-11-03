@@ -1883,7 +1883,7 @@
           <span class="font-[100] text-muted normal-case">desk</span>
         </h2>
         <p class="text-xs sm:text-sm font-[300] text-muted max-w-xl leading-relaxed">
-          El párrafo listo para leer al aire en tu streaming, podcast o reel antes de la largada.
+          Contenido telemétrico adaptado al formato elegido y listo para publicar o salir al aire.
         </p>
       </div>
 
@@ -2037,6 +2037,10 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
 
   <script src="config.js"></script>
   <script>
+    // Configuración global y robusta de Groq AI (respaldo garantizado para local, file:// y Vercel)
+    window.GROQ_API_KEY = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+    window.GROQ_MODEL = window.GROQ_MODEL || "qwen/qwen3.8-27b";
+
     // 0. CONTROL DINÁMICO DEL TEMA DEL HEADER Y SEGUIMIENTO ACTIVO DE SECCIONES (INCLUYENDO TRANSICIÓN CON VERDE FLÚOR #d4ff32)
     function updateHeaderTheme() {
       const header = document.getElementById('mainHeaderPill');
@@ -3436,54 +3440,60 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       hist.appendChild(tempBubble);
       if (container) container.scrollTop = container.scrollHeight;
 
-      // PROMPT ULTRA CONCISO: RESPUESTA DIRECTA SIN REPETIR LA PREGUNTA
-      const systemPrompt = 'Sos el analista de telemetría de UNDERTRACK en vivo. Circuito: GP de São Paulo (Interlagos). Asfalto a 46°C, trepada de 43m en Junção, lluvia 65%. REGLA ESTRICTA: Respondé DIRECTAMENTE a lo consultado, SIN REPETIR LA PREGUNTA (prohibido decir "Para...", "Respecto a...", "Sobre..."), sin saludos ni relleno. Máximo 1 o 2 oraciones breves, técnicas y contundentes listas para decir al aire.';
+      // PROMPT DE PERIODISMO Y TELEMETRÍA DE ALTO NIVEL (SIN ADVERTENCIAS DE IA NI REPETIR PREGUNTAS)
+      const systemPrompt = `Sos analista y comentarista de telemetría de Fórmula 1 en UNDERTRACK para el GP de São Paulo (Interlagos).
+REGLAS ESTRICTAS:
+1. Jamás digas que sos una inteligencia artificial ni pongas advertencias sobre el futuro: sos un periodista deportivo de F1 analizando telemetría en vivo.
+2. Si te preguntan quién gana, pronósticos o qué va a pasar, da tu análisis técnico con convicción basado en ritmo de carrera, degradación de neumáticos (asfalto a 46°C) o tracción en Junção.
+3. Respondé DIRECTAMENTE a lo consultado, sin repetir la pregunta (prohibido decir "Para...", "Respecto a...", "Sobre..."), sin saludos ni relleno.
+4. Máximo 1 o 2 oraciones breves, técnicas y contundentes listas para salir al aire.`;
 
       let answer = null;
       const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+      const model = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
 
-      // Intento 1: Servidor proxy Vercel (/api/groq)
-      const preferredModel = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
+      // Intento 1: Conexión directa a Groq API (ultra veloz, ~300ms)
       try {
-        const resProxy = await fetch('/api/groq', {
+        const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: q, systemPrompt, model: preferredModel })
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: q }
+            ],
+            temperature: 0.7,
+            max_tokens: 350
+          })
         });
-        if (resProxy.ok) {
-          const dataP = await resProxy.json();
-          answer = dataP.choices?.[0]?.message?.content?.trim();
+        if (resDirect.ok) {
+          const d = await resDirect.json();
+          const text = d.choices?.[0]?.message?.content?.trim();
+          if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+            answer = text;
+          }
         }
-      } catch (e) {}
+      } catch(e) {
+        console.warn('Groq direct chat query error:', e);
+      }
 
-      // Intento 2: Conexión directa con API Key (probando modelo principal y alternativo)
-      if (!answer && apiKey && apiKey.startsWith('gsk_')) {
-        const modelsToTry = [preferredModel, 'openai/gpt-oss-120b'];
-        for (const m of modelsToTry) {
-          try {
-            const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-              body: JSON.stringify({
-                model: m,
-                messages: [
-                  { role: 'system', content: systemPrompt },
-                  { role: 'user', content: q }
-                ],
-                temperature: 0.6,
-                max_tokens: 220
-              })
-            });
-            if (resDirect.ok) {
-              const d = await resDirect.json();
-              const text = d.choices?.[0]?.message?.content?.trim();
-              if (text) {
-                answer = text;
-                break;
-              }
+      // Intento 2: Servidor proxy Vercel (/api/groq) como alternativa
+      if (!answer) {
+        try {
+          const resProxy = await fetch('/api/groq', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: q, systemPrompt, model: model, apiKey: apiKey })
+          });
+          if (resProxy.ok) {
+            const dataP = await resProxy.json();
+            const text = dataP.choices?.[0]?.message?.content?.trim();
+            if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+              answer = text;
             }
-          } catch(e) {}
-        }
+          }
+        } catch (e) {}
       }
 
       // Intento 3: Motor telemétrico dinámico (respuestas directas sin repetir la pregunta)
@@ -3819,61 +3829,150 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     ]
   };
 
-  // BANCO DE CONTENIDOS POR RED Y FORMATO
-  const scriptVariationsDB = {
+  // BANCO DE CONTENIDOS ADAPTADOS POR RED, FORMATO Y ÁNGULO EDITORIAL
+  const editorialNeedsByFormat = {
     instagram: {
-      reel: [
-        "«¿Pensaban que Franco Colapinto no tenía chances en Brasil? Paren la oreja a este dato telemétrico: en México cruzó 8° en pista y acá el asfalto va a estar a 46°C. Cuando el pelotón prenda fuego los neumáticos en la vuelta 15, Franco va a estirar el compuesto Medio sin sobrecalentar el tren trasero. Si no hay toque en Senna S, los puntos están aseguradísimos.»",
-        "«Alerta roja para los que tienen a Norris en el Fantasy: en San Pablo el asfalto llega a 46°C y a McLaren le cocina la delantera izquierda en Curva do Sol, igual que en Austin donde perdieron 30 segundos. Ojo con comprar favoritismos ciegos hoy.»"
-      ],
-      historia: [
-        "¿Se meten los dos Williams en los puntos hoy en Brasil? El dato telemétrico: pista a 46°C premia a gestores térmicos (+1.15 puestos de delta). Franco demostró en México que cuida goma como nadie. ¿Votan top 10 o podio histórico? Votá acá abajo.",
-        "ALERTA MCLAREN EN BRASIL: Pista a 46°C = veneno puro para el tren delantero de Norris. En Austin perdieron 30s por la misma temperatura. ¿Aguantan la punta o Ferrari los madruga en boxes?"
-      ],
-      post: [
-        "TELEMETRÍA PREVIA // GP DE SÃO PAULO:\n\n1. Asfalto a 46°C castiga el tren delantero en apoyos largos (Curva do Sol).\n2. Franco Colapinto registra un 14% menos de degradación en compuesto Medio, clave para el overcut.\n3. Red Bull saca +0.20s en los 43m de trepada hacia la recta principal.\n\n¿Tu pronóstico para la carrera? Te leemos en comentarios.",
-        "POR QUÉ INTERLAGOS PUEDE DAR EL GOLPE DE LA TEMPORADA:\n\nEl cruce de datos climáticos y geométricos ubica a Williams y Ferrari como los grandes beneficiados térmicos. Si la degradación supera el 1.8s por stint, la carrera se define en la calle de boxes."
-      ]
+      post: {
+        debate: `TELEMETRÍA // GP DE SÃO PAULO 🇧🇷\n\n¿Puede McLaren sostener la punta con asfalto a 46°C o Ferrari se los come en Curva do Sol?\n\n• Los apoyos largos sobrecalientan el tren delantero del MCL38 (-1.20 pos proyectadas).\n• Ferrari registra la mejor frenada en Senna S (15m más tarde sin bloquear).\n• Franco Colapinto llega con 14% menos de degradación en compuesto Medio.\n\n¿Tu veredicto para el domingo? Te leemos en comentarios 👇\n\n#F1 #Interlagos #FrancoColapinto #Telemetria #Undertrack`,
+        telemetria: `DATOS PUROS DE TELEMETRÍA // INTERLAGOS 📊\n\n1. Asfalto a 46°C: degradación térmica crítica a partir de la vuelta 16.\n2. Subida de Junção: 43m de desnivel donde patinar 3° cuesta 15 km/h en recta.\n3. Gestión de Franco Colapinto: preservación de gomas 14% superior al pelotón, clave para el overcut de Williams.\n\nGuardá este post para seguir la carrera en vivo con datos reales 🏁\n\n#F1 #Interlagos #WilliamsRacing #Telemetria`,
+        apuesta: `LA PREDICCIÓN PICANTE // INTERLAGOS 🔥\n\nOlvídense de las carreras lineales:\n\n• 73% histórico de Safety Car en São Paulo.\n• Si caen gotas en vuelta 20, los pilotos agresivos ganan +2.70 puestos netos.\n• Williams y Colapinto tienen la ventana ideal para saltar al top 10 con una sola parada limpia.\n\n¿Te animás a apostar por un podio sorpresa? 💬\n\n#F1 #Colapinto #SaoPauloGP #Undertrack`,
+        resumen: `RESUMEN PREVIO AL AIRE // GP DE SÃO PAULO 📋\n\n• Clima: 28°C ambiente, 46°C en asfalto, 65% probabilidad de lluvia.\n• El desafío: tracción en subida ciega desde Junção hacia meta.\n• El tapado: Franco Colapinto cuidando el compuesto Medio.\n• La pelea: Red Bull vs Ferrari en gestión de degradación.\n\n¿Listos para la largada? Dejá tu pronóstico 👇\n\n#F1 #Interlagos #GranPremio #Undertrack`
+      },
+      historia: {
+        debate: `¿MCLAREN O FERRARI EN BRASIL? 🔥\n\nPista a 46°C derrite las gomas de Norris en Curva do Sol. Ferrari frena 15m más tarde en Senna S.\n\n¿Quién se lleva la victoria? Votá en la encuesta 👇`,
+        telemetria: `DATO TELEMÉTRICO BRUTAL 📊\n\nFranco Colapinto cuida el neumático Medio un 14% mejor que la media. En 71 vueltas con calor, hay olor a puntos.\n\n¿Entra al Top 10 hoy? [SÍ / NO]`,
+        apuesta: `ALERTA SAFETY CAR 🚨\n\n73% de probabilidad histórica en Interlagos. Una parada en vuelta 22 puede meter a Williams en zona de puntos.\n\n¿Votás sorpresa o carrera predecible? 👇`,
+        resumen: `CLAVES DE INTERLAGOS EN 15s ⚡\n\n1. Asfalto hirviendo (46°C)\n2. 43m de subida ciega en Junção\n3. Lluvia al 65%\n\nPrendete a la previa de @undertrack 🏁`
+      },
+      reel: {
+        debate: `«[0:00] ¿Por qué nadie está hablando de la verdadera trampa de Brasil? [0:04] Todos miran la S do Senna, pero la carrera se define en los 43 metros de trepada en Junção. [0:15] Con asfalto a 46°C, quien patine pierde 15 km/h hacia la bandera a cuadros. [0:28] ¿Ustedes creen que McLaren aguanta el calor o Ferrari da el golpe? Comenten ya.»`,
+        telemetria: `«[0:00] Tres números de telemetría que la transmisión oficial no te va a mostrar. [0:05] Primero: asfalto a 46°C, veneno para el tren delantero de Norris. [0:14] Segundo: Colapinto cuida las gomas medias un 14% mejor que el resto. [0:24] Tercero: 73% de chance de Safety Car. [0:30] Guardá este reel antes de la largada.»`,
+        apuesta: `«[0:00] La jugada más picante de este fin de semana en São Paulo. [0:06] Olvídense del podio cantado: con 65% de lluvia y asfalto hirviendo, la carrera es supervivencia. [0:18] Williams preparó el auto de Franco para estirar la primera parada y pescar en río revuelto. [0:28] Anoten este reel: Colapinto pelea los puntos.»`,
+        resumen: `«[0:00] Bienvenidos al análisis telemétrico de UNDERTRACK para Interlagos. [0:05] 71 vueltas, 46 grados de asfalto y una trepada ciega donde se rompen los cronómetros. [0:18] El duelo Red Bull vs Ferrari en frenada va a definir el campeonato de constructores. [0:28] Seguinos para telemetría vuelta a vuelta.»`
+      }
     },
     tiktok: {
-      video_corto: [
-        "«El verdadero tapado del domingo en Brasil se llama Franco Colapinto. Williams descubrió que su desgaste en goma media es 14% menor a la media. En 71 vueltas con asfalto hirviendo, tiene ritmo para largar calmo, comer rivales en paradas y meterse de lleno entre el 8° y el 10°. Anótenlo.»",
-        "«¿Por qué McLaren puede perder la carrera en Interlagos? Por la física del calor. UNDERTRACK marca -1.20 puestos para el MCL38 en asfalto caliente. Con 32°C de ambiente, Norris va a padecer subviraje en apoyos largos. Ferrari y Red Bull huelen sangre.»"
-      ],
-      video_largo: [
-        "«Análisis profundo de telemetría previa a Interlagos: con 43 metros de desnivel en subida ciega hacia Arquibancadas, los monoplazas con alta carga aerodinámica pero poca tracción mecánica pierden hasta 15 km/h en recta. Williams optimizó la suspensión trasera de Colapinto para replicar el delta de México: cuidar goma en stint 1 para ganar 3 puestos netos en paradas.»",
-        "«El duelo por el título de constructores se define en la temperatura de pista: si el asfalto supera los 44°C, la ventaja de McLaren se esfuma por completo ante la consistencia de Ferrari y el paquete de aceleración vertical de Red Bull.»"
-      ]
+      video_corto: {
+        debate: `«Paren todo. En Interlagos no gana el auto más rápido, gana el que no funda los neumáticos en Curva do Sol. Con 46 grados de asfalto, McLaren pierde 0.3s por vuelta ante Ferrari. ¿Norris aguanta la punta o se cae a pedazos? Los leo en comentarios.»`,
+        telemetria: `«La telemetría secreta de Franco Colapinto en Brasil: 14% menos de degradación en compuesto Medio. Williams sabe que si no hay choque en vuelta 1, el overcut los mete directo en el Top 10. Dale like y compartilo con un fan de Franco.»`,
+        apuesta: `«Mi predicción picante para el GP de São Paulo: no van a terminar más de 14 autos. 73% de probabilidad de Safety Car y asfalto que cocina el caucho. Quien arriesgue en boxes se lleva la gloria. ¿Se animan a bancar a Williams?»`,
+        resumen: `«Todo lo que tenés que saber de Interlagos en 20 segundos: asfalto a 46°C, lluvia al acecho y 43 metros de subida que te comen el motor. El duelo Verstappen vs Leclerc va a ser fuego puro. Seguinos en UNDERTRACK.»`
+      },
+      video_largo: {
+        debate: `«Análisis técnico profundo: por qué el calor de San Pablo puede arruinarle el campeonato a McLaren. En este video desglosamos sector por sector: Senna S, la Curva do Sol y la fatídica trepada de Junção. Dejen su hipótesis en comentarios para el debate.»`,
+        telemetria: `«Desglose telemétrico completo de Williams y Franco Colapinto para el GP de São Paulo: comparativa de telemetría de frenada, velocidad de vértice y preservación térmica en el segundo stint. Miren los datos de presión de neumáticos.»`,
+        apuesta: `«Estrategias ocultas en Interlagos: por qué una sola parada con compuesto Duro puede ser la jugada maestra frente a los dos stops proyectados por Pirelli. Simulamos las 71 vueltas con el modelo predictivo de UNDERTRACK.»`,
+        resumen: `«Previa integral de telemetría para el Gran Premio de São Paulo. Recorremos el trazado de José Carlos Pace, el impacto del viento en la Curva 1 y las opciones de podio para Red Bull, Ferrari y McLaren. Bienvenidos al análisis.»`
+      }
     },
     x: {
-      post: [
-        "DATO TELEMÉTRICO // INTERLAGOS: Asfalto a 46°C castiga la rueda delantera izquierda de McLaren en Curva do Sol (-1.20 pos proyectadas). Williams y Ferrari llegan con mejor balance térmico para stints largos.",
-        "Interlagos tiene 73% de probabilidad de Safety Car. Quien anticipe la parada en boxes en vuelta 22 gana hasta 3 puestos netos. Ojo con la estrategia de Williams con Colapinto."
-      ],
-      hilo: [
-        "1/3 Por qué Franco Colapinto puede sumar puntos grandes en Interlagos [HILO TELEMÉTRICO]:\n\nEl asfalto en San Pablo tocará los 46°C. El modelo de degradación térmica beneficia a monoplazas que no sobrecalientan el tren trasero en Curva do Sol.\n\n2/3 En México, Franco registró un delta de preservación de gomas 14% mejor a la media de la parrilla.\n\n3/3 Pronóstico: Si Williams ejecuta una sola parada limpia (Medio ➔ Duro), el P8 es completamente viable.",
-        "1/3 ALERTA MCLAREN: Por qué el asfalto de Interlagos (46°C) complica a Norris y Piastri [DATOS]:\n\nEl modelo histórico registra un diferencial de -1.20 puestos para McLaren en pista caliente (>40°C), repitiendo el patrón de COTA.\n\n2/3 El viento de cola en Senna S reduce la carga delantera y sobrecalienta el compuesto en apoyos largos.\n\n3/3 Veredicto: Red Bull y Ferrari tienen ventaja de degradación en los stints 2 y 3."
-      ]
+      post: {
+        debate: `DATO TELEMÉTRICO // INTERLAGOS: Con asfalto a 46°C, McLaren proyecta -1.20 posiciones por sobrecalentamiento en Curva do Sol. Ferrari tiene mejor frenada en Senna S.\n\n¿Pierde Norris la punta el domingo? Los leo.`,
+        telemetria: `TELEMETRÍA // GP DE SÃO PAULO:\n• Williams cuida goma media un 14% mejor que la media.\n• 43m de subida en Junção: patinar 3° cuesta 15 km/h en recta.\n• 73% probabilidad de Safety Car.\n\nColapinto tiene ritmo para el P8.`,
+        apuesta: `PREDICCIÓN INTERLAGOS 🔥: 65% lluvia + asfalto hirviendo = caos total. Quien anticipe la parada a intermedios en vuelta 22 gana hasta 3 puestos netos.\n\nOjo con el batacazo de Colapinto y Hamilton.`,
+        resumen: `CLAVES GP SÃO PAULO 🇧🇷:\n1. 46°C asfalto = degradación extrema.\n2. Tracción mecánica en Junção define sobrepasos con DRS.\n3. Paridad absoluta Red Bull / Ferrari.\n\n¿Tu podio? RT y comentá.`
+      },
+      hilo: {
+        debate: `1/3 ¿Por qué el calor de Interlagos puede definir el mundial de F1? [HILO DE DEBATE] 🧵👇\n\nEl asfalto marcará 46°C. El modelo de UNDERTRACK proyecta una caída de 1.8s por vuelta en autos que castiguen el tren delantero.\n\n2/3 McLaren sufrió este exacto problema en COTA. Ferrari y Red Bull traen suspensiones mecánicas más nobles para los 43m de trepada en Junção.\n\n3/3 ¿Creen que Norris aguanta el asedio o Ferrari clava el 1-2? Dejen sus argumentos abajo 👇`,
+        telemetria: `1/3 LOS NÚMEROS QUE NO TE MUESTRAN DE FRANCO COLAPINTO EN BRASIL [TELEMETRÍA]:\n\nFranco llega con un delta de degradación térmica 14% mejor que el promedio del pelotón en compuesto Medio.\n\n2/3 Con 332 km/h de velocidad punta en la recta de Arquibancadas, Williams tiene velocidad suficiente para defenderse tras ejecutar el overcut.\n\n3/3 Veredicto UNDERTRACK: si sobrevive a la frenada de Senna S, los puntos en Interlagos están completamente al alcance.`,
+        apuesta: `1/3 POR QUÉ INTERLAGOS VA A SER UNA LOTERÍA TÁCTICA [ANÁLISIS]:\n\nEl 73% de las últimas carreras en São Paulo tuvieron Safety Car. La ventana de paradas entre vuelta 20 y 26 es dinamita pura.\n\n2/3 La lluvia al 65% combinada con pista a 46°C genera vapor y pérdida instantánea de agarre lateral en Curva do Sol.\n\n3/3 Nuestra apuesta: quien arriesgue con una sola parada se mete al podio. ¿Ustedes qué dicen? Citá con tu predicción.`,
+        resumen: `1/3 GUÍA RÁPIDA DE TELEMETRÍA // GP DE SÃO PAULO 2024:\n\n71 vueltas en el mítico trazado antihorario de Interlagos. Asfalto a 46°C, curvas ciegas y 65% de probabilidad de lluvia.\n\n2/3 Puntos críticos: frenada en bajada de Senna S, apoyos largos en Curva do Sol y tracción vertical en Junção hacia la recta de meta.\n\n3/3 Todo listo para la largada. Seguí la cobertura telemétrica en vivo con @undertrack.`
+      }
     },
     youtube: {
-      short: [
-        "«Atentos a este tip para el domingo: todos van a mirar la largada, pero la carrera de Franco Colapinto se cocina entre la vuelta 20 y la 35. Con 43 metros de trepada en Junção, cuidar la tracción trasera es todo. Franco gestiona como los dioses en pista caliente: hay puntos asegurados.»",
-        "«¿Quién gana Interlagos? La telemetría no miente: el que domine el micro-sector de subida hacia Arquibancadas se lleva la gloria. Red Bull llega con mejor velocidad de salida (+7 km/h) que Ferrari, pero Leclerc frena 15 metros más tarde. Final abierto.»"
-      ],
-      video: [
-        "«Muy buenas a todos, bienvenidos a la transmisión en directo de UNDERTRACK para el Gran Premio de São Paulo. Hoy tenemos una carrera de pura gestión térmica: con el asfalto tocando los 46°C y 43 metros de desnivel en subida ciega, los autos que castiguen la goma delantera van a sufrir caídas de hasta 2 segundos por vuelta. Analizamos paso a paso las paradas y el delta de Franco Colapinto.»",
-        "«Bienvenidos al streaming oficial de análisis telemétrico. La gran incógnita de la tarde es McLaren: en condiciones similares de calor en Austin perdieron 30 segundos respecto a la punta. Hoy Ferrari y Red Bull tienen una oportunidad de oro para recortar el campeonato de constructores.»"
-      ]
+      short: {
+        debate: `«[EN PANTALLA: Telemetría Senna S] ¿Ferrari o McLaren? Todos miran la potencia, pero la carrera se define en los frenos. Ferrari frena 15 metros más tarde sin bloquear. ¿Ustedes qué opinan? ¿Leclerc le gana a Norris? Comenten acá abajo y suscríbanse a UNDERTRACK.»`,
+        telemetria: `«[EN PANTALLA: Gráficos de desgaste de gomas] Atentos a este dato telemétrico de Franco Colapinto: 14% menos de desgaste en neumáticos medios. En pista hirviendo a 46 grados, Williams tiene el arma secreta para sumar puntos en Brasil. Suscribite para más datos.»`,
+        apuesta: `«[EN PANTALLA: Lluvia en Interlagos] 73% de probabilidad de Safety Car y lluvia al 65%. La jugada maestra del domingo no es la pole, es cuándo parar en boxes. Mi apuesta: Colapinto termina en el Top 8. ¿Te sumás? Dejá tu like.»`,
+        resumen: `«[EN PANTALLA: Mapa del circuito de Interlagos] Todo lo que necesitás saber antes de que se apaguen los semáforos en São Paulo: 46°C de asfalto, 43m de trepada ciega y final abierto entre Red Bull y Ferrari. Suscribite a UNDERTRACK para el análisis post-carrera.»`
+      },
+      video: {
+        debate: `«Muy buenas a todos, bienvenidos al análisis editorial de UNDERTRACK para el Gran Premio de São Paulo. Hoy abrimos el debate con una pregunta técnica central: ¿puede el MCL38 sobrevivir a los 46 grados de asfalto en Interlagos sin fundir el neumático delantero? Analizamos los micro-sectores y la telemetría en vivo.»`,
+        telemetria: `«Bienvenidos a la sala de telemetría de UNDERTRACK. En este informe especial desglosamos las curvas de potencia y el desgaste térmico de Williams y Franco Colapinto en Interlagos. Los datos muestran un delta de conservación del 14% que puede cambiar por completo la estrategia de carrera.»`,
+        apuesta: `«Gran Premio de São Paulo: por qué las simulaciones de carrera pronostican un domingo caótico. Con un 73% histórico de intervenciones del Safety Car y amenaza de lluvia sobre el lago, repasamos las estrategias más agresivas de la grilla.»`,
+        resumen: `«Bienvenidos a la previa definitiva de UNDERTRACK para Interlagos. Repasamos sector por sector los 4.309 metros del trazado brasileño, la física de la trepada de Junção y las claves que definirán la batalla entre Verstappen, Norris y Leclerc.»`
+      }
     }
   };
 
-  // BANCO DE CONTENIDOS PARA EL SELECTOR EDITORIAL "¿ESTÁS EN BLANCO?"
-  const editorialNeedsDB = {
-    debate: "«¿Por qué nadie habla de la tracción en Junção? Todos miran la frenada de Senna S, pero la verdadera trampa de Interlagos son los 43 metros de trepada ciega. Con el asfalto tocando los 46°C, quien patine tres grados pierde 15 km/h en recta. ¿Ustedes creen que McLaren puede sostener el ritmo en calor o Ferrari se los come vivos en boxes?»",
-    telemetria: "«Datos puros de telemetría de UNDERTRACK: La matriz térmica de San Pablo proyecta un diferencial de -1.20 posiciones para los monoplazas con sobrecalentamiento del tren delantero (MCL38). En contraste, Williams registra un delta de degradación 14% menor en compuesto medio. Si Colapinto cuida gomas en las primeras 20 vueltas, el ritmo telemétrico marca puntos seguros.»",
-    apuesta: "«La jugada más picante del domingo: olvídense del podio cantado. El 73% histórico de intervenciones de Safety Car en São Paulo favorece a quien anticipe la ventana de parada en la vuelta 22. Si caen las tres gotas pronosticadas sobre el lago, Franco Colapinto y Lewis Hamilton tienen delta positivo (+2.70 puestos en pista húmeda) para dar el batacazo.»",
-    resumen: "«Bienvenidos a la transmisión de UNDERTRACK para el Gran Premio de São Paulo. Tenemos asfalto abrasivo a 46°C, 43 metros de desnivel vertical y una paridad absoluta entre Red Bull y Ferrari en curvas ciegas. Si la degradación supera 1.8 segundos por vuelta, la carrera se define con estrategia pura desde el pitlane.»"
+  // BANCO DE CONTENIDOS POR RED Y FORMATO (COMPATIBILIDAD)
+  const scriptVariationsDB = {
+    instagram: {
+      post: [editorialNeedsByFormat.instagram.post.debate, editorialNeedsByFormat.instagram.post.telemetria],
+      historia: [editorialNeedsByFormat.instagram.historia.debate, editorialNeedsByFormat.instagram.historia.telemetria],
+      reel: [editorialNeedsByFormat.instagram.reel.debate, editorialNeedsByFormat.instagram.reel.telemetria]
+    },
+    tiktok: {
+      video_corto: [editorialNeedsByFormat.tiktok.video_corto.debate, editorialNeedsByFormat.tiktok.video_corto.telemetria],
+      video_largo: [editorialNeedsByFormat.tiktok.video_largo.debate, editorialNeedsByFormat.tiktok.video_largo.telemetria]
+    },
+    x: {
+      post: [editorialNeedsByFormat.x.post.debate, editorialNeedsByFormat.x.post.telemetria],
+      hilo: [editorialNeedsByFormat.x.hilo.debate, editorialNeedsByFormat.x.hilo.telemetria]
+    },
+    youtube: {
+      short: [editorialNeedsByFormat.youtube.short.debate, editorialNeedsByFormat.youtube.short.telemetria],
+      video: [editorialNeedsByFormat.youtube.video.debate, editorialNeedsByFormat.youtube.video.telemetria]
+    }
   };
+
+  const editorialNeedsDB = {
+    debate: editorialNeedsByFormat.instagram.reel.debate,
+    telemetria: editorialNeedsByFormat.instagram.reel.telemetria,
+    apuesta: editorialNeedsByFormat.instagram.reel.apuesta,
+    resumen: editorialNeedsByFormat.instagram.reel.resumen
+  };
+
+  // SINCRONIZACIÓN INMEDIATA DEL OUTPUT EDITORIAL SEGÚN PLATAFORMA, FORMATO Y ÁNGULO
+  function syncEditorialOutput() {
+    const plat = currentDeskPlatform || 'instagram';
+    const fmt = currentDeskFormat || 'reel';
+    const need = currentEditorialNeed || 'debate';
+
+    const formatBadges = {
+      instagram: {
+        post: { badge: '📱 Post listo para Instagram', copy: 'copiar post' },
+        historia: { badge: '📸 Historia lista para Instagram', copy: 'copiar historia' },
+        reel: { badge: '🎬 Reel listo para Instagram', copy: 'copiar guion' }
+      },
+      tiktok: {
+        video_corto: { badge: '⚡ Video Corto para TikTok', copy: 'copiar guion' },
+        video_largo: { badge: '🎥 Video Largo para TikTok', copy: 'copiar guion' }
+      },
+      x: {
+        post: { badge: '𝕏 Post listo para X', copy: 'copiar post' },
+        hilo: { badge: '🧵 Hilo de Debate para X', copy: 'copiar hilo' }
+      },
+      youtube: {
+        short: { badge: '▶️ Short listo para YouTube', copy: 'copiar guion' },
+        video: { badge: '📺 Video Análisis para YouTube', copy: 'copiar guion' }
+      }
+    };
+
+    const meta = (formatBadges[plat] && formatBadges[plat][fmt]) || { badge: '🎙️ Guion listo para el aire', copy: 'copiar guion' };
+    const badgeEl = document.getElementById('verdictCardBadge');
+    if (badgeEl) {
+      badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accentRed animate-pulse"></span> ${meta.badge}`;
+    }
+    const copyBtn = document.getElementById('btnCopyVerdictMain');
+    if (copyBtn) {
+      copyBtn.innerHTML = `<span>${meta.copy}</span> 📋`;
+    }
+
+    let text = '';
+    if (editorialNeedsByFormat[plat] && editorialNeedsByFormat[plat][fmt] && editorialNeedsByFormat[plat][fmt][need]) {
+      text = editorialNeedsByFormat[plat][fmt][need];
+    } else if (scriptVariationsDB[plat] && scriptVariationsDB[plat][fmt]) {
+      text = scriptVariationsDB[plat][fmt][0];
+    } else {
+      text = editorialNeedsDB[need] || editorialNeedsDB.debate;
+    }
+
+    const output = document.getElementById('verdictOutput');
+    if (output && text) {
+      output.textContent = text;
+    }
+  }
 
   window.selectEditorialNeed = function(needKey) {
     currentEditorialNeed = needKey;
@@ -3888,10 +3987,7 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       }
     });
 
-    const output = document.getElementById('verdictOutput');
-    if (output && editorialNeedsDB[needKey]) {
-      output.textContent = editorialNeedsDB[needKey];
-    }
+    syncEditorialOutput();
   };
 
   // ACTUALIZAR FORMATOS DINÁMICOS SEGÚN PLATAFORMA
@@ -3931,6 +4027,7 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       }
     });
     renderDynamicFormatButtons();
+    syncEditorialOutput();
   };
 
   window.selectDeskFormat = function(fmt) {
@@ -3946,12 +4043,14 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
         }
       }
     });
+    syncEditorialOutput();
   };
 
-  // INICIALIZAR FORMATOS DINÁMICOS AL CARGAR
+  // INICIALIZAR FORMATOS DINÁMICOS Y CONTENIDO SINCRONIZADO AL CARGAR
   renderDynamicFormatButtons();
+  syncEditorialOutput();
 
-  // GENERAR GUION O CONTENIDO PERSONALIZADO SEGÚN PLATAFORMA Y FORMATO
+  // GENERAR GUION O CONTENIDO PERSONALIZADO SEGÚN PLATAFORMA Y FORMATO CON GROQ IA
   window.generateCustomScript = async function() {
     const btn = document.getElementById('btnGenerateCustomScript');
     if (btn) {
@@ -3961,11 +4060,12 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
 
     const plat = currentDeskPlatform || 'instagram';
     const fmt = currentDeskFormat || 'reel';
+    const need = currentEditorialNeed || 'debate';
 
-    // 1. Variación aleatoria de respaldo local si no hay conexión
-    const pool = (scriptVariationsDB[plat] && scriptVariationsDB[plat][fmt]) || scriptVariationsDB.instagram.reel;
-    const randomIdx = Math.floor(Math.random() * pool.length);
-    let chosenScript = pool[randomIdx];
+    // 1. Variación local de base en el formato exacto
+    let chosenScript = (editorialNeedsByFormat[plat] && editorialNeedsByFormat[plat][fmt] && editorialNeedsByFormat[plat][fmt][need]) ||
+                       (scriptVariationsDB[plat] && scriptVariationsDB[plat][fmt] && scriptVariationsDB[plat][fmt][0]) ||
+                       editorialNeedsDB.debate;
 
     // 2. Construcción de prompt ultra específico según la red social y el formato elegido
     let dynamicPrompt = '';
@@ -4041,34 +4141,52 @@ Plataforma: ${plat.toUpperCase()}, Formato: ${fmt.toUpperCase()}.
 Escribí un contenido telemétrico picante, directo al hueso y con remate de debate sobre Interlagos, degradación de neumáticos y Franco Colapinto.`;
     }
 
-    // 3. Consulta a Groq con modelos activos (qwen3.8-27b o gpt-oss-120b)
+    // 3. Consulta a Groq con modelos activos (qwen3.8-27b)
     const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
     const preferredModel = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
-    const modelsToTry = [preferredModel, 'openai/gpt-oss-120b'];
 
-    if (apiKey && apiKey.startsWith('gsk_')) {
-      for (const model of modelsToTry) {
-        try {
-          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-            body: JSON.stringify({
-              model: model,
-              messages: [{ role: 'user', content: dynamicPrompt }],
-              temperature: 0.7,
-              max_tokens: 600
-            })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            const text = data.choices?.[0]?.message?.content?.trim();
-            if (text) {
-              chosenScript = text;
-              break;
-            }
-          }
-        } catch(e) {}
+    let aiSuccess = false;
+    // Intento directo a Groq
+    try {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({
+          model: preferredModel,
+          messages: [{ role: 'user', content: dynamicPrompt }],
+          temperature: 0.7,
+          max_tokens: 650
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const text = data.choices?.[0]?.message?.content?.trim();
+        if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+          chosenScript = text;
+          aiSuccess = true;
+        }
       }
+    } catch(e) {
+      console.warn('Groq direct script generation error:', e);
+    }
+
+    // Intento vía proxy /api/groq si la directa falló
+    if (!aiSuccess) {
+      try {
+        const resP = await fetch('/api/groq', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: dynamicPrompt, model: preferredModel, apiKey: apiKey })
+        });
+        if (resP.ok) {
+          const dataP = await resP.json();
+          const textP = dataP.choices?.[0]?.message?.content?.trim();
+          if (textP && !textP.toLowerCase().includes('como modelo de inteligencia') && !textP.toLowerCase().includes('no puedo predecir')) {
+            chosenScript = textP;
+            aiSuccess = true;
+          }
+        }
+      } catch(e) {}
     }
 
     // 4. Actualizar el output en Editorial Desk

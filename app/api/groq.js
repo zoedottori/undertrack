@@ -21,11 +21,6 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.GROQ_API_KEY || req.body?.apiKey;
-  if (!apiKey) {
-    return res.status(400).json({ 
-      error: 'No se encontró GROQ_API_KEY configurada en las Variables de Entorno de Vercel.' 
-    });
-  }
 
   const model = process.env.GROQ_MODEL || req.body?.model || 'qwen/qwen3.8-27b';
 
