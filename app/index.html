@@ -262,13 +262,13 @@
 
     .fan-card {
       position: absolute;
-      width: 230px;
-      height: 322px;
-      aspect-ratio: 2.5 / 3.5;
+      width: 250px;
+      height: 250px;
+      aspect-ratio: 1 / 1;
       border-radius: 18px;
       overflow: hidden;
       cursor: pointer;
-      transform-origin: center 115%;
+      transform-origin: center 120%;
       transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
                   box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
                   border-color 0.35s ease;
@@ -379,8 +379,9 @@
       font-weight: 800 !important;
     }
     .header-dark-mode .desk-cta:hover {
-      background-color: #FFFFFF !important;
+      background-color: #c4ef2b !important;
       color: #111114 !important;
+      opacity: 0.95 !important;
     }
 .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -400,9 +401,9 @@
     /* Adaptaciones Mobile & Touch */
     @media (max-width: 640px) {
       .fan-card {
-        width: 160px !important;
-        height: 224px !important;
-        aspect-ratio: 2.5 / 3.5 !important;
+        width: 170px !important;
+        height: 170px !important;
+        aspect-ratio: 1 / 1 !important;
         border-radius: 14px !important;
       }
       .fan-card.is-active {
@@ -508,46 +509,45 @@
     }
 
     /* ========================================================
-       BOTONES DEL CUESTIONARIO EDITORIAL - MÁXIMA LEGIBILIDAD Y ALTO CONTRASTE
+       BOTONES DEL CUESTIONARIO EDITORIAL - DISEÑO CAPSULE ULTRA ELEGANTE
        ======================================================== */
     .desk-choice-btn {
-      background-color: #FFFFFF !important;
-      color: #111114 !important;
-      border: 1.5px solid rgba(17, 17, 20, 0.22) !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      background-color: #F4F4F7 !important;
+      color: #55555C !important;
+      border: 1px solid rgba(17, 17, 20, 0.08) !important;
+      border-radius: 9999px !important;
+      padding: 0.65rem 1.25rem !important;
+      font-size: 0.8125rem !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.01em !important;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
       cursor: pointer !important;
+      user-select: none !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
     }
-    .desk-choice-btn span,
-    .desk-choice-btn strong,
-    .desk-choice-btn p {
+    .desk-choice-btn:not(.is-active):hover {
+      background-color: #EAEAEF !important;
       color: #111114 !important;
-      font-weight: 600 !important;
+      border-color: rgba(17, 17, 20, 0.18) !important;
+      transform: translateY(-1px) !important;
     }
-    .desk-choice-btn:hover {
-      border-color: #111114 !important;
-      background-color: #F6F6F9 !important;
+    .desk-choice-btn:active {
+      transform: scale(0.96) !important;
     }
-    /* ESTADO ACTIVO: FONDO CARBÓN PROFUNDO, TEXTO 100% BLANCO PURO Y ARO VERDE FLÚOR */
     .desk-choice-btn.is-active {
       background-color: #111114 !important;
       color: #FFFFFF !important;
       border-color: #111114 !important;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22), 0 0 0 2px #d4ff32 !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 14px rgba(17, 17, 20, 0.16) !important;
+      transform: translateY(0) !important;
     }
-    .desk-choice-btn.is-active span,
-    .desk-choice-btn.is-active strong,
-    .desk-choice-btn.is-active p {
+    .desk-choice-btn.is-active * {
       color: #FFFFFF !important;
-      font-weight: 700 !important;
-    }
-    .desk-choice-btn .choice-dot {
-      background-color: transparent !important;
-      transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
-    }
-    .desk-choice-btn.is-active .choice-dot {
-      background-color: #d4ff32 !important;
-      box-shadow: 0 0 8px #d4ff32 !important;
     }
 </style>
 </head>
@@ -605,7 +605,7 @@
       </nav>
 
       <!-- Botón Mateo -->
-      <a href="#verdict" class="desk-cta px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-carbon text-pureWhite text-[11px] sm:text-xs font-[700] tracking-tight hover:scale-105 transition-all shrink-0">
+      <a href="#verdict" class="desk-cta px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-carbon text-pureWhite text-[11px] sm:text-xs font-[700] tracking-tight hover:bg-zinc-800 transition-colors duration-200 shrink-0">
         editorial desk_
       </a>
 
@@ -834,7 +834,7 @@
       <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60 pointer-events-none"></div>
 
       <!-- CAPA 1: DASHBOARD TELEMÉTRICO DE INTERLAGOS (TITULAR + HITOS ORIGINALES + TECH CARD + STATS) -->
-      <div id="surfaceDashboardWrap" class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 pt-16 sm:pt-20 pb-4 h-full flex flex-col justify-between will-change-transform transition-opacity duration-200">
+      <div id="surfaceDashboardWrap" class="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 pt-16 sm:pt-20 pb-4 h-full flex flex-col justify-between will-change-transform transition-opacity duration-200">
 
         <!-- ENCABEZADO SUPERPUESTO (ALINEACIÓN VERTICAL UNIFICADA) -->
         <div class="text-left shrink-0 mb-1 sm:mb-2">
@@ -1131,10 +1131,10 @@
     </svg>
 
     <!-- ESCENARIO PINNED STICKY: PADDING SUPERIOR AUMENTADO (pt-24 sm:pt-28) PARA QUE EL HEADER FIJO NO TAPE EL TÍTULO -->
-    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 sm:px-12">
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8">
       
       <!-- CABECERA EDITORIAL SUPERIOR (DESPEJADA Y CÓMODA DEBAJO DEL NAVBAR GLOBAL) -->
-      <div class="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-between pb-3 border-b border-white/20 shrink-0">
+      <div class="relative z-20 w-full max-w-6xl mx-auto px-6 sm:px-10 flex items-center justify-between pb-3 border-b border-white/20 shrink-0">
         <div class="text-left">
           <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-2">02 / CLIMA & PRESIÓN</span>
           <h3 class="font-[900] text-2xl sm:text-3xl uppercase tracking-tighter text-white">UNDER PRESSURE</h3>
@@ -1334,7 +1334,7 @@
 
   </section>
 
-  <section id="signal" class="relative w-full min-h-screen bg-pureWhite text-carbon overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-20 px-6 sm:px-12 scroll-mt-20 flex flex-col justify-between">
+  <section id="signal" class="relative w-full min-h-screen bg-pureWhite text-carbon overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-20 scroll-mt-20 flex flex-col justify-between">
     
     <!-- LÍNEAS TOPOGRÁFICAS CURVAS DE FONDO -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
@@ -1343,7 +1343,7 @@
       <path d="M150 150 C450 300, 850 180, 1150 400 C1350 550, 1500 250, 1600 200" stroke="#111114" stroke-width="0.8" />
     </svg>
 
-    <div class="relative z-10 max-w-7xl mx-auto w-full flex-1 flex flex-col justify-between my-auto">
+    <div class="relative z-10 max-w-6xl mx-auto w-full px-6 sm:px-10 flex-1 flex flex-col justify-between my-auto">
       
       <!-- ENCABEZADO EDITORIAL UNIFICADO (ALINEACIÓN VERTICAL idéntica a 01, 02, 04, 05, 06) -->
       <div class="text-left shrink-0">
@@ -1358,8 +1358,8 @@
         </p>
       </div>
 
-      <!-- COMPARATIVA EN 3 COLUMNAS: AIRE GENEROSO ENTRE TÍTULOS Y DATOS -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-center mt-8 sm:mt-12 mb-4">
+      <!-- COMPARATIVA EN 3 COLUMNAS: AIRE Y RESPIRACIÓN GENEROSA ENTRE TÍTULOS Y DATOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center my-auto py-8 sm:py-12">
         
         <!-- LADO IZQUIERDO: SÃO PAULO / INTERLAGOS (ESCRITURA LETRA POR LETRA AL SCROLLEAR) -->
         <div class="lg:col-span-5 flex flex-col justify-between relative group">
@@ -1375,8 +1375,8 @@
             </div>
           </div>
 
-          <!-- BLOQUE DE DATOS CON AIRE AMPLIADO -->
-          <div class="mt-6 sm:mt-8 space-y-2.5">
+          <!-- BLOQUE DE DATOS CON AIRE Y RESPIRACIÓN EXPANSIVA -->
+          <div class="mt-8 sm:mt-12 space-y-4">
             <div class="flex items-center gap-2">
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
                 43M DE DESNIVEL VERTICAL
@@ -1436,8 +1436,8 @@
             </div>
           </div>
 
-          <!-- BLOQUE DE DATOS CON AIRE AMPLIADO -->
-          <div class="mt-6 sm:mt-8 space-y-2.5">
+          <!-- BLOQUE DE DATOS CON AIRE Y RESPIRACIÓN EXPANSIVA -->
+          <div class="mt-8 sm:mt-12 space-y-4">
             <div class="flex items-center gap-2 justify-start lg:justify-end">
               <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#C084FC] text-black font-[900] shadow-xs">+65m cota</span>
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
@@ -1468,9 +1468,10 @@
        PANTALLA 04: PILOTOS (UNDER THE HELMET)
        (ABANICO VIVO DE CARTAS CON EL SCROLL ESTILO LANDO NORRIS)
        ======================================================== -->
-  <section id="helmet" class="min-h-screen flex flex-col justify-start max-w-6xl mx-auto px-6 sm:px-10 pt-24 sm:pt-28 pb-32 border-t border-hairline scroll-mt-20">
+  <section id="helmet" class="min-h-screen w-full flex flex-col justify-start pt-24 sm:pt-28 pb-32 border-t border-hairline scroll-mt-20">
     
     <!-- CABECERA DE LA SECCIÓN (ALINEACIÓN VERTICAL UNIFICADA) -->
+    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10">
     <div class="reveal-blur mb-8">
       <div class="mb-2">
         <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-accentRed block mb-2">04 / PILOTOS</span>
@@ -1484,6 +1485,7 @@
       <p class="text-base sm:text-lg font-[300] text-carbon/80 mt-4 max-w-3xl leading-relaxed">
         Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico desde el centro: hacé click en cualquier piloto para abrir su ficha técnica interactiva y el dato clave para la transmisión al aire.
       </p>
+    </div>
     </div>
 
     <!-- BOTONES SELECTORES DE MAZO (PRIMER PILOTO VS SEGUNDO PILOTO POR ESCUDERÍA) -->
@@ -1669,9 +1671,9 @@
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_40%,rgba(212,255,50,0.03),transparent_70%)] pointer-events-none"></div>
 
     <!-- ESCENARIO PINNED STICKY (ALINEACIÓN VERTICAL UNIFICADA pt-24 sm:pt-28) -->
-    <div class="sticky top-0 h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 sm:px-12 md:px-16 overflow-hidden">
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-6 sm:pb-8 overflow-hidden">
       
-      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+      <div class="max-w-6xl mx-auto w-full px-6 sm:px-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
         
         <!-- LADO IZQUIERDO: TÍTULO FIJO LIMPIO -->
         <div class="lg:col-span-5 space-y-4">
@@ -1684,10 +1686,7 @@
             A LOS CAZADORES.
           </h2>
 
-          <div class="pt-2 flex items-center gap-2 text-xs font-mono text-zinc-400">
-            <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-pulse"></span>
-            <span>PRONÓSTICO TELEMÉTRICO · SÃO PAULO</span>
-          </div>
+
         </div>
 
         <!-- CENTRO: CIRCUITO SVG CON EL AUTITO QUE GUÍA POR DÓNDE LEER (2 COLS) -->
@@ -1796,85 +1795,67 @@
     <!-- CONTENEDOR STICKY: PANTALLA EN BLANCO TOTAL CENTRADA (SIN TICKER INFERIOR) -->
     <div class="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-4 sm:px-8 bg-pureWhite pt-12 sm:pt-16 pb-8">
       
-      <!-- CAPA 1: LA PREGUNTA INFORMAL ANIMADA HORIZONTALMENTE -->
-      <div id="transDeskQuestionWrap" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none w-full px-4 overflow-visible will-change-transform opacity-0 pt-12 sm:pt-16">
-        <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] uppercase leading-[1.04] tracking-tight text-carbon select-none text-center max-w-4xl mx-auto">
-          ¿Y AHORA CÓMO TRADUZCO<br>
-          ESTO AL AIRE?<br>
-          <span class="font-[300] text-muted lowercase text-xl sm:text-3xl md:text-4xl lg:text-[2.6rem] tracking-normal inline-block mt-3 sm:mt-5">
-            ¿cómo cuento toda esta telemetría en un streaming sin aburrir a nadie?
+      <!-- CAPA 1: LA PREGUNTA PARA LA AUDIENCIA (INVITACIÓN A ABRIR DEBATE) -->
+      <div id="transDeskQuestionWrap" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none w-full px-6 sm:px-10 overflow-visible will-change-transform opacity-0 pt-12 sm:pt-16">
+        <h2 class="font-sans font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] uppercase leading-[1.04] tracking-tight text-carbon select-none text-center max-w-4xl mx-auto">
+          ¿CÓMO VAS A CONTAR<br>
+          LA CARRERA HOY?<br>
+          <span class="font-sans font-[300] text-muted normal-case text-xl sm:text-3xl md:text-4xl lg:text-[2.4rem] tracking-normal inline-block mt-3 sm:mt-5">
+            los datos ya hablaron: ahora armá el ángulo perfecto para salir al aire con tu comunidad.
           </span>
         </h2>
       </div>
 
-      <!-- CAPA 2: MINI CUESTIONARIO INTERACTIVO (ADAPTACIÓN POR RED Y FORMATO) -->
-      <div id="transDeskCustomizer" class="relative z-10 max-w-2xl w-full mx-auto px-4 text-center space-y-6 opacity-0 will-change-transform pointer-events-none transition-all duration-300 my-auto">
+      <!-- CAPA 2: MINI CUESTIONARIO INTERACTIVO (JERARQUÍA INTER Y FORMATOS DINÁMICOS) -->
+      <div id="transDeskCustomizer" class="relative z-10 max-w-2xl w-full mx-auto px-6 sm:px-10 text-center space-y-6 opacity-0 will-change-transform pointer-events-none transition-all duration-300 my-auto font-sans">
         
-        <div class="space-y-1">
-          <span class="text-[10px] uppercase font-mono font-[900] tracking-widest text-accentRed block">
+        <div class="space-y-1.5">
+          <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-accentRed block">
             asistente de producción // 2 clics
           </span>
           <h3 class="font-[900] text-2xl sm:text-3xl uppercase tracking-tight text-carbon">
             ¿Dónde vas a publicar tu contenido hoy?
           </h3>
-          <p class="text-xs text-muted font-[300] max-w-md mx-auto">
-            Elegí la red social y el formato para adaptar el guion telemétrico listo para salir al aire.
+          <p class="text-xs sm:text-sm text-muted font-[400] max-w-md mx-auto leading-relaxed">
+            Elegí la red social y el formato para adaptar el contenido telemétrico listo para salir al aire.
           </p>
         </div>
 
-        <!-- PASO 1: RED SOCIAL -->
+        <!-- PASO 1: RED SOCIAL (PÍLDORAS ELEGANTES) -->
         <div class="space-y-2">
-          <span class="text-[10px] font-mono uppercase text-carbon/70 block text-left font-[800] tracking-wider">
+          <span class="text-xs font-sans uppercase text-carbon/60 font-[800] tracking-wider block text-center sm:text-left">
             1. ¿Qué red vas a publicar?
           </span>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-            <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn is-active px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">📸 Instagram</span>
+          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+            <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn is-active flex-1 min-w-[110px] sm:min-w-[130px]">
+              Instagram
             </button>
-            <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">📱 TikTok</span>
+            <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn flex-1 min-w-[110px] sm:min-w-[130px]">
+              TikTok
             </button>
-            <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">🎥 YouTube</span>
+            <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn flex-1 min-w-[110px] sm:min-w-[130px]">
+              X
             </button>
-            <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">𝕏 X (Twitter)</span>
+            <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn flex-1 min-w-[110px] sm:min-w-[130px]">
+              YouTube
             </button>
           </div>
         </div>
 
-        <!-- PASO 2: FORMATO DEL CONTENIDO -->
+        <!-- PASO 2: FORMATO DEL CONTENIDO (PÍLDORAS DINÁMICAS SEGÚN LA PLATAFORMA) -->
         <div class="space-y-2">
-          <span class="text-[10px] font-mono uppercase text-carbon/70 block text-left font-[800] tracking-wider">
+          <span class="text-xs font-sans uppercase text-carbon/60 font-[800] tracking-wider block text-center sm:text-left">
             2. ¿Qué formato quisieras?
           </span>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-            <button type="button" onclick="selectDeskFormat('reel')" id="deskFormatBtn-reel" class="desk-choice-btn is-active px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">🎬 Reel / Corto</span>
-            </button>
-            <button type="button" onclick="selectDeskFormat('story')" id="deskFormatBtn-story" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">⚡ Historia</span>
-            </button>
-            <button type="button" onclick="selectDeskFormat('stream')" id="deskFormatBtn-stream" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">🎙️ Vivo / Stream</span>
-            </button>
-            <button type="button" onclick="selectDeskFormat('post')" id="deskFormatBtn-post" class="desk-choice-btn px-3 py-2.5 rounded-xl text-center flex items-center justify-center gap-1.5 select-none">
-              <span class="choice-dot w-2 h-2 rounded-full shrink-0"></span>
-              <span class="text-xs">🧵 Hilo / Posteo</span>
-            </button>
+          <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+            <!-- Inyectado dinámicamente según la plataforma activa -->
           </div>
         </div>
 
-        <!-- BOTÓN DE ACCIÓN: GENERAR GUION PERSONALIZADO -->
+        <!-- BOTÓN DE ACCIÓN: GENERAR GUION PERSONALIZADO (CARBONO EDITORIAL CON DETALLE FLÚOR) -->
         <div class="pt-2">
-          <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accentRed hover:bg-black text-pureWhite font-[700] text-xs uppercase tracking-wider transition-all shadow-md hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 mx-auto cursor-pointer">
+          <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-carbon hover:bg-black text-pureWhite font-[700] text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2.5 mx-auto cursor-pointer shadow-sm active:scale-95">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span>
             <span>Generar Guion Personalizado</span>
             <span class="text-sm">↓</span>
           </button>
@@ -1890,9 +1871,9 @@
        PANTALLA 06: LA PIZARRA (EDITORIAL DESK)
        OCUPA TODA LA PANTALLA EN MODO ESTUDIO (SIN CORTARSE)
        ======================================================== -->
-  <section id="verdict" class="relative w-full min-h-screen bg-pureWhite text-carbon flex flex-col justify-start pt-24 sm:pt-28 pb-16 px-6 sm:px-12 scroll-mt-12 border-t border-hairline">
+  <section id="verdict" class="relative w-full min-h-screen bg-pureWhite text-carbon flex flex-col justify-start pt-24 sm:pt-28 pb-16 scroll-mt-12 border-t border-hairline">
     
-    <div class="w-full max-w-5xl mx-auto space-y-6">
+    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 space-y-6">
       
       <!-- CABECERA EDITORIAL COMPACTA (ALINEACIÓN VERTICAL UNIFICADA) -->
       <div class="reveal-blur text-left space-y-1.5">
@@ -1909,25 +1890,31 @@
       <!-- EL ESCRITORIO EDITORIAL (ENCUADRADO PERFECTO DE PANTALLA) -->
       <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-hairline shadow-[0_12px_40px_rgb(0,0,0,0.03)] space-y-5">
         
-        <!-- PESTAÑAS DE FORMATO -->
+        <!-- SELECTOR EDITORIAL ABIERTO: ¿ESTÁS EN BLANCO? -->
         <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-hairline">
-          <div class="flex flex-wrap gap-2">
-            <button id="tabStream" class="px-5 py-2 rounded-full bg-carbon text-pureWhite text-xs font-[600] tracking-tight transition-all">
-              streaming / podcast
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[11px] font-sans font-[700] uppercase text-carbon/70 tracking-wider flex items-center gap-1.5 mr-1">
+              ¿estás en blanco?
+            </span>
+            <button onclick="selectEditorialNeed('debate')" id="btnNeedDebate" class="desk-need-btn active px-4 py-1.5 rounded-full text-xs font-[600] tracking-tight transition-colors duration-200 bg-carbon text-pureWhite">
+              abrir debate
             </button>
-            <button id="tabReel" class="px-5 py-2 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
-              guion reel (30s)
+            <button onclick="selectEditorialNeed('telemetria')" id="btnNeedTelemetria" class="desk-need-btn px-4 py-1.5 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-canvas text-carbon hover:bg-hairline">
+              dato telemétrico
             </button>
-            <button id="tabFantasy" class="px-5 py-2 rounded-full bg-canvas text-carbon text-xs font-[500] tracking-tight hover:bg-hairline transition-colors">
-              apuesta / fantasy
+            <button onclick="selectEditorialNeed('apuesta')" id="btnNeedApuesta" class="desk-need-btn px-4 py-1.5 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-canvas text-carbon hover:bg-hairline">
+              predicción picante
+            </button>
+            <button onclick="selectEditorialNeed('resumen')" id="btnNeedResumen" class="desk-need-btn px-4 py-1.5 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-canvas text-carbon hover:bg-hairline">
+              resumen al aire
             </button>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="clearChatHistory()" id="btnClearChatHistory" class="text-[10px] uppercase font-[700] px-3 py-1.5 bg-canvas hover:bg-zinc-200 text-muted hover:text-carbon rounded-full border border-hairline transition-colors flex items-center gap-1" title="Limpiar repreguntas del chat">
+            <button onclick="clearChatHistory()" id="btnClearChatHistory" class="text-[10px] uppercase font-[700] px-3.5 py-1.5 bg-canvas hover:bg-zinc-200 text-muted hover:text-carbon rounded-full border border-hairline transition-colors duration-200 flex items-center gap-1" title="Limpiar repreguntas del chat">
               <span>limpiar chat</span> ↺
             </button>
-            <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[700] px-4 py-1.5 bg-canvas hover:bg-carbon hover:text-pureWhite rounded-full border border-hairline text-carbon transition-colors shadow-xs flex items-center gap-1.5">
+            <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[700] px-4 py-1.5 bg-canvas hover:bg-carbon hover:text-pureWhite rounded-full border border-hairline text-carbon transition-colors duration-200 shadow-xs flex items-center gap-1.5">
               <span>copiar guion</span> 📋
             </button>
           </div>
@@ -3443,20 +3430,34 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       tempBubble.innerHTML = `
         <div class="max-w-xl bg-pureWhite border border-hairline text-muted px-4 py-2.5 rounded-2xl rounded-tl-xs text-xs italic flex items-center gap-2 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
-          <span>Consultando telemetría de Interlagos con Groq Llama 3.3...</span>
+          <span>Analizando telemetría de Interlagos en vivo...</span>
         </div>
       `;
       hist.appendChild(tempBubble);
       if (container) container.scrollTop = container.scrollHeight;
 
-      // PROMPT ULTRA CONCISO: MÁXIMO 2 ORACIONES DIRECTAS AL HUESO
-      const systemPrompt = 'Sos el analista de UNDERTRACK en vivo. Circuito: Interlagos (São Paulo). 43m desnivel, asfalto a 46°C, lluvia 65%. Respondé con MÁXIMA CONCISIÓN: exactamente 1 o 2 oraciones breves, contundentes y directas al grano, sin saludos ni despedidas, con tono de streaming de F1 listo para decir al aire.';
+      // PROMPT ULTRA CONCISO: RESPUESTA DIRECTA SIN REPETIR LA PREGUNTA
+      const systemPrompt = 'Sos el analista de telemetría de UNDERTRACK en vivo. Circuito: GP de São Paulo (Interlagos). Asfalto a 46°C, trepada de 43m en Junção, lluvia 65%. REGLA ESTRICTA: Respondé DIRECTAMENTE a lo consultado, SIN REPETIR LA PREGUNTA (prohibido decir "Para...", "Respecto a...", "Sobre..."), sin saludos ni relleno. Máximo 1 o 2 oraciones breves, técnicas y contundentes listas para decir al aire.';
 
       let answer = null;
       const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
 
+      // Intento 1: Servidor proxy Vercel (/api/groq)
       try {
-        if (apiKey && apiKey.startsWith('gsk_')) {
+        const resProxy = await fetch('/api/groq', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: q, systemPrompt })
+        });
+        if (resProxy.ok) {
+          const dataP = await resProxy.json();
+          answer = dataP.choices?.[0]?.message?.content?.trim();
+        }
+      } catch (e) {}
+
+      // Intento 2: Conexión directa con API Key
+      if (!answer && apiKey && apiKey.startsWith('gsk_')) {
+        try {
           const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
@@ -3466,32 +3467,98 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: q }
               ],
-              temperature: 0.6,
-              max_tokens: 120 // Límite estricto para garantizar respuesta concisa
+              temperature: 0.7,
+              max_tokens: 150
             })
           });
           if (resDirect.ok) {
             const d = await resDirect.json();
             answer = d.choices?.[0]?.message?.content?.trim();
           }
-        }
-      } catch(e) {}
+        } catch(e) {}
+      }
 
-      // Fallbacks ultra concisos si no hay API disponible
+      // Intento 3: Motor telemétrico dinámico (respuestas directas sin repetir la pregunta)
       if (!answer) {
         const lower = q.toLowerCase();
+
+        // 1. Colapinto / Williams / Franco
         if (lower.includes('colapinto') || lower.includes('franco') || lower.includes('williams')) {
-          answer = 'Williams cuida el neumático un 14% mejor que el promedio: con asfalto a 46°C, Franco estira el primer stint y gana posiciones netas por degradación ajena.';
-        } else if (lower.includes('lluvia') || lower.includes('agua') || lower.includes('clima')) {
-          answer = 'En pista húmeda los pilotos agresivos ganan +2.70 puestos promedio: Verstappen y Hamilton sacan ventaja inmediata frenando en Senna S.';
-        } else if (lower.includes('norris') || lower.includes('mclaren')) {
-          answer = 'El calor abrasivo (46°C) sobrecalienta la delantera izquierda del MCL38: Norris sufrirá subviraje en Curva do Sol si no abre hueco rápido.';
-        } else if (lower.includes('safety car') || lower.includes('bearman')) {
-          answer = 'Interlagos tiene 73% de probabilidad de Safety Car: quien anticipe la parada en boxes gana hasta 3 puestos en el relanzamiento.';
-        } else {
-          answer = `Para "${safeQ}": los 43 metros de trepada en Junção premian la tracción mecánica; quien patine en la salida pierde 15 km/h en recta.`;
+          const colapintoPool = [
+            'Williams cuida el compuesto medio un 14% mejor que el pelotón: con asfalto a 46°C, Franco estira el primer stint y gana posiciones netas por degradación ajena.',
+            'Con 332 km/h en recta de meta, Colapinto tiene velocidad punta suficiente para defenderse con DRS una vez que ejecute el overcut.',
+            'Franco demostró en México gran temple en curvas ciegas: si sobrevive a la frenada de Senna S en largada, el ritmo telemétrico lo proyecta de P8 a P10.'
+          ];
+          answer = colapintoPool[Math.floor(Math.random() * colapintoPool.length)];
+        }
+        // 2. Lluvia / Agua / Clima / Tormenta
+        else if (lower.includes('lluvia') || lower.includes('agua') || lower.includes('clima') || lower.includes('tormenta') || lower.includes('mojad')) {
+          const lluviaPool = [
+            'En pista húmeda los pilotos agresivos ganan +2.70 puestos promedio: Verstappen y Hamilton sacan ventaja inmediata retrasando la frenada en Senna S.',
+            'Si caen gotas en la vuelta 20, la parada temprana a compuesto intermedio entrega hasta 4 segundos por vuelta sobre quienes estiren slicks.',
+            'Interlagos con agua anula el drag aerodinámico y premia la tracción mecánica en subida de Junção: la carrera se convierte en supervivencia pura.'
+          ];
+          answer = lluviaPool[Math.floor(Math.random() * lluviaPool.length)];
+        }
+        // 3. McLaren / Norris / Piastri
+        else if (lower.includes('norris') || lower.includes('mclaren') || lower.includes('piastri') || lower.includes('papaya')) {
+          const mclarenPool = [
+            'El calor abrasivo (46°C) sobrecalienta la delantera izquierda del MCL38: Norris sufrirá subviraje en Curva do Sol si no abre hueco rápido.',
+            'McLaren pierde 0.3s por vuelta en asfalto hirviendo frente a Red Bull; la degradación en apoyos largos es su talón de Aquiles este fin de semana.',
+            'Si Norris no logra una ventaja de 4 segundos en las primeras 10 vueltas, la pérdida de agarre en el tren delantero lo dejará vulnerable al DRS de Ferrari.'
+          ];
+          answer = mclarenPool[Math.floor(Math.random() * mclarenPool.length)];
+        }
+        // 4. Ferrari / Leclerc / Sainz
+        else if (lower.includes('ferrari') || lower.includes('leclerc') || lower.includes('sainz')) {
+          const ferrariPool = [
+            'Ferrari tiene la mejor frenada en baja velocidad de la grilla: Leclerc puede frenar 15 metros más tarde en la S do Senna sin bloquear neumáticos.',
+            'El SF-24 muestra el balance térmico más noble con 32°C de ambiente, lo que coloca a la Scuderia como candidata directa a la victoria en stints largos.'
+          ];
+          answer = ferrariPool[Math.floor(Math.random() * ferrariPool.length)];
+        }
+        // 5. Red Bull / Verstappen / Max
+        else if (lower.includes('verstappen') || lower.includes('max') || lower.includes('red bull')) {
+          const rbrPool = [
+            'Red Bull aprovecha la correlación del 84.6% con Spielberg: su suspensión catapulta al RB20 en los 43 metros de trepada sacando 0.20s por vuelta.',
+            'La tracción mecánica de Verstappen en salida de Curva 12 es letal; quien patine 3 grados en subida pierde 15 km/h hacia la bandera a cuadros.'
+          ];
+          answer = rbrPool[Math.floor(Math.random() * rbrPool.length)];
+        }
+        // 6. Safety Car / Parada / Boxes / Estrategia
+        else if (lower.includes('safety') || lower.includes('coche de seguridad') || lower.includes('boxes') || lower.includes('parada') || lower.includes('estrategia')) {
+          const scPool = [
+            'Interlagos tiene 73% de probabilidad de Safety Car: quien anticipe la parada en boxes una vuelta antes gana hasta 3 puestos netos en el relanzamiento.',
+            'La ventana crítica para el compuesto Medio está entre las vueltas 22 y 26; una sola parada limpia define el top 5.',
+            'Los incidentes en Senna S suelen provocar banderas amarillas tempranas: estirar el primer stint es la apuesta con mayor rentabilidad telemétrica.'
+          ];
+          answer = scPool[Math.floor(Math.random() * scPool.length)];
+        }
+        // 7. Neumáticos / Compuestos / Gomas / Degradación
+        else if (lower.includes('neumatic') || lower.includes('goma') || lower.includes('degradacion') || lower.includes('duro') || lower.includes('medio') || lower.includes('blando')) {
+          const tyrePool = [
+            'El compuesto C3 Medio es la clave de la carrera: quienes aceleren con violencia en Curva do Sol cocinarán la rueda trasera antes del giro 18.',
+            'La matriz de degradación proyecta una pérdida de hasta 1.8 segundos por vuelta si el asfalto supera los 44°C en la segunda mitad de carrera.'
+          ];
+          answer = tyrePool[Math.floor(Math.random() * tyrePool.length)];
+        }
+        // 8. Respuesta directa y versátil sin repetir la pregunta
+        else {
+          const genericPool = [
+            'Los 43 metros de trepada en Junção premian la tracción mecánica pura: cualquier patinada en salida de Curva 12 cuesta 15 km/h en recta.',
+            'Con asfalto a 46°C y viento cruzado en Curva 1, la consistencia en apoyos largos pesa el doble que la velocidad a una vuelta de clasificación.',
+            'El sector entre la Curva 12 y la recta principal decide el 60% de los sobrepasos con DRS; la tracción en subida manda sobre la potencia.',
+            'Las simulaciones marcan que la degradación del tren delantero define las últimas 15 vueltas: quien conserve goma cruzará la meta con ventaja neta.'
+          ];
+          answer = genericPool[Math.floor(Math.random() * genericPool.length)];
         }
       }
+
+      // Limpieza de cualquier introducción repetitiva o comillas
+      const cleanAnswer = answer.replace(/^Para\s+["«][^"»]+["»]:\s*/i, '')
+                                .replace(/^Respecto\s+a\s+[^:]+:\s*/i, '')
+                                .replace(/^«|»$/g, '')
+                                .trim();
 
       // Reemplazar la burbuja temporal por la respuesta concisa registrada
       const currentTemp = document.getElementById(tempId);
@@ -3506,7 +3573,7 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
               <button onclick="copyBubbleText(this)" class="text-[9px] font-mono text-muted hover:text-carbon uppercase font-[700] transition-colors">copiar 📋</button>
             </div>
             <div class="bubble-content text-carbon/90 font-[300]">
-              «${answer.replace(/^«|»$/g, '')}»
+              «${cleanAnswer}»
             </div>
           </div>
         `;
@@ -3718,13 +3785,134 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
 
 
   // ========================================================
-  // MOTOR DEL ASISTENTE EDITORIAL: SELECCIÓN DE RED Y FORMATO
+  // MOTOR DEL ASISTENTE EDITORIAL: PLATAFORMAS, FORMATOS DINÁMICOS Y NECESIDADES
   let currentDeskPlatform = 'instagram';
   let currentDeskFormat = 'reel';
+  let currentEditorialNeed = 'debate';
+
+  // FORMATOS ESPECÍFICOS POR PLATAFORMA (SIN EMOJIS, INTER PURO)
+  const platformFormatsMap = {
+    instagram: [
+      { id: 'historia', label: 'Historia' },
+      { id: 'post', label: 'Post' },
+      { id: 'reel', label: 'Reel' }
+    ],
+    tiktok: [
+      { id: 'video_corto', label: 'Video corto' },
+      { id: 'video_largo', label: 'Video largo' }
+    ],
+    x: [
+      { id: 'post', label: 'Post' },
+      { id: 'hilo', label: 'Hilo que abra debate' }
+    ],
+    youtube: [
+      { id: 'short', label: 'Short' },
+      { id: 'video', label: 'Video' }
+    ]
+  };
+
+  // BANCO DE CONTENIDOS POR RED Y FORMATO
+  const scriptVariationsDB = {
+    instagram: {
+      reel: [
+        "«¿Pensaban que Franco Colapinto no tenía chances en Brasil? Paren la oreja a este dato telemétrico: en México cruzó 8° en pista y acá el asfalto va a estar a 46°C. Cuando el pelotón prenda fuego los neumáticos en la vuelta 15, Franco va a estirar el compuesto Medio sin sobrecalentar el tren trasero. Si no hay toque en Senna S, los puntos están aseguradísimos.»",
+        "«Alerta roja para los que tienen a Norris en el Fantasy: en San Pablo el asfalto llega a 46°C y a McLaren le cocina la delantera izquierda en Curva do Sol, igual que en Austin donde perdieron 30 segundos. Ojo con comprar favoritismos ciegos hoy.»"
+      ],
+      historia: [
+        "¿Se meten los dos Williams en los puntos hoy en Brasil? El dato telemétrico: pista a 46°C premia a gestores térmicos (+1.15 puestos de delta). Franco demostró en México que cuida goma como nadie. ¿Votan top 10 o podio histórico? Votá acá abajo.",
+        "ALERTA MCLAREN EN BRASIL: Pista a 46°C = veneno puro para el tren delantero de Norris. En Austin perdieron 30s por la misma temperatura. ¿Aguantan la punta o Ferrari los madruga en boxes?"
+      ],
+      post: [
+        "TELEMETRÍA PREVIA // GP DE SÃO PAULO:\n\n1. Asfalto a 46°C castiga el tren delantero en apoyos largos (Curva do Sol).\n2. Franco Colapinto registra un 14% menos de degradación en compuesto Medio, clave para el overcut.\n3. Red Bull saca +0.20s en los 43m de trepada hacia la recta principal.\n\n¿Tu pronóstico para la carrera? Te leemos en comentarios.",
+        "POR QUÉ INTERLAGOS PUEDE DAR EL GOLPE DE LA TEMPORADA:\n\nEl cruce de datos climáticos y geométricos ubica a Williams y Ferrari como los grandes beneficiados térmicos. Si la degradación supera el 1.8s por stint, la carrera se define en la calle de boxes."
+      ]
+    },
+    tiktok: {
+      video_corto: [
+        "«El verdadero tapado del domingo en Brasil se llama Franco Colapinto. Williams descubrió que su desgaste en goma media es 14% menor a la media. En 71 vueltas con asfalto hirviendo, tiene ritmo para largar calmo, comer rivales en paradas y meterse de lleno entre el 8° y el 10°. Anótenlo.»",
+        "«¿Por qué McLaren puede perder la carrera en Interlagos? Por la física del calor. UNDERTRACK marca -1.20 puestos para el MCL38 en asfalto caliente. Con 32°C de ambiente, Norris va a padecer subviraje en apoyos largos. Ferrari y Red Bull huelen sangre.»"
+      ],
+      video_largo: [
+        "«Análisis profundo de telemetría previa a Interlagos: con 43 metros de desnivel en subida ciega hacia Arquibancadas, los monoplazas con alta carga aerodinámica pero poca tracción mecánica pierden hasta 15 km/h en recta. Williams optimizó la suspensión trasera de Colapinto para replicar el delta de México: cuidar goma en stint 1 para ganar 3 puestos netos en paradas.»",
+        "«El duelo por el título de constructores se define en la temperatura de pista: si el asfalto supera los 44°C, la ventaja de McLaren se esfuma por completo ante la consistencia de Ferrari y el paquete de aceleración vertical de Red Bull.»"
+      ]
+    },
+    x: {
+      post: [
+        "DATO TELEMÉTRICO // INTERLAGOS: Asfalto a 46°C castiga la rueda delantera izquierda de McLaren en Curva do Sol (-1.20 pos proyectadas). Williams y Ferrari llegan con mejor balance térmico para stints largos.",
+        "Interlagos tiene 73% de probabilidad de Safety Car. Quien anticipe la parada en boxes en vuelta 22 gana hasta 3 puestos netos. Ojo con la estrategia de Williams con Colapinto."
+      ],
+      hilo: [
+        "1/3 Por qué Franco Colapinto puede sumar puntos grandes en Interlagos [HILO TELEMÉTRICO]:\n\nEl asfalto en San Pablo tocará los 46°C. El modelo de degradación térmica beneficia a monoplazas que no sobrecalientan el tren trasero en Curva do Sol.\n\n2/3 En México, Franco registró un delta de preservación de gomas 14% mejor a la media de la parrilla.\n\n3/3 Pronóstico: Si Williams ejecuta una sola parada limpia (Medio ➔ Duro), el P8 es completamente viable.",
+        "1/3 ALERTA MCLAREN: Por qué el asfalto de Interlagos (46°C) complica a Norris y Piastri [DATOS]:\n\nEl modelo histórico registra un diferencial de -1.20 puestos para McLaren en pista caliente (>40°C), repitiendo el patrón de COTA.\n\n2/3 El viento de cola en Senna S reduce la carga delantera y sobrecalienta el compuesto en apoyos largos.\n\n3/3 Veredicto: Red Bull y Ferrari tienen ventaja de degradación en los stints 2 y 3."
+      ]
+    },
+    youtube: {
+      short: [
+        "«Atentos a este tip para el domingo: todos van a mirar la largada, pero la carrera de Franco Colapinto se cocina entre la vuelta 20 y la 35. Con 43 metros de trepada en Junção, cuidar la tracción trasera es todo. Franco gestiona como los dioses en pista caliente: hay puntos asegurados.»",
+        "«¿Quién gana Interlagos? La telemetría no miente: el que domine el micro-sector de subida hacia Arquibancadas se lleva la gloria. Red Bull llega con mejor velocidad de salida (+7 km/h) que Ferrari, pero Leclerc frena 15 metros más tarde. Final abierto.»"
+      ],
+      video: [
+        "«Muy buenas a todos, bienvenidos a la transmisión en directo de UNDERTRACK para el Gran Premio de São Paulo. Hoy tenemos una carrera de pura gestión térmica: con el asfalto tocando los 46°C y 43 metros de desnivel en subida ciega, los autos que castiguen la goma delantera van a sufrir caídas de hasta 2 segundos por vuelta. Analizamos paso a paso las paradas y el delta de Franco Colapinto.»",
+        "«Bienvenidos al streaming oficial de análisis telemétrico. La gran incógnita de la tarde es McLaren: en condiciones similares de calor en Austin perdieron 30 segundos respecto a la punta. Hoy Ferrari y Red Bull tienen una oportunidad de oro para recortar el campeonato de constructores.»"
+      ]
+    }
+  };
+
+  // BANCO DE CONTENIDOS PARA EL SELECTOR EDITORIAL "¿ESTÁS EN BLANCO?"
+  const editorialNeedsDB = {
+    debate: "«¿Por qué nadie habla de la tracción en Junção? Todos miran la frenada de Senna S, pero la verdadera trampa de Interlagos son los 43 metros de trepada ciega. Con el asfalto tocando los 46°C, quien patine tres grados pierde 15 km/h en recta. ¿Ustedes creen que McLaren puede sostener el ritmo en calor o Ferrari se los come vivos en boxes?»",
+    telemetria: "«Datos puros de telemetría de UNDERTRACK: La matriz térmica de San Pablo proyecta un diferencial de -1.20 posiciones para los monoplazas con sobrecalentamiento del tren delantero (MCL38). En contraste, Williams registra un delta de degradación 14% menor en compuesto medio. Si Colapinto cuida gomas en las primeras 20 vueltas, el ritmo telemétrico marca puntos seguros.»",
+    apuesta: "«La jugada más picante del domingo: olvídense del podio cantado. El 73% histórico de intervenciones de Safety Car en São Paulo favorece a quien anticipe la ventana de parada en la vuelta 22. Si caen las tres gotas pronosticadas sobre el lago, Franco Colapinto y Lewis Hamilton tienen delta positivo (+2.70 puestos en pista húmeda) para dar el batacazo.»",
+    resumen: "«Bienvenidos a la transmisión de UNDERTRACK para el Gran Premio de São Paulo. Tenemos asfalto abrasivo a 46°C, 43 metros de desnivel vertical y una paridad absoluta entre Red Bull y Ferrari en curvas ciegas. Si la degradación supera 1.8 segundos por vuelta, la carrera se define con estrategia pura desde el pitlane.»"
+  };
+
+  window.selectEditorialNeed = function(needKey) {
+    currentEditorialNeed = needKey;
+    ['debate', 'telemetria', 'apuesta', 'resumen'].forEach(k => {
+      const btn = document.getElementById(`btnNeed${k.charAt(0).toUpperCase() + k.slice(1)}`);
+      if (btn) {
+        if (k === needKey) {
+          btn.className = "desk-need-btn active px-4 py-1.5 rounded-full text-xs font-[600] tracking-tight transition-colors duration-200 bg-carbon text-pureWhite";
+        } else {
+          btn.className = "desk-need-btn px-4 py-1.5 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-canvas text-carbon hover:bg-hairline";
+        }
+      }
+    });
+
+    const output = document.getElementById('verdictOutput');
+    if (output && editorialNeedsDB[needKey]) {
+      output.textContent = editorialNeedsDB[needKey];
+    }
+  };
+
+  // ACTUALIZAR FORMATOS DINÁMICOS SEGÚN PLATAFORMA
+  function renderDynamicFormatButtons() {
+    const container = document.getElementById('deskFormatButtonsContainer');
+    if (!container) return;
+
+    const formats = platformFormatsMap[currentDeskPlatform] || platformFormatsMap.instagram;
+    // Si el formato actual no pertenece a la plataforma, elegir el primero o reel/corto
+    if (!formats.some(f => f.id === currentDeskFormat)) {
+      currentDeskFormat = formats[formats.length - 1].id;
+    }
+
+    container.innerHTML = formats.map(f => {
+      const isActive = f.id === currentDeskFormat;
+      return `
+        <button type="button" 
+                onclick="selectDeskFormat('${f.id}')" 
+                id="deskFormatBtn-${f.id}" 
+                class="desk-choice-btn ${isActive ? 'is-active' : ''} flex-1 min-w-[120px] sm:min-w-[140px]">
+          ${f.label}
+        </button>
+      `;
+    }).join('');
+  }
 
   window.selectDeskPlatform = function(plat) {
     currentDeskPlatform = plat;
-    ['instagram', 'tiktok', 'youtube', 'x'].forEach(p => {
+    ['instagram', 'tiktok', 'x', 'youtube'].forEach(p => {
       const btn = document.getElementById(`deskPlatformBtn-${p}`);
       if (btn) {
         if (p === plat) {
@@ -3734,14 +3922,16 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
         }
       }
     });
+    renderDynamicFormatButtons();
   };
 
   window.selectDeskFormat = function(fmt) {
     currentDeskFormat = fmt;
-    ['reel', 'story', 'stream', 'post'].forEach(f => {
-      const btn = document.getElementById(`deskFormatBtn-${f}`);
+    const formats = platformFormatsMap[currentDeskPlatform] || [];
+    formats.forEach(f => {
+      const btn = document.getElementById(`deskFormatBtn-${f.id}`);
       if (btn) {
-        if (f === fmt) {
+        if (f.id === fmt) {
           btn.classList.add('is-active');
         } else {
           btn.classList.remove('is-active');
@@ -3750,103 +3940,14 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     });
   };
 
-  // BANCO DE VARIANTES ADAPTADAS POR RED Y FORMATO (48 VARIANTES FRESCAS Y ÚNICAS)
-  const scriptVariationsDB = {
-    instagram: {
-      reel: [
-        "«¿Pensaban que Franco Colapinto no tenía chances en Brasil? Paren la oreja a este dato telemétrico: en México cruzó 8° en pista y acá el asfalto va a estar a 46°C. Cuando el pelotón prenda fuego los neumáticos en la vuelta 15, Franco va a estirar el compuesto Medio sin sobrecalentar el tren trasero. Si no hay toque en Senna S, los puntos están aseguradísimos.»",
-        "«Alerta roja para los que tienen a Norris en el Fantasy: en San Pablo el asfalto llega a 46°C y a McLaren le cocina la delantera izquierda en Curva do Sol, igual que en Austin donde perdieron 30 segundos. Ojo con comprar favoritismos ciegos hoy.»",
-        "«La victoria de Interlagos se define en exactamente 43 metros de trepada en Junção: quien patine 3 grados pierde 15 km/h en recta. Verstappen tiene tracción brutal, pero Leclerc frena más tarde en Curva 1. Se define por milésimas.»"
-      ],
-      story: [
-        "🇦🇷 ¿Se meten los dos Williams en los puntos hoy en Brasil? El dato telemétrico: pista a 46°C premia a gestores térmicos (+1.15 puestos de delta). Franco demostró en México que cuida goma como nadie. ¿Votan top 10 o podio histórico? 🔥👇",
-        "⚠️ ALERTA MCLAREN EN BRASIL: Pista a 46°C = veneno puro para el tren delantero de Norris. En Austin perdieron 30s por la misma temperatura. ¿Aguantan la punta o Ferrari los madruga en boxes? Dejá tu voto 👇",
-        "⚔️ DUELO DEL AÑO EN SÃO PAULO: Verstappen tiene +0.20s de tracción en la subida, pero Leclerc frena 15 metros más tarde en Senna S. ¿Quién se lleva la victoria hoy? Votá ya 👇"
-      ],
-      stream: [
-        "«Bienvenidos al vivo de UNDERTRACK para el GP de São Paulo. Mucha atención hoy con el asfalto a 46°C: Williams y Colapinto cuidan neumáticos un 14% mejor que el pelotón medio. Si Franco sobrevive a la frenada de Senna S, la parada en boxes lo va a depositar directo en zona de puntos.»",
-        "«Arrancamos la previa de Interlagos con una advertencia seria sobre McLaren: la temperatura en pista va a castigar a Norris en apoyos largos. Ferrari llega con mejor velocidad punta y Red Bull tracciona demoledor en la subida de Junção.»",
-        "«Estamos en vivo para vivir la carrera más impredecible del año. 43 metros de desnivel y 65% de probabilidad de lluvia: quien monte neumáticos intermedios a tiempo puede saltar hasta 4 posiciones en 2 vueltas.»"
-      ],
-      post: [
-        "📊 TELEMETRÍA PREVIA // GP DE SÃO PAULO:\n\n1. Asfalto a 46°C castiga el tren delantero en apoyos largos (Curva do Sol).\n2. Franco Colapinto registra un 14% menos de degradación en compuesto Medio, clave para el overcut.\n3. Red Bull saca +0.20s en los 43m de trepada hacia la recta principal.\n\n¿Tu pronóstico para la carrera? Te leemos en comentarios 👇",
-        "🔍 POR QUÉ INTERLAGOS PUEDE DAR EL GOLPE DE LA TEMPORADA:\n\nEl cruce de datos climáticos y geométricos ubica a Williams y Ferrari como los grandes beneficiados térmicos. Si la degradación supera el 1.8s por stint, la carrera se define en la calle de boxes.",
-        "🏁 ANÁLISIS DE RITMO DE CARRERA:\n\nNorris y Piastri deberán cuidar el subviraje temprano. Verstappen y Leclerc llegan con el mejor compromiso de tracción mecánica en curvas ciegas."
-      ]
-    },
-    tiktok: {
-      reel: [
-        "«El verdadero tapado del domingo en Brasil se llama Franco Colapinto. Williams descubrió que su desgaste en goma media es 14% menor a la media. En 71 vueltas con asfalto hirviendo, tiene ritmo para largar calmo, comer rivales en paradas y meterse de lleno entre el 8° y el 10°. Anótenlo.»",
-        "«¿Por qué McLaren puede perder la carrera en Interlagos? Por la física del calor. UNDERTRACK marca -1.20 puestos para el MCL38 en asfalto caliente. Con 32°C de ambiente, Norris va a padecer subviraje en apoyos largos. Ferrari y Red Bull huelen sangre.»",
-        "«Prepárense para una batalla sangrienta entre Max Verstappen y Ferrari. Con 84.6% de correlación con Spielberg, la suspensión de Red Bull catapulta al auto hacia la meta sacando 0.20s por vuelta. Final de bandera verde a fondo.»"
-      ],
-      story: [
-        "⚡ DATO CLAVE ANTES DE LA LARGADA: Franco Colapinto es el 3° piloto con mejor tracción en la trepada de Junção. Si sobrevive la curva 1, hay puntos cantados en Interlagos. ¿Ustedes qué dicen?",
-        "🔥 ¿Norris gana fácil o se le complica con el calor? Los datos marcan -1.20 puestos para McLaren en pista caliente. Dejá tu pronóstico acá abajo 👇",
-        "🏆 43 metros de trepada en Junção deciden la carrera: ¿Gana Red Bull por potencia mecánica o Ferrari por velocidad en recta? Se define por milésimas."
-      ],
-      stream: [
-        "«¡Qué hacés gente, prendemos stream de TikTok para la largada de Brasil! Pongan el ojo en Colapinto largando con gomas medias: si aguanta el primer stint hasta la vuelta 28, los puntos están en el bolsillo. Vayan dejando sus preguntas en el chat.»",
-        "«Al aire en TikTok: se vienen 71 vueltas de infarto en San Pablo. La pista está a 46°C y los neumáticos blandos van a durar un suspiro. ¿Se la juega Williams con una sola parada?»",
-        "«En vivo desde Interlagos: el radar meteorológico marca nubes cargadas sobre el lago. Si caen tres gotas en la curva Junção, se desata el caos absoluto en pista.»"
-      ],
-      post: [
-        "📌 3 DATOS RÁPIDOS PARA ENTENDER EL GP DE BRASIL:\n• Asfalto a 46°C: neumáticos en peligro extremo.\n• Colapinto: 14% menos de degradación térmica.\n• Subida de Junção: 43m de trepada ciega que definen el sobrepaso.",
-        "📱 GUÍA EXPRESS INTERLAGOS:\nMcLaren sufre en calor abrasivo, Ferrari vuela en frenadas lentas y Williams tiene ritmo para raspar el top 10.",
-        "🏁 PREDICCIÓN TELEMÉTRICA:\nProbabilidad de Safety Car del 73%. Quien pare en la vuelta indicada se lleva un botín de 3 puestos netos."
-      ]
-    },
-    youtube: {
-      reel: [
-        "«Atentos a este tip para el domingo: todos van a mirar la largada, pero la carrera de Franco Colapinto se cocina entre la vuelta 20 y la 35. Con 43 metros de trepada en Junção, cuidar la tracción trasera es todo. Franco gestiona como los dioses en pista caliente: hay puntos asegurados.»",
-        "«¿Quién gana Interlagos? La telemetría no miente: el que domine el micro-sector de subida hacia Arquibancadas se lleva la gloria. Red Bull llega con mejor velocidad de salida (+7 km/h) que Ferrari, pero Leclerc frena 15 metros más tarde. Final abierto.»",
-        "«Ojo con comprar el favoritismo ciego de McLaren en Brasil. El MCL38 devora el neumático C3 cuando la pista pasa los 42°C. Si Norris no abre 4 segundos en las primeras 10 vueltas, la degradación lo deja a merced del DRS rival.»"
-      ],
-      story: [
-        "🔴 COMUNIDAD YOUTUBE: Ya estamos analizando las tandas largas de Interlagos. Pista abrasiva (46°C) y degradación crítica en McLaren. ¿Logrará Franco meterse en el Top 8? Voten en la pestaña comunidad.",
-        "🏎️ ACTUALIZACIÓN PREVIA: El mapa térmico de São Paulo favorece el ritmo de tandas largas de Williams y Ferrari. Dejá tu comentario para el análisis en vivo.",
-        "⚡ ALERTA METEOROLÓGICA: Humedad en 65% y viento cruzado en recta principal. No se pierdan la cobertura en directo antes del apagado de semáforos."
-      ],
-      stream: [
-        "«Muy buenas a todos, bienvenidos a la transmisión en directo de UNDERTRACK para el Gran Premio de São Paulo. Hoy tenemos una carrera de pura gestión térmica: con el asfalto tocando los 46°C y 43 metros de desnivel en subida ciega, los autos que castiguen la goma delantera van a sufrir caídas de hasta 2 segundos por vuelta. Analizamos paso a paso las paradas y el delta de Franco Colapinto.»",
-        "«Bienvenidos al streaming oficial de análisis telemétrico. La gran incógnita de la tarde es McLaren: en condiciones similares de calor en Austin perdieron 30 segundos respecto a la punta. Hoy Ferrari y Red Bull tienen una oportunidad de oro para recortar el campeonato de constructores.»",
-        "«Largamos el vivo de previa de Interlagos. Repasamos la telemetría vuelta a vuelta: Colapinto promedia un delta de preservación superior al pelotón medio, y el 73% histórico de Safety Car en esta pista nos promete un desenlace apasionante.»"
-      ],
-      post: [
-        "📝 DESGLOSE TÉCNICO PARA EL GP DE BRASIL:\nEn nuestro análisis de microsectores descubrimos que la tracción en salida de Curva 12 aporta 0.35s netos por vuelta. Williams llega con excelente velocidad punta (332 km/h) para defender posición en recta.",
-        "📊 REPORTE DE ESTRATEGIA // INTERLAGOS:\nLa ventana óptima de parada se sitúa entre las vueltas 22 y 26 para el compuesto Medio. Quienes intenten ir a una sola parada dependerán de una neutralización oportuna.",
-        "🔍 TELEMETRÍA COMPARADA VERSTAPPEN VS LECLERC:\nMax aventaja en aceleración en pendiente (+0.20s), mientras Charles recupera terreno en la entrada de la S do Senna."
-      ]
-    },
-    x: {
-      reel: [
-        "«Video rápido de telemetría: por qué Franco Colapinto puede pescar puntos en Brasil. Miren cómo tracciona en la subida de Junção cuidando el tren trasero mientras los demás derrapan con 46°C en pista. Carrera de paciencia y precisión.»",
-        "«¿Por qué sufre McLaren con asfalto caliente? En 30 segundos te explico cómo la Curva do Sol sobrecalienta la delantera izquierda del MCL38 y deja a Norris vulnerable.»",
-        "«Verstappen vs Ferrari en 43 metros de trepada: la física detrás del duelo que definirá el Gran Premio de São Paulo en Interlagos.»"
-      ],
-      story: [
-        "⚡ TELEMETRY ALERT // INTERLAGOS:\nAsfalto a 46°C, viento de cola en Curva 1 y 65% probabilidad de lluvia. Ventana de parada crítica: vueltas 22 a 27.",
-        "🇦🇷 COLAPINTO MONITOR: Ritmo de tandas largas marca consistencia para pelear el P8 con Williams. Clave: no quemar gomas en las primeras 10 vueltas.",
-        "⚠️ MCLAREN UPDATE: Degradación en neumático C3 un 18% más alta que Ferrari en asfalto caliente. Carrera cuesta arriba para Norris."
-      ],
-      stream: [
-        "«Abriendo Spaces de UNDERTRACK para seguir la previa del GP de Brasil. Analizamos en vivo los datos de telemetría de largada, la temperatura del asfalto en 46°C y la estrategia de Williams con Franco Colapinto. ¡Súmense y dejen sus preguntas!»",
-        "«En directo en X: telemetría en tiempo real de la Ronda 21. Si llueve en la vuelta 20, los pilotos agresivos en frenada saltan hasta 3 posiciones promedio. Micrófono abierto para la comunidad.»",
-        "«Cobertura minuto a minuto de Interlagos. Los datos indican que quien cuide la tracción en Junção dominará la segunda mitad de la carrera. Escuchá el veredicto telemétrico.»"
-      ],
-      post: [
-        "1/3 🇦🇷 Por qué Franco Colapinto puede sumar puntos grandes en Interlagos [HILO TELEMÉTRICO]:\n\nEl asfalto en San Pablo tocará los 46°C. El modelo de degradación térmica beneficia a monoplazas que no sobrecalientan el tren trasero en Curva do Sol.\n\n2/3 En México, Franco registró un delta de preservación de gomas 14% mejor a la media de la parrilla.\n\n3/3 Pronóstico: Si Williams ejecuta una sola parada limpia (Medio ➔ Duro), el P8 es completamente viable.",
-        "1/3 ⚠️ ALERTA MCLAREN: Por qué el asfalto de Interlagos (46°C) complica a Norris y Piastri [DATOS]:\n\nEl modelo histórico registra un diferencial de -1.20 puestos para McLaren en pista caliente (>40°C), repitiendo el patrón de COTA.\n\n2/3 El viento de cola en Senna S reduce la carga delantera y sobrecalienta el compuesto en apoyos largos.\n\n3/3 Veredicto: Red Bull y Ferrari tienen ventaja de degradación en los stints 2 y 3.",
-        "1/3 ⚔️ Cómo se define la victoria en Interlagos: 43 metros de desnivel en subida ciega [TELEMETRÍA]:\n\nLa Curva 12 desemboca en una pendiente empinada hacia Arquibancadas. Quien patine 3 grados pierde 15 km/h en recta de meta.\n\n2/3 Red Bull cuenta con la mejor velocidad de tracción (+0.20s por vuelta) gracias a su correlación con Austria.\n\n3/3 Final abierto y estratégico hasta la última vuelta."
-      ]
-    }
-  };
+  // INICIALIZAR FORMATOS DINÁMICOS AL CARGAR
+  renderDynamicFormatButtons();
 
   // GENERAR GUION PERSONALIZADO Y DESPLAZAR FLUIDO HACIA LA PIZARRA
   window.generateCustomScript = async function() {
     const btn = document.getElementById('btnGenerateCustomScript');
     if (btn) {
-      btn.innerHTML = '<span class="w-3 h-3 rounded-full bg-white animate-ping mr-2"></span> Adaptando guion...';
+      btn.innerHTML = '<span class="w-3 h-3 rounded-full bg-white animate-ping mr-2"></span> Adaptando contenido...';
       btn.disabled = true;
     }
 
@@ -3893,14 +3994,6 @@ Variación creativa #${Math.floor(Math.random() * 1000)}: Redacción fresca, dir
       output.textContent = chosenScript;
     }
 
-    // Sincronizar las pestañas de Editorial Desk
-    const tabKey = (fmt === 'story' || fmt === 'post') ? 'reel' : (fmt === 'stream' ? 'streaming' : 'reel');
-    const targetTabBtn = document.getElementById(`tab${tabKey.charAt(0).toUpperCase() + tabKey.slice(1)}`);
-    if (targetTabBtn && window.setActiveTab) {
-      window.setActiveTab(targetTabBtn, tabKey);
-      if (output) output.textContent = chosenScript;
-    }
-
     // Scroll suave hacia Editorial Desk
     const deskSection = document.getElementById('verdict');
     if (deskSection) {
@@ -3908,7 +4001,7 @@ Variación creativa #${Math.floor(Math.random() * 1000)}: Redacción fresca, dir
     }
 
     if (btn) {
-      btn.innerHTML = '<span>Generar Guion Personalizado</span> <span class="text-sm">↓</span>';
+      btn.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span> <span>Generar Guion Personalizado</span> <span class="text-sm">↓</span>';
       btn.disabled = false;
     }
   };</script>
