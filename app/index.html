@@ -439,7 +439,70 @@
       animation: loopTickerTrack 22s linear infinite;
     }
 
-  </style>
+  
+    @keyframes circuitGlowGreen {
+      0%, 100% {
+        transform: rotate(-3deg) scale(1);
+        color: #00A86B;
+        filter: drop-shadow(0 0 10px rgba(0, 168, 107, 0.4));
+      }
+      50% {
+        transform: rotate(-1deg) scale(1.06);
+        color: #00E676;
+        filter: drop-shadow(0 0 22px rgba(0, 230, 118, 0.75));
+      }
+    }
+    @keyframes circuitGlowRed {
+      0%, 100% {
+        transform: rotate(2deg) scale(1);
+        color: #E10600;
+        filter: drop-shadow(0 0 10px rgba(225, 6, 0, 0.4));
+      }
+      50% {
+        transform: rotate(3deg) scale(1.06);
+        color: #FF1744;
+        filter: drop-shadow(0 0 22px rgba(255, 23, 68, 0.75));
+      }
+    }
+    .anim-circuit-interlagos {
+      animation: circuitGlowGreen 3s ease-in-out infinite;
+    }
+    .anim-circuit-redbull {
+      animation: circuitGlowRed 3s ease-in-out infinite;
+    }
+
+    .fan-card {
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .fan-card:hover {
+      border-color: var(--team-color, #ffffff) !important;
+      box-shadow: 0 0 30px var(--team-glow, rgba(255,255,255,0.4)), 0 20px 45px rgba(0,0,0,0.6) !important;
+      z-index: 50 !important;
+    }
+
+    .fan-card {
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .fan-card img {
+      filter: grayscale(100%) contrast(1.15) brightness(0.92);
+      transition: filter 0.45s ease, transform 0.45s ease;
+    }
+    .fan-card:hover img,
+    .fan-card.is-active img {
+      filter: grayscale(0%) contrast(1.08) saturate(1.25) brightness(1.02) !important;
+    }
+    .fan-card:hover {
+      border-color: var(--team-color, #ffffff) !important;
+      box-shadow: 0 0 32px var(--team-glow, rgba(255,255,255,0.45)), 0 20px 45px rgba(0,0,0,0.65) !important;
+      z-index: 50 !important;
+    }
+    .fan-card.is-active {
+      border-color: var(--team-color, #ffffff) !important;
+      box-shadow: 0 0 25px var(--team-glow, rgba(255,255,255,0.35)), 0 15px 35px rgba(0,0,0,0.5) !important;
+    }
+</style>
 </head>
 <body class="bg-canvas text-carbon antialiased selection:bg-carbon selection:text-pureWhite">
 
@@ -487,7 +550,7 @@
       <!-- Navegación con la nomenclatura y orden preferido -->
       <nav class="hidden sm:flex items-center gap-6 md:gap-7 text-xs font-[500] tracking-tight">
         <a href="#surface" id="nav-surface" class="nav-link text-muted hover:text-carbon transition-colors">superficie</a>
-        <a href="#pressure" id="nav-pressure" class="nav-link text-muted hover:text-carbon transition-colors">clima</a>
+        <a href="#transition-weather" id="nav-pressure" class="nav-link text-muted hover:text-carbon transition-colors">clima</a>
         <a href="#signal" id="nav-signal" class="nav-link text-muted hover:text-carbon transition-colors">gemelo</a>
         <a href="#helmet" id="nav-helmet" class="nav-link text-muted hover:text-carbon transition-colors">pilotos</a>
         <a href="#crossover" id="nav-crossover" class="nav-link text-muted hover:text-carbon transition-colors">choque</a>
@@ -711,544 +774,508 @@
 
   </div>
 
-  <!-- ========================================================
-       PANTALLA 03: SUPERFICIE (IMAGEN: PANTALLA03.PNG)
-       - Imagen de fondo: assets/circuitos/nuevocircuito.jpeg
-       - Encabezado limpio: sin "// trazado puro" y sin párrafo pesado
-       - Datos del circuito superpuestos POR ENCIMA DE LA IMAGEN:
-         * A la izquierda: Datos de color & hitos con línea fina y círculos
-         * A la derecha: Datos técnicos (dock angosto w-72 con hover iluminado)
-         * Abajo: Datos generales (longitud, vueltas, curvas, récord Bottas 2018)
-       - 4 Familias físicas de K-Means
-       ======================================================== -->
-  <section id="surface" class="relative w-full bg-[#000000] text-pureWhite select-none scroll-mt-0">
+<section id="surface" class="relative w-full h-[360vh] bg-[#000000] text-pureWhite select-none scroll-mt-0">
     
-    <!-- ESCENARIO PINNED STICKY QUE MANTIENE NUEVOCIRCUITO Y ANIMA EN SCROLL -->
-    <div id="surfaceStage" class="relative w-full h-[200vh]">
-      <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-6 sm:py-8">
-        
-        <!-- Fondo: nuevocircuito.jpeg continuo y fijo en el viewport -->
-        <img src="assets/circuitos/nuevocircuito.jpeg" alt="Circuito Interlagos Fondo" 
-             class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
-        
-        <!-- Viñeta suave de contraste -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60 pointer-events-none"></div>
-
-        <!-- CONTENEDOR DE CONTENIDO SUPERPUESTO (AJUSTADO A VIEWPORT) -->
-        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 pt-16 sm:pt-20 pb-4 h-full flex flex-col justify-between">
-
-          <!-- ENCABEZADO SUPERPUESTO (YA ESCRITO Y VISIBLE DESDE EL INICIO) -->
-          <div class="text-left shrink-0 mb-1 sm:mb-2">
-            <span class="text-[11px] sm:text-xs text-white/70 uppercase font-[700] block mb-1 tracking-wider drop-shadow-md">01 / superficie</span>
-            <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-              INTERLAGOS EN TELEMETRÍA <br>
-              <span class="font-[200] text-white/80 normal-case text-base sm:text-2xl md:text-3xl">43 metros de desnivel entre dos lagos</span>
-            </h2>
-          </div>
-
-          <!-- ESCENARIO CENTRAL: DATOS DE COLOR PROGRESIVOS Y DOCK TÉCNICO BARRIDO -->
-          <div class="flex-1 flex flex-col justify-center my-auto py-1 sm:py-2">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-              
-              <!-- A LA IZQUIERDA: DATOS DE COLOR (APARECEN DE MANERA PROGRESIVA CON SCROLL) -->
-              <div class="lg:col-span-6 space-y-2.5 max-w-[320px]">
-                <span id="surfaceHitoHeader" class="text-[10px] sm:text-[11px] font-[900] uppercase text-white/90 tracking-wider block mb-1 drop-shadow-md opacity-0 will-change-transform">
-                  datos de color & hitos de la pista
-                </span>
-
-                <!-- Hito 01: entre dos lagos -->
-                <div id="surfaceHito1" class="space-y-0.5 group opacity-0 will-change-transform">
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
-                    <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                    <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">01. entre dos lagos</h5>
-                  </div>
-                  <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                    el nombre interlagos significa literalmente «entre lagos». el autódromo se construyó en los años 40 entre los embalses de guarapiranga y billings, en são paulo.
-                  </p>
-                  <div class="pl-4 pt-0.5">
-                    <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
-                      dato geográfico e histórico
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Hito 02: antes era el doble de largo -->
-                <div id="surfaceHito2" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
-                    <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                    <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">02. antes era el doble de largo</h5>
-                  </div>
-                  <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                    el trazado original medía casi 8 km. en 1990 fue rediseñado y acortado para volver a recibir a la fórmula 1 moderna: ¡el circuito actual es prácticamente la mitad!
-                  </p>
-                  <div class="pl-4 pt-0.5">
-                    <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
-                      historia del trazado
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Hito 03: el s de senna lo diseñó senna -->
-                <div id="surfaceHito3" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
-                    <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                    <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">03. el s de senna lo diseñó senna</h5>
-                  </div>
-                  <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                    la famosa bajada de curvas 1 y 2 fue incorporada en la reforma de 1989 siguiendo la propuesta directa de ayrton senna. luego recibió su nombre en su honor.
-                  </p>
-                  <div class="pl-4 pt-0.5">
-                    <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
-                      homenaje y trazado mítico
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- A LA DERECHA: RECUADRO DE DATOS TÉCNICOS EN VERDE FLÚOR (APARECE BARRIDO DE DERECHA A IZQUIERDA) -->
-              <div class="lg:col-span-6 flex justify-start lg:justify-end">
-                <div id="surfaceTechCard" class="group w-full sm:w-64 md:w-72 bg-black/55 hover:bg-black/75 p-4 sm:p-5 rounded-2xl border border-[#d4ff32]/35 hover:border-[#d4ff32]/70 transition-all duration-300 space-y-3 backdrop-blur-md shadow-2xl opacity-0 will-change-transform">
-                  
-                  <div class="flex items-center justify-between pb-2 border-b border-[#d4ff32]/25 group-hover:border-[#d4ff32]/50 transition-colors">
-                    <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-white">DATOS TÉCNICOS</span>
-                    <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-[#d4ff32] flex items-center gap-1.5 drop-shadow-[0_0_8px_rgba(212,255,50,0.6)]">
-                      <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
-                      TELEMETRÍA
-                    </span>
-                  </div>
-
-                  <!-- DESNIVEL -->
-                  <div class="flex items-center justify-between py-0.5">
-                    <div>
-                      <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">DESNIVEL</span>
-                      <span class="text-[10px] sm:text-[11px] text-[#d4ff32]/85 font-[600] block">junção a s do senna</span>
-                    </div>
-                    <div class="text-right">
-                      <span class="font-[900] text-xl sm:text-2xl text-[#d4ff32]">43</span><span class="text-xs font-[800] text-[#d4ff32] ml-0.5">m</span>
-                    </div>
-                  </div>
-
-                  <!-- ABRASIÓN -->
-                  <div class="flex items-center justify-between py-0.5 border-t border-white/10">
-                    <div>
-                      <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">ABRASIÓN</span>
-                      <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">rugosidad pirelli</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">3 / 5</span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    </div>
-                  </div>
-
-                  <!-- FRENADA -->
-                  <div class="flex items-center justify-between py-0.5 border-t border-white/10">
-                    <div>
-                      <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">FRENADA</span>
-                      <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">severidad brembo (t1)</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">3 / 5</span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                      <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ABAJO: DATOS GENERALES (YA ESCRITO Y VISIBLE DESDE EL INICIO) -->
-          <div class="w-full max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center relative z-30 bg-gradient-to-r from-transparent via-black/85 to-transparent backdrop-blur-xl py-4 sm:py-5 px-6 sm:px-12 shrink-0 shadow-[0_0_60px_25px_rgba(0,0,0,0.65)]">
-            <div class="py-1 sm:py-2">
-              <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">longitud</span>
-              <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">4.309<span class="text-sm sm:text-base font-[700] text-white/70 ml-1.5">km</span></div>
-            </div>
-            <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
-              <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">vueltas</span>
-              <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">71</div>
-              <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">vueltas</span>
-            </div>
-            <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
-              <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">curvas</span>
-              <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">15</div>
-              <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">(antihorario)</span>
-            </div>
-            <div class="border-l border-white/15 py-1 sm:py-2">
-              <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">récord oficial</span>
-              <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">1:10.540</div>
-              <span class="text-xs sm:text-sm font-[700] text-[#d4ff32] block mt-1 font-mono">bottas · 2018</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SECCIÓN DE TAXONOMÍA FÍSICA: LAS 4 FAMILIAS EXACTAS -->
-    <div id="taxonomySection" class="relative z-10 w-full bg-[#070709] py-20 sm:py-28 px-6 sm:px-10 border-t border-white/15">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-4 border-b border-white/10 gap-3">
-          <div>
-            <span class="text-xs uppercase font-[800] tracking-widest text-[#d4ff32] block mb-1">clustering k-means · telemetría</span>
-            <h3 class="text-xl sm:text-3xl font-[900] uppercase text-white tracking-tight">taxonomía física de pistas</h3>
-          </div>
-          <div class="text-xs text-white/50 font-[400] max-w-md text-left sm:text-right">
-            4 familias genéticas de circuitos reclasificadas según la violencia física que ejercen sobre el monoplaza
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
-          
-          <!-- FAMILIA 01: Carga Lateral Extrema -->
-          <div id="familyCard1" class="bg-white/[0.04] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-4 hover:border-white/25 transition-all duration-300 backdrop-blur-sm opacity-0 will-change-transform flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 01</span>
-                <span class="text-[10px] font-[600] text-white/40 uppercase tracking-widest">aero & g-force</span>
-              </div>
-              <h4 class="font-[900] text-base uppercase text-white leading-snug">Carga Lateral Extrema</h4>
-              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-[13px]">
-                curvas ultra rápidas enlazadas (a más de 220 km/h) donde el monoplaza dobla a fondo apoyado contra el piso mediante downforce masivo.
-              </p>
-            </div>
-
-            <div class="space-y-3 pt-3 border-t border-white/10">
-              <div>
-                <span class="text-[10px] uppercase font-[700] text-white/50 block mb-1 tracking-wider">circuitos del cluster</span>
-                <p class="text-[11px] font-[500] text-white/80 leading-normal">
-                  Spa-Francorchamps · Silverstone · Suzuka · Zandvoort · Jeddah · Losail
-                </p>
-              </div>
-              <div class="grid grid-cols-2 gap-2 pt-1 text-[11px] font-[600]">
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">a fondo</span>
-                  <span class="text-white font-[800]">70% vuelta</span>
-                </div>
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">abrasión</span>
-                  <span class="text-white font-[800]">alta · 5/5</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAMILIA 02: Stop-and-Go -->
-          <div id="familyCard2" class="bg-white/[0.04] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-4 hover:border-white/25 transition-all duration-300 backdrop-blur-sm opacity-0 will-change-transform flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 02</span>
-                <span class="text-[10px] font-[600] text-white/40 uppercase tracking-widest">potencia & frenos</span>
-              </div>
-              <h4 class="font-[900] text-base uppercase text-white leading-snug">Stop-and-Go</h4>
-              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-[13px]">
-                rectas kilométricas seguidas de frenadas salvajes (a más de 5G) y curvas lentas de aceleración pura donde la tracción en salida define el sobrepaso.
-              </p>
-            </div>
-
-            <div class="space-y-3 pt-3 border-t border-white/10">
-              <div>
-                <span class="text-[10px] uppercase font-[700] text-white/50 block mb-1 tracking-wider">circuitos del cluster</span>
-                <p class="text-[11px] font-[500] text-white/80 leading-normal">
-                  Monza · Red Bull Ring · Montreal · Las Vegas · Albert Park · Miami
-                </p>
-              </div>
-              <div class="grid grid-cols-2 gap-2 pt-1 text-[11px] font-[600]">
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">a fondo</span>
-                  <span class="text-white font-[800]">76% vuelta</span>
-                </div>
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">frenada</span>
-                  <span class="text-white font-[800]">severa · 5/5</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAMILIA 03: Mixtos y Técnicos (Interlagos Destacado) -->
-          <div id="familyCard3" class="bg-white/[0.08] p-6 sm:p-7 rounded-2xl border-2 border-[#d4ff32] space-y-4 relative overflow-hidden shadow-[0_0_30px_rgba(212,255,50,0.15)] backdrop-blur-md opacity-0 will-change-transform flex flex-col justify-between">
-            <div class="absolute top-0 right-0 bg-[#d4ff32] text-black text-[10px] font-[900] px-3.5 py-1 uppercase rounded-bl-lg tracking-wider">
-              interlagos · r21
-            </div>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-[#d4ff32] block text-[11px] font-[800] uppercase tracking-wider">familia 03</span>
-              </div>
-              <h4 class="font-[900] text-base uppercase text-white leading-snug">Mixtos y Técnicos</h4>
-              <p class="text-white/90 font-[400] leading-relaxed text-xs sm:text-[13px]">
-                trazados ondulados con desniveles pronunciados, subidas y bajadas rítmicas. equilibrio crítico entre tracción en curva lenta y velocidad en recta.
-              </p>
-            </div>
-
-            <div class="space-y-3 pt-3 border-t border-white/15">
-              <div>
-                <span class="text-[10px] uppercase font-[700] text-[#d4ff32] block mb-1 tracking-wider">circuitos del cluster</span>
-                <p class="text-[11px] font-[600] text-white leading-normal">
-                  <strong class="text-[#d4ff32]">Interlagos</strong> · COTA Austin · Imola · Bahrain · Shanghai · Portimão
-                </p>
-              </div>
-              <div class="grid grid-cols-2 gap-2 pt-1 text-[11px] font-[600]">
-                <div class="bg-white/[0.06] p-2 rounded-lg border border-[#d4ff32]/30">
-                  <span class="text-[9px] uppercase font-[700] text-[#d4ff32]/80 block">desnivel</span>
-                  <span class="text-[#d4ff32] font-[900]">43 metros</span>
-                </div>
-                <div class="bg-white/[0.06] p-2 rounded-lg border border-[#d4ff32]/30">
-                  <span class="text-[9px] uppercase font-[700] text-[#d4ff32]/80 block">equilibrio</span>
-                  <span class="text-white font-[800]">3/5 freno · 3/5 gomas</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAMILIA 04: Laberintos Urbanos -->
-          <div id="familyCard4" class="bg-white/[0.04] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-4 hover:border-white/25 transition-all duration-300 backdrop-blur-sm opacity-0 will-change-transform flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 04</span>
-                <span class="text-[10px] font-[600] text-white/40 uppercase tracking-widest">muros & agarre mecánico</span>
-              </div>
-              <h4 class="font-[900] text-base uppercase text-white leading-snug">Laberintos Urbanos</h4>
-              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-[13px]">
-                calles angostas, muros de hormigón a centímetros de la rueda, curvas de 90° en marchas bajas y mínimo espacio para adelantar.
-              </p>
-            </div>
-
-            <div class="space-y-3 pt-3 border-t border-white/10">
-              <div>
-                <span class="text-[10px] uppercase font-[700] text-white/50 block mb-1 tracking-wider">circuitos del cluster</span>
-                <p class="text-[11px] font-[500] text-white/80 leading-normal">
-                  Mónaco · Marina Bay · Bakú · Hermanos Rodríguez · Hungaroring
-                </p>
-              </div>
-              <div class="grid grid-cols-2 gap-2 pt-1 text-[11px] font-[600]">
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">a fondo</span>
-                  <span class="text-white font-[800]">34% - 50%</span>
-                </div>
-                <div class="bg-white/[0.03] p-2 rounded-lg border border-white/5">
-                  <span class="text-[9px] uppercase font-[700] text-white/40 block">muros</span>
-                  <span class="text-white font-[800]">riesgo sc 73%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  </section>
-
-  <!-- ========================================================
-       PANTALLA DE TRANSICIÓN: SUPERFICIE ➔ CLIMA (COLOR #778562)
-       - Réplica editorial de la pantalla 02 en color #778562
-       - Pantalla completa con generoso espacio editorial
-       ======================================================== -->
-  <section id="transition-weather" class="relative w-full h-screen min-h-screen max-h-screen bg-[#778562] text-pureWhite overflow-hidden select-none flex flex-col justify-center items-center py-12 px-6 scroll-mt-0">
-    
-    <!-- CONTENEDOR DE TIPOGRAFÍA EDITORIAL (INTER PURA SOBRE #778562) -->
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 w-full text-center space-y-7">
+    <!-- ESCENARIO PINNED STICKY QUE MANTIENE NUEVOCIRCUITO CONTINUO EN EL VIEWPORT -->
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-6 sm:py-8">
       
-      <!-- Pregunta en EXACTAMENTE DOS LÍNEAS -->
-      <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] uppercase leading-[1.12] tracking-tight text-white select-none max-w-4xl mx-auto drop-shadow-sm">
-        ¿EL CLIMA CONDENA O SALVA<br>
-        <span class="font-[200] text-white/80 lowercase text-lg sm:text-2xl md:text-3xl lg:text-[2.1rem] tracking-normal inline-block mt-1.5 sm:mt-2.5 sm:whitespace-nowrap">
-          a los constructores de f1?
+      <!-- Fondo: nuevocircuito.jpeg continuo y fijo en el viewport -->
+      <img src="assets/circuitos/nuevocircuito.jpeg" alt="Circuito Interlagos Fondo" 
+           class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
+      
+      <!-- Viñeta suave de contraste -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60 pointer-events-none"></div>
+
+      <!-- CAPA 1: DASHBOARD TELEMÉTRICO DE INTERLAGOS (TITULAR + HITOS ORIGINALES + TECH CARD + STATS) -->
+      <div id="surfaceDashboardWrap" class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-10 pt-16 sm:pt-20 pb-4 h-full flex flex-col justify-between will-change-transform transition-opacity duration-200">
+
+        <!-- ENCABEZADO SUPERPUESTO (ORIGINAL COMPLETO) -->
+        <div class="text-left shrink-0 mb-1 sm:mb-2">
+          <span class="text-[11px] sm:text-xs text-white/70 uppercase font-[700] block mb-1 tracking-wider drop-shadow-md">01 / superficie</span>
+          <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+            INTERLAGOS EN TELEMETRÍA <br>
+            <span class="font-[200] text-white/80 normal-case text-base sm:text-2xl md:text-3xl">43 metros de desnivel entre dos lagos</span>
+          </h2>
+        </div>
+
+        <!-- ESCENARIO CENTRAL: DATOS DE COLOR ORIGINALES Y DOCK TÉCNICO BARRIDO -->
+        <div class="flex-1 flex flex-col justify-center my-auto py-1 sm:py-2">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            
+            <!-- A LA IZQUIERDA: DATOS DE COLOR ORIGINALES -->
+            <div class="lg:col-span-6 space-y-2.5 max-w-[320px]">
+              <span id="surfaceHitoHeader" class="text-[10px] sm:text-[11px] font-[900] uppercase text-white/90 tracking-wider block mb-1 drop-shadow-md opacity-0 will-change-transform">
+                datos de color & hitos de la pista
+              </span>
+
+              <!-- Hito 01: entre dos lagos -->
+              <div id="surfaceHito1" class="space-y-0.5 group opacity-0 will-change-transform">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
+                  <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">01. entre dos lagos</h5>
+                </div>
+                <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
+                  el nombre interlagos significa literalmente «entre lagos». el autódromo se construyó en los años 40 entre los embalses de guarapiranga y billings, en são paulo.
+                </p>
+                <div class="pl-4 pt-0.5">
+                  <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
+                    dato geográfico e histórico
+                  </span>
+                </div>
+              </div>
+
+              <!-- Hito 02: antes era el doble de largo -->
+              <div id="surfaceHito2" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
+                  <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">02. antes era el doble de largo</h5>
+                </div>
+                <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
+                  el trazado original medía casi 8 km. en 1990 fue rediseñado y acortado para volver a recibir a la fórmula 1 moderna: ¡el circuito actual es prácticamente la mitad!
+                </p>
+                <div class="pl-4 pt-0.5">
+                  <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
+                    historia del trazado
+                  </span>
+                </div>
+              </div>
+
+              <!-- Hito 03: el s de senna lo diseñó senna -->
+              <div id="surfaceHito3" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
+                  <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">03. el s de senna lo diseñó senna</h5>
+                </div>
+                <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
+                  la famosa bajada de curvas 1 y 2 fue incorporada en la reforma de 1989 siguiendo la propuesta directa de ayrton senna. luego recibió su nombre en su honor.
+                </p>
+                <div class="pl-4 pt-0.5">
+                  <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
+                    homenaje y trazado mítico
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- A LA DERECHA: RECUADRO DE DATOS TÉCNICOS EN VERDE FLÚOR (BARRIDO DERECHA A IZQUIERDA) -->
+            <div class="lg:col-span-6 flex justify-start lg:justify-end">
+              <div id="surfaceTechCard" class="group w-full sm:w-64 md:w-72 bg-black/55 hover:bg-black/75 p-4 sm:p-5 rounded-2xl border border-[#d4ff32]/35 hover:border-[#d4ff32]/70 transition-all duration-300 space-y-3 backdrop-blur-md shadow-2xl opacity-0 will-change-transform">
+                
+                <div class="flex items-center justify-between pb-2 border-b border-[#d4ff32]/25 group-hover:border-[#d4ff32]/50 transition-colors">
+                  <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-white">DATOS TÉCNICOS</span>
+                  <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-[#d4ff32] flex items-center gap-1.5 drop-shadow-[0_0_8px_rgba(212,255,50,0.6)]">
+                    <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
+                    TELEMETRÍA
+                  </span>
+                </div>
+
+                <!-- DESNIVEL -->
+                <div class="flex items-center justify-between py-0.5">
+                  <div>
+                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">DESNIVEL</span>
+                    <span class="text-[10px] sm:text-[11px] text-[#d4ff32]/85 font-[600] block">junção a s do senna</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-[900] text-xl sm:text-2xl text-[#d4ff32]">43</span><span class="text-xs font-[800] text-[#d4ff32] ml-0.5">m</span>
+                  </div>
+                </div>
+
+                <!-- ABRASIÓN -->
+                <div class="flex items-center justify-between py-0.5 border-t border-white/10">
+                  <div>
+                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">ABRASIÓN</span>
+                    <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">rugosidad pirelli</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">3 / 5</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                  </div>
+                </div>
+
+                <!-- FRENADA -->
+                <div class="flex items-center justify-between py-0.5 border-t border-white/10">
+                  <div>
+                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">FRENADA</span>
+                    <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">severidad brembo (t1)</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">3 / 5</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ABAJO: DATOS GENERALES (BARRA INFERIOR) -->
+        <div class="w-full max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center relative z-30 bg-gradient-to-r from-transparent via-black/85 to-transparent backdrop-blur-xl py-4 sm:py-5 px-6 sm:px-12 shrink-0 shadow-[0_0_60px_25px_rgba(0,0,0,0.65)]">
+          <div class="py-1 sm:py-2">
+            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">longitud</span>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">4.309<span class="text-sm sm:text-base font-[700] text-white/70 ml-1.5">km</span></div>
+          </div>
+          <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
+            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">vueltas</span>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">71</div>
+            <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">vueltas</span>
+          </div>
+          <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
+            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">curvas</span>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">15</div>
+            <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">(antihorario)</span>
+          </div>
+          <div class="border-l border-white/15 py-1 sm:py-2">
+            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">récord oficial</span>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">1:10.540</div>
+            <span class="text-xs sm:text-sm font-[700] text-[#d4ff32] block mt-1 font-mono">bottas · 2018</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CAPA 2: SECCIÓN DE TAXONOMÍA (FONDO TOTALMENTE TRANSPARENTE, TÍTULO MINIMALISTA) -->
+      <!-- SUBE LIMPIAMENTE DESDE ABAJO Y SE VA HACIA ARRIBA PASANDO POR ENCIMA DE NUEVOCIRCUITO.JPEG -->
+      <div id="taxonomySection" class="absolute inset-0 z-20 flex flex-col justify-center items-center px-4 sm:px-10 pointer-events-none will-change-transform opacity-0 bg-transparent">
+        <div class="w-full max-w-7xl mx-auto py-8 sm:py-12">
+          
+          <!-- ENCABEZADO SIMPLIFICADO: MINIMALISTA EN VISUAL Y TEXTO -->
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-8 pb-3 border-b border-white/10 gap-2 px-1">
+            <div class="space-y-0.5">
+              <span class="text-[10px] uppercase font-mono font-[700] tracking-widest text-[#d4ff32] block">
+                telemetría // clasificación
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-[900] uppercase text-white tracking-tight leading-none">
+                TAXONOMÍA DE PISTAS
+              </h3>
+            </div>
+            <div class="text-[11px] sm:text-xs text-white/50 font-[300] tracking-wide">
+              4 familias según la exigencia física del monoplaza
+            </div>
+          </div>
+
+          <!-- LAS 4 FAMILIAS (ÚNICAMENTE ESTAS TARJETAS TIENEN FONDO OSCURO LEGIBLE) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+            
+            <!-- FAMILIA 01: CARGA LATERAL EXTREMA -->
+            <div id="familyCard1" class="bg-[#121316]/95 hover:bg-[#18191d] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-3 hover:border-white/25 transition-all backdrop-blur-md shadow-2xl">
+              <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 01</span>
+              <h4 class="font-[900] text-base uppercase text-white leading-snug tracking-tight">CARGA LATERAL EXTREMA</h4>
+              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-sm lowercase">
+                curvas ultra rápidas enlazadas (a más de 200 km/h) donde el auto dobla a fondo apoyado contra el piso.
+              </p>
+            </div>
+
+            <!-- FAMILIA 02: STOP-AND-GO -->
+            <div id="familyCard2" class="bg-[#121316]/95 hover:bg-[#18191d] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-3 hover:border-white/25 transition-all backdrop-blur-md shadow-2xl">
+              <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 02</span>
+              <h4 class="font-[900] text-base uppercase text-white leading-snug tracking-tight">STOP-AND-GO</h4>
+              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-sm lowercase">
+                rectas larguísimas seguidas de frenadas salvajes y curvas lentas de aceleración.
+              </p>
+            </div>
+
+            <!-- FAMILIA 03: MIXTOS Y TÉCNICOS (INTERLAGOS DESTACADO EXACTO AL SCREENSHOT) -->
+            <div id="familyCard3" class="bg-[#121316]/95 hover:bg-[#18191d] p-6 sm:p-7 rounded-2xl border-2 border-[#d4ff32] space-y-3 relative overflow-hidden shadow-[0_0_35px_rgba(212,255,50,0.25)] backdrop-blur-md">
+              <div class="absolute top-0 right-0 bg-[#d4ff32] text-black text-[10px] font-[900] px-3.5 py-1 uppercase rounded-bl-lg tracking-wider">
+                interlagos
+              </div>
+              <span class="text-[#d4ff32] block text-[11px] font-[800] uppercase tracking-wider">familia 03</span>
+              <h4 class="font-[900] text-base uppercase text-white leading-snug tracking-tight">MIXTOS Y TÉCNICOS</h4>
+              <p class="text-white font-[400] leading-relaxed text-xs sm:text-sm lowercase">
+                trazados ondulados con desniveles, subidas, bajadas y una combinación equilibrada de sectores lentos, medios y rápidos.
+              </p>
+            </div>
+
+            <!-- FAMILIA 04: LABERINTOS URBANOS -->
+            <div id="familyCard4" class="bg-[#121316]/95 hover:bg-[#18191d] p-6 sm:p-7 rounded-2xl border border-white/10 space-y-3 hover:border-white/25 transition-all backdrop-blur-md shadow-2xl">
+              <span class="text-zinc-400 block text-[11px] font-[700] uppercase tracking-wider">familia 04</span>
+              <h4 class="font-[900] text-base uppercase text-white leading-snug tracking-tight">LABERINTOS URBANOS</h4>
+              <p class="text-zinc-300 font-[400] leading-relaxed text-xs sm:text-sm lowercase">
+                calles angostas, muros de hormigón a centímetros de la rueda, muchas curvas de 90° en primera o segunda marcha y casi nulo espacio para sobrepasar.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================
+       PANTALLA 02: TRANSICIÓN AL CLIMA
+       - Fondo Verde Oliva #778562 con degradés suaves superior e inferior
+       - Hook editorial informal y limpio (sin austin, sin botón, sin telemetría duplicada)
+       ======================================================== -->
+  <section id="transition-weather" class="relative w-full min-h-screen bg-[#778562] text-pureWhite overflow-hidden select-none scroll-mt-0 flex flex-col justify-center items-center py-36 sm:py-52 px-6 sm:px-12">
+    
+    <!-- GRADIENTE SUPERIOR: NACE DEL NEGRO DE SUPERFICIE Y SE FUNDE CON EL VERDE -->
+    <div class="absolute top-0 inset-x-0 h-44 sm:h-64 bg-gradient-to-b from-[#000000] via-[#000000]/60 to-transparent pointer-events-none z-20"></div>
+
+    <!-- LÍNEAS TOPOGRÁFICAS / ISOBARAS DE FONDO SUTILES -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-15" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
+      <path d="M-100 250 C300 150, 500 500, 900 350 C1200 200, 1400 450, 1600 350" stroke="#FFFFFF" stroke-width="1.5" />
+      <path d="M-50 450 C250 350, 600 700, 1000 550 C1300 400, 1450 700, 1650 600" stroke="#FFFFFF" stroke-width="1.5" />
+    </svg>
+
+    <!-- CONTENEDOR PRINCIPAL BAJADO CON AMPLIO RESPIRO Y FUERTE JUEGO TIPOGRÁFICO -->
+    <div class="relative z-20 max-w-4xl mx-auto text-center space-y-6 pt-16 sm:pt-28 pb-12">
+      
+      <!-- GRAN TITULAR EDITORIAL INFORMAL Y PICANTE -->
+      <h2 class="tracking-tight leading-[0.98] max-w-4xl mx-auto flex flex-col items-center">
+        <!-- 1. Inter 900 Black monumental -->
+        <span class="block font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4.8rem] text-white tracking-tighter uppercase drop-shadow-sm leading-[0.95]">
+          ¿QUIÉN LE AVISA
+        </span>
+        <!-- 2. Inter 200 Thin / Light amplio -->
+        <span class="block font-[200] text-2xl sm:text-4xl md:text-5xl lg:text-[4.0rem] text-white/85 tracking-widest uppercase mt-1 sm:mt-2 leading-[1.05]">
+          A LOS INGENIEROS
+        </span>
+        <!-- 3. Square Peg cursiva manuscrita contrastante -->
+        <span class="block font-square text-4xl sm:text-6xl md:text-7xl lg:text-[5.4rem] text-white/95 lowercase tracking-normal leading-[1.05] my-2 sm:my-3 select-none -rotate-1">
+          que va a llover?
+        </span>
+        <!-- 4. Inter 900 con acento en verde flúor #d4ff32 (TAMAÑO MÁS BAJO Y EDITORIAL) -->
+        <span class="block font-[900] text-base sm:text-xl md:text-2xl lg:text-[1.85rem] text-[#d4ff32] tracking-tight uppercase leading-[1.1] mt-3 sm:mt-4 drop-shadow-[0_0_20px_rgba(212,255,50,0.35)]">
+          TRES GOTAS Y SE PUDRE TODO.
         </span>
       </h2>
 
-      <!-- RENGLÓN EN BLANCO -->
-      <div class="h-6 sm:h-10"></div>
-
-      <!-- Frase cinética con tachado en minúscula -->
-      <div class="py-2 flex items-center justify-center gap-3 text-xs sm:text-sm md:text-base font-[800] lowercase tracking-wide">
-        <span class="text-white/60 line-through decoration-white decoration-2">no es solo temperatura</span>
-        <span class="text-white font-[900] text-base">➔</span>
-        <span class="text-white font-[900]">es física térmica y adherencia</span>
-      </div>
-
-      <!-- Texto editorial explicativo en minúscula -->
-      <p class="max-w-2xl mx-auto text-xs sm:text-sm font-[300] text-white/90 lowercase leading-relaxed pt-1">
-        29°c de asfalto anulan el colapso térmico que sufrió mclaren en texas. el frío resucita al mcl38, pero la lluvia nivela cualquier ventaja mecánica.
+      <!-- BAJADA EDITORIAL -->
+      <p class="max-w-xl mx-auto text-xs sm:text-sm md:text-base font-[300] text-white/85 lowercase leading-relaxed pt-2">
+        podés simular mil vueltas en la computadora: con asfalto seco manda la telemetría, pero con 65% de lluvia la carrera es una ruleta rusa.
       </p>
 
-      <!-- Botón de avance hacia clima -->
-      <div class="pt-4">
-        <a href="#pressure" class="inline-flex items-center gap-2 text-xs font-[700] text-white hover:text-white/80 lowercase tracking-tight transition-colors group">
-          <span>ver el impacto del clima</span>
-          <span class="text-sm transition-transform group-hover:translate-y-1">↓</span>
-        </a>
-      </div>
-
     </div>
+
+    <!-- GRADIENTE INFERIOR: SE FUNDE SUAVEMENTE HACIA LA PANTALLA UNDER PRESSURE -->
+    <div class="absolute bottom-0 inset-x-0 h-32 sm:h-48 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-20"></div>
 
   </section>
 
   <!-- ========================================================
        PANTALLA 02: CLIMA (UNDER PRESSURE)
-       (TERMÓMETRO DE PISTA + REGLA DE RENDIMIENTO TÉRMICO)
+       RECORRIDO HORIZONTAL CON CITAS INTERCALADAS ENTRE DATOS
+       - Primera vista casi vacía con apenas el primer bloque asomándose
+       - Amplio espacio entre bloques para máxima elegancia y legibilidad
        ======================================================== -->
-  <section id="pressure" class="relative w-full min-h-screen bg-[#778562] text-pureWhite overflow-hidden py-16 sm:py-24 px-6 sm:px-12 scroll-mt-0">
+  <section id="pressure" class="relative w-full h-[400vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
     
-    <!-- LÍNEAS TOPOGRÁFICAS CURVAS DE FONDO -->
-    <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
-      <path d="M-100 200 C300 100, 500 450, 900 300 C1200 180, 1400 400, 1600 300" stroke="#FFFFFF" stroke-width="1.5" />
-      <path d="M-50 400 C250 300, 600 650, 1000 500 C1300 380, 1450 650, 1650 550" stroke="#FFFFFF" stroke-width="1.5" />
-      <path d="M100 100 C400 250, 800 150, 1100 350 C1350 500, 1500 200, 1600 150" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 6" />
-      <path d="M200 800 C500 700, 750 850, 1100 750 C1300 700, 1450 850, 1600 800" stroke="#FFFFFF" stroke-width="1" />
+    <!-- GRADIENTE SUPERIOR DE INTEGRACIÓN CON LA TRANSICIÓN -->
+    <div class="absolute top-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20"></div>
+
+    <!-- LÍNEAS TOPOGRÁFICAS CURVAS DE FONDO CONTINUAS -->
+    <svg id="pressureBgContours" class="absolute inset-0 w-[140%] h-full pointer-events-none opacity-20 will-change-transform" viewBox="0 0 1800 900" fill="none" preserveAspectRatio="none">
+      <path d="M-100 200 C300 100, 500 450, 900 300 C1200 180, 1500 400, 1900 300" stroke="#FFFFFF" stroke-width="1.5" />
+      <path d="M-50 400 C250 300, 600 650, 1000 500 C1300 380, 1600 650, 1950 550" stroke="#FFFFFF" stroke-width="1.5" />
+      <path d="M100 100 C400 250, 800 150, 1100 350 C1350 500, 1650 200, 1900 150" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 6" />
+      <path d="M200 800 C500 700, 750 850, 1100 750 C1300 700, 1600 850, 1900 800" stroke="#FFFFFF" stroke-width="1" />
     </svg>
 
-    <div class="relative z-10 max-w-7xl mx-auto space-y-10 sm:space-y-12">
+    <!-- ESCENARIO PINNED STICKY QUE SE MANTIENE FIJO DURANTE TODO EL SCROLL DE 400VH -->
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-6 sm:py-8 px-6 sm:px-12">
       
-      <!-- CABECERA EDITORIAL LIMPIA (SIN CITA DE LANDO NORRIS) -->
-      <div class="flex flex-col sm:flex-row items-baseline sm:items-center justify-between gap-4 pb-4 border-b border-white/20">
+      <!-- CABECERA EDITORIAL SUPERIOR -->
+      <div class="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-between pb-3 border-b border-white/20 shrink-0">
         <div class="text-left">
-          <span class="text-[10px] uppercase font-[900] tracking-widest text-[#d4ff32] block mb-1">02 / clima</span>
-          <h3 class="font-[900] text-3xl sm:text-4xl uppercase tracking-tighter text-white">UNDER PRESSURE</h3>
+          <span class="text-[10px] uppercase font-[900] tracking-widest text-[#d4ff32] block mb-0.5">02 / clima & presión</span>
+          <h3 class="font-[900] text-2xl sm:text-3xl uppercase tracking-tighter text-white">UNDER PRESSURE</h3>
         </div>
 
-        <div class="flex items-center gap-2 bg-[#d4ff32] text-[#111114] text-xs font-[900] px-4 py-2 rounded-full uppercase tracking-wider shadow-md">
-          <span>r21 são paulo</span>
-          <span>🏁</span>
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 text-[10px] font-mono text-white/70 uppercase">
+            <span>asfalto templado</span>
+            <span class="text-[#d4ff32]">·</span>
+            <span class="text-white font-[700]">29°c ventana fría</span>
+          </div>
+          <div class="flex items-center gap-2 bg-[#d4ff32] text-[#111114] text-[11px] font-[900] px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+            <span>r21 são paulo</span>
+            <span>🏁</span>
+          </div>
         </div>
       </div>
 
-      <!-- CONSTELACIÓN DE BLOQUES FOTOGRÁFICOS Y DE DATOS -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <!-- ESCENARIO CENTRAL: CENTRADO VERTICALMENTE EN PANTALLA PARA LECTURA PERFECTA -->
+      <div class="relative z-10 w-full flex-1 flex items-center overflow-visible py-4">
         
-        <!-- COLUMNA IZQUIERDA -->
-        <div class="md:col-span-3 space-y-6">
+        <div id="pressureGalleryTrack" class="flex items-center gap-20 sm:gap-32 md:gap-40 w-max will-change-transform pl-4 pr-32">
           
-          <!-- Bloque 01: Austin Texas GP -->
-          <div class="space-y-2 group">
-            <span class="text-[9px] uppercase tracking-widest font-[800] text-white/70 block">
-              austin gp · 48°c
-            </span>
-            <div class="aspect-[4/5] rounded-2xl overflow-hidden relative border border-white/20 bg-black/40 shadow-xl">
-              <img src="assets/fondos/vintage.jpeg" alt="Texas Heat Degradation" 
-                   class="w-full h-full object-cover object-center filter grayscale contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-              <div class="absolute bottom-3 left-3 right-3 text-[11px] font-[300] text-white/90 leading-tight">
-                <strong class="font-[800] text-white uppercase block text-[10px] mb-0.5">colapso térmico</strong>
-                en texas el asfalto hirviente destruyó los neumáticos en 12 vueltas.
-              </div>
+          <!-- ITEM 1: 48°C ASFALTO CALIENTE (IMPACTO TÉRMICO) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
+              <span class="text-white/60 font-mono">asfalto · 48°c</span>
+              <span class="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-mono text-[9px] border border-red-500/30">colapso térmico</span>
             </div>
-          </div>
-
-          <!-- Bloque 02: Lluvia Convectiva -->
-          <div class="space-y-2 group">
-            <span class="text-[9px] uppercase tracking-widest font-[800] text-white/70 block">
-              são paulo · 65% lluvia
-            </span>
-            <div class="aspect-square rounded-2xl overflow-hidden relative border border-white/20 bg-black/40 shadow-xl">
-              <img src="assets/fondos/fondo 3.jpg" alt="Lluvia en pista Interlagos" 
-                   class="w-full h-full object-cover object-center filter grayscale contrast-125 opacity-70 group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-              <div class="absolute bottom-3 left-3 right-3 text-[11px] font-[300] text-white/90 leading-tight">
-                <strong class="font-[800] text-[#d4ff32] uppercase block text-[10px] mb-0.5">nivelador de fuerzas</strong>
-                la lluvia neutraliza las ventajas aerodinámicas y deja la carrera en manos del piloto.
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- COLUMNA CENTRAL: HERO CARD PRINCIPAL -->
-        <div class="md:col-span-6 space-y-2 group">
-          <div class="flex items-center justify-between text-[10px] uppercase tracking-widest font-[800] text-white/80 px-1">
-            <span>interlagos · 29°c asfalto</span>
-            <span class="text-[#d4ff32] font-[900]">ventana segura</span>
-          </div>
-
-          <div class="aspect-[4/5] sm:aspect-[1/1.12] rounded-3xl overflow-hidden relative border-2 border-white/30 bg-black/50 shadow-2xl">
-            <img src="assets/pilotos/centered/norris.jpeg" alt="Lando Norris McLaren" 
-                 class="w-full h-full object-cover object-top filter brightness-[0.95] contrast-[1.08] group-hover:scale-102 transition-transform duration-700">
             
-            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-transparent"></div>
-
-            <div class="absolute bottom-6 left-6 right-6 space-y-3">
-              <div class="inline-flex items-center gap-2 bg-[#d4ff32] text-carbon px-3 py-1 rounded-full text-[10px] font-[900] uppercase tracking-wider">
-                <span>ventana fría mclaren (+1.32 puestos)</span>
-              </div>
-              <h4 class="font-[900] text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-tight leading-tight">
-                29°c de asfalto anulan el colapso térmico.
-              </h4>
-              <p class="text-xs sm:text-sm font-[300] text-white/90 leading-relaxed max-w-lg">
-                mclaren promedia su mejor rendimiento histórico en asfalto frío. el compuesto blando rinde hasta 24 vueltas sin ampollas de sobrecalentamiento.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- COLUMNA DERECHA -->
-        <div class="md:col-span-3 space-y-6">
-          
-          <!-- Bloque 03: Safety Car -->
-          <div class="space-y-2 group">
-            <div class="flex justify-between items-baseline text-[9px] uppercase tracking-widest font-[800] text-white/70">
-              <span>histórico sc</span>
-              <span class="text-white/60">73% carreras</span>
-            </div>
-            <div class="aspect-square rounded-2xl overflow-hidden relative border border-white/20 bg-black/40 shadow-xl">
-              <img src="assets/fondos/pantalla 4.jpg" alt="Neutralización en pista" 
-                   class="w-full h-full object-cover object-center filter grayscale contrast-125 opacity-70 group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-              <div class="absolute bottom-3 left-3 right-3 text-[11px] font-[300] text-white/90 leading-tight">
-                <strong class="font-[800] text-white uppercase block text-[10px] mb-0.5">neutralizaciones</strong>
-                alta probabilidad de banderas amarillas por despistes en junção y s de senna.
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-white/15 group-hover:border-[#d4ff32]/60 transition-all bg-black/40 shadow-2xl">
+              <img src="assets/clima/asfalto caliente.jpeg" alt="Asfalto Caliente Degradación" 
+                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+              
+              <div class="absolute bottom-5 left-5 right-5 space-y-2">
+                <div class="inline-block px-2.5 py-0.5 rounded bg-red-500/80 text-white font-[900] text-[10px] uppercase font-mono tracking-wider">
+                  -1.8 seg / vuelta
+                </div>
+                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
+                  Gomas derretidas en 12 giros
+                </h4>
+                <p class="text-xs text-white/80 font-[300] leading-relaxed">
+                  A 48°C el caucho blando se desintegra. Si el sol raja el asfalto, cualquier estrategia a una sola parada muere antes del giro 15.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Bloque 04: Termómetro Interactivo / Escala de Asfalto -->
-          <div class="space-y-2">
-            <span class="text-[9px] uppercase tracking-widest font-[800] text-white/70 block">
-              escala térmica pirelli
+          <!-- ITEM 2 (CITA 1 - AYRTON SENNA): INTERCALADA -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+            <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
+              ayrton senna // gp de brasil
             </span>
-            <div class="bg-black/50 backdrop-blur-md p-5 rounded-2xl border border-white/20 space-y-4 shadow-xl">
-              <div class="flex items-baseline justify-between">
-                <div>
-                  <span class="text-[10px] text-white/60 uppercase block">hoy en san pablo</span>
-                  <div class="font-[900] text-3xl text-[#d4ff32]">29°C</div>
+            <div class="space-y-2">
+              <span class="text-4xl text-[#d4ff32]/60 font-serif leading-none block">“</span>
+              <p class="font-[300] text-lg sm:text-xl md:text-2xl text-white/95 italic leading-snug -mt-2">
+                En lluvia no manejás con los ojos ni con los datos del muro. Manejás con el estómago.
+              </p>
+              <div class="flex items-center gap-2 pt-1 border-t border-white/10">
+                <span class="font-caveat font-[700] text-3xl sm:text-4xl text-[#d4ff32] select-none">Ayrton Senna</span>
+                <span class="text-[9px] font-mono tracking-widest text-white/40 uppercase">· interlagos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 3 (DATO - HERO CARD): 29°C ÓPTIMO CON NORRIS & MCLAREN -->
+          <div class="w-[340px] sm:w-[440px] shrink-0 space-y-3 group">
+            <div class="flex items-center justify-between text-[10px] uppercase tracking-widest font-[800] text-white/80 px-1">
+              <span>interlagos · 29°c asfalto</span>
+              <span class="text-[#d4ff32] font-[900] bg-[#d4ff32]/10 px-2 py-0.5 rounded-full border border-[#d4ff32]/30 font-mono text-[9px]">ventana dorada</span>
+            </div>
+
+            <div class="aspect-[4/5] sm:aspect-[1/1.12] rounded-3xl overflow-hidden relative border-2 border-[#d4ff32] bg-black/60 shadow-[0_0_40px_rgba(212,255,50,0.25)]">
+              <img src="assets/pilotos/norris.jpeg" alt="Lando Norris McLaren" 
+                   class="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] group-hover:scale-102 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-transparent"></div>
+              
+              <div class="absolute bottom-6 left-6 right-6 space-y-2.5">
+                <div class="inline-flex items-center gap-2 bg-[#d4ff32] text-carbon px-3 py-1 rounded-full text-[10px] font-[900] uppercase tracking-wider shadow-lg">
+                  <span>ganancia telemétrica: +1.32 puestos</span>
                 </div>
-                <div class="text-right">
-                  <span class="text-[9px] uppercase px-2 py-0.5 rounded bg-white/10 text-white/90 font-[700]">ventana óptima</span>
+                <h4 class="font-[900] text-xl sm:text-2xl text-white uppercase tracking-tight leading-tight">
+                  El respiro que corona a Norris
+                </h4>
+                <p class="text-xs sm:text-sm font-[300] text-white/90 leading-relaxed">
+                  El asfalto fresco anula el sobrecalentamiento. Donde Austin cocinó al MCL38, Interlagos le devuelve su agarre sobre rieles: 24 vueltas sin ampollas térmicas.
+                </p>
+                <div class="pt-1 space-y-1">
+                  <div class="w-full h-1.5 rounded-full bg-gradient-to-r from-blue-400 via-[#d4ff32] via-yellow-400 to-accentRed relative overflow-hidden">
+                    <div class="absolute top-0 bottom-0 left-[35%] w-1.5 bg-white shadow-[0_0_6px_#fff]"></div>
+                  </div>
+                  <div class="flex justify-between text-[9px] font-mono text-white/70">
+                    <span>15°c</span>
+                    <span class="text-[#d4ff32] font-[800]">29°c óptimo mclaren</span>
+                    <span>50°c crítico</span>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- Barra térmica con gradiente -->
-              <div class="space-y-1.5">
-                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden relative border border-white/15">
-                  <div class="bg-gradient-to-r from-[#d4ff32] via-yellow-400 to-[#E10600] h-full w-full opacity-80"></div>
-                  <!-- Aguja de 29°C -->
-                  <div class="absolute top-0 bottom-0 left-[36%] w-2 bg-white rounded-full shadow-lg border border-black"></div>
-                </div>
-                <div class="flex justify-between text-[8px] text-white/70 font-[600] uppercase tracking-wider">
-                  <span>20°c frío</span>
-                  <span class="text-white font-[800]">29°c</span>
-                  <span class="text-white">48°c austin</span>
-                </div>
+          <!-- ITEM 4 (CITA 2 - MAX VERSTAPPEN): INTERCALADA -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+            <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
+              max verstappen // gp de brasil
+            </span>
+            <div class="space-y-2">
+              <span class="text-4xl text-[#d4ff32]/60 font-serif leading-none block">“</span>
+              <p class="font-[300] text-lg sm:text-xl md:text-2xl text-white/95 italic leading-snug -mt-2">
+                Cuando empieza a gotear en la curva 1, todos los reglajes de la computadora dejan de importar.
+              </p>
+              <div class="flex items-center gap-2 pt-1 border-t border-white/10">
+                <span class="font-caveat font-[700] text-3xl sm:text-4xl text-[#d4ff32] select-none">Max Verstappen</span>
+                <span class="text-[9px] font-mono tracking-widest text-white/40 uppercase">· red bull</span>
               </div>
+            </div>
+          </div>
 
-              <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px]">
-                <span class="text-white/70 font-[500]">compuesto blando</span>
-                <span class="font-[800] text-white">c4 · 24 vueltas</span>
+          <!-- ITEM 5: 65% LLUVIA CONVECTIVA (RULETA RUSA) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
+              <span class="text-[#d4ff32] font-mono">interlagos · 65% agua</span>
+              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[9px] border border-blue-400/30">alerta tormenta</span>
+            </div>
+
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-[#d4ff32]/60 group-hover:border-[#d4ff32] transition-all bg-black/40 shadow-2xl">
+              <img src="assets/clima/lluvia.jpeg" alt="Lluvia en pista Interlagos" 
+                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+              
+              <div class="absolute bottom-5 left-5 right-5 space-y-2">
+                <div class="inline-block px-2.5 py-0.5 rounded bg-blue-500/80 text-white font-[900] text-[10px] uppercase font-mono tracking-wider">
+                  ruleta rusa tropical
+                </div>
+                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
+                  Tres gotas y se pudre todo
+                </h4>
+                <p class="text-xs text-white/80 font-[300] leading-relaxed">
+                  El cielo de São Paulo no avisa. Los ríos de agua en la bajada convierten a los ingenieros en espectadores: manda el puro instinto.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 6 (CITA 3 - LEWIS HAMILTON): INTERCALADA -->
+          <div class="w-[280px] sm:w-[360px] shrink-0 space-y-3 pr-2">
+            <span class="text-[10px] uppercase font-mono font-[800] tracking-widest text-[#d4ff32] block">
+              lewis hamilton // gp de brasil
+            </span>
+            <div class="space-y-2">
+              <span class="text-4xl text-[#d4ff32]/60 font-serif leading-none block">“</span>
+              <p class="font-[300] text-lg sm:text-xl md:text-2xl text-white/95 italic leading-snug -mt-2">
+                San Pablo no perdona la duda: o confiás en el agarre del tren trasero o terminás contra el muro antes de la subida.
+              </p>
+              <div class="flex items-center gap-2 pt-1 border-t border-white/10">
+                <span class="font-caveat font-[700] text-3xl sm:text-4xl text-[#d4ff32] select-none">Lewis Hamilton</span>
+                <span class="text-[9px] font-mono tracking-widest text-white/40 uppercase">· 3 victorias</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 7: SAFETY CAR 73% (EL FACTOR CAOS) -->
+          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group">
+            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
+              <span class="text-white/60 font-mono">neutralizaciones</span>
+              <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 font-mono text-[9px] border border-yellow-400/30">73% probabilidad</span>
+            </div>
+
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-white/15 group-hover:border-[#d4ff32]/60 transition-all bg-black/40 shadow-xl">
+              <img src="assets/clima/safety car.jpeg" alt="Safety Car en pista" 
+                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+              
+              <div class="absolute bottom-5 left-5 right-5 space-y-2">
+                <div class="inline-block px-2.5 py-0.5 rounded bg-yellow-500/80 text-black font-[900] text-[10px] uppercase font-mono tracking-wider">
+                  factor safety car
+                </div>
+                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
+                  La trampa de la relanzada
+                </h4>
+                <p class="text-xs text-white/80 font-[300] leading-relaxed">
+                  Trompos en la subida y toques en Senna S garantizan neutralizaciones. El que acierte la parada con auto de seguridad da el golpe del domingo.
+                </p>
               </div>
             </div>
           </div>
@@ -1259,13 +1286,12 @@
 
     </div>
 
+    <!-- DIFUMINADO INFERIOR DIRECTO AL BLANCO DE GEMELO SIN LÍNEA -->
+    <div class="absolute bottom-0 inset-x-0 h-44 sm:h-64 bg-gradient-to-b from-transparent via-white/70 to-white pointer-events-none z-20"></div>
+
   </section>
 
-  <!-- ========================================================
-       PANTALLA 03: GEMELO (THE SIGNAL)
-       (DIAL RADIAL DE CORRELACIÓN + RED BULL RING COMPARISON)
-       ======================================================== -->
-  <section id="signal" class="relative w-full min-h-screen bg-white text-carbon overflow-hidden pt-24 sm:pt-28 pb-14 px-6 sm:px-12 scroll-mt-20 border-t border-hairline">
+  <section id="signal" class="relative w-full min-h-screen bg-white text-carbon overflow-hidden pt-4 sm:pt-6 pb-6 px-4 sm:px-8 scroll-mt-20 flex flex-col justify-between">
     
     <!-- LÍNEAS TOPOGRÁFICAS CURVAS DE FONDO -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
@@ -1274,162 +1300,125 @@
       <path d="M150 150 C450 300, 850 180, 1150 400 C1350 550, 1500 250, 1600 200" stroke="#111114" stroke-width="0.8" />
     </svg>
 
-    <div class="relative z-10 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+    <div class="relative z-10 max-w-7xl mx-auto w-full flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
       
-      <!-- ENCABEZADO EDITORIAL CON SUFICIENTE AIRE ARRIBA PARA EL HEADER FLOTANTE -->
-      <div class="max-w-5xl space-y-2 text-left pt-2">
-        <span class="text-xs uppercase font-[800] tracking-widest text-[#00875A] block">03 / gemelo cinemático</span>
-        
-        <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl uppercase leading-[1.05] tracking-tight text-carbon">
-          AUSTRIA Y BRASIL COMPARTEN
+      <!-- ENCABEZADO EDITORIAL SUBIDO HACIA ARRIBA -->
+      <div class="text-left pt-1 sm:pt-2">
+        <span class="text-[11px] sm:text-xs uppercase font-[800] tracking-widest text-[#00875A] block mb-0.5">03 / gemelo cinemático</span>
+        <h2 class="font-[900] text-3xl sm:text-5xl lg:text-6xl uppercase leading-[1.02] tracking-tight text-carbon">
+          AUSTRIA Y BRASIL COMPARTEN ADN
         </h2>
-
-        <!-- FRASE EN UNA SOLA LÍNEA EXACTA EN MINÚSCULA -->
-        <p class="text-xs sm:text-sm md:text-base lg:text-lg font-[300] text-carbon/80 leading-normal pt-0.5 sm:whitespace-nowrap overflow-hidden text-ellipsis">
-          quien encontró la tracción mecánica en las montañas de spielberg, traslada su ventaja matemática a san pablo.
+        <p class="text-xs sm:text-sm font-[300] text-carbon/75 leading-tight pt-1">
+          trazados espejo: curvas lentas de aceleración que trepan pendientes ciegas donde manda la suspensión trasera.
         </p>
       </div>
 
-      <!-- RENGLÓN DE AIRE INTENCIONAL ENTRE SUBTÍTULO Y LOS NOMBRES DE LOS GEMELOS -->
-      <div class="h-4 sm:h-8"></div>
-
-      <!-- DUAL SPLIT LAYOUT SIMÉTRICO: DATOS A LA MISMA ALTURA EXACTA -->
-      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start py-2">
+      <!-- COMPARATIVA EN 3 COLUMNAS: MÁS ESPACIO ENTRE BLOQUES (GAP-10 A GAP-16) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-16 items-center my-auto py-2">
         
-        <!-- ================= LADO IZQUIERDO: BRASIL / INTERLAGOS ================= -->
-        <div class="lg:col-span-5 flex flex-col justify-between space-y-5 relative group">
-          
-          <!-- FILA 1: Título monumental SÃO PAULO con Interlagos superpuesto por encima de color verde #00875A -->
-          <div class="relative h-[125px] sm:h-[135px] flex flex-col justify-end">
-            <!-- Tipografía monumental base -->
-            <h3 class="font-[900] text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tighter text-carbon leading-[0.88] select-none z-10">
+        <!-- LADO IZQUIERDO: SÃO PAULO / INTERLAGOS (MONUMENTAL) -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-4 relative group">
+          <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end">
+            <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
               SÃO<br>PAULO
             </h3>
-            
-            <!-- Interlagos superpuesto por encima con contraste drop-shadow para que ambos se lean claramente -->
-            <div class="font-caveat font-[700] text-5xl sm:text-6xl text-[#00875A] absolute top-1 sm:top-2 left-2 sm:left-4 select-none pointer-events-none drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)] -rotate-3 z-20">
+            <div class="font-caveat font-[700] text-5xl sm:text-6xl absolute -top-3 sm:-top-4 left-2 select-none pointer-events-none z-20 leading-none anim-circuit-interlagos">
               Interlagos
             </div>
           </div>
 
-          <!-- FILA 2: Desnivel en mayúsculas a la misma altura exacta (h-[28px]) -->
-          <div class="h-[28px] flex items-center">
-            <strong class="font-[900] text-carbon uppercase block text-xs tracking-wider">
-              43M DE DESNIVEL VERTICAL ENTRE LAGOS.
-            </strong>
-          </div>
-
-          <!-- FILA 3: Descripción técnica a la misma altura exacta (min-h-[50px]) -->
-          <div class="min-h-[50px]">
-            <p class="text-xs sm:text-sm font-[300] text-carbon/75 max-w-[420px] leading-relaxed">
-              la curva 12 (junção) desemboca en una subida ciega a fondo<br class="hidden sm:inline"> que anula el downforce tradicional y premia la tracción mecánica pura.
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
+                43M DE DESNIVEL VERTICAL
+              </strong>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#00875A]/15 text-[#00875A] font-[800]">+43m cota</span>
+            </div>
+            <p class="text-xs sm:text-sm font-[300] text-carbon/80 leading-relaxed max-w-sm">
+              la curva 12 desemboca en una subida ciega a fondo que anula el downforce tradicional y premia la tracción mecánica.
             </p>
           </div>
-          
-          <!-- FILA 4: Badge comparativo a la misma altura exacta -->
-          <div class="h-[40px] flex items-center gap-3">
-            <span class="text-[11px] font-[800] uppercase tracking-wider text-[#00875A] bg-[#00875A]/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+
+          <div class="flex items-center gap-2 pt-1">
+            <span class="text-[11px] font-[800] uppercase tracking-wider text-[#00875A] bg-[#00875A]/10 px-3.5 py-1 rounded-full flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-[#00875A]"></span>
               Trazado Anfitrión
             </span>
-            <span class="text-[11px] font-[500] text-carbon/70 uppercase tracking-tight">Ronda 21 · 71 Vueltas</span>
+            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 21 · 71 Vueltas</span>
           </div>
-
         </div>
 
-        <!-- ================= CENTRO: DIAL CIRCULAR 84.6% PROTAGÓNICO EN VERDE ORIGINAL ================= -->
-        <div class="lg:col-span-2 flex flex-col items-center justify-center py-4 lg:py-0 relative">
-          
-          <div class="relative w-40 h-40 sm:w-44 sm:h-44 flex items-center justify-center">
-            
-            <div class="absolute -inset-3 rounded-full bg-gradient-to-tr from-[#00875A]/25 via-[#d4ff32]/35 to-[#00875A]/25 blur-xl animate-pulse pointer-events-none"></div>
+        <!-- CENTRO: DIAL CIRCULAR DE CORRELACIÓN CON AIRE Y ESPACIADO -->
+        <div class="lg:col-span-2 flex flex-col items-center justify-center py-2 relative px-2">
+          <div class="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-52 lg:h-52 flex items-center justify-center">
+            <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-[#00875A]/25 via-[#d4ff32]/35 to-[#00875A]/25 blur-xl animate-pulse pointer-events-none"></div>
 
-            <svg class="absolute inset-0 w-full h-full animate-spin-slow pointer-events-none opacity-40" viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r="74" fill="none" stroke="#00875A" stroke-width="1.5" stroke-dasharray="6 8"/>
-            </svg>
-
-            <svg class="w-full h-full -rotate-90 filter drop-shadow-md" viewBox="0 0 160 160">
+            <svg class="w-full h-full -rotate-90 filter drop-shadow-lg" viewBox="0 0 160 160">
               <circle cx="80" cy="80" r="68" class="dial-circle-bg"/>
               <circle cx="80" cy="80" r="68" class="dial-circle-progress stroke-[#00875A]" id="dialProgress"/>
             </svg>
 
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-2 z-20">
-              <span class="font-[900] text-3xl sm:text-4xl text-carbon tracking-tighter leading-none" id="dialValue">
+              <span class="font-[900] text-4xl sm:text-5xl text-carbon tracking-tighter leading-none" id="dialValue">
                 84.6%
               </span>
-              <span class="text-[11px] sm:text-xs font-[900] text-[#00875A] uppercase tracking-wider mt-1 drop-shadow-sm">
-                Afinidad Física
+              <span class="text-xs font-[800] text-[#00875A] uppercase tracking-wider mt-1">
+                Afinidad
               </span>
-              <span class="text-[9px] font-mono text-carbon/60 uppercase tracking-widest mt-0.5">
-                r = 0.846
-              </span>
+              <span class="text-[10px] font-mono text-carbon/50 uppercase mt-0.5">r = 0.846</span>
             </div>
-
           </div>
-
-          <div class="mt-3 text-center">
-            <span class="inline-block text-[10px] font-[800] uppercase tracking-widest bg-carbon text-pureWhite px-3 py-1 rounded-full shadow-sm">
-              correlación directa
-            </span>
-          </div>
-
+          <span class="mt-3 text-[10px] font-[800] uppercase tracking-widest bg-carbon text-pureWhite px-3 py-1 rounded-full">
+            correlación directa
+          </span>
         </div>
 
-        <!-- ================= LADO DERECHO: AUSTRIA / RED BULL RING ================= -->
-        <div class="lg:col-span-5 flex flex-col justify-between space-y-5 relative group text-left lg:text-right">
-          
-          <!-- FILA 1: Título monumental SPIELBERG con Red Bull Ring superpuesto por encima de color rojo #E10600 -->
-          <div class="relative h-[125px] sm:h-[135px] flex flex-col justify-end items-start lg:items-end">
-            <!-- Tipografía monumental base -->
-            <h3 class="font-[900] text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tighter text-carbon leading-[0.88] select-none z-10">
+        <!-- LADO DERECHO: SPIELBERG / RED BULL RING (MONUMENTAL) -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-4 relative group text-left lg:text-right">
+          <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end items-start lg:items-end">
+            <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
               SPIEL<br>BERG
             </h3>
-            
-            <!-- Red Bull Ring superpuesto por encima con contraste drop-shadow para que ambos se lean claramente -->
-            <div class="font-caveat font-[700] text-5xl sm:text-6xl text-accentRed absolute top-1 sm:top-2 right-2 sm:right-4 select-none pointer-events-none drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)] rotate-3 z-20">
+            <div class="font-caveat font-[700] text-5xl sm:text-6xl absolute -top-3 sm:-top-4 right-2 select-none pointer-events-none z-20 leading-none anim-circuit-redbull">
               Red Bull Ring
             </div>
           </div>
 
-          <!-- FILA 2: Desnivel en mayúsculas a la misma altura exacta (h-[28px]) -->
-          <div class="h-[28px] flex items-center justify-start lg:justify-end">
-            <strong class="font-[900] text-carbon uppercase block text-xs tracking-wider">
-              65M DE DESNIVEL ALPINO EN ESTIRIA.
-            </strong>
-          </div>
-
-          <!-- FILA 3: Descripción técnica a la misma altura exacta (min-h-[50px]) -->
-          <div class="min-h-[50px]">
-            <p class="text-xs sm:text-sm font-[300] text-carbon/75 max-w-sm leading-relaxed lg:ml-auto">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2 justify-start lg:justify-end">
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-accentRed/15 text-accentRed font-[800]">+65m cota</span>
+              <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
+                65M DE DESNIVEL ALPINO
+              </strong>
+            </div>
+            <p class="text-xs sm:text-sm font-[300] text-carbon/80 leading-relaxed max-w-sm lg:ml-auto">
               remontada desde curvas lentas hacia la pendiente de curvas 2 y 3 sin pérdida de tracción mecánica.
             </p>
           </div>
-          
-          <!-- FILA 4: Badge comparativo a la misma altura exacta -->
-          <div class="h-[40px] flex items-center gap-3 justify-start lg:justify-end">
-            <span class="text-[11px] font-[500] text-carbon/70 uppercase tracking-tight">Ronda 11 · Correlación directa</span>
-            <span class="text-[11px] font-[800] uppercase tracking-wider text-accentRed bg-accentRed/10 px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+
+          <div class="flex items-center gap-2 justify-start lg:justify-end pt-1">
+            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 11 · Correlación directa</span>
+            <span class="text-[11px] font-[800] uppercase tracking-wider text-accentRed bg-accentRed/10 px-3.5 py-1 rounded-full flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-accentRed"></span>
               El Gemelo Oculto
             </span>
           </div>
-
         </div>
 
       </div>
 
-      <!-- FILA INFERIOR COMPACTA: LECTURA CLAVE PARA LA TRANSMISIÓN (MATEO) -->
-      <div class="w-full bg-canvas/90 rounded-2xl p-4 sm:p-5 border border-hairline flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm mt-3">
-        <div class="space-y-1 max-w-3xl">
+      <!-- CTA SUBIDO PARA QUE QUEDE PERFECTAMENTE DENTRO DE PANTALLA -->
+      <div class="w-full bg-canvas/95 rounded-2xl p-3.5 sm:p-4 border border-hairline flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm shrink-0 mt-1">
+        <div class="space-y-0.5 max-w-3xl">
           <span class="text-[10px] uppercase font-[800] tracking-wider text-accentRed block">
-            lectura clave para la transmisión (mateo)
+            lectura clave para la transmisión
           </span>
-          <p class="text-xs sm:text-[13px] font-[400] text-carbon/90 leading-relaxed">
-            red bull y ferrari dominaron en spielberg porque su suspensión trasera absorbe el desnivel sin patinar las ruedas. en interlagos, la tracción en la salida de junção define si llegás a fondo a la frenada de senna s o te sobrepasan en la recta de 1.200 metros.
+          <p class="text-xs sm:text-[13px] font-[400] text-carbon/90 leading-snug">
+            red bull y ferrari dominaron en spielberg porque su suspensión trasera absorbe el desnivel sin patinar las ruedas. en interlagos, la tracción en subida define si llegás a fondo a senna s o te sobrepasan en la recta de 1.200 metros.
           </p>
         </div>
 
-        <a href="#helmet" class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-carbon text-pureWhite text-xs font-[700] hover:scale-105 transition-transform shadow-sm">
+        <a href="#helmet" class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-carbon text-pureWhite text-xs font-[700] hover:scale-105 transition-transform shadow-xs">
           ver arquetipos conductuales ↓
         </a>
       </div>
@@ -1456,7 +1445,7 @@
       </h2>
 
       <p class="text-base sm:text-lg font-[300] text-carbon/80 mt-4 max-w-3xl leading-relaxed">
-        Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico desde el centro: hacé click en cualquier piloto para abrir su ficha técnica interactiva y el dato para Mateo al aire.
+        Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico desde el centro: hacé click en cualquier piloto para abrir su ficha técnica interactiva y el dato clave para la transmisión al aire.
       </p>
     </div>
 
@@ -1506,119 +1495,86 @@
          MODAL POP-UP EDITORIAL: FICHA TÉCNICA DEL PILOTO ACTIVO
          (SE ABRE AUTOMÁTICAMENTE AL TOCAR CUALQUIER CARTA)
          ======================================================== -->
-    <div id="pilotModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md transition-opacity duration-300">
+    <div id="pilotModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/25 backdrop-blur-md transition-opacity duration-300">
       
-      <!-- Fondo cerrable con click -->
-      <div class="absolute inset-0" onclick="closePilotModal()"></div>
+      <!-- Fondo cerrable con click suave sin oscurecer en negro opaco -->
+      <div class="absolute inset-0 cursor-pointer" onclick="closePilotModal()"></div>
 
-      <!-- POP-UP RECTANGULAR ELEGANTE CON EFECTO VIDRIO TRASLÚCIDO Y TIPOGRAFÍA CLARA -->
-      <div class="relative z-10 w-full max-w-3xl bg-white/90 sm:bg-white/85 backdrop-blur-2xl rounded-2xl p-4 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-white/70 overflow-hidden max-h-[90vh] sm:max-h-[88vh] overflow-y-auto transform transition-all duration-300 scale-95" id="pilotModalContent">
+      <!-- FICHERO TÉCNICO ULTRA VIDRIOSO (FROSTED GLASS BLUR) -->
+      <div id="pilotModalContent" class="relative z-10 w-full max-w-2xl bg-white/20 dark:bg-[#121316]/80 backdrop-blur-3xl rounded-3xl p-6 sm:p-8 border border-white/35 text-white shadow-[0_30px_90px_rgba(0,0,0,0.45),inset_0_1px_2px_rgba(255,255,255,0.4)] max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 space-y-6">
         
-        <!-- Botón de Cierre ✕ -->
-        <button onclick="closePilotModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/5 text-[#111114] hover:bg-[#111114] hover:text-white flex items-center justify-center font-[800] text-xs transition-all shadow-sm z-30">
-          ✕
-        </button>
-
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6 items-start">
-          
-          <!-- Columna izquierda: Piloto + Auto -->
-          <div class="sm:col-span-5 space-y-3">
-            <div class="flex items-center gap-2.5">
-              <img id="pilotTeamLogo" src="assets/escuderias/mclaren.png" alt="Escudería" class="h-6 w-auto object-contain filter contrast-125">
-              <div>
-                <span id="pilotTeam" class="text-xs font-[800] text-[#111114] uppercase block tracking-tight leading-tight">McLaren F1 Team</span>
-                <span id="pilotCategoryTag" class="text-[10px] text-[#00875A] uppercase font-[700] block">arquetipo k-means</span>
-              </div>
-            </div>
-
-            <!-- Retrato con degradado limpio -->
-            <div class="aspect-[4/5] max-h-56 rounded-xl overflow-hidden relative border border-white/40 shadow bg-black/5">
-              <img id="pilotPortrait" src="assets/pilotos/centered/norris.jpeg" alt="Piloto" class="w-full h-full object-cover object-top filter grayscale-0 contrast-[1.08] saturate-[1.2] transition-all duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
-              <div class="absolute bottom-3 left-3 right-3 text-white">
-                <span id="pilotDorsal" class="font-[900] text-3xl leading-none block">#4</span>
-                <h3 id="pilotName" class="font-[900] text-xl uppercase leading-tight mt-0.5 text-white">
-                  Lando Norris
-                </h3>
-              </div>
-            </div>
-
-            <!-- Monoplaza F1 discreto y prolijo -->
-            <div class="p-2.5 rounded-xl bg-white/60 border border-white/50 flex items-center justify-between gap-2 shadow-xs">
-              <div class="space-y-0.5">
-                <span class="text-[9px] font-[800] uppercase tracking-wider text-[#00875A] block">monoplaza</span>
-                <h5 id="pilotCarModel" class="font-[900] text-xs uppercase text-[#111114] tracking-tight">McLaren MCL38</h5>
-                <span id="pilotEngine" class="text-[9px] font-[600] text-[#111114]/70 block">Mercedes-AMG M15</span>
-              </div>
-              <div class="w-16 shrink-0">
-                <img src="assets/auto_solo.png" alt="Monoplaza F1" class="w-full h-auto object-contain drop-shadow-sm">
-              </div>
-            </div>
-
+        <!-- BARRA SUPERIOR: ESCUDERÍA Y BOTÓN CERRAR -->
+        <div class="flex items-center justify-between pb-4 border-b border-white/15">
+          <div class="flex items-center gap-3">
+            <img id="pilotTeamLogo" src="assets/escuderias/mclaren.png" alt="Escudería" class="h-6 w-auto object-contain">
             <div>
-              <span id="pilotMatchTag" class="inline-block text-[10px] font-[800] uppercase px-3 py-1 rounded-full bg-accentGreen text-white shadow-xs">
-                revancha térmica (+1.32)
-              </span>
+              <span id="pilotTeam" class="text-xs font-[800] text-white uppercase block tracking-wider leading-tight">McLaren F1 Team</span>
+              <span id="pilotCategoryTag" class="text-[10px] text-[#d4ff32] uppercase font-mono tracking-widest block">fichero técnico // telemetría</span>
             </div>
           </div>
 
-          <!-- Columna derecha: Telemetría con TIPOGRAFÍA CLARA Y NÍTIDA -->
-          <div class="sm:col-span-7 space-y-4 pt-1">
-            
-            <!-- Cuadrícula de 4 Métricas Clave (Texto oscuro nítido) -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 border-y border-[#111114]/10 py-3 text-xs bg-white/40 px-2 rounded-xl">
+          <button onclick="closePilotModal()" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/30 text-white/80 hover:text-white flex items-center justify-center font-[700] text-xs transition-colors backdrop-blur-md">
+            ✕
+          </button>
+        </div>
+
+        <!-- CUERPO PRINCIPAL: RETRATO VIDRIADO CENTRADO + ANÁLISIS EDITORIAL -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+          
+          <!-- RETRATO VIDRIADO CON BORDE ILUMINADO -->
+          <div class="sm:col-span-5">
+            <div id="pilotPortraitWrap" class="aspect-[4/5] rounded-2xl overflow-hidden relative border border-white/30 bg-white/[0.05] shadow-2xl backdrop-blur-md">
+              <img id="pilotPortrait" src="assets/pilotos/centered/norris.jpeg" alt="Piloto" class="w-full h-full object-cover object-center filter contrast-[1.06] brightness-100 transition-all duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              
+              <div class="absolute bottom-3 left-3 right-3 flex items-baseline justify-between text-white">
+                <span id="pilotDorsal" class="font-[900] text-3xl leading-none font-mono">#4</span>
+                <span id="pilotMatchTag" class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[#d4ff32]">revancha</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DATOS Y ANÁLISIS EDITORIAL -->
+          <div class="sm:col-span-7 space-y-4">
+            <div>
+              <h3 id="pilotName" class="font-[900] text-2xl sm:text-3xl uppercase tracking-tight text-white leading-tight">
+                Lando Norris
+              </h3>
+              <span id="pilotCarModel" class="text-xs text-white/70 font-[400] block mt-0.5">McLaren MCL38 · Mercedes</span>
+            </div>
+
+            <!-- TIRA MINIMALISTA VIDRIADA DE 3 MÉTRICAS -->
+            <div class="grid grid-cols-3 gap-2 py-2.5 border-y border-white/15 text-center font-mono bg-white/[0.06] rounded-xl px-2 backdrop-blur-md">
               <div>
-                <span class="text-[#111114]/75 block font-[700] text-[9px] uppercase tracking-wider">ganancia</span>
-                <span id="pilotGain" class="font-[900] text-base text-[#111114] block mt-0.5">+1.32 pos</span>
+                <span class="text-[9px] uppercase text-white/60 block">ganancia</span>
+                <span id="pilotGain" class="text-xs sm:text-sm font-[800] text-[#d4ff32]">+1.32 pos</span>
+              </div>
+              <div class="border-x border-white/15">
+                <span class="text-[9px] uppercase text-white/60 block">consistencia</span>
+                <span id="pilotConsist" class="text-xs sm:text-sm font-[800] text-white">1.32 seg</span>
               </div>
               <div>
-                <span class="text-[#111114]/75 block font-[700] text-[9px] uppercase tracking-wider">consistencia</span>
-                <span id="pilotConsist" class="font-[900] text-base text-[#111114] block mt-0.5">1.32 seg</span>
-              </div>
-              <div>
-                <span class="text-[#111114]/75 block font-[700] text-[9px] uppercase tracking-wider">gestión</span>
-                <span id="pilotTyre" class="font-[900] text-base text-[#00875A] block mt-0.5">76 / 100</span>
-              </div>
-              <div>
-                <span class="text-[#111114]/75 block font-[700] text-[9px] uppercase tracking-wider">delta sc</span>
-                <span id="pilotDeltaSC" class="font-[900] text-base text-[#111114] block mt-0.5">+0.35 pos</span>
+                <span class="text-[9px] uppercase text-white/60 block">neumáticos</span>
+                <span id="pilotTyre" class="text-xs sm:text-sm font-[800] text-white">76 / 100</span>
               </div>
             </div>
 
-            <!-- ¿Por qué se ve favorecido? (Texto nítido de lectura ágil) -->
-            <div class="space-y-1">
-              <span class="text-[11px] uppercase font-[800] text-[#111114] block tracking-wide flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#00875A]"></span>
-                ¿por qué el trazado impacta en su ritmo?
-              </span>
-              <p id="pilotReason" class="text-xs sm:text-[13px] font-[500] text-[#111114] leading-relaxed bg-white/60 p-3 rounded-xl border border-white/50">
-                En Austin el asfalto a 45°C cocinó los neumáticos del McLaren provocando una caída de -1.20 posiciones. Con 29°C proyectados en San Pablo, el monoplaza trabaja en su ventana térmica ideal y no degrada el tren trasero.
-              </p>
-            </div>
+            <!-- ANÁLISIS EDITORIAL DELICADO -->
+            <p id="pilotFact" class="text-xs sm:text-[13px] text-white/90 font-[300] leading-relaxed">
+              En San Pablo el asfalto templado resucita el rendimiento aerodinámico y anula la degradación térmica que sufrió en Austin.
+            </p>
 
-            <!-- Ficha Técnica Editorial para Streaming -->
-            <div class="p-3.5 bg-white/60 rounded-xl border border-white/50 space-y-2">
+            <!-- HOOK PARA TRANSMISIÓN CON ESTILO VIDRIADO -->
+            <div class="p-3.5 rounded-2xl bg-white/[0.08] border border-white/20 space-y-1.5 shadow-xs backdrop-blur-md">
               <div class="flex items-center justify-between">
-                <span class="text-[9px] uppercase font-[900] text-[#00875A] tracking-wider">
-                  inspección técnica de carrera
-                </span>
-                <button onclick="injectPilotToDesk(); closePilotModal();" class="text-[10px] font-[800] text-accentRed hover:underline flex items-center gap-1">
-                  analizar en pizarra →
+                <span class="text-[9px] uppercase font-mono tracking-widest text-[#d4ff32]">hook para transmisión</span>
+                <button onclick="copyPilotHook()" id="btnCopyHook" class="text-[9px] uppercase font-mono text-white/70 hover:text-white transition-colors flex items-center gap-1">
+                  <span>copiar</span> 📋
                 </button>
               </div>
-
-              <p id="pilotColorFact" class="text-[11px] sm:text-xs font-[600] text-[#111114] italic leading-relaxed">
-                «Tras la pesadilla de Texas donde la temperatura destruyó la goma blanda de McLaren, el frío de San Pablo devuelve al auto naranja a su pico de downforce. Candidato prioritario si la pista se mantiene seca o con llovizna ligera.»
+              <p id="pilotHook" class="text-xs italic text-white/95 font-[300] leading-snug">
+                «No midan a McLaren por el tropiezo de Texas: el asfalto fresco de San Pablo borra de un plumazo el sobrecalentamiento.»
               </p>
-
-              <div class="pt-1.5 border-t border-[#111114]/10 flex items-center gap-2">
-                <div class="w-5 h-5 rounded-full bg-[#111114] text-white flex items-center justify-center text-[8px] shrink-0">
-                  ▶
-                </div>
-                <p id="pilotStreamHook" class="font-caveat text-lg text-[#00875A] font-[700] truncate">
-                  «No midan a McLaren por el tropiezo de Texas: el asfalto fresco de San Pablo borra de un plumazo el sobrecalentamiento.»
-                </p>
-              </div>
             </div>
 
           </div>
@@ -2029,74 +1985,122 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     // - Con scroll para abajo: aparecen los hitos de color progresivamente (01, 02, 03)
     // - Una vez aparecidos los 3 hitos: el bloque de datos técnicos barre de derecha a izquierda y se posiciona
     // - Una vez que terminan de aparecer los datos técnicos, la taxonomía al scrollear para abajo empieza a subir (animación)
-    function updateSurfaceScrollAnimation() {
-      const surfaceStage = document.getElementById('surfaceStage') || document.getElementById('surface');
+        function updateSurfaceScrollAnimation() {
+      const surface = document.getElementById('surface');
+      const dashWrap = document.getElementById('surfaceDashboardWrap');
       const hitoHeader = document.getElementById('surfaceHitoHeader');
       const hito1 = document.getElementById('surfaceHito1');
       const hito2 = document.getElementById('surfaceHito2');
       const hito3 = document.getElementById('surfaceHito3');
       const techCard = document.getElementById('surfaceTechCard');
       const taxonomySection = document.getElementById('taxonomySection');
-      const fc1 = document.getElementById('familyCard1');
-      const fc2 = document.getElementById('familyCard2');
-      const fc3 = document.getElementById('familyCard3');
-      const fc4 = document.getElementById('familyCard4');
+      if (!surface || !dashWrap || !taxonomySection) return;
 
+      const rect = surface.getBoundingClientRect();
       const winH = window.innerHeight;
+      const maxScroll = rect.height - winH;
+      if (maxScroll <= 0) return;
 
-      // 1. ANIMACIÓN DE LOS DATOS DEL CIRCUITO DENTRO DEL ESCENARIO PINNED (surfaceStage)
-      if (surfaceStage && hito1 && hito2 && hito3 && techCard) {
-        const rect = surfaceStage.getBoundingClientRect();
-        const maxScroll = rect.height - winH;
-        if (maxScroll > 0) {
-          const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
+      const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
 
-          // 1a. Hito 01 (aparece progresivamente de p = 0.05 a 0.28)
-          const p1 = Math.max(0, Math.min(1, (p - 0.05) / 0.23));
-          if (hitoHeader) hitoHeader.style.opacity = p1.toFixed(2);
-          hito1.style.opacity = p1.toFixed(2);
-          hito1.style.transform = `translate3d(0, ${((1 - p1) * 18).toFixed(1)}px, 0)`;
-
-          // 1b. Hito 02 (aparece progresivamente de p = 0.26 a 0.49)
-          const p2 = Math.max(0, Math.min(1, (p - 0.26) / 0.23));
-          hito2.style.opacity = p2.toFixed(2);
-          hito2.style.transform = `translate3d(0, ${((1 - p2) * 18).toFixed(1)}px, 0)`;
-
-          // 1c. Hito 03 (aparece progresivamente de p = 0.47 a 0.70)
-          const p3 = Math.max(0, Math.min(1, (p - 0.47) / 0.23));
-          hito3.style.opacity = p3.toFixed(2);
-          hito3.style.transform = `translate3d(0, ${((1 - p3) * 18).toFixed(1)}px, 0)`;
-
-          // 1d. Bloque de Datos Técnicos: barrido de DERECHA A IZQUIERDA (aparece de p = 0.68 a 0.90)
-          // Una vez aparecidos todos los datos de color
-          const pTech = Math.max(0, Math.min(1, (p - 0.68) / 0.22));
-          techCard.style.opacity = pTech.toFixed(2);
-          const sweepX = (1 - pTech) * 95; // entra desde la derecha (+95px) hacia 0
-          techCard.style.transform = `translate3d(${sweepX.toFixed(1)}px, 0, 0)`;
-        }
+      // 1. DASHBOARD DE INTERLAGOS (p: 0 a 0.42)
+      const p1 = Math.max(0, Math.min(1, (p - 0.03) / 0.12));
+      if (hitoHeader) hitoHeader.style.opacity = p1.toFixed(2);
+      if (hito1) {
+        hito1.style.opacity = p1.toFixed(2);
+        hito1.style.transform = `translate3d(0, ${((1 - p1) * 18).toFixed(1)}px, 0)`;
       }
 
-      // 2. ANIMACIÓN DE LA TAXONOMÍA DE FAMILIAS:
-      // "una vez que terminan de aparecer los datos tecnicos recien ahi, que la taxonomia al scrollear para abajo empiece a subir (animacion)"
-      if (taxonomySection && fc1 && fc2 && fc3 && fc4) {
-        const taxRect = taxonomySection.getBoundingClientRect();
-        // Se calcula el progreso de entrada conforme taxonomySection entra en el viewport desde abajo
-        const taxProgress = Math.max(0, Math.min(1, (winH - taxRect.top) / (winH * 0.65)));
+      const p2 = Math.max(0, Math.min(1, (p - 0.13) / 0.12));
+      if (hito2) {
+        hito2.style.opacity = p2.toFixed(2);
+        hito2.style.transform = `translate3d(0, ${((1 - p2) * 18).toFixed(1)}px, 0)`;
+      }
 
-        if (taxProgress > 0) {
-          [fc1, fc2, fc3, fc4].forEach((card, idx) => {
-            // Revelado escalonado hacia arriba: cada tarjeta sube de +35px a 0px y pasa a opacidad 1
-            const cardP = Math.max(0, Math.min(1, (taxProgress - idx * 0.09) / 0.60));
-            card.style.opacity = cardP.toFixed(2);
-            const riseY = (1 - cardP) * 35;
-            card.style.transform = `translate3d(0, ${riseY.toFixed(1)}px, 0)`;
-          });
-        } else {
-          [fc1, fc2, fc3, fc4].forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translate3d(0, 35px, 0)';
-          });
-        }
+      const p3 = Math.max(0, Math.min(1, (p - 0.23) / 0.12));
+      if (hito3) {
+        hito3.style.opacity = p3.toFixed(2);
+        hito3.style.transform = `translate3d(0, ${((1 - p3) * 18).toFixed(1)}px, 0)`;
+      }
+
+      const pTech = Math.max(0, Math.min(1, (p - 0.30) / 0.12));
+      if (techCard) {
+        techCard.style.opacity = pTech.toFixed(2);
+        const sweepX = (1 - pTech) * 95;
+        techCard.style.transform = `translate3d(${sweepX.toFixed(1)}px, 0, 0)`;
+      }
+
+      // 2. TRANSICIÓN A LA TAXONOMÍA:
+      // Sube limpiamente pasando por encima de nuevocircuito.jpeg, se asienta en el medio,
+      // y al scrollear hacia abajo continúa subiendo y se va hacia arriba sobre nuevocircuito.jpeg
+      if (p < 0.42) {
+        dashWrap.style.opacity = '1';
+        dashWrap.style.transform = 'translate3d(0, 0, 0)';
+        dashWrap.style.pointerEvents = 'auto';
+
+        taxonomySection.style.opacity = '0';
+        taxonomySection.style.transform = `translate3d(0, ${winH * 1.05}px, 0)`;
+        taxonomySection.style.pointerEvents = 'none';
+      } else if (p < 0.62) {
+        // Dashboard se desvanece suavemente
+        const pFade = Math.min(1, (p - 0.42) / 0.12);
+        dashWrap.style.opacity = (1 - pFade).toFixed(2);
+        dashWrap.style.transform = `translate3d(0, ${(-pFade * 40).toFixed(1)}px, 0)`;
+        dashWrap.style.pointerEvents = pFade > 0.5 ? 'none' : 'auto';
+
+        // Taxonomía sube desde abajo pasando sobre nuevocircuito.jpeg
+        const pEnter = Math.min(1, (p - 0.45) / 0.17);
+        const riseY = (1 - pEnter) * (winH * 1.05);
+        taxonomySection.style.opacity = Math.min(1, pEnter * 1.3).toFixed(2);
+        taxonomySection.style.transform = `translate3d(0, ${riseY.toFixed(1)}px, 0)`;
+        taxonomySection.style.pointerEvents = pEnter > 0.8 ? 'auto' : 'none';
+      } else if (p <= 0.82) {
+        // Taxonomía asentada en el centro del viewport sobre nuevocircuito.jpeg
+        dashWrap.style.opacity = '0';
+        dashWrap.style.transform = 'translate3d(0, -40px, 0)';
+        dashWrap.style.pointerEvents = 'none';
+
+        taxonomySection.style.opacity = '1';
+        taxonomySection.style.transform = 'translate3d(0, 0, 0)';
+        taxonomySection.style.pointerEvents = 'auto';
+      } else {
+        // Taxonomía sube limpiamente y se va hacia arriba pasando por encima de nuevocircuito.jpeg
+        dashWrap.style.opacity = '0';
+        dashWrap.style.transform = 'translate3d(0, -40px, 0)';
+        dashWrap.style.pointerEvents = 'none';
+
+        const pExit = Math.min(1, (p - 0.82) / 0.16);
+        const exitY = -pExit * (winH * 1.10);
+        taxonomySection.style.opacity = (1 - pExit).toFixed(2);
+        taxonomySection.style.transform = `translate3d(0, ${exitY.toFixed(1)}px, 0)`;
+        taxonomySection.style.pointerEvents = pExit > 0.2 ? 'none' : 'auto';
+      }
+    }
+
+    function updatePressureGalleryAnimation() {
+      const pressureSection = document.getElementById('pressure');
+      const galleryTrack = document.getElementById('pressureGalleryTrack');
+      const bgContours = document.getElementById('pressureBgContours');
+      if (!pressureSection || !galleryTrack) return;
+
+      const rect = pressureSection.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const winW = window.innerWidth;
+      const maxScroll = rect.height - winH;
+      if (maxScroll <= 0) return;
+
+      const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
+
+      // Posición inicial: pantalla casi vacía con apenas el primer bloque asomándose por la derecha
+      const initialOffset = winW * 0.75;
+      const trackW = galleryTrack.scrollWidth;
+      const totalShift = initialOffset + trackW - winW + (winW * 0.15);
+      const currentX = initialOffset - (p * totalShift);
+
+      galleryTrack.style.transform = `translate3d(${currentX.toFixed(1)}px, 0, 0)`;
+
+      if (bgContours) {
+        bgContours.style.transform = `translate3d(${(-p * winW * 0.25).toFixed(1)}px, 0, 0)`;
       }
     }
 
@@ -2105,12 +2109,14 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
       updateScrollProgress();
       updateTransitionScrollParallax();
       updateSurfaceScrollAnimation();
+      updatePressureGalleryAnimation();
     }, { passive: true });
 
     updateHeaderTheme();
     updateScrollProgress();
     updateTransitionScrollParallax();
     updateSurfaceScrollAnimation();
+    updatePressureGalleryAnimation();
 
     // 2. TIMER EN VIVO CON ANIMACIÓN CIPHER / SCRAMBLE INICIAL (COMO EL VIDEO, RÍTMICA Y MÁS DESPACIO)
     const targetRace = new Date("2026-11-08T14:00:00-03:00").getTime();
@@ -2210,657 +2216,577 @@ Ojo con Franco Colapinto: si gestiona el neumático Medio y sobrevive a la frena
     })();
 
     // 3. BASE DE DATOS DE PILOTOS EN DOS MAZOS DE 11 TARJETAS CADA UNO (22 EN TOTAL)
-    const deck1Pilots = [
-      {
-        id: "norris",
-        name: "Lando Norris",
-        team: "McLaren F1 Team",
-        teamLogo: "assets/escuderias/mclaren.png",
-        dorsal: "#4",
-        category: "Élite Metronómico",
-        portrait: "assets/pilotos/centered/norris.jpeg",
-        matchTag: "revancha térmica (+1.32)",
-        matchColor: "bg-accentGreen",
-        gain: "+1.32 pos",
-        consist: "1.32 seg",
-        tyre: "76 / 100",
-        deltaSC: "+0.35 pos",
-        reason: "En Austin el asfalto a 45°C cocinó los neumáticos del McLaren provocando una caída de -1.20 posiciones. Con 29°C proyectados en San Pablo, el monoplaza trabaja en su ventana térmica ideal y no degrada el tren trasero.",
-        fact: "Tras la pesadilla de Texas donde la temperatura destruyó la goma blanda de McLaren, el frío de San Pablo devuelve al auto naranja a su pico de downforce. Candidato prioritario si la pista se mantiene seca o con llovizna ligera.",
-        hook: "«No midan a McLaren por el tropiezo de Texas: el asfalto fresco de San Pablo borra de un plumazo el sobrecalentamiento.»"
-      },
-      {
-        id: "max",
-        name: "Max Verstappen",
-        team: "Red Bull Racing",
-        teamLogo: "assets/escuderias/redbull.png",
-        dorsal: "#1",
-        category: "Piloto de Lluvia / Caos",
-        portrait: "assets/pilotos/centered/max.jpeg",
-        matchTag: "máximo candidato en agua (+2.70)",
-        matchColor: "bg-accentGreen",
-        gain: "+2.70 pos",
-        consist: "1.29 seg",
-        tyre: "92 / 100",
-        deltaSC: "+1.60 pos",
-        reason: "El 65% de probabilidad de lluvia activa el perfil con mayor ganancia de posiciones de la era moderna (+2.70). Además, el Red Bull Ring (pista gemela a Interlagos, r=0.846) fue su feudo mecánico gracias a la tracción en pendiente.",
-        fact: "Verstappen ostenta la mayor ganancia de posiciones en asfalto húmedo de la era moderna (+2.70). Si la tormenta del domingo golpea Interlagos, su agresividad para encontrar grip por afuera en Junção anula cualquier ventaja ajena.",
-        hook: "«Cuando todos buscan la huella interna seca en Junção, Max va por afuera donde el asfalto retiene más agarre.»"
-      },
-      {
-        id: "leclerc",
-        name: "Charles Leclerc",
-        team: "Scuderia Ferrari",
-        teamLogo: "assets/escuderias/ferrari.png",
-        dorsal: "#16",
-        category: "Élite Metronómico",
-        portrait: "assets/pilotos/centered/leclerc.jpeg",
-        matchTag: "ritmo de podio en seco",
-        matchColor: "bg-carbon",
-        gain: "+1.28 pos",
-        consist: "1.27 seg",
-        tyre: "86 / 100",
-        deltaSC: "+0.23 pos",
-        reason: "La suspensión de Ferrari tracciona de forma quirúrgica en pendientes pronunciadas. Si la carrera no sufre banderas rojas, su ritmo por vuelta es de los más regulares del año (+1.28 pos promedio en pistas mixtas).",
-        fact: "El chasis SF-26 de Ferrari destaca por su tracción mecánica en salida de curva lenta. En el tobogán de 43 metros de Interlagos, Leclerc mantiene una desviación menor a 1.27 segundos.",
-        hook: "«Si la carrera es limpia, Leclerc tiene ritmo de podio asegurado; si se llena de neutralizaciones, Ferrari sufre en la reanudación.»"
-      },
-      {
-        id: "russel",
-        name: "George Russell",
-        team: "Mercedes-AMG Petronas",
-        teamLogo: "assets/escuderias/mercedes.png",
-        dorsal: "#63",
-        category: "Élite Agresivo",
-        portrait: "assets/pilotos/centered/russel.jpeg",
-        matchTag: "ganador interlagos 2022",
-        matchColor: "bg-carbon",
-        gain: "+1.37 pos",
-        consist: "1.34 seg",
-        tyre: "81 / 100",
-        deltaSC: "+0.32 pos",
-        reason: "Russell ganó la Sprint y el Gran Premio de 2022 en esta misma pista. Su agresividad en frenada tardía es demoledora en la S de Senna, aunque su talón de Aquiles es la degradación del neumático delantero en stints largos.",
-        fact: "Russell suele ser el más rápido en las primeras 5 vueltas tras cualquier relanzamiento. Si clasifica adelante, su defensa en la recta principal es impenetrable.",
-        hook: "«Russell sabe lo que es ganar en Interlagos: su relanzamiento en la Curva 1 suele ser una obra de arte agresiva.»"
-      },
-      {
-        id: "sainz",
-        name: "Carlos Sainz",
-        team: "Williams Racing",
-        teamLogo: "assets/escuderias/williams.png",
-        dorsal: "#55",
-        category: "Élite Táctico",
-        portrait: "assets/pilotos/centered/sainz.jpeg",
-        matchTag: "estratega en mixtas",
-        matchColor: "bg-carbon",
-        gain: "+0.98 pos",
-        consist: "1.30 seg",
-        tyre: "87 / 100",
-        deltaSC: "+0.95 pos",
-        reason: "Sainz tiene el mayor índice de efectividad en llamadas de boxes en ventanas climáticas cambiantes. En 2019 largó último (P20) en Interlagos y subió al podio (P3) gracias a una estrategia de una sola parada.",
-        fact: "Es el piloto más inteligente para leer la pista antes de que el equipo le hable por radio. Si la lluvia es intermitente, suele ganar entre 2 y 4 puestos en las paradas.",
-        hook: "«Si la pista empieza a secarse, miren el cronómetro de Carlos: es el primero que sabe cuándo poner slicks sin arruinarse.»"
-      },
-      {
-        id: "alonso",
-        name: "Fernando Alonso",
-        team: "Aston Martin F1 Team",
-        teamLogo: "assets/escuderias/astonmartin.png",
-        dorsal: "#14",
-        category: "Maestro de Defensa",
-        portrait: "assets/pilotos/centered/stroll.jpeg",
-        matchTag: "podio histórico 2023",
-        matchColor: "bg-accentGreen",
-        gain: "+1.45 pos",
-        consist: "1.22 seg",
-        tyre: "91 / 100",
-        deltaSC: "+1.10 pos",
-        reason: "En 2023 protagonizó el final más cerrado de la década ganándole el podio a Pérez por 0.053 segundos en Junção. Su lectura de líneas de carrera con poco grip es legendaria.",
-        fact: "Alonso sabe cómo colocar el auto en la curva do Sol para quitarle aire sucio al rival que viene detrás. Si clasifica en el top 8, defenderá los puntos con uñas y dientes.",
-        hook: "«Nadie defiende la línea en la subida de boxes como Fernando: Pérez todavía sueña con esa última vuelta de 2023.»"
-      },
-      {
-        id: "gasly",
-        name: "Pierre Gasly",
-        team: "Alpine F1 Team",
-        teamLogo: "assets/escuderias/alpine.png",
-        dorsal: "#10",
-        category: "Especialista en Caos",
-        portrait: "assets/pilotos/centered/colapinto.jpeg",
-        matchTag: "podio interlagos 2019",
-        matchColor: "bg-carbon",
-        gain: "+1.18 pos",
-        consist: "1.31 seg",
-        tyre: "83 / 100",
-        deltaSC: "+1.42 pos",
-        reason: "Gasly logró su primer podio en F1 arrastrando a Hamilton hasta la línea de meta en Interlagos 2019. Responde con frialdad ante relanzamientos trabados.",
-        fact: "Tiene una aceleración limpia en Junção que compensa las carencias del motor en recta larga.",
-        hook: "«Interlagos vio nacer a Gasly en el podio: en carreras de locura siempre aparece arriba.»"
-      },
-      {
-        id: "albon",
-        name: "Alexander Albon",
-        team: "Williams Racing",
-        teamLogo: "assets/escuderias/williams.png",
-        dorsal: "#23",
-        category: "Cazador de Puntos",
-        portrait: "assets/pilotos/centered/sainz.jpeg",
-        matchTag: "velocidad punta en recta",
-        matchColor: "bg-carbon",
-        gain: "+0.92 pos",
-        consist: "1.33 seg",
-        tyre: "80 / 100",
-        deltaSC: "+0.80 pos",
-        reason: "La baja resistencia al avance del Williams le da hasta 6 km/h extra al final de la recta de Arquibancadas, haciéndolo casi imposible de sobrepasar si sale bien armado de curva 12.",
-        fact: "Albon suele clasificar por encima del potencial teórico del auto cuando el asfalto está frío.",
-        hook: "«Si Albon sale bien pegado de Junção, nadie le saca la posición con el DRS abierto en la recta principal.»"
-      },
-      {
-        id: "hulkenberg",
-        name: "Nico Hülkenberg",
-        team: "Audi F1 Team",
-        teamLogo: "assets/escuderias/audi.png",
-        dorsal: "#27",
-        category: "Gestor de Midfield",
-        portrait: "assets/pilotos/centered/hulkenberg.jpg",
-        matchTag: "poleman histórico acá",
-        matchColor: "bg-carbon",
-        gain: "+1.15 pos",
-        consist: "1.28 seg",
-        tyre: "85 / 100",
-        deltaSC: "+0.85 pos",
-        reason: "Hülkenberg conoce cada milímetro de este asfalto, donde logró una histórica pole position bajo el agua en 2010. En trazados de la familia Mixtos y Técnicos su experiencia compensa debilidades.",
-        fact: "Nico sabe exactamente qué pianos no pisar cuando hay drenaje de agua en la Curva do Sol.",
-        hook: "«Hülkenberg hizo la pole acá con lluvia hace más de una década: si hay agua, es una garantía de manejo fino.»"
-      },
-      {
-        id: "ocon",
-        name: "Esteban Ocon",
-        team: "Haas F1 Team",
-        teamLogo: "assets/escuderias/haas.png",
-        dorsal: "#31",
-        category: "Defensor Agresivo",
-        portrait: "assets/pilotos/centered/bearman.jpeg",
-        matchTag: "experiencia en mojado",
-        matchColor: "bg-carbon",
-        gain: "+0.78 pos",
-        consist: "1.35 seg",
-        tyre: "82 / 100",
-        deltaSC: "+0.90 pos",
-        reason: "Ocon suele brillar en condiciones de pista mixtas donde el asfalto se va secando. Su capacidad de frenar al límite en la S de Senna es su mejor arma.",
-        fact: "Históricamente agresivo en los relanzamientos por la línea interna.",
-        hook: "«En batallas rueda a rueda en la bajada de Senna, Ocon nunca levanta el pie.»"
-      },
-      {
-        id: "tsunoda",
-        name: "Yuki Tsunoda",
-        team: "Racing Bulls",
-        teamLogo: "assets/escuderias/racingbull.png",
-        dorsal: "#22",
-        category: "Acelerador Tardío",
-        portrait: "assets/pilotos/centered/bottas.jpeg",
-        matchTag: "agresividad en sector 2",
-        matchColor: "bg-carbon",
-        gain: "+0.88 pos",
-        consist: "1.36 seg",
-        tyre: "79 / 100",
-        deltaSC: "+0.65 pos",
-        reason: "El trazado corto de 4.309 km favorece su estilo reactivo. En las curvas de media velocidad del sector interno iguala tiempos de autos de punta.",
-        fact: "Si evita penalizaciones, tiene ritmo para pelear el corte a la Q3.",
-        hook: "«Tsunoda en el sector trabado de Interlagos va siempre al milímetro del piano.»"
-      }
-    ];
+      // ========================================================
+  // BASE DE DATOS DE 22 PILOTOS ORGANIZADOS POR ESCUDERÍA (11 Y 11)
+  // Con fotos perfectamente centradas (800x1024) y Norris en la carta central de Deck 1 (índice 5)
+  const deck1Pilots = [
+    {
+      id: "bottas",
+      name: "Valtteri Bottas",
+      team: "Kick Sauber · Ferrari",
+      teamColor: "#00E700",
+      teamGlow: "rgba(0, 231, 0, 0.7)",
+      teamLogo: "assets/escuderias/kicksauber.png",
+      dorsal: "#77",
+      category: "Especialista Trazado",
+      portrait: "assets/pilotos/centered/bottas.jpeg",
+      matchTag: "récord oficial 1:10.540",
+      gain: "+0.85 pos",
+      consist: "1.28 seg",
+      tyre: "82 / 100",
+      carModel: "Sauber C44 · Ferrari",
+      fact: "Ostenta el récord de vuelta oficial en carrera desde 2018 con Mercedes (1:10.540). Conoce cada milímetro de asfalto y cada radio de giro.",
+      hook: "«Bottas sabe cómo exprimir la trepada de Interlagos mejor que nadie: tiene el récord vigente en sus manos.»"
+    },
+    {
+      id: "hulkenberg",
+      name: "Nico Hülkenberg",
+      team: "Haas F1 Team · Ferrari",
+      teamColor: "#52E252",
+      teamGlow: "rgba(82, 226, 82, 0.7)",
+      teamLogo: "assets/escuderias/haas.png",
+      dorsal: "#27",
+      category: "Poleman Histórico",
+      portrait: "assets/pilotos/centered/hulkenberg.jpg",
+      matchTag: "pole heroica 2010",
+      gain: "+0.92 pos",
+      consist: "1.26 seg",
+      tyre: "79 / 100",
+      carModel: "VF-24 · Ferrari",
+      fact: "Logró una legendaria pole position bajo el diluvio de Interlagos en 2010. Cuando la pista se torna húmeda, su precisión quirúrgica multiplica su rendimiento.",
+      hook: "«La lluvia en Interlagos despierta el fantasma de 2010: Hülkenberg es letal en asfalto húmedo.»"
+    },
+    {
+      id: "lawson",
+      name: "Liam Lawson",
+      team: "Racing Bulls · Honda RBPT",
+      teamColor: "#6692FF",
+      teamGlow: "rgba(102, 146, 255, 0.7)",
+      teamLogo: "assets/escuderias/rb.png",
+      dorsal: "#30",
+      category: "Combate Agresivo",
+      portrait: "assets/pilotos/centered/lawson.jpeg",
+      matchTag: "cuerpo a cuerpo",
+      gain: "+1.05 pos",
+      consist: "1.30 seg",
+      tyre: "77 / 100",
+      carModel: "VCARB 01 · Honda RBPT",
+      fact: "Piloto frontal que no concede un centímetro en frenadas cerradas como la S de Senna. Su estilo agresivo es ideal para los sobrepasos de la recta principal.",
+      hook: "«Lawson no pide permiso: en la curva 1 va al límite sin importar la reputación de quien tenga al lado.»"
+    },
+    {
+      id: "ocon",
+      name: "Esteban Ocon",
+      team: "Haas F1 Team",
+      teamColor: "#E6002B",
+      teamGlow: "rgba(230, 0, 43, 0.7)",
+      teamLogo: "assets/escuderias/haas.png",
+      dorsal: "#31",
+      category: "Defensa Numérica",
+      portrait: "assets/pilotos/centered/ocon.jpeg",
+      matchTag: "muro defensivo",
+      gain: "+0.70 pos",
+      consist: "1.29 seg",
+      tyre: "75 / 100",
+      carModel: "VF-24 · Ferrari",
+      fact: "Uno de los defensores más difíciles de superar en la F1 moderna: coloca el auto exactamente donde el perseguidor pierde carga aerodinámica.",
+      hook: "«Si Ocon sale de la curva do Sol adelante tuyo, preparate para una carrera de paciencia extrema.»"
+    },
+    {
+      id: "albon",
+      name: "Alexander Albon",
+      team: "Williams Racing · Mercedes",
+      teamColor: "#00A0DE",
+      teamGlow: "rgba(0, 160, 222, 0.7)",
+      teamLogo: "assets/escuderias/williams.png",
+      dorsal: "#23",
+      category: "Velocidad Punta",
+      portrait: "assets/pilotos/centered/albon.jpeg",
+      matchTag: "cohete en recta",
+      gain: "+1.15 pos",
+      consist: "1.34 seg",
+      tyre: "74 / 100",
+      carModel: "FW46 · Mercedes",
+      fact: "El Williams es un misil en la recta de boxes (338 km/h). Si clasifica bien, adelantar a Albon en la subida es una misión casi imposible.",
+      hook: "«La recta superior de San Pablo es el patio de juegos de Albon: nadie tiene más velocidad terminal.»"
+    },
+    {
+      id: "norris",
+      name: "Lando Norris",
+      team: "McLaren F1 Team",
+      teamColor: "#FF8000",
+      teamGlow: "rgba(255, 128, 0, 0.7)",
+      teamLogo: "assets/escuderias/mclaren.png",
+      dorsal: "#4",
+      category: "Élite Metronómico",
+      portrait: "assets/pilotos/centered/norris.jpeg",
+      matchTag: "revancha térmica (+1.32)",
+      gain: "+1.32 pos",
+      consist: "1.32 seg",
+      tyre: "76 / 100",
+      carModel: "McLaren MCL38 · Mercedes",
+      fact: "Tras la pesadilla de Texas donde el calor cocinó los neumáticos, el frío de Interlagos (29°C) devuelve al McLaren a su pico de downforce sin degradación térmica prematura.",
+      hook: "«No midan a McLaren por el tropiezo de Texas: el asfalto fresco de San Pablo borra de un plumazo el sobrecalentamiento.»"
+    },
+    {
+      id: "max",
+      name: "Max Verstappen",
+      team: "Red Bull Racing · Honda RBPT",
+      teamColor: "#3671C6",
+      teamGlow: "rgba(54, 113, 198, 0.7)",
+      teamLogo: "assets/escuderias/redbull.png",
+      dorsal: "#1",
+      category: "Depredador en Desnivel",
+      portrait: "assets/pilotos/centered/max.jpeg",
+      matchTag: "maestro en agua",
+      gain: "+1.85 pos",
+      consist: "0.98 seg",
+      tyre: "88 / 100",
+      carModel: "RB20 · Honda RBPT",
+      fact: "Históricamente insuperable en Interlagos. Su exhibición bajo la lluvia en 2016 demostró que encuentra líneas de tracción donde ningún otro piloto se atreve a pisar.",
+      hook: "«Si llueve en San Pablo, el libro de reglajes de la F1 se tira a la basura y empieza el show de Verstappen.»"
+    },
+    {
+      id: "leclerc",
+      name: "Charles Leclerc",
+      team: "Scuderia Ferrari",
+      teamColor: "#E80020",
+      teamGlow: "rgba(232, 0, 32, 0.7)",
+      teamLogo: "assets/escuderias/ferrari.png",
+      dorsal: "#16",
+      category: "Rey de la Clasificación",
+      portrait: "assets/pilotos/centered/leclerc.jpeg",
+      matchTag: "tracción mecánica pura",
+      gain: "+1.20 pos",
+      consist: "1.15 seg",
+      tyre: "80 / 100",
+      carModel: "SF-24 · Ferrari",
+      fact: "Ferrari adaptó su suspensión para devorar los pianos altos y las trepadas. Su tracción en curva lenta lo convierte en una amenaza directa para la pole position.",
+      hook: "«La suspensión trasera de Ferrari copia el asfalto como ninguna otra en el sector trabado de Interlagos.»"
+    },
+    {
+      id: "russel",
+      name: "George Russell",
+      team: "Mercedes-AMG Petronas",
+      teamColor: "#00D2BE",
+      teamGlow: "rgba(0, 210, 190, 0.7)",
+      teamLogo: "assets/escuderias/mercedes.png",
+      dorsal: "#63",
+      category: "Ganador en San Pablo",
+      portrait: "assets/pilotos/centered/russel.jpeg",
+      matchTag: "victoria 2022",
+      gain: "+0.95 pos",
+      consist: "1.12 seg",
+      tyre: "81 / 100",
+      carModel: "W15 · Mercedes",
+      fact: "Logró su primera victoria en F1 aquí en 2022 dominando el sprint y el Gran Premio. La combinación de curvas peraltadas y clima cambiante calza perfecto con su estilo.",
+      hook: "«Russell sabe exactamente qué se siente ganar en Interlagos: su victoria en 2022 fue una clínica de manejo bajo presión.»"
+    },
+    {
+      id: "alonso",
+      name: "Fernando Alonso",
+      team: "Aston Martin Aramco",
+      teamColor: "#229971",
+      teamGlow: "rgba(34, 153, 113, 0.7)",
+      teamLogo: "assets/escuderias/astonmartin.png",
+      dorsal: "#14",
+      category: "Mito Viviente",
+      portrait: "assets/pilotos/centered/alonso.jpeg",
+      matchTag: "bicampeón en interlagos",
+      gain: "+0.80 pos",
+      consist: "1.05 seg",
+      tyre: "86 / 100",
+      carModel: "AMR24 · Mercedes",
+      fact: "Se coronó bicampeón del mundo en esta pista en 2005 y 2006. En 2023 brindó una batalla antológica frente a Checo Pérez defendiendo el podio por apenas 0.053s.",
+      hook: "«Alonso no corre en Interlagos, da cátedra: defendió un podio en 2023 cambiando su radio de curva en cada vuelta.»"
+    },
+    {
+      id: "gasly",
+      name: "Pierre Gasly",
+      team: "BWT Alpine F1 Team",
+      teamColor: "#0090FF",
+      teamGlow: "rgba(0, 144, 255, 0.7)",
+      teamLogo: "assets/escuderias/alpine.png",
+      dorsal: "#10",
+      category: "Caza de Oportunidades",
+      portrait: "assets/pilotos/centered/gasly.jpeg",
+      matchTag: "podio épico 2019",
+      gain: "+0.90 pos",
+      consist: "1.25 seg",
+      tyre: "78 / 100",
+      carModel: "A524 · Renault",
+      fact: "En 2019 ganó el drag race en la trepada a Lewis Hamilton por 0.062 segundos para sellar su primer podio en F1. Interlagos saca lo mejor de su temple.",
+      hook: "«El drag race de Gasly contra Hamilton en la subida de 2019 es parte de la historia grande de Interlagos.»"
+    }
+  ];
 
-    const deck2Pilots = [
-      {
-        id: "piastri",
-        name: "Oscar Piastri",
-        team: "McLaren F1 Team",
-        teamLogo: "assets/escuderias/mclaren.png",
-        dorsal: "#81",
-        category: "Precisión Quirúrgica",
-        portrait: "assets/pilotos/centered/norris.jpeg",
-        matchTag: "ventana fría favorable (+1.25)",
-        matchColor: "bg-accentGreen",
-        gain: "+1.25 pos",
-        consist: "1.26 seg",
-        tyre: "84 / 100",
-        deltaSC: "+0.40 pos",
-        reason: "Piastri no sobrecalienta el eje trasero al traccionar. Con el frío de San Pablo su McLaren no sufrirá el blistering de Texas.",
-        fact: "Su estilo suave de volante le permite alargar los stints con compuesto blando sin perder velocidad punta.",
-        hook: "«El frío de Interlagos es música para los oídos del estilo suave de Oscar Piastri.»"
-      },
-      {
-        id: "colapinto",
-        name: "Franco Colapinto",
-        team: "Alpine F1 Team",
-        teamLogo: "assets/escuderias/alpine.png",
-        dorsal: "#43",
-        category: "Gestor de Midfield",
-        portrait: "assets/pilotos/centered/colapinto.jpeg",
-        matchTag: "favorecido en interlagos (+1.15)",
-        matchColor: "bg-accentGreen",
-        gain: "+1.15 pos",
-        consist: "1.19 seg",
-        tyre: "88 / 100",
-        deltaSC: "+0.72 pos",
-        reason: "Las pistas mixtas con desniveles premian a los pilotos que conservan goma trasera en tracción. En el sector 2 (curvas enlazadas lentas), Colapinto mantiene un desgaste plano que le permite ejecutar un stint largo.",
-        fact: "En su primera visita a Interlagos con Alpine, Colapinto cuenta con motor nuevo y refrigeración optimizada. En curvas de apoyo largo no desgasta el compuesto medio: escala puestos netos sobre el pelotón medio.",
-        hook: "«Ojo con el stint largo de Franco: Interlagos premia la paciencia en Junção y no quema el neumático medio.»"
-      },
-      {
-        id: "hamilton",
-        name: "Lewis Hamilton",
-        team: "Scuderia Ferrari",
-        teamLogo: "assets/escuderias/ferrari.png",
-        dorsal: "#44",
-        category: "Ciudadano Honorario de Brasil",
-        portrait: "assets/pilotos/centered/leclerc.jpeg",
-        matchTag: "3 victorias en interlagos",
-        matchColor: "bg-accentGreen",
-        gain: "+1.95 pos",
-        consist: "1.24 seg",
-        tyre: "90 / 100",
-        deltaSC: "+1.15 pos",
-        reason: "Hamilton ganó en 2016 bajo diluvio y remontó desde el fondo en 2021 en una de las mejores carreras de la historia. Nadie conoce mejor cómo trazar en la lluvia de San Pablo.",
-        fact: "El público local lo alienta como a un piloto brasileño. Su conexión anímica con Interlagos eleva su rendimiento.",
-        hook: "«Hamilton en Brasil corre con el corazón y el apoyo de todo el autódromo: jamás den por vencido a Lewis en este circuito.»"
-      },
-      {
-        id: "perez",
-        name: "Sergio Pérez",
-        team: "Red Bull Racing",
-        teamLogo: "assets/escuderias/redbull.png",
-        dorsal: "#11",
-        category: "Gestor de Neumáticos",
-        portrait: "assets/pilotos/centered/max.jpeg",
-        matchTag: "pelea en tráfico",
-        matchColor: "bg-carbon",
-        gain: "+1.10 pos",
-        consist: "1.33 seg",
-        tyre: "88 / 100",
-        deltaSC: "+0.85 pos",
-        reason: "El Red Bull RB22 tracciona de forma imperial en subida. Pérez necesita clasificar bien para evitar los embudos de la S de Senna.",
-        fact: "Su capacidad de frenada profunda en curva 1 le permite adelantar con DRS.",
-        hook: "«Checo necesita traccionar limpio en Junção para hacer valer la potencia de Red Bull en la recta.»"
-      },
-      {
-        id: "bearman",
-        name: "Oliver Bearman",
-        team: "Haas F1 Team",
-        teamLogo: "assets/escuderias/haas.png",
-        dorsal: "#87",
-        category: "Piloto de Lluvia / Caos",
-        portrait: "assets/pilotos/centered/bearman.jpeg",
-        matchTag: "cazador de safety car (+3.33)",
-        matchColor: "bg-accentGreen",
-        gain: "+2.79 pos",
-        consist: "1.53 seg",
-        tyre: "84 / 100",
-        deltaSC: "+3.33 pos",
-        reason: "Interlagos tiene un 73% de historial de neutralizaciones por Safety Car. Bearman lidera el modelo predictivo de ganancia neta en carreras caóticas (+3.33 puestos cuando hay banderas).",
-        fact: "Bearman lee los accidentes antes que nadie. Si la S de Senna se traba en la largada y sale el auto de seguridad, una parada barata en vuelta temprana lo mete en puntos.",
-        hook: "«Si hay auto de seguridad antes de la vuelta 15, anótenlo a Bearman como el gran ganador de la jornada.»"
-      },
-      {
-        id: "bottas",
-        name: "Valtteri Bottas",
-        team: "Stake F1 Team Kick",
-        teamLogo: "assets/escuderias/audi.png",
-        dorsal: "#77",
-        category: "Récord Oficial en Carrera",
-        portrait: "assets/pilotos/centered/bottas.jpeg",
-        matchTag: "récord histórico (1:10.540)",
-        matchColor: "bg-carbon",
-        gain: "+0.85 pos",
-        consist: "1.24 seg",
-        tyre: "89 / 100",
-        deltaSC: "+0.45 pos",
-        reason: "Bottas ostenta el récord de vuelta oficial en carrera de Interlagos (1:10.540). Su trazada limpia y precisión en la entrada a la S de Senna maximizan el paso por curva sin fatigar el tren delantero.",
-        fact: "Es el piloto de la parrilla con más poles en Interlagos (3 poles). Conoce la evolución y engomado del asfalto como nadie.",
-        hook: "«Nadie en la grilla actual giró más rápido en carrera acá que Valtteri: si el auto responde, su ritmo es de reloj suizo.»"
-      },
-      {
-        id: "stroll",
-        name: "Lance Stroll",
-        team: "Aston Martin F1 Team",
-        teamLogo: "assets/escuderias/astonmartin.png",
-        dorsal: "#18",
-        category: "Especialista en Lluvia",
-        portrait: "assets/pilotos/centered/stroll.jpeg",
-        matchTag: "peligroso en lluvia (+1.85)",
-        matchColor: "bg-accentGreen",
-        gain: "+1.85 pos",
-        consist: "1.42 seg",
-        tyre: "82 / 100",
-        deltaSC: "+1.90 pos",
-        reason: "Stroll crece exponencialmente cuando las condiciones son mixtas o de lluvia intermedia. Su capacidad para sentir el grip en asfalto resbaladizo lo convierte en un peligro constante en relanzamientos.",
-        fact: "En 2023 clasificó 3ro en Interlagos en una sesión marcada por la tormenta repentina. Si llueve el domingo, avanza posiciones desde el fondo sin dudar.",
-        hook: "«Si el cielo se pone negro, miren a Stroll: sus mejores domingos siempre fueron con el asfalto empapado.»"
-      },
-      {
-        id: "antonelli",
-        name: "Kimi Antonelli",
-        team: "Mercedes-AMG Petronas",
-        teamLogo: "assets/escuderias/mercedes.png",
-        dorsal: "#12",
-        category: "Joven Promesa",
-        portrait: "assets/pilotos/centered/russel.jpeg",
-        matchTag: "debut en la catedral",
-        matchColor: "bg-carbon",
-        gain: "+1.05 pos",
-        consist: "1.34 seg",
-        tyre: "80 / 100",
-        deltaSC: "+0.55 pos",
-        reason: "El joven talento italiano enfrenta el desafío de los desniveles ciegos de Interlagos con telemetría de simulación intensiva.",
-        fact: "Mercedes le configuró un mapa de aceleración progresivo para no perder tracción en la salida de curva 12.",
-        hook: "«Antonelli en su primera experiencia con el desnivel de Junção: la curva de aprendizaje es empinada pero su talento sobra.»"
-      },
-      {
-        id: "lawson",
-        name: "Liam Lawson",
-        team: "Racing Bulls",
-        teamLogo: "assets/escuderias/racingbull.png",
-        dorsal: "#30",
-        category: "Agresivo en Frenada",
-        portrait: "assets/pilotos/centered/max.jpeg",
-        matchTag: "duelos al límite",
-        matchColor: "bg-carbon",
-        gain: "+0.95 pos",
-        consist: "1.37 seg",
-        tyre: "83 / 100",
-        deltaSC: "+0.90 pos",
-        reason: "No teme ir rueda a rueda con campeones del mundo en la frenada en bajada de curva 1. Su agresividad le permite arrebatar posiciones en la primera vuelta.",
-        fact: "Excelente gestor de neumáticos intermedios en pista cambiante.",
-        hook: "«Lawson no respeta jerarquías en la largada: si hay un hueco en la S de Senna, tira el auto sin dudar.»"
-      },
-      {
-        id: "bortoleto",
-        name: "Gabriel Bortoleto",
-        team: "Audi F1 Team",
-        teamLogo: "assets/escuderias/audi.png",
-        dorsal: "#5",
-        category: "Ídolo Local / Debut",
-        portrait: "assets/pilotos/centered/hulkenberg.jpg",
-        matchTag: "local absoluto en san pablo",
-        matchColor: "bg-accentGreen",
-        gain: "+1.10 pos",
-        consist: "1.30 seg",
-        tyre: "85 / 100",
-        deltaSC: "+0.70 pos",
-        reason: "El piloto paulista creció girando en karting y autos de fórmula en este mismo autódromo. Conoce las corrientes de viento y los parches de asfalto mejor que nadie.",
-        fact: "La tribuna principal de Interlagos ruge con cada vuelta del nuevo representante brasileño en la F1.",
-        hook: "«Bortoleto corre en su patio trasero: la motivación de 80.000 brasileños empuja su auto en la recta.»"
-      },
-      {
-        id: "doohan",
-        name: "Jack Doohan",
-        team: "Alpine F1 Team",
-        teamLogo: "assets/escuderias/alpine.png",
-        dorsal: "#7",
-        category: "Táctico Joven",
-        portrait: "assets/pilotos/centered/colapinto.jpeg",
-        matchTag: "regularidad en tanda larga",
-        matchColor: "bg-carbon",
-        gain: "+0.75 pos",
-        consist: "1.32 seg",
-        tyre: "83 / 100",
-        deltaSC: "+0.60 pos",
-        reason: "Trabaja con telemetría conservadora para asegurar que los dos autos de Alpine sumen puntos en el campeonato de constructores.",
-        fact: "Muy disciplinado en la gestión de combustible en la subida de Junção.",
-        hook: "«Doohan corre para el equipo: si Colapinto ataca adelante, Jack cuida la retaguardia con precisión.»"
-      }
-    ];
+  const deck2Pilots = [
+    {
+      id: "lindblat",
+      name: "Arvid Lindblad",
+      team: "Red Bull Junior Team",
+      teamColor: "#FFD700",
+      teamGlow: "rgba(255, 215, 0, 0.7)",
+      teamLogo: "assets/escuderias/redbull.png",
+      dorsal: "#36",
+      category: "Futura Promesa",
+      portrait: "assets/pilotos/centered/lindblat.jpeg",
+      matchTag: "prodigio junior",
+      gain: "+1.15 pos",
+      consist: "1.30 seg",
+      tyre: "80 / 100",
+      carModel: "RB Junior · Honda RBPT",
+      fact: "Una de las sensaciones juveniles más electrizantes del automovilismo mundial, puliendo su técnica en los circuitos más desafiantes del calendario.",
+      hook: "«Lindblad representa el futuro absoluto: su sensibilidad en pista húmeda recuerda a los grandes campeones de la categoría.»"
+    },
+    {
+      id: "bortoleto",
+      name: "Gabriel Bortoleto",
+      team: "Kick Sauber · Audi Project",
+      teamColor: "#00E700",
+      teamGlow: "rgba(0, 231, 0, 0.7)",
+      teamLogo: "assets/escuderias/kicksauber.png",
+      dorsal: "#5",
+      category: "Héroe Local",
+      portrait: "assets/pilotos/centered/bortoleto.jpeg",
+      matchTag: "ídolo de são paulo",
+      gain: "+1.40 pos",
+      consist: "1.24 seg",
+      tyre: "85 / 100",
+      carModel: "Sauber C44 / Audi · Ferrari",
+      fact: "Nacido en São Paulo, conoce cada centímetro de asfalto de Interlagos desde el karting. Correrá con el empuje de 100.000 fanáticos en las tribunas.",
+      hook: "«Bortoleto corre en el patio de su casa: la motivación de correr ante su gente le da dos décimas extra por vuelta.»"
+    },
+    {
+      id: "hadjar",
+      name: "Isack Hadjar",
+      team: "Racing Bulls · Honda RBPT",
+      teamColor: "#6692FF",
+      teamGlow: "rgba(102, 146, 255, 0.7)",
+      teamLogo: "assets/escuderias/rb.png",
+      dorsal: "#6",
+      category: "Estilo Agresivo",
+      portrait: "assets/pilotos/centered/hadjar.jpeg",
+      matchTag: "talento vertiginoso",
+      gain: "+1.25 pos",
+      consist: "1.32 seg",
+      tyre: "79 / 100",
+      carModel: "VCARB 01 · Honda RBPT",
+      fact: "Destacado por su arrojo en curvas ciegas y su valentía para frenar tardísimo. En trazados ondulados como San Pablo impone su ritmo sin titubeos.",
+      hook: "«Hadjar no titubea en las bajadas: su estilo vertical calza como anillo al dedo con el desnivel de Interlagos.»"
+    },
+    {
+      id: "bearman",
+      name: "Oliver Bearman",
+      team: "Haas F1 Team · Ferrari",
+      teamColor: "#E6002B",
+      teamGlow: "rgba(230, 0, 43, 0.7)",
+      teamLogo: "assets/escuderias/haas.png",
+      dorsal: "#87",
+      category: "Joven Prodigio",
+      portrait: "assets/pilotos/centered/bearman.jpeg",
+      matchTag: "adaptabilidad extrema",
+      gain: "+1.10 pos",
+      consist: "1.28 seg",
+      tyre: "79 / 100",
+      carModel: "VF-24 · Ferrari",
+      fact: "Impresionó al mundo sumando puntos en su debut tanto con Ferrari como con Haas. Asimila curvas complejas como la S de Senna con naturalidad pasmosa.",
+      hook: "«Bearman demostró que se adapta en 10 vueltas a cualquier bestia de 1000 caballos en cualquier pista del planeta.»"
+    },
+    {
+      id: "sainz",
+      name: "Carlos Sainz",
+      team: "Williams Racing",
+      teamColor: "#00A0DE",
+      teamGlow: "rgba(0, 160, 222, 0.7)",
+      teamLogo: "assets/escuderias/williams.png",
+      dorsal: "#55",
+      category: "Estratega Analítico",
+      portrait: "assets/pilotos/centered/sainz.jpeg",
+      matchTag: "remontada histórica",
+      gain: "+1.20 pos",
+      consist: "1.10 seg",
+      tyre: "84 / 100",
+      carModel: "FW46 · Mercedes",
+      fact: "En 2019 largó último (P20) y llegó al podio (P3) cuidando gomas de forma magistral en una parada única legendaria.",
+      hook: "«Sainz es el maestro de la lectura de carrera: largó último en Interlagos y terminó festejando en el podio.»"
+    },
+    {
+      id: "piastri",
+      name: "Oscar Piastri",
+      team: "McLaren F1 Team",
+      teamColor: "#FF8000",
+      teamGlow: "rgba(255, 128, 0, 0.7)",
+      teamLogo: "assets/escuderias/mclaren.png",
+      dorsal: "#81",
+      category: "Precisión de Cirujano",
+      portrait: "assets/pilotos/centered/piastri.jpeg",
+      matchTag: "frialdad absoluta",
+      gain: "+1.25 pos",
+      consist: "1.18 seg",
+      tyre: "82 / 100",
+      carModel: "McLaren MCL38 · Mercedes",
+      fact: "Piloto cerebral que no comete errores no forzados en condiciones críticas. Si la lluvia hace acto de presencia, su pulso no tiembla.",
+      hook: "«Piastri tiene hielo en las venas: mientras otros derrapan en la bajada, él traza como un compás sobre el asfalto.»"
+    },
+    {
+      id: "checo",
+      name: "Sergio Pérez",
+      team: "Red Bull Racing · Honda RBPT",
+      teamColor: "#3671C6",
+      teamGlow: "rgba(54, 113, 198, 0.7)",
+      teamLogo: "assets/escuderias/redbull.png",
+      dorsal: "#11",
+      category: "Gestión de Neumáticos",
+      portrait: "assets/pilotos/centered/checo.jpeg",
+      matchTag: "maestro del cuidado",
+      gain: "+1.30 pos",
+      consist: "1.22 seg",
+      tyre: "88 / 100",
+      carModel: "RB20 · Honda RBPT",
+      fact: "Especialista en alargar stints con el neumático medio en asfalto frío. Su tracción en la salida de Junção es un arma letal para remontar.",
+      hook: "«Checo es el amo de la degradación: si la carrera se define por quién cuida mejor la goma trasera, es candidato de fierro.»"
+    },
+    {
+      id: "hamilton",
+      name: "Lewis Hamilton",
+      team: "Scuderia Ferrari",
+      teamColor: "#E80020",
+      teamGlow: "rgba(232, 0, 32, 0.7)",
+      teamLogo: "assets/escuderias/ferrari.png",
+      dorsal: "#44",
+      category: "Ciudadano Honorario",
+      portrait: "assets/pilotos/centered/hamilton.jpeg",
+      matchTag: "remontada histórica 2021",
+      gain: "+1.60 pos",
+      consist: "1.02 seg",
+      tyre: "87 / 100",
+      carModel: "SF-24 · Ferrari",
+      fact: "Ciudadano honorario de Brasil. En 2021 protagonizó una de las mayores remontadas de la historia de la F1 recuperando 25 puestos entre sprint y carrera.",
+      hook: "«Hamilton en Interlagos corre con el alma de Senna: lo de 2021 acá fue una de las mayores hazañas del deporte motor.»"
+    },
+    {
+      id: "kimi",
+      name: "Andrea Kimi Antonelli",
+      team: "Mercedes-AMG Petronas",
+      teamColor: "#00D2BE",
+      teamGlow: "rgba(0, 210, 190, 0.7)",
+      teamLogo: "assets/escuderias/mercedes.png",
+      dorsal: "#12",
+      category: "Velocidad Pura",
+      portrait: "assets/pilotos/centered/kimi.jpeg",
+      matchTag: "diamante en bruto",
+      gain: "+1.10 pos",
+      consist: "1.28 seg",
+      tyre: "76 / 100",
+      carModel: "W15 · Mercedes",
+      fact: "El heredero más esperado de Mercedes: un control de derrape a alta velocidad que recuerda a los grandes virtuosos de la historia.",
+      hook: "«Antonelli llega a Interlagos con el instinto afilado: su velocidad pura en curvas rápidas es asombrosa.»"
+    },
+    {
+      id: "stroll",
+      name: "Lance Stroll",
+      team: "Aston Martin Aramco",
+      teamColor: "#229971",
+      teamGlow: "rgba(34, 153, 113, 0.7)",
+      teamLogo: "assets/escuderias/astonmartin.png",
+      dorsal: "#18",
+      category: "Especialista en Agua",
+      portrait: "assets/pilotos/centered/stroll.jpeg",
+      matchTag: "tracción en pista mojada",
+      gain: "+0.80 pos",
+      consist: "1.35 seg",
+      tyre: "76 / 100",
+      carModel: "AMR24 · Mercedes",
+      fact: "Tiene una sensibilidad especial para encontrar agarre cuando la pista se inunda, como demostró con su histórica primera fila aquí en 2023.",
+      hook: "«Con pista mojada Stroll florece: en 2023 clasificó en primera fila cuando la tormenta golpeó San Pablo.»"
+    },
+    {
+      id: "colapinto",
+      name: "Franco Colapinto",
+      team: "BWT Alpine F1 Team",
+      teamColor: "#0090FF",
+      teamGlow: "rgba(0, 144, 255, 0.7)",
+      teamLogo: "assets/escuderias/alpine.png",
+      dorsal: "#43",
+      category: "Talento Sudamericano",
+      portrait: "assets/pilotos/centered/colapinto.jpeg",
+      matchTag: "marea albiceleste",
+      gain: "+1.25 pos",
+      consist: "1.20 seg",
+      tyre: "82 / 100",
+      carModel: "A524 · Renault",
+      fact: "Acompañado por una marea de miles de fanáticos que cruzan la frontera hacia San Pablo. Su agresividad en frenada y frialdad lo convirtieron en la revelación de la grilla.",
+      hook: "«Colapinto corre de local en São Paulo: la hinchada ruge en la S de Senna cada vez que el #43 va al ataque.»"
+    }
+  ];
 
-    // Estado del mazo activo (11 cartas cada uno)
-    let currentDeckId = 1;
-    let pilotsDB = deck1Pilots;
-    let activePilotIndex = 5; // CARTA CENTRAL POR DEFECTO (Índice 5 de 11)
-    let userHasInteracted = false;
-    const fanStage = document.getElementById('fanDeckContainer');
-    const fanIndicators = document.getElementById('fanIndicators');
+  let currentDeckId = 1;
+  let pilotsDB = deck1Pilots;
+  let activePilotIndex = -1; // NINGUNA SELECCIONADA POR DEFECTO COMO PIDIÓ EL USUARIO
+  let userHasInteracted = false;
+  const fanStage = document.getElementById('fanDeckContainer');
+  const fanIndicators = document.getElementById('fanIndicators');
 
-    // Función para alternar de mazo con scroll suave a las cartas
-    window.switchDeck = function(deckId) {
-      if (currentDeckId === deckId) {
-        // Si ya está activo, simplemente hacer scroll suave hacia las cartas
-        const container = document.getElementById('fanDeckContainer');
-        if (container) container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-      currentDeckId = deckId;
-
-      const btn1 = document.getElementById('btnDeck1');
-      const btn2 = document.getElementById('btnDeck2');
-
-      if (deckId === 1) {
-        pilotsDB = deck1Pilots;
-        if (btn1) {
-          btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
-        }
-        if (btn2) {
-          btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
-        }
-      } else {
-        pilotsDB = deck2Pilots;
-        if (btn1) {
-          btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
-        }
-        if (btn2) {
-          btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
-        }
-      }
-
-      activePilotIndex = 5; // Centrar la carta media de 11
-      createFanCards();
-      renderFanSpread(1.0);
-
-      // Scroll suave a las cartas como pidió el usuario
+  // Alternar entre mazo 1 y 2
+  window.switchDeck = function(deckId) {
+    if (currentDeckId === deckId) {
       const container = document.getElementById('fanDeckContainer');
-      if (container) {
-        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (container) container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    currentDeckId = deckId;
+
+    const btn1 = document.getElementById('btnDeck1');
+    const btn2 = document.getElementById('btnDeck2');
+
+    if (deckId === 1) {
+      pilotsDB = deck1Pilots;
+      if (btn1) {
+        btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
       }
-    };
-
-    function createFanCards() {
-      if (!fanStage) return;
-
-      fanStage.innerHTML = pilotsDB.map((p, idx) => `
-        <div class="fan-card bg-canvas border border-white/60 shadow-xl cursor-pointer" id="fanCard_${idx}" onclick="handleCardClick(${idx})">
-          <!-- IMAGEN CON COLOR ELEGANTE Y SOFISTICADO (NO 100% BLANCO Y NEGRO) -->
-          <img src="${p.portrait}" alt="${p.name}" class="w-full h-full object-cover object-top filter grayscale-[35%] contrast-[1.12] brightness-[0.96] saturate-[1.15] transition-all duration-300">
-          <div class="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/30 to-transparent"></div>
-          
-
-
-          <div class="absolute bottom-5 left-5 right-5 text-pureWhite">
-            <span class="font-[900] text-3xl leading-none block">${p.dorsal}</span>
-            <span class="font-[800] text-sm uppercase block tracking-tight mt-1">${p.name}</span>
-            <span class="text-[10px] text-pureWhite/70 font-[300] block mt-0.5">${p.team}</span>
-          </div>
-        </div>
-      `).join('');
-
-      fanIndicators.innerHTML = pilotsDB.map((_, idx) => `
-        <button onclick="handleCardClick(${idx})" id="fanDot_${idx}" 
-                class="w-2 h-2 rounded-full transition-all ${idx === activePilotIndex ? 'bg-carbon w-5' : 'bg-carbon/20 hover:bg-carbon/50'}"></button>
-      `).join('');
-    }
-
-    // Algoritmo de despliegue en abanico simétrico para 11 cartas
-    
-    // NAVEGACIÓN TÁCTIL Y FLECHAS PARA EL MAZO DE CARTAS
-    window.cyclePilot = function(direction) {
-      if (!pilotsDB || pilotsDB.length === 0) return;
-      activePilotIndex = (activePilotIndex + direction + pilotsDB.length) % pilotsDB.length;
-      renderFanSpread(1.0);
-    };
-
-    // SOPORTE TOUCH SWIPE PARA CELULARES
-    (function setupTouchSwipe() {
-      const container = document.getElementById('fanDeckContainer');
-      if (!container) return;
-      let startX = 0;
-      let endX = 0;
-
-      container.addEventListener('touchstart', (e) => {
-        startX = e.changedTouches[0].clientX;
-      }, { passive: true });
-
-      container.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].clientX;
-        const diff = endX - startX;
-        if (Math.abs(diff) > 40) {
-          if (diff < 0) {
-            cyclePilot(1); // Swipe izquierda -> siguiente
-          } else {
-            cyclePilot(-1); // Swipe derecha -> anterior
-          }
-        }
-      }, { passive: true });
-    })();
-
-    function renderFanSpread(spreadFactor = 1.0) {
-      if (!fanStage) return;
-
-      const isMobile = window.innerWidth < 640;
-      const spacingX = (isMobile ? 48 : 88) * spreadFactor;
-      const curveY = (isMobile ? 8 : 14) * spreadFactor;
-      const rotAngle = (isMobile ? 3.5 : 4.5) * spreadFactor;
-
-      pilotsDB.forEach((p, idx) => {
-        const card = document.getElementById(`fanCard_${idx}`);
-        const dot = document.getElementById(`fanDot_${idx}`);
-        if (!card) return;
-
-        const offset = idx - activePilotIndex;
-        const absOffset = Math.abs(offset);
-
-        if (offset === 0) {
-          // CARTA CENTRAL: RECTA, ELEVADA Y PROTAGONISTA
-          card.classList.add('is-active');
-          card.style.transform = `translateX(0px) translateY(-22px) rotate(0deg) scale(1.10)`;
-          card.style.zIndex = '50';
-          card.style.opacity = '1';
-          if (dot) dot.className = 'w-5 h-2 rounded-full bg-carbon transition-all';
-        } else {
-          // CARTAS LATERALES: SE DESPLIEGAN HACIA LA IZQUIERDA Y DERECHA
-          card.classList.remove('is-active');
-          const tx = offset * spacingX;
-          const ty = absOffset * curveY;
-          const rot = offset * rotAngle;
-          const scale = Math.max(0.72, 1 - absOffset * 0.045);
-          const opacity = Math.max(0.35, 1 - absOffset * 0.12);
-
-          card.style.transform = `translateX(${tx}px) translateY(${ty}px) rotate(${rot}deg) scale(${scale})`;
-          card.style.zIndex = String(40 - absOffset * 3);
-          card.style.opacity = String(opacity);
-          if (dot) dot.className = 'w-2 h-2 rounded-full bg-carbon/20 hover:bg-carbon/50 transition-all';
-        }
-      });
-    }
-
-    // Click en cualquier carta: La enfoca y abre su Modal Pop-up interactivo
-    function handleCardClick(idx) {
-      userHasInteracted = true;
-      activePilotIndex = idx;
-      renderFanSpread(1.0);
-      openPilotModal(pilotsDB[activePilotIndex]);
-    }
-
-    window.prevPilot = function() {
-      userHasInteracted = true;
-      activePilotIndex = (activePilotIndex - 1 + pilotsDB.length) % pilotsDB.length;
-      renderFanSpread(1.0);
-    };
-
-    window.nextPilot = function() {
-      userHasInteracted = true;
-      activePilotIndex = (activePilotIndex + 1) % pilotsDB.length;
-      renderFanSpread(1.0);
-    };
-
-    // Funciones del Pop-up Modal por Piloto (EL COLOR FLORECE AL ABRIRSE)
-    window.openPilotModal = function(p) {
-      const modal = document.getElementById('pilotModal');
-      const content = document.getElementById('pilotModalContent');
-      if (!modal) return;
-
-      document.getElementById('pilotTeamLogo').src = p.teamLogo;
-      document.getElementById('pilotTeam').textContent = p.team;
-      document.getElementById('pilotCategoryTag').textContent = `arquetipo k-means // ${p.category.toLowerCase()}`;
-      
-      const portrait = document.getElementById('pilotPortrait');
-      portrait.src = p.portrait;
-      // COLOR VIBRANTE Y COMPLETO EN EL MODAL POP-UP
-      portrait.className = "w-full h-full object-cover object-top filter grayscale-0 contrast-[1.08] brightness-[1.0] saturate-[1.25] transition-all duration-500";
-      
-      document.getElementById('pilotDorsal').textContent = p.dorsal;
-      document.getElementById('pilotName').textContent = p.name;
-      document.getElementById('pilotMatchTag').textContent = p.matchTag;
-      document.getElementById('pilotMatchTag').className = `inline-block text-[11px] font-[800] uppercase px-4 py-1.5 rounded-full text-pureWhite ${p.matchColor} shadow-sm`;
-      
-      document.getElementById('pilotGain').textContent = p.gain;
-      document.getElementById('pilotConsist').textContent = p.consist;
-      document.getElementById('pilotTyre').textContent = p.tyre;
-      document.getElementById('pilotDeltaSC').textContent = p.deltaSC;
-      
-      const carInfo = {
-        'norris': ['McLaren MCL38', 'Mercedes-AMG F1 M15 Performance'],
-        'max': ['Red Bull RB20', 'Honda RBPTH002 V6 Turbo'],
-        'leclerc': ['Ferrari SF-24', 'Ferrari 066/12 V6 Turbo'],
-        'russel': ['Mercedes W15', 'Mercedes-AMG F1 M15 Performance'],
-        'sainz': ['Ferrari SF-24', 'Ferrari 066/12 V6 Turbo'],
-        'colapinto': ['Williams FW46', 'Mercedes-AMG F1 M15 Performance'],
-        'bearman': ['Haas VF-24', 'Ferrari 066/12 V6 Turbo'],
-        'hulkenberg': ['Haas VF-24', 'Ferrari 066/12 V6 Turbo'],
-        'stroll': ['Aston Martin AMR24', 'Mercedes-AMG F1 M15 Performance'],
-        'bottas': ['Kick Sauber C44', 'Ferrari 066/12 V6 Turbo']
-      }[p.id] || ['Monoplaza F1 2024', 'Unidad de Potencia Híbrida Turbo V6'];
-
-      const carModelEl = document.getElementById('pilotCarModel');
-      const engineEl = document.getElementById('pilotEngine');
-      if (carModelEl) carModelEl.textContent = carInfo[0];
-      if (engineEl) engineEl.textContent = carInfo[1];
-      
-      document.getElementById('pilotReason').textContent = p.reason;
-      document.getElementById('pilotColorFact').textContent = `«${p.fact}»`;
-      document.getElementById('pilotStreamHook').textContent = p.hook;
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      setTimeout(() => {
-        if (content) {
-          content.classList.remove('scale-95');
-          content.classList.add('scale-100');
-        }
-      }, 10);
-    };
-
-    window.closePilotModal = function() {
-      const modal = document.getElementById('pilotModal');
-      const content = document.getElementById('pilotModalContent');
-      if (!modal) return;
-
-      if (content) {
-        content.classList.remove('scale-100');
-        content.classList.add('scale-95');
+      if (btn2) {
+        btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
       }
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }, 180);
-    };
+    } else {
+      pilotsDB = deck2Pilots;
+      if (btn1) {
+        btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
+      }
+      if (btn2) {
+        btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
+      }
+    }
 
-    // Cerrar modal con tecla Escape
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePilotModal();
-    });
-
+    activePilotIndex = -1; // Ninguna seleccionada al cambiar
     createFanCards();
     renderFanSpread(1.0);
 
-    // 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
+    const container = document.getElementById('fanDeckContainer');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  // CREAR CARTAS: SIN NOMBRES NI NÚMEROS, SOLO LA FOTO EN B&W CENTRADA Y EL BORDE DE ESCUDERÍA
+  function createFanCards() {
+    if (!fanStage) return;
+
+    fanStage.innerHTML = pilotsDB.map((p, idx) => `
+      <div class="fan-card rounded-2xl overflow-hidden shadow-xl cursor-pointer relative bg-zinc-900" 
+           id="fanCard_${idx}" 
+           onclick="handleCardClick(${idx})"
+           style="--team-color: ${p.teamColor}; --team-glow: ${p.teamGlow};">
+        <!-- FOTO EN BLANCO Y NEGRO PURO, PERFECTAMENTE CENTRADA (800x1024) -->
+        <img src="${p.portrait}" alt="${p.name}" class="w-full h-full object-cover object-center pointer-events-none select-none transition-all duration-500">
+        
+        <!-- Borde sutil superior con el color de escudería que brilla en hover -->
+        <div class="absolute top-0 inset-x-0 h-1 transition-all" style="background-color: ${p.teamColor};"></div>
+      </div>
+    `).join('');
+
+    if (fanIndicators) {
+      fanIndicators.innerHTML = pilotsDB.map((p, idx) => `
+        <button onclick="handleCardClick(${idx})" id="fanDot_${idx}" 
+                class="w-2 h-2 rounded-full transition-all ${idx === activePilotIndex ? 'bg-carbon w-5' : 'bg-carbon/20 hover:bg-carbon/50'}"
+                title="${p.name}"></button>
+      `).join('');
+    }
+  }
+
+  // ANIMACIÓN EN ABANICO DESDE EL CENTRO (NORRIS EN EL ÍNDICE 5 ES EL CENTRO NATURAL)
+  function renderFanSpread(spreadFactor = 1.0) {
+    if (!fanStage) return;
+
+    const isMobile = window.innerWidth < 640;
+    const centerIdx = 5; // El centro de 11 cartas (índice 5)
+
+    pilotsDB.forEach((p, idx) => {
+      const card = document.getElementById(`fanCard_${idx}`);
+      if (!card) return;
+
+      const offset = idx - centerIdx; // -5 a +5
+      const rot = offset * (isMobile ? 3.5 : 4.8) * spreadFactor;
+      const transX = offset * (isMobile ? 42 : 78) * spreadFactor;
+      const transY = Math.abs(offset) * (isMobile ? 6 : 12) * spreadFactor;
+      const zIndex = 20 - Math.abs(offset);
+
+      card.style.setProperty('--x', `${transX.toFixed(1)}px`);
+      card.style.setProperty('--y', `${transY.toFixed(1)}px`);
+      card.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
+      card.style.zIndex = zIndex;
+
+      if (idx === activePilotIndex) {
+        card.classList.add('is-active');
+        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 24).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
+        card.style.zIndex = 50;
+      } else {
+        card.classList.remove('is-active');
+        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg)`;
+      }
+    });
+
+    if (fanIndicators) {
+      pilotsDB.forEach((p, idx) => {
+        const dot = document.getElementById(`fanDot_${idx}`);
+        if (dot) {
+          if (idx === activePilotIndex) {
+            dot.className = "w-5 h-2 rounded-full bg-carbon transition-all";
+          } else {
+            dot.className = "w-2 h-2 rounded-full bg-carbon/20 hover:bg-carbon/50 transition-all";
+          }
+        }
+      });
+    }
+  }
+
+  window.handleCardClick = function(idx) {
+    activePilotIndex = idx;
+    renderFanSpread(1.0);
+    openPilotModal(pilotsDB[idx]);
+  };
+
+  window.prevPilot = function() {
+    if (activePilotIndex === -1) {
+      activePilotIndex = 5; // Empezar por el centro
+    } else {
+      activePilotIndex = (activePilotIndex - 1 + pilotsDB.length) % pilotsDB.length;
+    }
+    renderFanSpread(1.0);
+  };
+
+  window.nextPilot = function() {
+    if (activePilotIndex === -1) {
+      activePilotIndex = 5; // Empezar por el centro
+    } else {
+      activePilotIndex = (activePilotIndex + 1) % pilotsDB.length;
+    }
+    renderFanSpread(1.0);
+  };
+
+  // INICIALIZACIÓN
+  createFanCards();
+  renderFanSpread(1.0);
+
+  // Scroll listener para animar el despliegue en abanico al entrar a la sección
+  function updateHelmetFanScroll() {
+    const helmetSec = document.getElementById('helmet');
+    if (!helmetSec) return;
+    const rect = helmetSec.getBoundingClientRect();
+    const winH = window.innerHeight;
+    
+    // Entrando a la sección
+    const enterProgress = Math.max(0, Math.min(1, (winH - rect.top) / (winH * 0.75)));
+    if (enterProgress > 0) {
+      const spread = Math.min(1, 0.2 + (enterProgress * 0.8));
+      renderFanSpread(spread);
+    }
+  }
+
+  window.addEventListener('scroll', updateHelmetFanScroll, { passive: true });
+  updateHelmetFanScroll();
+
+// 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
