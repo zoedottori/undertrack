@@ -1,13 +1,15 @@
 # UNDERTRACK — F1 CIRCUIT PHYSICS & INTELLIGENCE PLATFORM
 
-Plataforma de analítica predictiva y física de circuitos de Fórmula 1 diseñada para Mateo, periodista deportivo enfocado en coberturas de streaming, reels y podcasts.
+UNDERTRACK es una web pensada para creadores de contenido de Fórmula 1. Busca transformar grandes cantidades de datos complejos -telemetría, circuitos, pilotos, neumáticos y condiciones de carrera— en información clara y fácil de entender.
 
-El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-Means, correlación de circuitos gemelos de Pearson y perfiles de conducta de pilotos) en una experiencia editorial interactiva inspirada en pósters clásicos de automovilismo.
+a través del análisis estadístico y Machine Learning (agrupamiento de trazados por K-Means, correlación de circuitos gemelos de Pearson y perfiles de conducta de pilotos), identifica patrones y relaciones que no son evidentes a simple vista. Luego, utiliza inteligencia artificial para interpretar esos hallazgos y ayudar a convertirlos en historias e ideas de contenido.
+
+el objetivo: mirar la Fórmula 1 MÁS ALLÁ DE LOS RESULTADOS y descubrir historias escondidas en los datos.
 
 ---
 
-## INTEGRANTES
-* Zoe Dottori
+## INTEGRANTE
+* ZOE Dottori
 
 ---
 
@@ -17,7 +19,6 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 * consigna:
   * elegir un tópico (moda, medios, planificación urbana o redes sociales) y formular una hipótesis de trabajo.
   * presentar los datasets seleccionados, un perfil de usuario, las funcionalidades principales de la app y un conjunto de referentes (diseño, interfaz, utilidad, datos).
-  * modalidad: trabajo grupal.
 * enlaces:
   * presentación entrega 1 y 2: https://www.figma.com/deck/Kb1HjxiWL3kISvR1UWg6Ce/entrega-uno-y-dos---zoe?node-id=1-42&t=Q3t8jyauj1cGhCbV-1
 
@@ -25,7 +26,6 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 * consigna:
   * presentar el flujo de la app en papel, figma o esquema digital, evidenciando cómo interviene la ia en el proceso.
   * fundamentar los descubrimientos basados en datos y por qué el diseño responde a la hipótesis planteada.
-  * modalidad: trabajo grupal.
 * enlaces:
   * presentación entrega 1 y 2: https://www.figma.com/deck/Kb1HjxiWL3kISvR1UWg6Ce/entrega-uno-y-dos---zoe?node-id=1-42&t=Q3t8jyauj1cGhCbV-1
 
@@ -34,7 +34,6 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
   * publicar la app operativa, con integración de ia en tiempo real (groq api).
   * incluir una página de racional que explique la hipótesis, el procesamiento de datos y el rol de la ia.
   * demo en vivo durante la clase.
-  * modalidad: trabajo grupal.
 * enlaces:
   * url del prototipo online funcional: https://undertrackentregatres.vercel.app/
   * link de presentación entrega 3: https://www.figma.com/deck/lLHgU3QCCDDmR7rKRdABd2
@@ -43,7 +42,6 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 * consigna:
   * presentar el mayor grado de avance alcanzado, con demo en vivo.
   * explicar y defender las decisiones de diseño, datos y prompting tomadas a lo largo del proyecto.
-  * modalidad: trabajo grupal.
 
 ---
 
@@ -52,19 +50,19 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 UNDERTRACK aborda la previa del Gran Premio de Brasil analizando cómo las variables físicas de la pista condicionan el rendimiento mecánico y el estilo de manejo de los pilotos:
 
 * ACTO 0: LA ESPERA (HERO)
-  Cuenta regresiva en vivo hacia la carrera, selector de grandes premios y contexto histórico con estética vintage de boxes.
+  cuenta regresiva en vivo hacia la carrera, selector de grandes premios y contexto histórico con estética vintage de boxes.
 
 * ACTO 1: UNDER THE SURFACE (FÍSICA DE PISTAS)
-  Agrupamiento no supervisado K-Means (K=4, inercia 59.78). Visualización del trazado tridimensional de Interlagos, su desnivel característico de 43 metros, línea de tiempo con hitos del circuito y telemetría de frenada y asfalto.
+  agrupamiento no supervisado K-Means (K=4, inercia 59.78). Visualización del trazado tridimensional de Interlagos, su desnivel característico de 43 metros, línea de tiempo con hitos del circuito y telemetría de frenada y asfalto.
 
 * ACTO 2: THE SIGNAL (CIRCUITOS GEMELOS)
-  Correlación multivariable de Pearson (r = 0.846). Comparación mecánica directa entre Interlagos y el Red Bull Ring de Austria, demostrando cómo exigencias físicas equivalentes anticipan el rendimiento de motores y chasis.
+  correlación multivariable de Pearson (r = 0.846). Comparación mecánica directa entre Interlagos y el Red Bull Ring de Austria, demostrando cómo exigencias físicas equivalentes anticipan el rendimiento de motores y chasis.
 
 * ACTO 3: UNDER THE HELMET (ESTILOS DE MANEJO)
-  Clasificación de 10 pilotos de la grilla según consistencia, paradas en boxes, puntos y deltas bajo condiciones climáticas adversas, integrando monoplazas animados e indicadores de rendimiento.
+  clasificación de 10 pilotos de la grilla según consistencia, paradas en boxes, puntos y deltas bajo condiciones climáticas adversas, integrando monoplazas animados e indicadores de rendimiento.
 
 * ACTO 4: THE CROSSOVER (PREDICTIVE ENGINE)
-  Panel de cruce de datos que evalúa la neutralización de la ventaja mecánica según la temperatura del asfalto y el desnivel del circuito.
+  panel de cruce de datos que evalúa la neutralización de la ventaja mecánica según la temperatura del asfalto y el desnivel del circuito.
 
 ---
 
@@ -118,15 +116,15 @@ nombre_proyecto/
 ## FUENTES DE DATOS
 
 1. ERGAST MOTOR RACING DATABASE
-   Tiempos de vuelta oficiales, cronometraje de paradas en boxes, clasificaciones y resultados históricos de carrera.
+   tiempos de vuelta oficiales, cronometraje de paradas en boxes, clasificaciones y resultados históricos de carrera.
 
 2. OPENF1 API
-   Telemetría de compuestos de neumáticos en tiempo real y registros meteorológicos de pista y aire.
+   telemetría de compuestos de neumáticos en tiempo real y registros meteorológicos de pista y aire.
 
 3. PIRELLI MOTORSPORT ARCHIVE
-   Niveles de abrasión del asfalto y nominaciones oficiales de compuestos secos (C1 a C5).
+   niveles de abrasión del asfalto y nominaciones oficiales de compuestos secos (C1 a C5).
 
 4. FIA CIRCUIT HOMOLOGATION & BREMBO DATA
-   Topografía, longitud oficial, cantidad de curvas y escalas de severidad de frenada.
+   topografía, longitud oficial, cantidad de curvas y escalas de severidad de frenada.
 
 
