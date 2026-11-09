@@ -11,13 +11,39 @@ El proyecto traduce modelos de Machine Learning (agrupamiento de trazados por K-
 
 ---
 
-## ENTREGA 3
+## ENTREGAS
 
-* URL del prototipo online funcional (lo que presente en la entrega 3):
-  https://undertrackentregatres.vercel.app/
+### ENTREGA 1 — HIPÓTESIS Y CONTEXTO
+* consigna:
+  * elegir un tópico (moda, medios, planificación urbana o redes sociales) y formular una hipótesis de trabajo.
+  * presentar los datasets seleccionados, un perfil de usuario, las funcionalidades principales de la app y un conjunto de referentes (diseño, interfaz, utilidad, datos).
+  * modalidad: trabajo grupal.
+* enlaces:
+  * presentación entrega 1 y 2: https://www.figma.com/deck/Kb1HjxiWL3kISvR1UWg6Ce/entrega-uno-y-dos---zoe?node-id=1-42&t=Q3t8jyauj1cGhCbV-1
 
-* link de presentación de la entrega 3 - zoe:
-  https://www.figma.com/deck/lLHgU3QCCDDmR7rKRdABd2
+### ENTREGA 2 — PROTOTIPO DE BAJA FIDELIDAD
+* consigna:
+  * presentar el flujo de la app en papel, figma o esquema digital, evidenciando cómo interviene la ia en el proceso.
+  * fundamentar los descubrimientos basados en datos y por qué el diseño responde a la hipótesis planteada.
+  * modalidad: trabajo grupal.
+* enlaces:
+  * presentación entrega 1 y 2: https://www.figma.com/deck/Kb1HjxiWL3kISvR1UWg6Ce/entrega-uno-y-dos---zoe?node-id=1-42&t=Q3t8jyauj1cGhCbV-1
+
+### ENTREGA 3 — PROTOTIPO ONLINE FUNCIONAL
+* consigna:
+  * publicar la app operativa, con integración de ia en tiempo real (groq api).
+  * incluir una página de racional que explique la hipótesis, el procesamiento de datos y el rol de la ia.
+  * demo en vivo durante la clase.
+  * modalidad: trabajo grupal.
+* enlaces:
+  * url del prototipo online funcional: https://undertrackentregatres.vercel.app/
+  * link de presentación entrega 3: https://www.figma.com/deck/lLHgU3QCCDDmR7rKRdABd2
+
+### ENTREGA 4 — VERSIÓN FINAL
+* consigna:
+  * presentar el mayor grado de avance alcanzado, con demo en vivo.
+  * explicar y defender las decisiones de diseño, datos y prompting tomadas a lo largo del proyecto.
+  * modalidad: trabajo grupal.
 
 ---
 
