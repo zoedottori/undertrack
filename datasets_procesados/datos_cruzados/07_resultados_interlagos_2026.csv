@@ -1,0 +1,23 @@
+posicion,piloto,escuderia,vueltas,tiempo_diferencia,puntos,estado
+1,Lando Norris,McLaren,71,1:35:23.504,25,FINISHED
+2,Max Verstappen,Red Bull Racing,71,+14.602s,18,FINISHED
+3,Isack Hadjar,Red Bull Racing,71,+24.485s,15,FINISHED
+4,George Russell,Mercedes,71,+33.991s,12,FINISHED
+5,Kimi Antonelli,Mercedes,71,+41.017s,10,FINISHED
+6,Oscar Piastri,McLaren,71,+56.475s,8,FINISHED
+7,Liam Lawson,Racing Bulls,71,+75.402s,6,FINISHED
+8,Charles Leclerc,Ferrari,71,+78.586s,4,FINISHED
+9,Lewis Hamilton,Ferrari,70,+1 lap,2,FINISHED
+10,Nico Hulkenberg,Audi,70,+1 lap,1,FINISHED
+11,Arvid Lindblad,Racing Bulls,70,+1 lap,0,FINISHED
+12,Fernando Alonso,Aston Martin,70,+1 lap,0,FINISHED
+13,Franco Colapinto,Alpine,70,+1 lap,0,FINISHED
+14,Pierre Gasly,Alpine,70,+1 lap,0,FINISHED
+15,Alexander Albon,Williams,70,+1 lap,0,FINISHED
+16,Gabriel Bortoleto,Audi,70,+1 lap,0,FINISHED
+17,Oliver Bearman,Haas F1 Team,70,+1 lap,0,FINISHED
+18,Sergio Perez,Cadillac,69,+2 laps,0,FINISHED
+19,Carlos Sainz,Williams,69,+2 laps,0,FINISHED
+20,Rafael Câmara,Haas F1 Team,69,+2 laps,0,FINISHED
+NC,Lance Stroll,Aston Martin,30,DNF,0,RETIRED
+NC,Valtteri Bottas,Cadillac,0,DNS,0,DID_NOT_START

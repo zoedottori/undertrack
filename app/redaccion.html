@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth bg-[#F5F5F7]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REDACCIÓN // UNDERTRACK — Producción de Contenidos F1</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111114'/><circle cx='50' cy='50' r='20' fill='%23d4ff32'/></svg>">
+  
+  <!-- Tipografía Inter pura (oficial de UNDERTRACK) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Square+Peg&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F5F5F7',
+            pureWhite: '#FFFFFF',
+            carbon: '#111114',
+            muted: '#8E8E93',
+            hairline: 'rgba(17, 17, 20, 0.08)',
+            accentRed: '#E10600',
+            accentGreen: '#00875A',
+          },
+          fontFamily: {
+            sans: ['Inter', -apple-system, sans-serif],
+            square: ['"Square Peg"', 'cursive'],
+            caveat: ['Caveat', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: -0.03em;
+      background-color: #F5F5F7;
+      color: #111114;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .pill-blur {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    /* Píldoras de selección de canal y formato */
+    .desk-choice-btn {
+      padding: 0.65rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(17, 17, 20, 0.08);
+      background-color: #F4F4F7;
+      color: #55555C;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .desk-choice-btn:not(.is-active):hover {
+      background-color: #EAEAEF;
+      color: #111114;
+      border-color: rgba(17, 17, 20, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .desk-choice-btn:active {
+      transform: scale(0.96);
+    }
+
+    .desk-choice-btn.is-active {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border-color: #111114 !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 14px rgba(17, 17, 20, 0.16) !important;
+      transform: translateY(0) !important;
+    }
+
+    .desk-need-btn {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#d4ff32] selection:text-black">
+
+  <!-- ========================================================
+       FLOATING ROUNDED HEADER (IDÉNTICO A LA LANDING DE UNDERTRACK)
+       ======================================================== -->
+  <div class="fixed top-5 left-0 right-0 z-50 px-5 sm:px-8 pointer-events-none">
+    <header id="mainHeaderPill" class="header-dark-mode w-[94%] sm:w-full max-w-5xl mx-auto h-12 sm:h-14 bg-pureWhite/90 pill-blur border border-hairline rounded-full px-4 sm:px-8 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] pointer-events-auto transition-all duration-300">
+      
+      <!-- Marca: RONDA 22 en mayúscula completa -->
+      <a href="index.html" class="flex items-baseline gap-1.5 group">
+        <span class="logo-title font-[900] text-sm tracking-tighter uppercase text-carbon transition-colors">undertrack</span>
+        <span class="logo-sub font-[700] text-xs text-muted uppercase tracking-wider transition-colors">/ RONDA 22</span>
+      </a>
+
+      <!-- Navegación con la nomenclatura y orden idéntico a la landing -->
+      <nav class="hidden sm:flex items-center gap-6 md:gap-7 text-xs font-[500] tracking-tight">
+        <a href="index.html#surface" class="nav-link text-muted hover:text-carbon transition-colors">superficie</a>
+        <a href="index.html#transition-weather" class="nav-link text-muted hover:text-carbon transition-colors">clima</a>
+        <a href="index.html#signal" class="nav-link text-muted hover:text-carbon transition-colors">gemelo</a>
+        <a href="index.html#helmet" class="nav-link text-muted hover:text-carbon transition-colors">pilotos</a>
+        <a href="index.html#crossover" class="nav-link text-muted hover:text-carbon transition-colors">el cruce</a>
+      </nav>
+
+      <!-- Botón Redacción Activo -->
+      <a href="redaccion.html" class="desk-cta px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full bg-carbon text-pureWhite text-[11px] sm:text-xs font-[700] tracking-tight hover:bg-zinc-800 transition-colors duration-200 shrink-0 flex items-center gap-1.5">
+        <span>redacción</span>
+        <span class="text-[#d4ff32]">_</span>
+      </a>
+
+    </header>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL DE LA REDACCIÓN -->
+  <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12 space-y-8">
+    
+    <!-- ENCABEZADO EDITORIAL -->
+    <div class="space-y-2 border-b border-hairline pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <span class="text-[10px] sm:text-[11px] uppercase font-[800] tracking-[0.2em] text-accentRed block mb-1">
+            MESA DE PRODUCCIÓN & STREAMING
+          </span>
+          <h1 class="font-[900] text-3xl sm:text-5xl uppercase tracking-tight text-carbon">
+            REDACCIÓN <span class="font-[100] text-muted normal-case">editorial</span>
+          </h1>
+        </div>
+        
+        <div class="text-right hidden md:block text-xs font-[500] text-muted">
+          <span>MODELO TELEMÉTRICO: R22 LAS VEGAS STRIP CIRCUIT</span><br>
+          <span class="text-carbon font-[700]">ASISTENTE IA ACTIVO (GROQ)</span>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm font-[300] text-muted max-w-2xl leading-relaxed">
+        Transformá los hallazgos de geometría, clima desértico y arquetipos de pilotos en contenido listo para publicar. Elegí tu canal, formato y enfoque para adaptar la previa con un solo clic.
+      </p>
+    </div>
+
+    <!-- PASO 1, 2 Y 3: RECUADRO SUPERIOR CON CONFIGURACIÓN DE CANAL, FORMATO Y ¿ESTÁS EN BLANCO? -->
+    <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-hairline shadow-sm space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-hairline pb-4">
+        <span class="text-xs font-[800] uppercase tracking-wider text-carbon flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
+          1. CONFIGURACIÓN DEL CANAL, FORMATO Y ENFOQUE
+        </span>
+        <span class="text-[11px] font-[400] text-muted">
+          La sugerencia se adapta automáticamente al tocar cualquier opción
+        </span>
+      </div>
+
+      <!-- SELECCIÓN DE RED SOCIAL -->
+      <div class="space-y-2">
+        <span class="text-xs font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
+          ¿En qué red vas a publicar?
+        </span>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn is-active flex-1 min-w-[120px]">
+            Instagram
+          </button>
+          <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn flex-1 min-w-[120px]">
+            TikTok
+          </button>
+          <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn flex-1 min-w-[120px]">
+            X (Twitter)
+          </button>
+          <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn flex-1 min-w-[120px]">
+            YouTube
+          </button>
+        </div>
+      </div>
+
+      <!-- SELECCIÓN DINÁMICA DE FORMATO -->
+      <div class="space-y-2">
+        <span class="text-xs font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
+          ¿Qué formato necesitás hoy?
+        </span>
+        <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center gap-2.5">
+          <!-- Inyectado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- ¿ESTÁS EN BLANCO? (TIPO DE ENFOQUE EDITORIAL DENTRO DEL RECUADRO SUPERIOR) -->
+      <div class="space-y-2.5 pt-3 border-t border-hairline/80">
+        <span class="text-xs font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
+          ¿Estás en blanco? Elegí tu enfoque:
+        </span>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="selectEditorialNeed('debate')" id="btnNeedDebate" class="desk-need-btn active px-4 py-2 rounded-full text-xs font-[600] tracking-tight transition-colors duration-200 bg-carbon text-pureWhite shadow-xs">
+            abrir debate
+          </button>
+          <button onclick="selectEditorialNeed('telemetria')" id="btnNeedTelemetria" class="desk-need-btn px-4 py-2 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-[#F4F4F7] text-carbon hover:bg-zinc-200">
+            dato telemétrico
+          </button>
+          <button onclick="selectEditorialNeed('apuesta')" id="btnNeedApuesta" class="desk-need-btn px-4 py-2 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-[#F4F4F7] text-carbon hover:bg-zinc-200">
+            predicción picante
+          </button>
+          <button onclick="selectEditorialNeed('resumen')" id="btnNeedResumen" class="desk-need-btn px-4 py-2 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-[#F4F4F7] text-carbon hover:bg-zinc-200">
+            resumen al aire
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTÓN PARA GENERAR VARIACIÓN FRESCA CON IA -->
+      <div class="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-hairline/80">
+        <span class="text-[11px] font-[500] text-muted">
+          ¿Querés una versión única redactada con IA en vivo?
+        </span>
+        <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full sm:w-auto px-7 py-3 rounded-full bg-carbon hover:bg-black text-pureWhite font-[700] text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer shadow-sm active:scale-95">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span>
+          <span>Generar con IA (Groq)</span>
+          <span class="text-xs font-bold">➔</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- PASO 4: LA PIZARRA EDITORIAL Y CHAT EN VIVO -->
+    <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-hairline shadow-[0_12px_40px_rgb(0,0,0,0.03)] space-y-6">
+      
+      <!-- BARRA DE ESTADO Y ACCIONES -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-hairline">
+        <span id="verdictCardBadge" class="text-xs font-sans uppercase font-[800] text-accentRed tracking-wider flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accentRed animate-pulse"></span>
+          Post listo para Instagram
+        </span>
+
+        <div class="flex items-center gap-2">
+          <button onclick="clearChatHistory()" id="btnClearChatHistory" class="text-[10px] uppercase font-[700] px-3.5 py-1.5 bg-[#F4F4F7] hover:bg-zinc-200 text-muted hover:text-carbon rounded-full border border-hairline transition-colors duration-200 flex items-center gap-1.5" title="Limpiar repreguntas del chat">
+            <span>limpiar chat</span> ↺
+          </button>
+          <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[700] px-4 py-1.5 bg-[#F4F4F7] hover:bg-carbon hover:text-pureWhite rounded-full border border-hairline text-carbon transition-colors duration-200 shadow-xs flex items-center gap-1.5">
+            <span id="copyButtonText">copiar contenido</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTENEDOR DE CONTENIDO GENERADO / HISTORIAL -->
+      <div id="verdictChatContainer" class="p-5 sm:p-7 bg-[#F4F4F7] rounded-2xl border border-hairline min-h-[260px] max-h-[520px] overflow-y-auto space-y-4 text-xs sm:text-sm font-[300] leading-relaxed select-text scroll-smooth">
+        
+        <!-- TARJETA DEL CONTENIDO PRINCIPAL -->
+        <div id="verdictOutputCard" class="p-5 sm:p-6 bg-pureWhite rounded-xl border border-hairline shadow-2xs space-y-3">
+          <div class="flex items-center justify-between border-b border-hairline pb-2.5">
+            <span class="text-[10px] font-sans text-muted uppercase font-[600]">Propuesta Editorial</span>
+            <span class="text-[10px] font-sans text-muted uppercase">Sugerencia Adaptada</span>
+          </div>
+          
+          <div id="verdictOutput" class="text-carbon leading-relaxed whitespace-pre-line text-sm sm:text-base font-[300]"></div>
+        </div>
+
+        <!-- HISTORIAL DE PREGUNTAS Y RESPUESTAS DEL CHAT -->
+        <div id="verdictChatHistory" class="space-y-3 pt-1"></div>
+
+      </div>
+
+      <!-- BARRA DE PREGUNTAS Y CONSULTA TELEMÉTRICA RÁPIDA -->
+      <form onsubmit="event.preventDefault(); handleGroqQuery();" class="flex flex-col sm:flex-row gap-2.5 pt-1">
+        <div class="relative flex-1">
+          <input type="text" id="groqInput" placeholder="Preguntale a la telemetría (ej: ¿cómo afecta el frío a McLaren? / ¿qué ventana tiene Colapinto?)..."
+                 class="w-full px-5 py-3.5 bg-[#F4F4F7] border border-hairline rounded-full text-xs text-carbon focus:outline-none focus:border-carbon shadow-inner font-sans">
+        </div>
+        <button type="submit" id="btnGroqQuery" class="px-7 py-3.5 bg-carbon text-pureWhite text-xs font-[600] rounded-full hover:bg-black transition-transform active:scale-95 shadow-sm shrink-0 flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>preguntar</span> ➔
+        </button>
+      </form>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       FOOTER IDÉNTICO AL DE LA LANDING DE UNDERTRACK
+       ======================================================== -->
+  <footer class="w-full bg-[#0A0A0C] text-pureWhite pt-16 pb-12 border-t border-white/10 mt-16">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 space-y-12">
+      
+      <!-- CABECERA DE FOOTER Y METADATOS -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-10 border-b border-white/10">
+        <div class="space-y-1">
+          <div class="flex items-center gap-3">
+            <span class="font-[900] text-lg uppercase tracking-tight text-white">UNDERTRACK</span>
+            <span class="text-[10px] font-sans px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA V3.0</span>
+          </div>
+          <p class="text-xs text-white/60 font-[300]">
+            Sistema de análisis cinemático y reclasificación conductual de Fórmula 1 · Ronda 22: Las Vegas Strip Circuit.
+          </p>
+        </div>
+        <div class="text-xs font-sans text-white/50 text-left md:text-right">
+          <span>Temporada 2026</span> · <span class="text-[#d4ff32]">GP de Las Vegas</span>
+        </div>
+      </div>
+
+      <!-- GRILLA DEL DISCLAIMER METODOLÓGICO Y TÉCNICO -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-[300] leading-relaxed text-white/70">
+        
+        <!-- COLUMNA 1: CÓMO SE CALCULA LA TELEMETRÍA -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-sans text-[11px] text-[#d4ff32] tracking-wider">
+            01 / Metodología de Cálculo
+          </h4>
+          <p>
+            <strong class="text-white">Clustering K-Means:</strong> Clasificación matemática en 4 familias genéticas procesando variables de violencia física: aceleración lateral (>200 km/h), frenadas bruscas (>5G), pendiente altimétrica y porcentaje de vuelta con acelerador a fondo.
+          </p>
+          <p>
+            <strong class="text-white">Ganancia Neta:</strong> Cálculo del diferencial de posiciones sobre la grilla oficial de largada en las últimas 5 ediciones cruzado con registros meteorológicos en tiempo real (temperatura de pista y frío nocturno).
+          </p>
+        </div>
+
+        <!-- COLUMNA 2: ARQUETIPOS CONDUCTUALES -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-sans text-[11px] text-[#C084FC] tracking-wider">
+            02 / Arquetipos de Pilotos
+          </h4>
+          <p>
+            <strong class="text-white">Agrupamiento Conductual:</strong> Los 22 pilotos de la grilla se agrupan según su consistencia cronometrada, telemetría de frenada tardía respecto a la referencia del circuito y capacidad de gestión térmica del compuesto.
+          </p>
+          <p>
+            <strong class="text-white">Correlación Gemela:</strong> El índice de afinidad del 82.4% entre Las Vegas Strip y Bakú surge del análisis cinemático de rectas kilométricas a fondo y frenadas violentas a 90°.
+          </p>
+        </div>
+
+        <!-- COLUMNA 3: LÍMITES Y AVISO LEGAL -->
+        <div class="space-y-2.5">
+          <h4 class="font-[800] uppercase font-sans text-[11px] text-white tracking-wider">
+            03 / Alcance y Límites del Trabajo
+          </h4>
+          <p>
+            <strong class="text-white">Factores Estocásticos:</strong> Este modelo analiza patrones históricos y telemetría de ingeniería. No puede predecir factores aleatorios como fallas mecánicas de la unidad de potencia, errores humanos en paradas de boxes o penalizaciones deportivas.
+          </p>
+          <p class="text-white/40 text-[11px]">
+            Proyecto independiente de periodismo de datos y análisis telemétrico para streaming y la comunidad de F1. No afiliado, patrocinado ni vinculado a Formula One Licensing B.V., FIA o Formula 1.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- COPYRIGHT INFERIOR -->
+      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-sans text-white/40">
+        <span>© 2026 UNDERTRACK · Diseñado con precisión milimétrica para streaming y editorial deportiva.</span>
+        <span>Las Vegas Strip Circuit · 6.201 km · 50 vueltas</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE CONFIGURACIÓN Y LÓGICA EDITORIAL -->
+  <script src="config.js"></script>
+  <script>
+    // Configuración global y robusta de Groq AI
+    window.GROQ_API_KEY = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+    window.GROQ_MODEL = window.GROQ_MODEL || "qwen/qwen3.8-27b";
+
+    let currentDeskPlatform = 'instagram';
+    let currentDeskFormat = 'post';
+    let currentEditorialNeed = 'debate';
+
+    const platformFormatsMap = {
+      instagram: [
+        { id: 'post', label: 'Post' },
+        { id: 'historia', label: 'Historia' },
+        { id: 'reel', label: 'Reel' }
+      ],
+      tiktok: [
+        { id: 'video_corto', label: 'Video corto' },
+        { id: 'video_largo', label: 'Video largo' }
+      ],
+      x: [
+        { id: 'post', label: 'Post' },
+        { id: 'hilo', label: 'Hilo que abra debate' }
+      ],
+      youtube: [
+        { id: 'short', label: 'Short' },
+        { id: 'video', label: 'Video' }
+      ]
+    };
+
+    // BANCO COMPLETO DE CONTENIDOS POR RED, FORMATO Y ÁNGULO EDITORIAL (LAS VEGAS STRIP 2026 - SIN EMOJIS)
+    const editorialNeedsByFormat = {
+      instagram: {
+        post: {
+          debate: `TELEMETRÍA // GP DE LAS VEGAS 2026\n\n¿Puede McLaren sostener la ventaja en frío o Red Bull los pasa en la recta infinita del Strip?\n\n• Asfalto helado a 12°C: McLaren registra +1.32 posiciones en condiciones frías evitando el graining superficial.\n• Red Bull y Williams alcanzan 352 km/h de punta gracias a paquetes de bajísimo drag aerodinámico.\n• Franco Colapinto apuesta al compuesto Duro para capear las primeras 8 vueltas y pescar neutralizaciones.\n\n¿Tu veredicto para la madrugada del domingo? Te leemos en comentarios.\n\n#F1 #LasVegasGP #Colapinto #Telemetria #Undertrack`,
+          telemetria: `DATOS PUROS DE TELEMETRÍA // LAS VEGAS STRIP\n\n1. Asfalto a 12°C: riesgo crítico de graining en las primeras 10 vueltas.\n2. Recta de 1.9 km: 20 segundos continuos a fondo donde los neumáticos delanteros pierden temperatura.\n3. Frenada de Curva 14: desaceleración de 350 a 90 km/h con frenos subenfriados.\n4. Gestión de Franco Colapinto: preservación del compuesto Duro clave para el overcut de Alpine.\n\nGuardá este post para seguir la carrera en vivo con datos reales.\n\n#F1 #LasVegas #AlpineF1 #Telemetria`,
+          apuesta: `LA PREDICCIÓN PICANTE // LAS VEGAS STRIP\n\nOlvídense de las carreras lineales:\n\n• 76.5% de probabilidad histórica de Safety Car por muros ciegos y gomas heladas.\n• McLaren tiene la mejor ventana de calentamiento térmico progresivo.\n• Alpine y Colapinto tienen la ventana ideal para saltar al top 10 con una sola parada limpia bajo bandera amarilla.\n\n¿Te animás a apostar por un podio sorpresa?\n\n#F1 #Colapinto #LasVegasGP #Undertrack`,
+          resumen: `RESUMEN PREVIO AL AIRE // GP DE LAS VEGAS\n\n• Clima: 10°C ambiente, 12°C en asfalto, cielo despejado, seco absoluto.\n• El desafío: frenada a 90° en Curva 14 tras 1.9 km a más de 345 km/h.\n• El tapado: Franco Colapinto cuidando el compuesto Duro.\n• La pelea: McLaren vs Red Bull en velocidad punta y temperatura de gomas.\n\n¿Listos para la largada a la 1:00 a.m.? Dejá tu pronóstico.\n\n#F1 #LasVegas #GranPremio #Undertrack`
+        },
+        historia: {
+          debate: `¿MCLAREN O RED BULL EN LAS VEGAS?\n\nPista a 12°C desata graining en las primeras vueltas. McLaren vuela en frío (+1.32) pero Red Bull arrasa con 352 km/h en el Strip.\n\n¿Quién se lleva la victoria? Votá en la encuesta.`,
+          telemetria: `DATO TELEMÉTRICO BRUTAL\n\nFranco Colapinto cuida el neumático Duro para sobrevivir al graining inicial. En 50 vueltas con 76% de Safety Car, hay olor a puntos.\n\n¿Entra al Top 10 hoy? [SÍ / NO]`,
+          apuesta: `ALERTA SAFETY CAR\n\n76.5% de probabilidad histórica en Las Vegas. Una parada en vuelta 20 puede meter a Alpine en zona de puntos.\n\n¿Votás sorpresa o carrera predecible?`,
+          resumen: `CLAVES DE LAS VEGAS EN 15s\n\n1. Asfalto helado a 12°C en el desierto\n2. 1.9 km de recta a fondo en el Strip\n3. 76.5% chance de Safety Car\n\nPrendete a la previa de @undertrack.`
+        },
+        reel: {
+          debate: `«[0:00] ¿Por qué nadie está hablando de la verdadera trampa de Las Vegas? [0:04] Todos miran los casinos del Strip, pero la carrera se define en los 12 grados de temperatura de asfalto. [0:15] Con aire a 10°C, quien enfríe la goma en la recta pierde el auto en Curva 14. [0:28] ¿Ustedes creen que McLaren aguanta o Red Bull manda en velocidad punta? Comenten ya.»`,
+          telemetria: `«[0:00] Tres números de telemetría que la transmisión oficial no te va a mostrar. [0:05] Primero: asfalto a 12°C, la pista más helada del año. [0:14] Segundo: Colapinto cuida las gomas duras para aprovechar las neutralizaciones tardías. [0:24] Tercero: 76.5% de probabilidad de Safety Car. [0:30] Guardá este reel antes de la largada.»`,
+          apuesta: `«[0:00] La jugada más picante de este fin de semana en Las Vegas. [0:06] Olvídense de una carrera limpia: con muros a centímetros y gomas frías, la carrera es supervivencia. [0:18] Alpine preparó el auto de Franco para estirar la primera parada y pescar en río revuelto. [0:28] Anoten este reel: Colapinto pelea los puntos.»`,
+          resumen: `«[0:00] Bienvenidos al análisis telemétrico de UNDERTRACK para Las Vegas. [0:05] 50 vueltas, 12 grados en pista y una recta colosal donde se rompen los radares a 352 km/h. [0:18] El duelo McLaren vs Red Bull va a definir los puestos de vanguardia. [0:28] Seguinos para telemetría vuelta a vuelta.»`
+        }
+      },
+      tiktok: {
+        video_corto: {
+          debate: `«Paren todo. En Las Vegas no gana el auto con más motor, gana el que no destruye las gomas con el frío del desierto. Con 12 grados de asfalto, McLaren saca ventaja en calentamiento progresivo ante Red Bull. ¿Norris aguanta la punta o Verstappen lo pasa en el Strip? Los leo en comentarios.»`,
+          telemetria: `«La telemetría secreta de Franco Colapinto en Las Vegas: gestión extrema de compuesto Duro en las primeras 8 vueltas para capear el graining. Si sobrevive a la curva 1, el overcut lo mete directo en el Top 10. Dale like y compartilo.»`,
+          apuesta: `«Mi predicción picante para el GP de Las Vegas: no van a terminar más de 15 autos. 76.5% de probabilidad de Safety Car y gomas subenfriadas a 350 km/h. Quien arriesgue en boxes se lleva la gloria. ¿Se animan a bancar a Alpine?»`,
+          resumen: `«Todo lo que tenés que saber de Las Vegas en 20 segundos: asfalto a 12°C, 1.9 km a fondo por el Strip y frenadas a 90° entre muros de hormigón. El duelo Norris vs Verstappen va a ser fuego puro. Seguinos en UNDERTRACK.»`
+        },
+        video_largo: {
+          debate: `«Análisis técnico profundo: por qué el frío desértico de Las Vegas puede definir la victoria entre McLaren y Red Bull. En este video desglosamos sector por sector: la frenada ciega de Curva 1, el sector trabado del Sphere y la colosal recta del Strip a 352 km/h. Dejen su hipótesis en comentarios para el debate.»`,
+          telemetria: `«Desglose telemétrico completo de Alpine y Franco Colapinto para el GP de Las Vegas: comparativa de telemetría de frenada en Curva 14, velocidad de vértice y preservación térmica en el stint con compuesto Duro. Miren los datos de presión de neumáticos.»`,
+          apuesta: `«Estrategias ocultas en Las Vegas Strip: por qué una sola parada con compuesto Medio a Duro puede ser la jugada maestra frente a las neutralizaciones proyectadas. Simulamos las 50 vueltas con el modelo predictivo de UNDERTRACK.»`,
+          resumen: `«Previa integral de telemetría para el Gran Premio de Las Vegas. Recorremos el trazado de 6.201 metros, el impacto del viento frío nocturno en la Curva 14 y las opciones de podio para Red Bull, Ferrari y McLaren. Bienvenidos al análisis.»`
+        }
+      },
+      x: {
+        post: {
+          debate: `DATO TELEMÉTRICO // LAS VEGAS: Con asfalto a 12°C, McLaren proyecta +1.32 posiciones por su calentamiento progresivo en frío. Red Bull domina la velocidad punta en el Strip a 352 km/h.\n\n¿Quién gana el duelo? Los leo.`,
+          telemetria: `TELEMETRÍA // GP DE LAS VEGAS:\n• Asfalto helado a 12°C desata graining en tren delantero.\n• 1.9 km a fondo en el Strip: subenfriamiento antes de Curva 14.\n• 76.5% probabilidad de Safety Car.\n\nColapinto tiene ritmo para el P9.`,
+          apuesta: `PREDICCIÓN LAS VEGAS: Frío extremo + asfalto urbano liso = caos garantizado. Quien anticipe la parada bajo auto de seguridad gana hasta 3 puestos netos.\n\nOjo con el batacazo de Colapinto y Williams.`,
+          resumen: `CLAVES GP LAS VEGAS:\n1. 12°C asfalto = riesgo crítico de graining.\n2. Recta de 1.9 km define sobrepasos con DRS.\n3. Paridad absoluta McLaren / Red Bull.\n\n¿Tu podio? RT y comentá.`
+        },
+        hilo: {
+          debate: `1/3 ¿Por qué el frío nocturno de Las Vegas puede definir el gran premio? [HILO DE DEBATE]\n\nEl asfalto marcará apenas 12°C. El modelo de UNDERTRACK proyecta graining severo en autos que no logren calentar el neumático en las primeras 5 vueltas.\n\n2/3 McLaren cuenta con la mejor ventana térmica en frío (+1.32 puestos). Red Bull responde con un paquete de drag mínimo que vuela a más de 350 km/h en el Strip.\n\n3/3 ¿Creen que Norris aguanta el asedio o Verstappen domina con velocidad punta? Dejen sus argumentos abajo.`,
+          telemetria: `1/3 LOS NÚMEROS QUE NO TE MUESTRAN DE FRANCO COLAPINTO EN LAS VEGAS [TELEMETRÍA]:\n\nFranco apuesta al compuesto Duro para superar la fase crítica de graining en las primeras 8 vueltas.\n\n2/3 Con 348 km/h de punta en el Strip, Alpine tiene velocidad suficiente para defenderse tras ejecutar el overcut bajo bandera amarilla.\n\n3/3 Veredicto UNDERTRACK: si evita toques en el embudo inicial, los puntos en Las Vegas están al alcance.`,
+          apuesta: `1/3 POR QUÉ LAS VEGAS VA A SER UNA LOTERÍA TÁCTICA [ANÁLISIS]:\n\nEl 76.5% de las carreras aquí tienen Safety Car. La ventana de paradas entre vuelta 18 y 24 es decisiva.\n\n2/3 Las gomas subenfriadas al final de la recta de 1.9 km provocan bloqueos masivos en Curva 14.\n\n3/3 Nuestra apuesta: quien arriesgue con una sola parada limpia se mete al top 8. ¿Ustedes qué dicen? Citá con tu predicción.`,
+          resumen: `1/3 GUÍA RÁPIDA DE TELEMETRÍA // GP DE LAS VEGAS 2026:\n\n50 vueltas en el trazado urbano del Strip. Asfalto a 12°C, 10°C ambiente y 17 curvas entre reflectores.\n\n2/3 Puntos críticos: frenada de Curva 1, tracción en el Sphere y frenada a 90° en Curva 14 tras 20 segundos a fondo.\n\n3/3 Todo listo para la largada a la 1:00 a.m. Seguí la cobertura telemétrica en vivo con @undertrack.`
+        }
+      },
+      youtube: {
+        short: {
+          debate: `«[EN PANTALLA: Telemetría Curva 14] ¿McLaren o Red Bull? Todos miran los reflectores del Strip, pero la carrera se define en los 12 grados de asfalto. McLaren calienta mejor la goma, pero Red Bull tiene 352 km/h de velocidad punta. ¿Ustedes qué opinan? ¿Norris o Verstappen? Comenten acá abajo y suscríbanse a UNDERTRACK.»`,
+          telemetria: `«[EN PANTALLA: Gráficos térmicos de Las Vegas] Atentos a este dato telemétrico de Franco Colapinto: preservación de compuesto Duro para estirar la primera parada. En un circuito con 76% de Safety Car, Alpine tiene la ventana para sumar puntos. Suscribite para más telemetría.»`,
+          apuesta: `«[EN PANTALLA: Recta de Las Vegas de noche] 76.5% de probabilidad de Safety Car y asfalto helado a 12 grados. La jugada maestra del domingo es cuándo parar en boxes con auto de seguridad. Mi apuesta: Colapinto termina en los puntos. Dejá tu comentario.»`,
+          resumen: `«[EN PANTALLA: Mapa del circuito de Las Vegas Strip] Todo lo que necesitás saber antes de que se apaguen los semáforos en Las Vegas: 12°C de asfalto, 1.9 km a fondo y duelo abierto entre McLaren y Red Bull. Suscribite a UNDERTRACK para el análisis post-carrera.»`
+        },
+        video: {
+          debate: `«Muy buenas a todos, bienvenidos al análisis editorial de UNDERTRACK para el Gran Premio de Las Vegas. Hoy abrimos el debate con una pregunta técnica central: ¿puede el MCL38 mantener su ventaja térmica en un asfalto helado a 12 grados frente al demoledor ritmo en recta de Red Bull? Analizamos la telemetría en vivo y los micro-sectores.»`,
+          telemetria: `«Bienvenidos a la sala de telemetría de UNDERTRACK. En este informe especial desglosamos las velocidades punta en el Strip y el comportamiento del neumático Duro de Franco Colapinto. Los datos proyectan una ventana táctica para remontar hasta los puntos si se aprovechan las neutralizaciones.»`,
+          apuesta: `«Gran Premio de Las Vegas: por qué las simulaciones pronostican una carrera impredecible. Con un 76.5% histórico de intervenciones del Safety Car y el riesgo de graining nocturno en Curva 14, repasamos las estrategias más agresivas de la grilla.»`,
+          resumen: `«Bienvenidos a la previa definitiva de UNDERTRACK para Las Vegas Strip Circuit. Repasamos sector por sector los 6.201 metros del trazado nocturno, la física del enfriamiento en la recta de 1.9 km y las claves de la batalla entre Norris, Verstappen y Leclerc.»`
+        }
+      }
+    };
+
+    function syncEditorialOutput() {
+      const plat = currentDeskPlatform || 'instagram';
+      const fmt = currentDeskFormat || 'post';
+      const need = currentEditorialNeed || 'debate';
+
+      const formatBadges = {
+        instagram: {
+          post: { badge: 'Post listo para Instagram', copy: 'copiar post' },
+          historia: { badge: 'Historia lista para Instagram', copy: 'copiar historia' },
+          reel: { badge: 'Reel listo para Instagram', copy: 'copiar guion' }
+        },
+        tiktok: {
+          video_corto: { badge: 'Video Corto para TikTok', copy: 'copiar guion' },
+          video_largo: { badge: 'Video Largo para TikTok', copy: 'copiar guion' }
+        },
+        x: {
+          post: { badge: 'Post listo para X', copy: 'copiar post' },
+          hilo: { badge: 'Hilo de Debate para X', copy: 'copiar hilo' }
+        },
+        youtube: {
+          short: { badge: 'Short listo para YouTube', copy: 'copiar guion' },
+          video: { badge: 'Video Análisis para YouTube', copy: 'copiar guion' }
+        }
+      };
+
+      const meta = (formatBadges[plat] && formatBadges[plat][fmt]) || { badge: 'Guion listo para el aire', copy: 'copiar guion' };
+      const badgeEl = document.getElementById('verdictCardBadge');
+      if (badgeEl) {
+        badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accentRed animate-pulse"></span> ${meta.badge}`;
+      }
+      const copyBtnText = document.getElementById('copyButtonText');
+      if (copyBtnText) {
+        copyBtnText.textContent = meta.copy;
+      }
+
+      let text = '';
+      if (editorialNeedsByFormat[plat] && editorialNeedsByFormat[plat][fmt] && editorialNeedsByFormat[plat][fmt][need]) {
+        text = editorialNeedsByFormat[plat][fmt][need];
+      } else {
+        text = editorialNeedsByFormat.instagram.post.debate;
+      }
+
+      const output = document.getElementById('verdictOutput');
+      if (output && text) {
+        output.textContent = text;
+      }
+    }
+
+    function renderDynamicFormatButtons() {
+      const container = document.getElementById('deskFormatButtonsContainer');
+      if (!container) return;
+
+      const formats = platformFormatsMap[currentDeskPlatform] || platformFormatsMap.instagram;
+      if (!formats.some(f => f.id === currentDeskFormat)) {
+        currentDeskFormat = formats[0].id;
+      }
+
+      container.innerHTML = formats.map(f => {
+        const isActive = f.id === currentDeskFormat;
+        return `
+          <button type="button" 
+                  onclick="selectDeskFormat('${f.id}')" 
+                  id="deskFormatBtn-${f.id}" 
+                  class="desk-choice-btn ${isActive ? 'is-active' : ''} flex-1 min-w-[120px]">
+            ${f.label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    window.selectDeskPlatform = function(plat) {
+      currentDeskPlatform = plat;
+      ['instagram', 'tiktok', 'x', 'youtube'].forEach(p => {
+        const btn = document.getElementById(`deskPlatformBtn-${p}`);
+        if (btn) {
+          if (p === plat) btn.classList.add('is-active');
+          else btn.classList.remove('is-active');
+        }
+      });
+      renderDynamicFormatButtons();
+      syncEditorialOutput();
+    };
+
+    window.selectDeskFormat = function(fmt) {
+      currentDeskFormat = fmt;
+      const formats = platformFormatsMap[currentDeskPlatform] || [];
+      formats.forEach(f => {
+        const btn = document.getElementById(`deskFormatBtn-${f.id}`);
+        if (btn) {
+          if (f.id === fmt) btn.classList.add('is-active');
+          else btn.classList.remove('is-active');
+        }
+      });
+      syncEditorialOutput();
+    };
+
+    window.selectEditorialNeed = function(needKey) {
+      currentEditorialNeed = needKey;
+      ['debate', 'telemetria', 'apuesta', 'resumen'].forEach(k => {
+        const btn = document.getElementById(`btnNeed${k.charAt(0).toUpperCase() + k.slice(1)}`);
+        if (btn) {
+          if (k === needKey) {
+            btn.className = "desk-need-btn active px-4 py-2 rounded-full text-xs font-[600] tracking-tight transition-colors duration-200 bg-carbon text-pureWhite shadow-xs";
+          } else {
+            btn.className = "desk-need-btn px-4 py-2 rounded-full text-xs font-[500] tracking-tight transition-colors duration-200 bg-[#F4F4F7] text-carbon hover:bg-zinc-200";
+          }
+        }
+      });
+      syncEditorialOutput();
+    };
+
+    window.copyVerdict = function() {
+      const output = document.getElementById('verdictOutput');
+      const btn = document.getElementById('btnCopyVerdictMain');
+      if (!output) return;
+      navigator.clipboard.writeText(output.textContent.trim());
+      if (btn) {
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="text-emerald-600 font-[800]">Copiado</span>';
+        setTimeout(() => { btn.innerHTML = oldHtml; }, 2000);
+      }
+    };
+
+    window.clearChatHistory = function() {
+      const hist = document.getElementById('verdictChatHistory');
+      if (hist) hist.innerHTML = '';
+    };
+
+    // GENERACIÓN EN VIVO CON GROQ IA (LAS VEGAS STRIP 2026)
+    window.generateCustomScript = async function() {
+      const btn = document.getElementById('btnGenerateCustomScript');
+      if (btn) {
+        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-white animate-ping mr-2"></span> Redactando con IA...';
+        btn.disabled = true;
+      }
+
+      const plat = currentDeskPlatform || 'instagram';
+      const fmt = currentDeskFormat || 'post';
+      const need = currentEditorialNeed || 'debate';
+
+      let chosenScript = (editorialNeedsByFormat[plat] && editorialNeedsByFormat[plat][fmt] && editorialNeedsByFormat[plat][fmt][need]) || editorialNeedsByFormat.instagram.post.debate;
+
+      let dynamicPrompt = `Sos el analista y estratega de contenido de UNDERTRACK (F1 y telemetría de alta precisión).
+Circuito: GP de Las Vegas (Las Vegas Strip Circuit, 22 de noviembre, 1:00 a.m.).
+Plataforma: ${plat.toUpperCase()}.
+Formato: ${fmt.toUpperCase()}.
+Enfoque editorial: ${need.toUpperCase()}.
+
+Escribí el texto definitivo listo para publicar o salir al aire.
+Datos técnicos reales a incorporar: asfalto helado a 12°C, 10°C de temperatura ambiente nocturna en el desierto de Mojave, recta colosal de 1.9 km a más de 345 km/h, frenada violenta en Curva 14 con gomas subenfriadas (the cold graining trap), ritmo de Franco Colapinto (gestión del compuesto Duro para remontar con neutralizaciones) y duelo McLaren (+1.32 en frío) vs Red Bull (máximo low drag a 352 km/h).
+Adaptá estrictamente la extensión y estructura a ${plat.toUpperCase()} ${fmt.toUpperCase()} (si es post de IG incluye viñetas y hashtags; si es historia máx 40 palabras con llamada a votar; si es reel o video marcas de tiempo; si es X menos de 260 caracteres o hilo 1/3, 2/3, 3/3).
+IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-comentarios ni advertencias.`;
+
+      const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+      const model = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
+
+      let aiSuccess = false;
+      try {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+          body: JSON.stringify({
+            model: model,
+            messages: [{ role: 'user', content: dynamicPrompt }],
+            temperature: 0.7,
+            max_tokens: 650
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const text = data.choices?.[0]?.message?.content?.trim();
+          if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+            chosenScript = text;
+            aiSuccess = true;
+          }
+        }
+      } catch(e) {
+        console.warn('Groq direct error:', e);
+      }
+
+      if (!aiSuccess) {
+        try {
+          const resP = await fetch('/api/groq', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: dynamicPrompt, model: model, apiKey: apiKey })
+          });
+          if (resP.ok) {
+            const dataP = await resP.json();
+            const textP = dataP.choices?.[0]?.message?.content?.trim();
+            if (textP && !textP.toLowerCase().includes('como modelo de inteligencia') && !textP.toLowerCase().includes('no puedo predecir')) {
+              chosenScript = textP;
+              aiSuccess = true;
+            }
+          }
+        } catch(e) {}
+      }
+
+      const output = document.getElementById('verdictOutput');
+      if (output) {
+        output.textContent = chosenScript;
+      }
+
+      if (btn) {
+        btn.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span> <span>Generar con IA (Groq)</span> <span class="text-xs font-bold">➔</span>';
+        btn.disabled = false;
+      }
+    };
+
+    // CHAT TELEMÉTRICO CON GROQ (DIRECTO AL GRANO, SIN REPETIR PREGUNTAS Y SIN EMOJIS)
+    window.handleGroqQuery = async function() {
+      const input = document.getElementById('groqInput');
+      const btn = document.getElementById('btnGroqQuery');
+      const hist = document.getElementById('verdictChatHistory');
+      const container = document.getElementById('verdictChatContainer');
+      const q = input ? input.value.trim() : '';
+      if (!q || !hist) return;
+
+      input.value = '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span> <span>analizando...</span>';
+      }
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'flex justify-end';
+      const safeQ = q.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      userBubble.innerHTML = `
+        <div class="max-w-xl bg-carbon text-pureWhite px-4 py-2.5 rounded-2xl rounded-tr-xs text-xs font-[400] shadow-sm">
+          <span class="text-[9px] font-sans text-white/50 uppercase block mb-0.5 font-[700]">Tú</span>
+          <span class="leading-relaxed">${safeQ}</span>
+        </div>
+      `;
+      hist.appendChild(userBubble);
+
+      const tempId = 'tempBubble_' + Date.now();
+      const tempBubble = document.createElement('div');
+      tempBubble.id = tempId;
+      tempBubble.className = 'flex justify-start';
+      tempBubble.innerHTML = `
+        <div class="max-w-xl bg-pureWhite border border-hairline text-muted px-4 py-2.5 rounded-2xl rounded-tl-xs text-xs italic flex items-center gap-2 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
+          <span>Analizando telemetría de Las Vegas Strip en vivo...</span>
+        </div>
+      `;
+      hist.appendChild(tempBubble);
+      if (container) container.scrollTop = container.scrollHeight;
+
+      const systemPrompt = `Sos analista y comentarista de telemetría de Fórmula 1 en UNDERTRACK para el GP de Las Vegas (Las Vegas Strip Circuit, 22 de noviembre de 2026).
+REGLAS ESTRICTAS:
+1. Jamás digas que sos una inteligencia artificial ni pongas advertencias sobre el futuro: sos un periodista deportivo de F1 analizando telemetría en vivo.
+2. Si te preguntan quién gana, pronósticos o qué va a pasar, da tu análisis técnico con convicción basado en la física de la pista: asfalto a 12°C, 10°C de temperatura ambiente, graining en tren delantero tras la recta de 1.9 km, velocidad punta de Red Bull (>352 km/h), ventaja térmica de McLaren en frío (+1.32 puestos), o la ventana de Franco Colapinto (Alpine) cuidando compuesto Duro para remontar con neutralizaciones (76.5% de probabilidad de Safety Car).
+3. Respondé DIRECTAMENTE a lo consultado, sin repetir la pregunta (prohibido decir "Para...", "Respecto a...", "Sobre..."), sin saludos ni relleno.
+4. No uses emojis.
+5. Máximo 1 o 2 oraciones breves, técnicas y contundentes listas para salir al aire.`;
+
+      let answer = null;
+      const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
+      const model = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
+
+      try {
+        const resDirect = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: q }
+            ],
+            temperature: 0.7,
+            max_tokens: 350
+          })
+        });
+        if (resDirect.ok) {
+          const d = await resDirect.json();
+          const text = d.choices?.[0]?.message?.content?.trim();
+          if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+            answer = text;
+          }
+        }
+      } catch(e) {
+        console.warn('Groq direct chat query error:', e);
+      }
+
+      if (!answer) {
+        try {
+          const resProxy = await fetch('/api/groq', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: q, systemPrompt, model: model, apiKey: apiKey })
+          });
+          if (resProxy.ok) {
+            const dataP = await resProxy.json();
+            const text = dataP.choices?.[0]?.message?.content?.trim();
+            if (text && !text.toLowerCase().includes('como modelo de inteligencia') && !text.toLowerCase().includes('no puedo predecir')) {
+              answer = text;
+            }
+          }
+        } catch (e) {}
+      }
+
+      // Motor de respaldo telemétrico si falló la conexión
+      if (!answer) {
+        const lower = q.toLowerCase();
+        if (lower.includes('colapinto') || lower.includes('franco') || lower.includes('alpine')) {
+          answer = 'Colapinto debe capear las primeras 8 vueltas sin caer en graining: estirando el compuesto Duro en aire limpio, la alta tasa de Safety Car (76.5%) le abre la ventana para saltar al Top 10.';
+        } else if (lower.includes('frio') || lower.includes('temperatura') || lower.includes('clima') || lower.includes('graining')) {
+          answer = 'Con 10°C ambiente y asfalto a 12°C, los 1.9 km a fondo subenfrían el caucho provocando bloqueos masivos y rotura superficial de goma en la frenada de Curva 14.';
+        } else if (lower.includes('norris') || lower.includes('mclaren')) {
+          answer = 'McLaren tiene un diferencial positivo de +1.32 puestos en asfalto helado: el calentamiento progresivo del MCL38 lo coloca como firme candidato ante el desgaste de gomas.';
+        } else if (lower.includes('verstappen') || lower.includes('red bull') || lower.includes('gana') || lower.includes('quien')) {
+          answer = 'Red Bull domina los radares en el Strip con más de 352 km/h por su paquete de mínimo drag: Verstappen tiene velocidad letal para sobrepasar con DRS.';
+        } else {
+          answer = 'En Las Vegas la clave es la gestión del frío en los 1.9 km del Strip: quien evite el bloqueo en Curva 14 y acierte la parada bajo Safety Car se lleva la carrera.';
+        }
+      }
+
+      const currentTemp = document.getElementById(tempId);
+      if (currentTemp) currentTemp.remove();
+
+      let cleanAnswer = answer.trim()
+        .replace(/^["'«]/, '')
+        .replace(/["'»]$/, '')
+        .replace(/^(Para|Respecto a|En cuanto a|Sobre)\s+["'][^"']+["']:\s*/i, '')
+        .replace(/^(Para|Respecto a|En cuanto a|Sobre)\s+[^:\n]+:\s*/i, '');
+
+      const botBubble = document.createElement('div');
+      botBubble.className = 'flex justify-start';
+      const safeAnswer = cleanAnswer.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+      botBubble.innerHTML = `
+        <div class="max-w-xl bg-pureWhite border border-hairline text-carbon px-4 py-3 rounded-2xl rounded-tl-xs text-xs font-[400] shadow-2xs space-y-2">
+          <div class="flex items-center justify-between gap-3 border-b border-hairline/60 pb-1.5">
+            <span class="text-[9px] font-sans text-carbon font-[800] uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32]"></span>
+              UNDERTRACK TELEMETRY
+            </span>
+            <button onclick="navigator.clipboard.writeText('${cleanAnswer.replace(/'/g, "\\'")}'); this.innerText='Copiado';" class="text-[9px] font-sans uppercase text-muted hover:text-carbon font-[600] transition-colors cursor-pointer">
+              copiar
+            </button>
+          </div>
+          <div class="leading-relaxed text-carbon font-[300]">«${safeAnswer}»</div>
+        </div>
+      `;
+      hist.appendChild(botBubble);
+      if (container) container.scrollTop = container.scrollHeight;
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>preguntar</span> ➔';
+      }
+    };
+
+    // Inicializar
+    renderDynamicFormatButtons();
+    syncEditorialOutput();
+  </script>
+</body>
+</html>

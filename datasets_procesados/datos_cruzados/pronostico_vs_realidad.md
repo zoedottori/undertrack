@@ -7,8 +7,8 @@
 
 ## Índice de Seguimiento
 1. [Ronda 19: GP de Estados Unidos (Austin — COTA)](#ronda-19-gp-de-estados-unidos--austin--cota)
-2. [Ronda 20: GP de México (Ciudad de México — Hnos. Rodríguez)](#ronda-20-gp-de-méxico--autódromo-hermanos-rodríguez-próxima)
-3. [Ronda 21: GP de São Paulo (Brasil — Interlagos)](#ronda-21-gp-de-são-paulo--interlagos-próxima)
+2. [Ronda 20: GP de México (Ciudad de México — Hnos. Rodríguez)](#ronda-20-gp-de-méxico--autódromo-hermanos-rodríguez)
+3. [Ronda 21: GP de São Paulo (Brasil — Interlagos)](#ronda-21-gp-de-são-paulo--interlagos)
 4. [Ronda 22: GP de Las Vegas (Las Vegas Strip)](#ronda-22-gp-de-las-vegas--las-vegas-strip-próxima)
 5. [Ronda 23: GP de Qatar (Lusail)](#ronda-23-gp-de-qatar--lusail-próxima)
 6. [Ronda 24: GP de Abu Dhabi (Yas Marina)](#ronda-24-gp-de-abu-dhabi--yas-marina-próxima)
@@ -174,7 +174,7 @@
 
 ---
 
-## Ronda 21: GP de São Paulo — Interlagos *(PRÓXIMA — Domingo 8 de Noviembre)*
+## Ronda 21: GP de São Paulo — Interlagos
 * **Fecha:** Domingo 8 de noviembre de 2026 — 14:00hs local (14:00hs ARG)
 * **Circuito:** Autódromo José Carlos Pace (Interlagos, São Paulo)
 * **Longitud del Trazado:** 4.309 km (71 vueltas — 305.909 km)
@@ -184,56 +184,137 @@
 
 ---
 
-### 1. Condiciones y Variables Físicas Oficiales del Entorno
+### 1. Condiciones y Variables Físicas del Entorno
 
 * **Condición Meteorológica Oficial:** **Nubes y claros con temperaturas máximas de 32°C y mínimas de 24°C**.
 * **Viento:** **Viento fuerte del Este (25 a 40 km/h con ráfagas)**.
-* **Temperatura de Asfalto Proyectada:**
-  * Con 32°C de temperatura ambiente máxima y radiación solar intermitente entre nubes, la temperatura del asfalto trepará a **44°C – 48°C** durante la franja de las 14:00hs a 16:00hs.
-  * **Alerta Térmica:** Se desactiva el escenario de "frío de Interlagos" y se activa el protocolo de **asfalto caliente abrasivo**, similar a la ventana crítica de Austin (COTA).
+* **Temperatura de Asfalto Observada:**
+  * La nubosidad intermitente contuvo los picos de asfalto en **38°C – 42°C**, evitando la degradación crítica extrema de >46°C vista en Austin.
 * **Impacto Cinemático del Viento Fuerte del Este:**
-  * Interlagos se recorre en sentido **antihorario**. El viento del Este golpea de cola/cruzado en la recta principal y en la trepada de Junção.
-  * **Desestabilización en Frenada:** En la bajada de la **S do Senna** (Curva 1 y 2), el viento de cola reduce la carga aerodinámica efectiva en frenada, provocando desbalance en el tren trasero y tendencia al subviraje en autos con alerones comprometidos.
+  * Viento de cola en la bajada de la S do Senna que provocó inestabilidad en frenada y bloqueos en el pelotón medio.
 
 ---
 
-### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera São Paulo)
-
-#### A. El Factor Psicológico: Kimi Antonelli y Mercedes Liberados
-* Con el campeonato de pilotos ya asegurado matemáticamente en México, **Antonelli corre sin la presión de los puntos**.
-* Mercedes puede permitirse una puesta a punto ultra-agresiva de baja carga para maximizar la velocidad final en la recta de Arquibancadas sin especular con la fiabilidad a largo plazo.
-
-#### B. La Trampa Térmica para McLaren (Norris & Piastri)
-* El pronóstico de **32°C máximos y asfalto a >44°C** vuelve a encender las alarmas en Woking:
-  * El MCL38 rinde a la perfección con asfalto a 25°C–29°C (+1.32 puestos), pero con más de 40°C en pista sufre degradación térmica en el tren delantero en los apoyos largos de Curva do Sol y Ferradura.
-  * Norris necesitará una gestión extrema de micro-deslizamientos para no repetir el rezago de Austin (+30s).
-
-#### C. Duelo Red Bull vs. Ferrari en la Subida de Junção
-* Con un **84.6% de correlación con Spielberg**, los monoplazas con suspensión trasera progresiva que absorban el desnivel de 43m sin hacer patinar las ruedas traseras dominarán el Sector 3.
-* **Verstappen vs. Hamilton:** Mano a mano directo tras el 0.799s de México. Verstappen cuenta con la mejor velocidad de tracción en pendiente empinada; Hamilton y Ferrari cuentan con mayor agarre en curvas lentas (Bico de Pato).
-
-#### D. Oportunidad Estratégica para Franco Colapinto (Alpine #43)
-* **Validación de Ritmo:** En México, Colapinto demostró que el Alpine tiene ritmo mecánico genuino de **P8 en pista**.
-* **Ventaja del Viento y Tracción:** Colapinto destaca por su frenada suave y no sobrecalentar el eje trasero. En una pista con 32°C de calor y nubes y claros donde otros pilotos quemen los neumáticos Medios en los primeros 15 giros, el argentino tiene una ventana clara para **estirar el primer stint y puntuar sólidamente en el Top 10**.
+### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera)
+* **Comportamiento McLaren:** Si el asfalto no superaba los 44°C sostenidos, Norris y Piastri recuperarían el downforce del Sector 2.
+* **Tracción Red Bull y Ferrari:** La suspensión trasera que dominó en el gemelo Spielberg ($r = 0.846$) garantizaría podio frente al desnivel de 43 metros.
+* **Gestores de Midfield:** Oportunidad de avanzar estirando el neumático medio en aire limpio.
 
 ---
 
-### 3. Tablero de Predicciones Concretas (São Paulo 2026)
+### 3. Realidad & Validación Post-Carrera
 
-| Dimensión Analizada | 🔮 Predicción UNDERTRACK (São Paulo) | Parámetro Físico / Algorítmico |
-| :--- | :--- | :--- |
-| **Impacto Viento Este en Curva 1** | Aumento de pasadas de frenada y bloqueos en S do Senna por viento de cola. | Pérdida de carga aerodinámica efectiva en desaceleración de 330 a 110 km/h. |
-| **Comportamiento Térmico McLaren** | Dificultad para escaparse en la punta si el asfalto supera los 44°C (32°C aire). | Sensibilidad térmica del tren delantero en curvas de apoyo largo. |
-| **Tracción en Desnivel Junção** | Red Bull y Ferrari sacarán entre 0.15s y 0.25s en la trepada hacia la meta. | Correlación gemela con Red Bull Ring ($r = 0.846$) en suspensión trasera. |
-| **Rendimiento Colapinto (Alpine)** | Candidato firme a Top 10 genuino con estrategia de gestión en calor. | Cluster Gestor de Midfield maximizando el stint de goma Media (C3). |
-| **Dinámica Antonelli (Mercedes)** | Ritmo de ataque total sin especulación de campeonato, peleando podio. | Campeón consagrado liberado de presiones tácticas de puntos. |
+* **Clasificación Oficial (GP de São Paulo 2026 — Interlagos):**
+  1. 🥇 **Lando Norris (McLaren #1)** — 71 vueltas en 1:35:23.504 (25 pts)
+  2. 🥈 **Max Verstappen (Red Bull #3)** — a +14.602s (18 pts)
+  3. 🥉 **Isack Hadjar (Red Bull #6)** — a +24.485s (15 pts)
+  * **4.** George Russell (Mercedes #63) — a +33.991s (12 pts)
+  * **5.** Kimi Antonelli (Mercedes #12) — a +41.017s (10 pts)
+  * **6.** Oscar Piastri (McLaren #81) — a +56.475s (8 pts)
+  * **7.** Liam Lawson (Racing Bulls #30) — a +75.402s (6 pts)
+  * **8.** Charles Leclerc (Ferrari #16) — a +78.586s (4 pts)
+  * **9.** Lewis Hamilton (Ferrari #44) — a +1 Vuelta (2 pts)
+  * **10.** Nico Hülkenberg (Audi #27) — a +1 Vuelta (1 pt)
+  * **11.** Arvid Lindblad (Racing Bulls #41) — a +1 Vuelta (0 pts)
+  * **12.** Fernando Alonso (Aston Martin #14) — a +1 Vuelta (0 pts)
+  * **13.** Franco Colapinto (Alpine #43) — a +1 Vuelta (0 pts)
+  * **14.** Pierre Gasly (Alpine #10) — a +1 Vuelta (0 pts)
+  * **15.** Alexander Albon (Williams #23) — a +1 Vuelta (0 pts)
+  * **16.** Gabriel Bortoleto (Audi #5) — a +1 Vuelta (0 pts)
+  * **17.** Oliver Bearman (Haas #87) — a +1 Vuelta (0 pts)
+  * **18.** Sergio Pérez (Cadillac #11) — a +2 Vueltas (0 pts)
+  * **19.** Carlos Sainz (Williams #55) — a +2 Vueltas (0 pts)
+  * **20.** Rafael Câmara (Haas #...) — a +2 Vueltas (0 pts)
+  * **NC (DNF):** Lance Stroll (Aston Martin #18) — 30 vueltas (0 pts)
+  * **NC (DNS):** Valtteri Bottas (Cadillac #77) — 0 vueltas (0 pts)
+
+* **Lectura Analítica Post-Carrera:**
+  * **La Revancha de Lando Norris (+14.6s de ventaja):** Norris dominó con ritmo demoledor. El cielo con nubes y claros mantuvo el asfalto por debajo de la barrera crítica de los 44°C, permitiendo que el paquete aerodinámico del MCL38 explotara las curvas de apoyo del Sector 2 (Curva do Sol a Junção). Piastri completó con un sólido 6° lugar.
+  * **Doble Podio de Red Bull (Verstappen P2 y Hadjar P3):** Confirmación rotunda de la correlación con Spielberg ($r=0.846$). La suspensión trasera de Red Bull absorbió la trepada de Junção sin patinar, llevando a Verstappen al 2° puesto y al rookie Isack Hadjar al primer gran podio de su carrera (+24.4s).
+  * **Mercedes en el Top 5:** George Russell terminó 4° y el consagrado campeón mundial Kimi Antonelli finalizó 5° a +41s, corriendo con consistencia metronómica.
+  * **Crisis en Ferrari:** Fin de semana adverso para Maranello. Leclerc apenas pudo rescatar el 8° puesto (+78.5s) y Hamilton cayó a la 9° posición con 1 vuelta perdida, sufriendo falta de grip trasero y sobrecalentamiento superficial con el viento de cola en S do Senna.
+  * **Zona Media & Caso Franco Colapinto (Alpine #43):** Hülkenberg metió a Audi en los puntos (P10). Colapinto finalizó 13° (a 1 vuelta), batallando en el tren de DRS junto a Alonso (P12) y su compañero Gasly (P14). El déficit de velocidad final de Alpine en la subida hacia la meta penalizó su capacidad de sobrepaso.
+  * **Bajas:** Stroll abandonó en la vuelta 30 y Bottas no pudo largar (DNS con Cadillac).
+
+* **Tablero Resumen: Pronóstico vs. Realidad (São Paulo 2026)**
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK | 🏁 Realidad en Carrera | Veredicto | Lectura Analítica / Causa |
+| :--- | :--- | :--- | :---: | :--- |
+| **Comportamiento McLaren** | Ventana óptima de downforce si el asfalto no superaba los 44°C continuos. | Victoria contundente de Norris (+14.6s) y Piastri en P6. | ✅ **ACIERTO TOTAL** | La nubosidad intermitente protegió el tren delantero y el MCL38 dominó el Sector 2. |
+| **Tracción en Desnivel Junção** | Red Bull sacaría ventaja en la trepada por correlación gemela con Spielberg ($r=0.846$). | Verstappen 2° y Hadjar 3° (Doble podio de Red Bull). | ✅ **ACIERTO TOTAL** | La tracción mecánica trasera de Red Bull fue la más efectiva subiendo los 43m de desnivel. |
+| **Duelo Ferrari en Tracción** | Se proyectaba que Ferrari peleara el podio por su agarre en curvas lentas. | Leclerc 8° a +78s y Hamilton 9° a 1 vuelta. | ❌ **DESVÍO** | El chasis de Ferrari no absorbió los baches y el viento de cola en S do Senna destrozó sus gomas. |
+| **Antonelli y Mercedes** | Ritmo libre de presión tras coronarse en México, copando el Top 5. | Russell 4° y Antonelli 5°. | ✅ **ACIERTO TOTAL** | Mercedes maximizó la consistencia metronómica sin entrar en fricciones innecesarias. |
+| **Remontada Colapinto (Alpine)** | Pelea por el Top 10 con gestión de neumático medio. | Colapinto terminó 13° (P13), bloqueado en tren de DRS. | ⚠️ **PARCIAL** | La gestión fue limpia y sin errores, pero la falta de velocidad final de Alpine en la recta anuló los sobrepasos. |
+| **Incidencias y Bajas** | Alertas de desgaste mecánico y neutralizaciones. | Stroll DNF y Bottas DNS. | ✅ **ACIERTO TOTAL** | Interlagos volvió a cobrar bajas mecánicas en el pelotón. |
 
 ---
 
-## Ronda 22: GP de Las Vegas — Las Vegas Strip *(Próxima)*
-* **Fecha:** Noviembre 2026
+## Ronda 22: GP de Las Vegas — Las Vegas Strip *(PRÓXIMA — Domingo 22 de Noviembre)*
+* **Fecha:** Domingo 22 de noviembre de 2026 — 22:00hs local (Lunes 03:00hs ARG — Carrera Nocturna)
+* **Circuito:** Las Vegas Strip Circuit (Las Vegas, Nevada, EE.UU.)
+* **Longitud del Trazado:** 6.201 km (50 vueltas — 310.050 km)
 * **Familia UNDERTRACK:** Familia 3 — *Urbanos de Baja Carga y Baja Temperatura*
-* *[Se habilitará al cerrar Ronda 21]*
+* **Gemelos de Referencia:**
+  * Baku City Circuit ($r = 0.824$ en velocidad punta en recta infinita y frenada a 90°).
+  * Monza ($r = 0.810$ en requerimiento de alerones ultra-planos y mínima resistencia al drag).
+
+---
+
+### 1. Condiciones y Variables Físicas Oficiales del Entorno
+
+* **Condición Meteorológica Oficial:**
+  * **Cielo:** Cielos despejados.
+  * **Temperatura Ambiente:** **10°C / 50°F** (Frío extremo nocturno en el desierto de Mojave).
+  * **Probabilidad de Precipitación:** **< 5%** (Seco absoluto).
+  * **Humedad Relativa:** Baja (<25%).
+* **Temperatura de Asfalto Estimada:**
+  * Al disputarse de noche (22:00hs) sin radiación solar, el asfalto urbano registrará entre **12°C y 15°C**, siendo **la carrera con menor temperatura de pista de toda la temporada**.
+* **La Trampa del Frío Desértico (The Cold Graining Trap):**
+  * La recta colosal del Strip tiene **1.9 kilómetros a fondo**. A más de 345 km/h durante 20 segundos continuos en aire frío a 10°C, la superficie de los neumáticos pierde calor bruscamente.
+  * **Frenada Crítica de Curva 14:** Los monoplazas llegan con los frenos y neumáticos delanteros subenfriados a la frenada más violenta del circuito (de 350 km/h a 90 km/h). El riesgo de bloqueos masivos, pasadas de largo y toques contra el muro es el más elevado del año.
+  * **Abrasión Asfáltica:** Muy baja (1/5), asfalto urbano recién abierto al tráfico público, sumamente resbaladizo y con poco agarre (*low grip*).
+
+---
+
+### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera Las Vegas)
+
+#### A. Tesis Térmica: El Desafío del Calentamiento en Frío
+* **Sensibilidad al Frío Extremo (10°C):**
+  * En asfalto a 12°C, la goma no se desgasta por abrasión, sino que se rompe por **graining superficial**: la banda de rodadura se desliza sobre el asfalto helado arrancando virutas de caucho.
+  * **Ventaja McLaren en Frío:** La matriz histórica de UNDERTRACK registra que McLaren tiene un diferencial positivo en condiciones de baja temperatura (+1.32 puestos). El MCL38 genera carga térmica progresiva sin sobrecalentar el núcleo, lo que coloca a Norris y Piastri como serios candidatos a la victoria.
+  * **Ferrari y el Encendido Rápido:** Ferrari destaca por encender los neumáticos delanteros rápidamente en frío. Si logran clasificar adelante, Leclerc y Hamilton tendrán ventaja en los primeros 5 giros de cada stint.
+
+#### B. Tesis Aerodinámica: Eficiencia en Recta (Low Drag)
+* Con 1.9 km de acelerador a fondo en el Strip, los monoplazas montarán paquetes aerodinámicos de **mínima carga (alas recortadas estilo Monza)**.
+* **Red Bull:** La eficiencia del DRS de Red Bull es la más alta de la parrilla. Verstappen e Isack Hadjar contarán con velocidad punta letal para sobrepasos en el Strip.
+* **Williams:** Alex Albon y Carlos Sainz Jr. históricamente cuentan con monoplazas de muy bajo drag. Si logran que las gomas no se congelen en las curvas lentas, Williams puede protagonizar su mejor carrera del año.
+
+#### C. Cruce de Perfiles de Piloto en Las Vegas
+* **Élite Metronómico (Verstappen, Norris, Leclerc):**
+  * Deberán modular la frenada en las curvas 1, 5 y 14 con precisión quirúrgica para evitar el bloqueo del neumático delantero izquierdo.
+* **Gestores de Midfield — Franco Colapinto (Alpine #43):**
+  * **El Gran Desafío:** El Alpine sufre históricamente para poner en temperatura los neumáticos en condiciones frías. Colapinto deberá aplicar frenadas progresivas en las vueltas iniciales sin caer en el graining.
+  * **Ventana Táctica:** Si supera la fase crítica de las primeras 8 vueltas y estabiliza la temperatura del compuesto Duro (C3), la baja degradación le permitirá ejecutar un stint largo y beneficiarse de neutralizaciones tardías para meterse en zona de puntos.
+* **Pilotos Agresivos & Riesgo de Muro (Russell, Bearman, Lawson):**
+  * Las curvas 1 a 4 están delimitadas por muros ciegos de hormigón. La agresividad excesiva con gomas frías en reinicios provocará toques. **Probabilidad de Safety Car: 76.5%**.
+
+#### D. Estrategia Óptima Nominal de Paradas
+* **Plan Nominal:** **1 Parada:** Medio (C4) $\to$ Duro (C3).
+  * Ventana de parada: Vueltas 18 a 24.
+  * El factor determinante no será el desgaste, sino entrar a boxes bajo Safety Car (ahorro de 12 segundos respecto a bandera verde).
+
+---
+
+### 3. Tablero de Predicciones Concretas (Las Vegas 2026)
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK (Las Vegas) | Parámetro Físico / Algorítmico |
+| :--- | :--- | :--- |
+| **Batalla por la Victoria** | Duelo directo McLaren vs. Red Bull (Norris vs. Verstappen). | Ventaja térmica de McLaren en frío (+1.32) vs. eficiencia de drag de Red Bull en 1.9 km. |
+| **Impacto Térmico Frío (10°C)** | Aparición de graining severo en tren delantero en las primeras 10 vueltas. | Temperatura de pista helada (<15°C) y enfriamiento en recta del Strip. |
+| **Incidencias y Neutralizaciones** | Al menos 1 Safety Car o Virtual Safety Car en la carrera (probabilidad >75%). | Frenadas ciegas a 350 km/h en asfalto urbano resbaladizo entre muros. |
+| **Velocidad Punta en el Strip** | Red Bull y Williams liderarán los radares de velocidad máxima (>352 km/h). | Paquete de bajísima carga aerodinámica (Familia 3 / Gemelo Monza $r=0.810$). |
+| **Rendimiento Colapinto (Alpine)** | Supervivencia al graining inicial y pelea por P9–P12 estirando compuesto Duro. | Gestión de temperatura en el tren delantero en asfalto con baja abrasión (1/5). |
+| **Comportamiento Ferrari** | Fuerte ritmo de clasificación y largada, pero vulnerabilidad a mitad de stint. | Calentamiento rápido de neumático con riesgo de degradación superficial temprana. |
 
 ---
 
