@@ -42,6 +42,10 @@ el objetivo: mirar la Fórmula 1 MÁS ALLÁ DE LOS RESULTADOS y descubrir histor
 * consigna:
   * presentar el mayor grado de avance alcanzado, con demo en vivo.
   * explicar y defender las decisiones de diseño, datos y prompting tomadas a lo largo del proyecto.
+* enlaces y entregables:
+  * racional de diseño y memoria metodológica (html): [entregas/entrega_4/racional.html](entregas/entrega_4/racional.html)
+  * racional en markdown: [entregas/entrega_4/racional.md](entregas/entrega_4/racional.md)
+  * url del prototipo online funcional: https://undertrack-app.vercel.app/
 
 ---
 
@@ -101,7 +105,10 @@ nombre_proyecto/
 ├── entregas/               # Registro documental por entrega
 │   ├── entrega_1/
 │   ├── entrega_2/
-│   └── entrega_3/
+│   ├── entrega_3/
+│   └── entrega_4/
+│       ├── racional.html   # Racional interactivo editorial en html
+│       └── racional.md     # Memoria técnica completa en markdown
 └── app/                    # Directorio de producción para publicación web
     ├── index.html          # Estructura principal
     ├── estilos.css         # Hoja de estilos

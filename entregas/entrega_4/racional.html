@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>racional · undertrack · entrega 4</title>
+  
+  <!-- Solo Inter: limpia, neutra y elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crema: '#F2EDE4',
+            cremaOscura: '#E8E1D2',
+            cremaBorde: '#DCD4C5',
+            tinta: '#1C1A17',
+            tintaSuave: '#38342F',
+            tintaMuted: '#7D766C',
+            tintaTenue: '#ABA498',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F2EDE4;
+      color: #1C1A17;
+      font-family: 'Inter', sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection {
+      background-color: #1C1A17;
+      color: #F2EDE4;
+    }
+    
+    /* Contenedor cilíndrico 3D para el índice rotativo */
+    .cylinder-viewport {
+      perspective: 800px;
+      perspective-origin: center;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+    }
+
+    .cylinder-drum {
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cylinder-item {
+      transition: transform 0.4s ease, opacity 0.4s ease, font-weight 0.3s ease;
+      transform-origin: center center -140px;
+      backface-visibility: hidden;
+    }
+  </style>
+</head>
+<body class="bg-crema text-tinta antialiased">
+
+  <!-- ========================================================
+       CONTENEDOR GENERAL: ÍNDICE CILÍNDRICO A LA IZQUIERDA + LECTURA A LA DERECHA
+       ======================================================== -->
+  <div class="max-w-6xl mx-auto px-6 sm:px-12 py-16 sm:py-24">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+      
+      <!-- ========================================================
+           COLUMNA IZQUIERDA: ÍNDICE CIRCULAR / 3D DRUM WHEEL
+           (INSPIRADO EN LA REFERENCIA DE VIDEO: CILINDRO GIRATORIO)
+           ======================================================== -->
+      <aside class="hidden lg:block lg:col-span-4 sticky top-32">
+        <div class="space-y-3">
+          
+          <div class="space-y-0.5 pb-2 border-b border-cremaBorde/60">
+            <span class="text-[9px] uppercase tracking-[0.22em] font-[700] text-tintaMuted block">
+              índice rotativo · e4
+            </span>
+            <span class="text-[11px] font-[300] text-tintaTenue block">
+              rueda de capítulos
+            </span>
+          </div>
+
+          <!-- VENTANA DEL CILINDRO 3D (RUEDA ROTATIVA) -->
+          <div class="cylinder-viewport relative h-[360px] w-full overflow-hidden flex items-center justify-start py-6 select-none">
+            
+            <div id="cylinderDrum" class="cylinder-drum w-full flex flex-col items-start space-y-1">
+              
+              <a href="#sec-01" data-index="0" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                01. ¿cómo explicás en 30s?
+              </a>
+              <a href="#sec-02" data-index="1" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                02. él es mateo
+              </a>
+              <a href="#sec-03" data-index="2" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                03. la telemetría es un infierno
+              </a>
+              <a href="#sec-04" data-index="3" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                04. horas de preproducción
+              </a>
+              <a href="#sec-05" data-index="4" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                05. propuesta de valor
+              </a>
+              <a href="#sec-06" data-index="5" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                06. la hipótesis de pista
+              </a>
+              <a href="#sec-07" data-index="6" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                07. familias y gemelos
+              </a>
+              <a href="#sec-08" data-index="7" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                08. 5 estilos de manejo
+              </a>
+              <a href="#sec-09" data-index="8" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                09. match versus mismatch
+              </a>
+              <a href="#sec-10" data-index="9" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                10. temperatura del asfalto
+              </a>
+              <a href="#sec-11" data-index="10" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                11. el rol real de la ia
+              </a>
+              <a href="#sec-12" data-index="11" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                12. lo que no estaba en figma
+              </a>
+              <a href="#sec-13" data-index="12" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer font-[700]">
+                13. la pirueta ★
+              </a>
+              <a href="#sec-14" data-index="13" class="cylinder-item block text-left py-1 text-xs tracking-tight transition-all cursor-pointer">
+                14. cierre del diseño
+              </a>
+
+            </div>
+
+            <!-- MARCADOR VISUAL DE EJE CENTRAL -->
+            <div class="pointer-events-none absolute left-0 w-2 h-2 rounded-full bg-tinta opacity-80 -translate-x-3"></div>
+
+          </div>
+
+          <!-- ENLACE DE VUELTA AL PROTOTIPO -->
+          <div class="pt-2">
+            <a href="../../app/index.html" class="inline-flex items-center gap-1.5 text-[11px] font-[500] text-tinta hover:underline">
+              <span>abrir prototipo online</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ========================================================
+           COLUMNA DERECHA: TEXTO COMPLETO CORREGIDO SEGÚN ENTREGA 3
+           SOLO TÍTULO Y TEXTO (RITMO LIMPIO, SIN SUBTÍTULOS NI CAJAS)
+           ======================================================== -->
+      <main class="lg:col-span-8 space-y-16 pl-0 lg:pl-6">
+
+        <!-- ENCABEZADO -->
+        <header class="space-y-4 pb-8 border-b border-cremaBorde">
+          <span class="text-[10px] uppercase tracking-[0.2em] font-[600] text-tintaMuted block">
+            entrega 4 · versión final · cátedra de ia y diseño
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-[800] uppercase tracking-tight text-tinta leading-tight">
+            RACIONAL DEL PROYECTO: <br>
+            <span class="font-[300] lowercase italic">por qué esto es como es</span> Y NO DE OTRA FORMA.
+          </h1>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed max-w-xl">
+            este documento justifica cada decisión tomada a lo largo de las cuatro entregas: cómo nació el problema con mateo, qué datos cruzamos, qué cosas le dijimos que no a la inteligencia artificial, por qué elegimos una gráfica sobria y cuál es la pirueta con la que quisimos dar un paso más allá desde el diseño.
+          </p>
+        </header>
+
+        <!-- 01. PREGUNTA DISPARADORA -->
+        <section id="sec-01" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            01. EL DISPARADOR: <span class="font-[300] lowercase italic">¿cómo explicás en 30 segundos algo que te costó 4 horas entender?</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            esa fue la pregunta con la que arrancó undertrack. en la fórmula 1 moderna sobran números pero falta síntesis. un creador de contenido se enfrenta cada fin de semana a una avalancha de tablas de tiempos y gráficos incomprensibles para intentar responder preguntas muy simples: ¿por qué mclaren puede rendir distinto en brasil que en austin? ¿quién tiene ventaja este domingo? ¿qué piloto puede aprovechar mejor este circuito?
+          </p>
+        </section>
+
+        <!-- 02. ÉL ES MATEO -->
+        <section id="sec-02" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            02. ÉL ES MATEO: <span class="font-[300] lowercase italic">creador de contenido de fórmula 1</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            mateo es nuestro usuario. su comunidad le pide respuestas rápidas, interesantes y con fundamento técnico. está atrapado en una tensión constante: si se pone demasiado técnico aburre a su audiencia; si opina sin datos pierde credibilidad. necesita un puente entre la física de la pista y el relato para su transmisión en vivo.
+          </p>
+        </section>
+
+        <!-- 03. LA TELEMETRÍA ES UN INFIERNO -->
+        <section id="sec-03" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            03. LA TELEMETRÍA ES UN INFIERNO: <span class="font-[300] lowercase italic">demasiada información, poco tiempo para interpretarla</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            hoy los datos de carrera son hostiles: gráficos de telemetría continuos, tiempos por microsector, velocidades de entrada y salida, curvas de degradación de neumáticos y condiciones térmicas cambiantes de pista. nadie puede procesar eso en vivo sin perder el hilo de la conversación.
+          </p>
+        </section>
+
+        <!-- 04. HORAS DE PREPRODUCCIÓN PERDIDAS -->
+        <section id="sec-04" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            04. HORAS DE PREPRODUCCIÓN PERDIDAS: <span class="font-[300] lowercase italic">mucho tiempo procesando, poco tiempo creando</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            la consecuencia del estado actual es el desgaste de horas previas: investigar en cuatro sitios distintos, comparar planillas de excel, interpretar datos sueltos de x y volver a empezar. mateo gasta el 80% de su energía en armar los datos y le queda solo el 20% para pensar el guion y conectar con su comunidad.
+          </p>
+        </section>
+
+        <!-- 05. PROPUESTA DE VALOR -->
+        <section id="sec-05" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            05. PROPUESTA DE VALOR: <span class="font-[300] lowercase italic">de datos complejos a historias que se pueden contar</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            undertrack es una web para creadores de contenido de fórmula 1 que transforma datos complejos en información fácil de entender, ayudándolos a descubrir patrones objetivos, encontrar historias interesantes y generar contenido con fundamento antes de que se apaguen los semáforos.
+          </p>
+        </section>
+
+        <!-- 06. LA HIPÓTESIS DE PISTA -->
+        <section id="sec-06" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            06. LA HIPÓTESIS: <span class="font-[300] lowercase italic">el auto define el piso, la pista define el techo</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[500] text-tinta border-l-2 border-tinta pl-4 py-1 leading-relaxed">
+            “si bien el auto define el piso de rendimiento de un piloto, la geometría del circuito determina su techo: ciertas pistas neutralizan la ventaja mecánica y premian estilos agresivos u oportunistas, al punto de que trazados geográficamente distantes comparten patrones de curvas y exigencias mecánicas idénticas.”
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            lo que asumimos: que la interacción entre la geometría del asfalto y el estilo de manejo es medible y regular. lo que no afirmamos: no predecimos choques fortuitos ni fallas de confiabilidad de motor.
+          </p>
+        </section>
+
+        <!-- 07. FAMILIAS Y GEMELOS -->
+        <section id="sec-07" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            07. FAMILIAS Y GEMELOS: <span class="font-[300] lowercase italic">circuitos a 10.000 km que exigen exactamente lo mismo</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            clasificamos los circuitos en cuatro familias geométricas: stop and go (aceleración y frenada pura), laberintos urbanos (calles angostas y curvas lentas de 90°), carga lateral extrema (curvas rápidas enlazadas a más de 200 km/h) y mixtos y técnicos (desniveles y equilibrio de sectores).
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            el procesamiento reveló gemelos obvios (de la misma familia geométrica) y gemelos ocultos: circuitos que en los papeles parecen distintos pero que en la pista exigen mecánicamente lo mismo a ciertos autos y pilotos a pesar de estar a miles de kilómetros de distancia.
+          </p>
+        </section>
+
+        <!-- 08. 5 ESTILOS DE MANEJO -->
+        <section id="sec-08" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            08. CINCO ESTILOS DE MANEJO: <span class="font-[300] lowercase italic">el talento tiene patrones objetivos</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            el agrupamiento por telemetría real hizo emerger cinco estilos de manejo:
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            • élite metronómico: consistencia extrema (1.30s), 91% de carreras en los puntos, cuidan el auto y hacen pocas paradas.<br>
+            • élite agresivo: aprovechan el caos y el sobrepaso (62% en puntos), atacan en frenada y ganan posiciones en relanzamientos.<br>
+            • piloto de lluvia: en seco son mitad de tabla, pero en pista húmeda ganan +1.60 puestos extra.<br>
+            • gestor de midfield: prolijos cuidando neumáticos (1.27s de consistencia), pero sufren cuando quedan atrapados sin aire limpio.<br>
+            • fondista / oportunista: acumulan kilómetros en el fondo de la grilla (7% en puntos, 2.1 paradas por carrera) y esperan neutralizaciones para avanzar.
+          </p>
+        </section>
+
+        <!-- 09. MATCH VERSUS MISMATCH -->
+        <section id="sec-09" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            09. MATCH VERSUS MISMATCH: <span class="font-[300] lowercase italic">pistas que neutralizan y pistas que premian</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            hay circuitos donde ciertos pilotos ven neutralizada su ventaja mientras que en ese mismo trazado otros estilos logran ganar rendimiento. en laberintos urbanos el élite metronómico sufre un mismatch (+0.70 puestos promedio, la pista los neutraliza), mientras que el élite agresivo logra un match (+1.60 puestos ganados promedio porque explota cada hueco entre los muros).
+          </p>
+        </section>
+
+        <!-- 10. TEMPERATURA Y CONDICIONES -->
+        <section id="sec-10" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            10. TEMPERATURA Y CAOS: <span class="font-[300] lowercase italic">el asfalto y el safety car</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            el rendimiento mecánico está condicionado por la temperatura del asfalto. un caso comprobado en nuestros datos: mclaren con frío (&lt;40°c) promedia +1.32 puestos ganados, pero con calor (&ge;40°c) cae a solo +0.12 puestos (una pérdida neta de -1.20 puestos frente a chasis más tolerantes al calor).
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            y el auto de seguridad no impacta a todos por igual: en circuitos predecibles la probabilidad de remontar sube apenas +10 puntos porcentuales (de 22% a 32%), mientras que en circuitos caóticos salta a 44.6% de remontada desde el fondo.
+          </p>
+        </section>
+
+        <!-- 11. EL ROL DE LA IA -->
+        <section id="sec-11" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            11. EL ROL DE LA IA: <span class="font-[300] lowercase italic">no predice el futuro, traduce la física a relato</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            la inteligencia artificial no inventa cálculos mágicos. actúa como el productor editorial del creador de contenido: toma los datos procesados por undertrack y los traduce a lenguaje de transmisión. conecta mediante la api de groq con el modelo llama-3.3-70b-versatile en el editorial desk para armar ganchos, adaptar formatos a cada red social y preparar el guion sin reemplazar los cálculos matemáticos del sistema.
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            diferenciamos de forma explícita lo calculado de lo inferido: [dato verificado] para resultados directos de la base empírica, e [inferencia editorial] para el texto redactado por el modelo.
+          </p>
+        </section>
+
+        <!-- 12. LO QUE NO ESTABA EN FIGMA -->
+        <section id="sec-12" class="space-y-3 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            12. LA TRADUCCIÓN A CÓDIGO: <span class="font-[300] lowercase italic">lo que no estaba en el figma</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            el diseño original de figma sirvió como base de proporciones y tipografía inter con jerarquías marcadas. pero el paso a código demandó decisiones que no existían en el lienzo estático: los estados de interacción en botones y cartas, las transiciones y animaciones de scroll sincronizadas, los modales y contenido dinámico inyectado por javascript, la integración en tiempo real con la api de groq y el diseño responsive para celulares y pantallas de transmisión.
+          </p>
+        </section>
+
+        <!-- 13. LA PIRUETA: NOTACIÓN ESPACIAL DEL TIEMPO -->
+        <section id="sec-13" class="space-y-4 pt-4 scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            13. LA PIRUETA: <span class="font-[300] lowercase italic">notación espacial del tiempo</span>
+          </h2>
+          
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            como diseñadoras, nos negamos a aceptar que la representación de una carrera termine en una tabla de excel con renglones iguales o en un gráfico de líneas cartesianas. esta es nuestra pirueta conceptual: desarmar el tiempo y el ritmo desde el diseño gráfico puro.
+          </p>
+
+          <p class="text-xs sm:text-[13px] font-[600] text-tinta uppercase tracking-wide pt-2">
+            acto uno: la regla tipográfica métrica (los 8.8 centímetros)
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            en cualquier pantalla tradicional de f1 ves renglones idénticos de cuarenta píxeles: norris 1°, verstappen 2°, hadjar 3°. esa gráfica miente porque uniformiza el espacio. pero a 320 km/h el tiempo es distancia física real: una milésima de segundo (0.001s) equivale exactamente a 8.8 centímetros de asfalto (el ancho de una mano).
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            diseñamos una regla tipográfica métrica donde el espacio en blanco entre dos nombres representa la distancia física real en metros que separaba a los autos. en interlagos 2026, entre norris y verstappen hubo 14.6 segundos de diferencia: eso significa 1.297 metros reales de asfalto vacío. el espacio en blanco no es un adorno de la hoja: es la soledad física del líder en la pista.
+          </p>
+
+          <p class="text-xs sm:text-[13px] font-[600] text-tinta uppercase tracking-wide pt-2">
+            acto dos: la partitura gráfica del ritmo de carrera
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            en lugar de gráficos de ingeniería incomprensibles, convertimos la vuelta en una partitura visual continua inspirada en la notación musical contemporánea de john cage:
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            la recta de 1.9 km de las vegas no es una línea muerta: es un silencio tipográfico sostenido donde la goma no sufre fricción. la curva 1 de interlagos no es un número: es un acento tipográfico denso y pesado de 5.1g donde cuatro toneladas caen sobre los frenos.
+          </p>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            cuando enfrentamos la partitura de max verstappen contra la de franco colapinto se ve la verdad de la carrera: verstappen es un compás regular y metronómico sin vibración, mientras que colapinto es una partitura llena de síncopas, quiebres y correcciones en contratiempo para defender la posición con el neumático al límite.
+          </p>
+
+          <p class="text-xs sm:text-[13px] font-[500] text-tinta border-l-2 border-tinta pl-4 py-1 mt-3 leading-relaxed">
+            donde un ingeniero solo ve números y deltas fríos, una diseñadora construye espacio, tiempo y ritmo visual. esa es la diferencia entre programar una web y diseñar comunicación.
+          </p>
+        </section>
+
+        <!-- 14. DEFENSA FINAL -->
+        <section id="sec-14" class="space-y-3 pt-6 border-t border-cremaBorde scroll-mt-20">
+          <h2 class="text-base sm:text-lg font-[800] uppercase tracking-tight text-tinta">
+            14. CONCLUSIÓN: <span class="font-[300] lowercase italic">el diseño como forma de pensar</span>
+          </h2>
+          <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
+            undertrack no es una página linda de autos: es una demostración de cómo el criterio humano transforma la avalancha de datos y de inteligencia artificial en una herramienta con sentido real para las personas. aprendimos qué datos priorizar, dónde frenar a los modelos de lenguaje y cómo usar la tipografía y el espacio para que la complejidad técnica sea legible y emocionante.
+          </p>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       SCRIPT: ANIMACIÓN CILÍNDRICA 3D ROTATIVA (INSPIRADA EN EL VIDEO)
+       ======================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = Array.from(document.querySelectorAll('.cylinder-item'));
+      const drum = document.getElementById('cylinderDrum');
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      
+      let activeIndex = 0;
+      const itemHeight = 32; // px de altura aproximada de cada renglón
+
+      function updateCylinder(index) {
+        activeIndex = Math.max(0, Math.min(items.length - 1, index));
+        
+        // Desplazamos el tambor hacia arriba/abajo para centrar el elemento activo
+        const translateY = -activeIndex * itemHeight + 140;
+        drum.style.transform = `translateY(${translateY}px)`;
+
+        items.forEach((item, i) => {
+          const delta = i - activeIndex;
+          
+          if (delta === 0) {
+            // ELEMENTO CENTRAL ACTIVO: grande, oscuro, nítido y bold
+            item.style.transform = 'rotateX(0deg) scale(1.12) translateZ(10px)';
+            item.style.opacity = '1';
+            item.style.fontWeight = '800';
+            item.style.color = '#1C1A17';
+          } else if (Math.abs(delta) === 1) {
+            // Inmediatos arriba y abajo: curvados en 3D
+            const rot = delta * 24;
+            item.style.transform = `rotateX(${-rot}deg) scale(0.95) translateZ(-15px)`;
+            item.style.opacity = '0.55';
+            item.style.fontWeight = '400';
+            item.style.color = '#7D766C';
+          } else if (Math.abs(delta) === 2) {
+            // Dos posiciones de distancia: más curvados y tenues
+            const rot = delta * 22;
+            item.style.transform = `rotateX(${-rot}deg) scale(0.85) translateZ(-40px)`;
+            item.style.opacity = '0.3';
+            item.style.fontWeight = '300';
+            item.style.color = '#ABA498';
+          } else {
+            // Lejanos: casi invisibles en el horizonte del cilindro
+            const rot = Math.sign(delta) * 55;
+            item.style.transform = `rotateX(${-rot}deg) scale(0.75) translateZ(-70px)`;
+            item.style.opacity = '0.12';
+            item.style.fontWeight = '300';
+            item.style.color = '#ABA498';
+          }
+        });
+      }
+
+      // Sincronización con el scroll de la página
+      window.addEventListener('scroll', () => {
+        let currentIdx = 0;
+        sections.forEach((sec, idx) => {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.38) {
+            currentIdx = idx;
+          }
+        });
+        updateCylinder(currentIdx);
+      });
+
+      // Permitir hacer click en cualquier ítem del tambor
+      items.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+          updateCylinder(idx);
+        });
+      });
+
+      // Inicialización en la primera posición
+      updateCylinder(0);
+    });
+  </script>
+
+</body>
+</html>
