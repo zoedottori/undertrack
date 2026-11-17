@@ -45,7 +45,7 @@ el objetivo: mirar la Fórmula 1 MÁS ALLÁ DE LOS RESULTADOS y descubrir histor
 * enlaces y entregables:
   * url del prototipo online funcional: https://undertrack-app.vercel.app/
   * link de presentación entrega 4 (figma deck): https://www.figma.com/deck/R7iLoGpIJJqOM7iI3XqnVI
-  * racional de diseño y memoria metodológica (html): [entregas/entrega_4/racional.html](entregas/entrega_4/racional.html)
+  * racional de diseño y memoria metodológica (html): https://undertrackentregatres.vercel.app/racional
 
 ---
 
