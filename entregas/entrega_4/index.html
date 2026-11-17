@@ -73,6 +73,31 @@
       user-select: none;
       transition: all 0.3s ease;
     }
+
+    /* EFECTO MÁQUINA DE ESCRIBIR PARA LA VISTA PIRUETA */
+    @keyframes twCursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.15em;
+      background-color: #1C1A17;
+      vertical-align: -0.15em;
+      margin-left: 2px;
+      animation: twCursorBlink 0.7s infinite;
+    }
+    .tw-word-hidden {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(2px);
+      transition: opacity 0.08s ease, transform 0.08s ease;
+    }
+    .tw-word-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
   </style>
 </head>
 <body class="bg-crema text-tinta antialiased">
@@ -761,8 +786,112 @@
       updateCylinder(0);
     });
 
-    // Control del interruptor Racional vs Pirueta (sin números)
+    // Control del interruptor Racional vs Pirueta (sin números) con animación de máquina de escribir
     let enModoPirueta = false;
+    let piruetaOriginalHTML = null;
+    let typewriterTimer = null;
+
+    function iniciarMaquinaDeEscribirPirueta() {
+      const vista = document.getElementById('vistaPirueta');
+      if (!vista) return;
+
+      if (!piruetaOriginalHTML) {
+        piruetaOriginalHTML = vista.innerHTML;
+      } else {
+        // Restaurar estado base antes de animar
+        vista.innerHTML = piruetaOriginalHTML;
+      }
+
+      if (typewriterTimer) {
+        clearInterval(typewriterTimer);
+        typewriterTimer = null;
+      }
+
+      // Preparar elementos de texto para animación palabra por palabra
+      const textBlock = vista.querySelector('.space-y-12');
+      if (!textBlock) return;
+
+      // Recorremos los nodos hijos y envolvemos las palabras en spans animados
+      function prepararNodos(nodo) {
+        if (nodo.nodeType === Node.TEXT_NODE) {
+          const texto = nodo.textContent;
+          if (!texto.trim()) return;
+          const fragment = document.createDocumentFragment();
+          // Separar preservando espacios
+          const partes = texto.split(/(\s+)/);
+          partes.forEach(p => {
+            if (/^\s+$/.test(p)) {
+              fragment.appendChild(document.createTextNode(p));
+            } else if (p.length > 0) {
+              const span = document.createElement('span');
+              span.className = 'tw-word-hidden';
+              span.textContent = p;
+              fragment.appendChild(span);
+            }
+          });
+          nodo.parentNode.replaceChild(fragment, nodo);
+        } else if (nodo.nodeType === Node.ELEMENT_NODE) {
+          // Si es un span con nombre de piloto o espacio en blanco
+          if (nodo.classList.contains('font-[900]') || nodo.classList.contains('font-[700]') || nodo.classList.contains('font-[400]') || nodo.classList.contains('font-[300]') || nodo.classList.contains('inline-block')) {
+            nodo.classList.add('tw-word-hidden');
+          } else {
+            Array.from(nodo.childNodes).forEach(prepararNodos);
+          }
+        }
+      }
+
+      Array.from(textBlock.childNodes).forEach(prepararNodos);
+
+      // Crear cursor titilante de máquina de escribir
+      const cursor = document.createElement('span');
+      cursor.id = 'twCursor';
+      cursor.className = 'typewriter-cursor';
+
+      const hiddenWords = Array.from(vista.querySelectorAll('.tw-word-hidden'));
+      let currentIndex = 0;
+
+      // Insertar cursor antes de la primera palabra
+      if (hiddenWords.length > 0) {
+        hiddenWords[0].parentNode.insertBefore(cursor, hiddenWords[0]);
+      }
+
+      function revelarSiguiente() {
+        if (currentIndex < hiddenWords.length) {
+          const el = hiddenWords[currentIndex];
+          el.classList.remove('tw-word-hidden');
+          el.classList.add('tw-word-visible');
+          
+          // Mover cursor después del elemento revelado
+          if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+          el.parentNode.insertBefore(cursor, el.nextSibling);
+
+          currentIndex++;
+        } else {
+          clearInterval(typewriterTimer);
+          typewriterTimer = null;
+        }
+      }
+
+      // Ritmo de teletipo / máquina de escribir dinámico (22ms por palabra/espacio)
+      typewriterTimer = setInterval(revelarSiguiente, 22);
+
+      // Si el usuario hace click en el contenedor, se revela todo de golpe
+      vista.onclick = function() {
+        if (typewriterTimer) {
+          clearInterval(typewriterTimer);
+          typewriterTimer = null;
+        }
+        hiddenWords.forEach(w => {
+          w.classList.remove('tw-word-hidden');
+          w.classList.add('tw-word-visible');
+        });
+        if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+        if (hiddenWords.length > 0) {
+          const last = hiddenWords[hiddenWords.length - 1];
+          last.parentNode.insertBefore(cursor, last.nextSibling);
+        }
+      };
+    }
 
     function toggleVistaPirueta() {
       enModoPirueta = !enModoPirueta;
@@ -782,7 +911,18 @@
         tabPirueta.classList.remove('text-tintaMuted', 'font-[500]');
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Iniciar animación de máquina de escribir al entrar
+        iniciarMaquinaDeEscribirPirueta();
       } else {
+        if (typewriterTimer) {
+          clearInterval(typewriterTimer);
+          typewriterTimer = null;
+        }
+        if (piruetaOriginalHTML && vistaPirueta) {
+          vistaPirueta.innerHTML = piruetaOriginalHTML;
+        }
+
         vistaPirueta.classList.add('hidden');
         vistaRacional.classList.remove('hidden');
         

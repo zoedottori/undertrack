@@ -43,11 +43,9 @@ el objetivo: mirar la Fórmula 1 MÁS ALLÁ DE LOS RESULTADOS y descubrir histor
   * presentar el mayor grado de avance alcanzado, con demo en vivo.
   * explicar y defender las decisiones de diseño, datos y prompting tomadas a lo largo del proyecto.
 * enlaces y entregables:
+  * url del prototipo online funcional: https://undertrack-app.vercel.app/
   * link de presentación entrega 4 (figma deck): https://www.figma.com/deck/R7iLoGpIJJqOM7iI3XqnVI
   * racional de diseño y memoria metodológica (html): [entregas/entrega_4/racional.html](entregas/entrega_4/racional.html)
-  * racional en markdown: [entregas/entrega_4/racional.md](entregas/entrega_4/racional.md)
-  * guion de presentación (markdown): [entregas/entrega_4/presentacion.md](entregas/entrega_4/presentacion.md)
-  * url del prototipo online funcional: https://undertrack-app.vercel.app/
 
 ---
 
