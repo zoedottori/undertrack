@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/racional", "destination": "/racional.html" },
+    { "source": "/redaccion", "destination": "/redaccion.html" },
+    { "source": "/entregas/entrega_4/racional", "destination": "/entregas/entrega_4/racional.html" },
+    { "source": "/entregas/entrega_4", "destination": "/entregas/entrega_4/racional.html" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/app/index.html" },
+    { "source": "/racional", "destination": "/app/racional.html" },
+    { "source": "/racional.html", "destination": "/app/racional.html" },
+    { "source": "/redaccion", "destination": "/app/redaccion.html" },
+    { "source": "/redaccion.html", "destination": "/app/redaccion.html" },
+    { "source": "/entregas/entrega_4/racional", "destination": "/entregas/entrega_4/racional.html" },
+    { "source": "/entregas/entrega_4", "destination": "/entregas/entrega_4/racional.html" }
+  ]
+}
