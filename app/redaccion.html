@@ -40,7 +40,12 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       letter-spacing: -0.03em;
-      background-color: #F5F5F7;
+      background-color: #ECECEE;
+      background-image: 
+        radial-gradient(rgba(17, 17, 20, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(17, 17, 20, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 20, 0.02) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
       color: #111114;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -290,73 +295,30 @@
   <!-- ========================================================
        FOOTER IDÉNTICO AL DE LA LANDING DE UNDERTRACK
        ======================================================== -->
-  <footer class="w-full bg-[#0A0A0C] text-pureWhite pt-16 pb-12 border-t border-white/10 mt-16">
-    <div class="max-w-6xl mx-auto px-6 sm:px-10 space-y-12">
+  <footer class="w-full bg-[#0A0A0C] text-pureWhite py-12 border-t border-white/10 mt-16">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
       
-      <!-- CABECERA DE FOOTER Y METADATOS -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-10 border-b border-white/10">
-        <div class="space-y-1">
-          <div class="flex items-center gap-3">
-            <span class="font-[900] text-lg uppercase tracking-tight text-white">UNDERTRACK</span>
-            <span class="text-[10px] font-sans px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA V3.0</span>
-          </div>
-          <p class="text-xs text-white/60 font-[300]">
-            Sistema de análisis cinemático y reclasificación conductual de Fórmula 1 · Ronda 22: Las Vegas Strip Circuit.
-          </p>
+      <div class="space-y-1.5">
+        <div class="flex items-center gap-3">
+          <span class="font-[900] text-base uppercase tracking-tight text-white">UNDERTRACK</span>
+          <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA</span>
         </div>
-        <div class="text-xs font-sans text-white/50 text-left md:text-right">
-          <span>Temporada 2026</span> · <span class="text-[#d4ff32]">GP de Las Vegas</span>
-        </div>
+        <p class="text-xs text-white/50 font-[300] max-w-md">
+          análisis cinemático y predicción conductual de fórmula 1 para creadores de contenido. proyecto independiente de diseño y datos · temporada 2026.
+        </p>
       </div>
 
-      <!-- GRILLA DEL DISCLAIMER METODOLÓGICO Y TÉCNICO -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-[300] leading-relaxed text-white/70">
-        
-        <!-- COLUMNA 1: CÓMO SE CALCULA LA TELEMETRÍA -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-sans text-[11px] text-[#d4ff32] tracking-wider">
-            01 / Metodología de Cálculo
-          </h4>
-          <p>
-            <strong class="text-white">Clustering K-Means:</strong> Clasificación matemática en 4 familias genéticas procesando variables de violencia física: aceleración lateral (>200 km/h), frenadas bruscas (>5G), pendiente altimétrica y porcentaje de vuelta con acelerador a fondo.
-          </p>
-          <p>
-            <strong class="text-white">Ganancia Neta:</strong> Cálculo del diferencial de posiciones sobre la grilla oficial de largada en las últimas 5 ediciones cruzado con registros meteorológicos en tiempo real (temperatura de pista y frío nocturno).
-          </p>
-        </div>
-
-        <!-- COLUMNA 2: ARQUETIPOS CONDUCTUALES -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-sans text-[11px] text-[#C084FC] tracking-wider">
-            02 / Arquetipos de Pilotos
-          </h4>
-          <p>
-            <strong class="text-white">Agrupamiento Conductual:</strong> Los 22 pilotos de la grilla se agrupan según su consistencia cronometrada, telemetría de frenada tardía respecto a la referencia del circuito y capacidad de gestión térmica del compuesto.
-          </p>
-          <p>
-            <strong class="text-white">Correlación Gemela:</strong> El índice de afinidad del 82.4% entre Las Vegas Strip y Bakú surge del análisis cinemático de rectas kilométricas a fondo y frenadas violentas a 90°.
-          </p>
-        </div>
-
-        <!-- COLUMNA 3: LÍMITES Y AVISO LEGAL -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-sans text-[11px] text-white tracking-wider">
-            03 / Alcance y Límites del Trabajo
-          </h4>
-          <p>
-            <strong class="text-white">Factores Estocásticos:</strong> Este modelo analiza patrones históricos y telemetría de ingeniería. No puede predecir factores aleatorios como fallas mecánicas de la unidad de potencia, errores humanos en paradas de boxes o penalizaciones deportivas.
-          </p>
-          <p class="text-white/40 text-[11px]">
-            Proyecto independiente de periodismo de datos y análisis telemétrico para streaming y la comunidad de F1. No afiliado, patrocinado ni vinculado a Formula One Licensing B.V., FIA o Formula 1.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- COPYRIGHT INFERIOR -->
-      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-sans text-white/40">
-        <span>© 2026 UNDERTRACK · Diseñado con precisión milimétrica para streaming y editorial deportiva.</span>
-        <span>Las Vegas Strip Circuit · 6.201 km · 50 vueltas</span>
+      <div class="flex flex-wrap items-center gap-6 text-xs font-[500] text-white/70">
+        <a href="index.html" class="hover:text-white transition-colors">
+          landing principal
+        </a>
+        <a href="../entregas/entrega_4/racional.html" class="text-white hover:text-[#d4ff32] transition-colors flex items-center gap-1 font-[700]">
+          <span>racional de diseño</span>
+          <span>↗</span>
+        </a>
+        <a href="https://github.com/zoedottori/undertrack" target="_blank" class="hover:text-white transition-colors">
+          repositorio github ↗
+        </a>
       </div>
 
     </div>
@@ -587,6 +549,40 @@
       if (hist) hist.innerHTML = '';
     };
 
+    // DATASET EXCLUSIVO: PRONÓSTICO VS. REALIDAD — GP DE LAS VEGAS (RONDA 22)
+    const DATASET_PRONOSTICO_LAS_VEGAS = `DATASET OFICIAL: PRONÓSTICO VS. REALIDAD — GP DE LAS VEGAS (RONDA 22)
+Circuito: Las Vegas Strip Circuit (Las Vegas, Nevada, EE.UU.).
+Fecha y Hora: Domingo 22 de noviembre de 2026, 22:00hs local (Lunes 03:00hs ARG / 1:00 a.m. transmisión) — Carrera Nocturna.
+Longitud: 6.201 km, 50 vueltas (310.050 km), 17 curvas.
+Familia UNDERTRACK: Familia 3 — Urbanos de Baja Carga y Baja Temperatura.
+Gemelos de Referencia:
+- Baku City Circuit (r = 0.824 en velocidad punta en recta infinita y frenada a 90°).
+- Monza (r = 0.810 en requerimiento de alerones ultra-planos y mínima resistencia al drag).
+
+1. CONDICIONES Y VARIABLES FÍSICAS OFICIALES:
+- Condición Meteorológica Oficial: Cielos despejados, temperatura ambiente 10°C / 50°F (frío extremo nocturno en el desierto de Mojave), probabilidad de precipitación < 5% (seco absoluto), humedad baja (<25%).
+- Temperatura de Asfalto Estimada: Al disputarse de noche (22:00hs) sin radiación solar, asfalto entre 12°C y 15°C (la carrera con menor temperatura de pista de toda la temporada).
+- The Cold Graining Trap: Recta colosal del Strip de 1.9 km a fondo (>345 km/h por 20 segundos continuos). El aire a 10°C subenfría la superficie de las gomas.
+- Frenada Crítica Curva 14: Desaceleración violenta de 350 km/h a 90 km/h (5.2G) con frenos y neumáticos delanteros subenfriados. Máximo riesgo de bloqueos masivos, pasadas de largo y toques contra el muro.
+- Abrasión Asfáltica: Muy baja (1/5), asfalto urbano recién abierto al tránsito, resbaladizo y con poco agarre (low grip).
+
+2. HIPÓTESIS & PRONÓSTICO UNDERTRACK (PRE-CARRERA):
+- Tesis Térmica (Frío Extremo 10°C): A 12°C de asfalto la goma se rompe por graining superficial. McLaren registra diferencial positivo en baja temperatura (+1.32 puestos), generando carga térmica progresiva sin sobrecalentar el núcleo (Norris y Piastri candidatos). Ferrari destaca por encendido rápido de gomas delanteras en frío (ventaja de Leclerc y Hamilton en primeros 5 giros de cada stint).
+- Tesis Aerodinámica (Low Drag): Paquetes de mínima carga estilo Monza. Red Bull posee la mayor eficiencia de DRS y velocidad punta (>352 km/h con Verstappen e Isack Hadjar). Williams (Albon y Sainz) cuenta con muy bajo drag (+2.23 en rectas) si logran calentar gomas.
+- Cruce de Perfiles de Piloto:
+  * Élite Metronómico (Verstappen, Norris, Leclerc): modulación quirúrgica de frenada en curvas 1, 5 y 14 evitando bloqueo delantero izquierdo.
+  * Gestores de Midfield — Franco Colapinto (Alpine #43): el Alpine sufre para calentar gomas; Colapinto debe superar las primeras 8 vueltas sin caer en graining y estirar el compuesto Duro (C3) para meterse en zona de puntos aprovechando neutralizaciones tardías.
+  * Pilotos Agresivos (Russell, Bearman, Lawson): curvas 1 a 4 con muros ciegos de hormigón. Probabilidad de Safety Car: 76.5%.
+- Estrategia Óptima Nominal: 1 parada: Medio (C4) a Duro (C3), ventana vueltas 18 a 24. Determinante: parar bajo Safety Car (ahorro neto de 12 segundos respecto a bandera verde).
+
+3. TABLERO DE PREDICCIONES CONCRETAS:
+- Batalla por la Victoria: Duelo directo McLaren vs Red Bull (Norris vs Verstappen).
+- Impacto Térmico: Graining severo en tren delantero en las primeras 10 vueltas.
+- Incidencias: Al menos 1 Safety Car o Virtual Safety Car (>75% probabilidad).
+- Velocidad Punta en el Strip: Red Bull y Williams lideran radares (>352 km/h).
+- Rendimiento Franco Colapinto (Alpine): Supervivencia al graining inicial y pelea por P9–P12 estirando compuesto Duro.
+- Comportamiento Ferrari: Fuerte ritmo de clasificación y largada, pero vulnerabilidad a mitad de stint por degradación superficial temprana.`;
+
     // GENERACIÓN EN VIVO CON GROQ IA (LAS VEGAS STRIP 2026)
     window.generateCustomScript = async function() {
       const btn = document.getElementById('btnGenerateCustomScript');
@@ -601,16 +597,27 @@
 
       let chosenScript = (editorialNeedsByFormat[plat] && editorialNeedsByFormat[plat][fmt] && editorialNeedsByFormat[plat][fmt][need]) || editorialNeedsByFormat.instagram.post.debate;
 
-      let dynamicPrompt = `Sos el analista y estratega de contenido de UNDERTRACK (F1 y telemetría de alta precisión).
-Circuito: GP de Las Vegas (Las Vegas Strip Circuit, 22 de noviembre, 1:00 a.m.).
-Plataforma: ${plat.toUpperCase()}.
-Formato: ${fmt.toUpperCase()}.
-Enfoque editorial: ${need.toUpperCase()}.
+      const systemPrompt = `Sos el asistente editorial y estratega de telemetría de UNDERTRACK.
+TU ÚNICA Y EXCLUSIVA FUENTE DE INFORMACIÓN ES EL SIGUIENTE DATASET OFICIAL:
+"""
+${DATASET_PRONOSTICO_LAS_VEGAS}
+"""
 
-Escribí el texto definitivo listo para publicar o salir al aire.
-Datos técnicos reales a incorporar: asfalto helado a 12°C, 10°C de temperatura ambiente nocturna en el desierto de Mojave, recta colosal de 1.9 km a más de 345 km/h, frenada violenta en Curva 14 con gomas subenfriadas (the cold graining trap), ritmo de Franco Colapinto (gestión del compuesto Duro para remontar con neutralizaciones) y duelo McLaren (+1.32 en frío) vs Red Bull (máximo low drag a 352 km/h).
-Adaptá estrictamente la extensión y estructura a ${plat.toUpperCase()} ${fmt.toUpperCase()} (si es post de IG incluye viñetas y hashtags; si es historia máx 40 palabras con llamada a votar; si es reel o video marcas de tiempo; si es X menos de 260 caracteres o hilo 1/3, 2/3, 3/3).
-IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-comentarios ni advertencias.`;
+REGLAS ESTRICTAS DE RESPUESTA:
+1. Consultá e interpretá EXCLUSIVAMENTE la información del dataset provisto arriba. No uses datos externos, ni otros datasets, ni inventes cifras.
+2. Si la consulta o formato solicita datos no disponibles en el dataset, indicá textualmente:
+"El dataset oficial de Pronóstico vs. Realidad para el GP de Las Vegas no contiene información suficiente sobre este punto."
+3. Adaptá rigurosamente la redacción a la plataforma (${plat.toUpperCase()}) y al formato (${fmt.toUpperCase()}) con el enfoque (${need.toUpperCase()}):
+   - INSTAGRAM POST: Estructura clara con párrafos técnicos, viñetas de datos concretos (10°C, 12°C asfalto, 1.9 km recta, +1.32 McLaren, Colapinto compuesto Duro), llamado a comentar y hashtags técnicos (#LasVegasGP, #UNDERTRACK, #F1Telemetry).
+   - INSTAGRAM HISTORIA: Texto conciso de lectura rápida (máx 35-40 palabras) con llamada a votar o encuesta.
+   - INSTAGRAM REEL / TIKTOK: Guion con marcas de tiempo explícitas ([0:00-0:05 Hook], [0:05-0:25 Desarrollo técnico], [0:25-0:40 Remate]).
+   - X (TWITTER) POST: Texto de impacto de menos de 260 caracteres, técnico y directo.
+   - X (TWITTER) HILO: Tres partes numeradas 1/3, 2/3, 3/3 desglosando la telemetría.
+   - YOUTUBE / VIDEO: Estructura de locución audiovisual.
+4. PROHIBIDO USAR EMOJIS.
+5. Entregá directamente el texto final listo para publicar, sin introducciones vacías, sin comillas envolventes ni meta-comentarios sobre IA.`;
+
+      const userPrompt = `Generá el contenido editorial para ${plat.toUpperCase()} en formato ${fmt.toUpperCase()} con enfoque ${need.toUpperCase()} basándote estrictamente en el dataset oficial de Las Vegas.`;
 
       const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
       const model = window.GROQ_MODEL || 'qwen/qwen3.8-27b';
@@ -622,9 +629,12 @@ IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-coment
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
             model: model,
-            messages: [{ role: 'user', content: dynamicPrompt }],
-            temperature: 0.7,
-            max_tokens: 650
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.3,
+            max_tokens: 800
           })
         });
         if (res.ok) {
@@ -644,7 +654,7 @@ IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-coment
           const resP = await fetch('/api/groq', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: dynamicPrompt, model: model, apiKey: apiKey })
+            body: JSON.stringify({ prompt: userPrompt, systemPrompt: systemPrompt, model: model, apiKey: apiKey })
           });
           if (resP.ok) {
             const dataP = await resP.json();
@@ -668,7 +678,7 @@ IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-coment
       }
     };
 
-    // CHAT TELEMÉTRICO CON GROQ (DIRECTO AL GRANO, SIN REPETIR PREGUNTAS Y SIN EMOJIS)
+    // CHAT TELEMÉTRICO CON GROQ (DIRECTO AL GRANO, BASADO EXCLUSIVAMENTE EN DATASET, SIN EMOJIS)
     window.handleGroqQuery = async function() {
       const input = document.getElementById('groqInput');
       const btn = document.getElementById('btnGroqQuery');
@@ -701,19 +711,25 @@ IMPORTANTE: No uses emojis. Entregá directamente el texto final sin meta-coment
       tempBubble.innerHTML = `
         <div class="max-w-xl bg-pureWhite border border-hairline text-muted px-4 py-2.5 rounded-2xl rounded-tl-xs text-xs italic flex items-center gap-2 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
-          <span>Analizando telemetría de Las Vegas Strip en vivo...</span>
+          <span>Consultando dataset Pronóstico vs. Realidad de Las Vegas...</span>
         </div>
       `;
       hist.appendChild(tempBubble);
       if (container) container.scrollTop = container.scrollHeight;
 
-      const systemPrompt = `Sos analista y comentarista de telemetría de Fórmula 1 en UNDERTRACK para el GP de Las Vegas (Las Vegas Strip Circuit, 22 de noviembre de 2026).
-REGLAS ESTRICTAS:
-1. Jamás digas que sos una inteligencia artificial ni pongas advertencias sobre el futuro: sos un periodista deportivo de F1 analizando telemetría en vivo.
-2. Si te preguntan quién gana, pronósticos o qué va a pasar, da tu análisis técnico con convicción basado en la física de la pista: asfalto a 12°C, 10°C de temperatura ambiente, graining en tren delantero tras la recta de 1.9 km, velocidad punta de Red Bull (>352 km/h), ventaja térmica de McLaren en frío (+1.32 puestos), o la ventana de Franco Colapinto (Alpine) cuidando compuesto Duro para remontar con neutralizaciones (76.5% de probabilidad de Safety Car).
-3. Respondé DIRECTAMENTE a lo consultado, sin repetir la pregunta (prohibido decir "Para...", "Respecto a...", "Sobre..."), sin saludos ni relleno.
-4. No uses emojis.
-5. Máximo 1 o 2 oraciones breves, técnicas y contundentes listas para salir al aire.`;
+      const systemPrompt = `Sos el analista de telemetría de UNDERTRACK para el GP de Las Vegas.
+TU ÚNICA Y EXCLUSIVA FUENTE DE INFORMACIÓN ES EL SIGUIENTE DATASET OFICIAL:
+"""
+${DATASET_PRONOSTICO_LAS_VEGAS}
+"""
+
+REGLAS ESTRICTAS DE RESPUESTA:
+1. Respondé EXCLUSIVAMENTE basándote en la información y datos contenidos en el dataset «Pronóstico vs. Realidad — GP de Las Vegas» provisto arriba. No utilices otros datasets, ni información externa, ni datos inventados.
+2. Si el dataset no contiene información suficiente para responder a la pregunta, respondé EXACTAMENTE y únicamente:
+"El dataset oficial de Pronóstico vs. Realidad para el GP de Las Vegas no contiene información suficiente sobre este punto."
+3. Respondé DIRECTAMENTE a la pregunta sin repetir la pregunta ni formular encabezados de reiteración (prohibido decir "Para...", "Respecto a...", "Sobre...", "En cuanto a...").
+4. PROHIBIDO USAR EMOJIS.
+5. Respuestas técnicas, concisas y contundentes (máximo 1 a 2 oraciones).`;
 
       let answer = null;
       const apiKey = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
@@ -729,7 +745,7 @@ REGLAS ESTRICTAS:
               { role: 'system', content: systemPrompt },
               { role: 'user', content: q }
             ],
-            temperature: 0.7,
+            temperature: 0.2,
             max_tokens: 350
           })
         });
@@ -749,7 +765,7 @@ REGLAS ESTRICTAS:
           const resProxy = await fetch('/api/groq', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: q, systemPrompt, model: model, apiKey: apiKey })
+            body: JSON.stringify({ prompt: q, systemPrompt: systemPrompt, model: model, apiKey: apiKey })
           });
           if (resProxy.ok) {
             const dataP = await resProxy.json();
@@ -761,19 +777,27 @@ REGLAS ESTRICTAS:
         } catch (e) {}
       }
 
-      // Motor de respaldo telemétrico si falló la conexión
+      // Motor de respaldo auditado 100% sobre el dataset oficial de Las Vegas
       if (!answer) {
         const lower = q.toLowerCase();
         if (lower.includes('colapinto') || lower.includes('franco') || lower.includes('alpine')) {
-          answer = 'Colapinto debe capear las primeras 8 vueltas sin caer en graining: estirando el compuesto Duro en aire limpio, la alta tasa de Safety Car (76.5%) le abre la ventana para saltar al Top 10.';
+          answer = 'Colapinto debe superar las primeras 8 vueltas sin caer en graining: estirando el compuesto Duro (C3), la probabilidad de Safety Car (76.5%) le abre la ventana para pelear por P9–P12.';
         } else if (lower.includes('frio') || lower.includes('temperatura') || lower.includes('clima') || lower.includes('graining')) {
-          answer = 'Con 10°C ambiente y asfalto a 12°C, los 1.9 km a fondo subenfrían el caucho provocando bloqueos masivos y rotura superficial de goma en la frenada de Curva 14.';
+          answer = 'Con 10°C ambiente y asfalto helado a 12°C–15°C, los 1.9 km a fondo en el Strip subenfrían el caucho provocando graining superficial severo y bloqueos masivos en Curva 14.';
         } else if (lower.includes('norris') || lower.includes('mclaren')) {
-          answer = 'McLaren tiene un diferencial positivo de +1.32 puestos en asfalto helado: el calentamiento progresivo del MCL38 lo coloca como firme candidato ante el desgaste de gomas.';
-        } else if (lower.includes('verstappen') || lower.includes('red bull') || lower.includes('gana') || lower.includes('quien')) {
-          answer = 'Red Bull domina los radares en el Strip con más de 352 km/h por su paquete de mínimo drag: Verstappen tiene velocidad letal para sobrepasar con DRS.';
+          answer = 'McLaren registra un diferencial positivo de +1.32 puestos en asfalto helado por su calentamiento térmico progresivo sin sobrecalentar el núcleo, colocando a Norris y Piastri como candidatos.';
+        } else if (lower.includes('verstappen') || lower.includes('red bull') || lower.includes('velocidad') || lower.includes('recta') || lower.includes('strip')) {
+          answer = 'Red Bull domina los radares en el Strip superando los 352 km/h gracias a la máxima eficiencia de DRS y su paquete de bajísimo drag estilo Monza.';
+        } else if (lower.includes('safety car') || lower.includes('neutralizacion') || lower.includes('parada') || lower.includes('boxes') || lower.includes('estrategia')) {
+          answer = 'El plan nominal es 1 parada (Medio a Duro entre vueltas 18 y 24); parar bajo Safety Car (76.5% de probabilidad) otorga un ahorro neto de 12 segundos respecto a bandera verde.';
+        } else if (lower.includes('ferrari') || lower.includes('leclerc') || lower.includes('sainz') || lower.includes('hamilton')) {
+          answer = 'Ferrari destaca por encender los neumáticos delanteros rápidamente en frío, con fuerte ritmo de clasificación y largada, pero vulnerabilidad a mitad de stint por degradación superficial temprana.';
+        } else if (lower.includes('williams') || lower.includes('albon')) {
+          answer = 'Williams (Albon y Sainz) cuenta con muy bajo drag (+2.23 en rectas) y velocidad punta para pelear en el Strip si logran que las gomas no se congelen en las curvas lentas.';
+        } else if (lower.includes('circuito') || lower.includes('curvas') || lower.includes('longitud') || lower.includes('vueltas')) {
+          answer = 'El Las Vegas Strip Circuit tiene 6.201 km, 17 curvas y 50 vueltas, perteneciente a la Familia 3 (Urbanos de Baja Carga y Baja Temperatura, gemelo de Baku r=0.824 y Monza r=0.810).';
         } else {
-          answer = 'En Las Vegas la clave es la gestión del frío en los 1.9 km del Strip: quien evite el bloqueo en Curva 14 y acierte la parada bajo Safety Car se lleva la carrera.';
+          answer = 'El dataset oficial de Pronóstico vs. Realidad para el GP de Las Vegas no contiene información suficiente sobre este punto.';
         }
       }
 

@@ -39,8 +39,8 @@ export default async function handler(req, res) {
           { role: 'system', content: systemPrompt || 'Sos el asistente editorial de UNDERTRACK.' },
           { role: 'user', content: prompt || 'Generá una previa técnica.' }
         ],
-        temperature: 0.5,
-        max_tokens: 300
+        temperature: 0.3,
+        max_tokens: 800
       })
     });
 

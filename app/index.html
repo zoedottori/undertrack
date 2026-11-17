@@ -569,7 +569,7 @@
       </a>
 
       <!-- Navegación con la nomenclatura y orden preferido -->
-      <nav class="hidden sm:flex items-center gap-6 md:gap-7 text-xs font-[500] tracking-tight">
+      <nav class="hidden sm:flex items-center gap-5 md:gap-6 text-xs font-[500] tracking-tight">
         <a href="#surface" id="nav-surface" class="nav-link text-muted hover:text-carbon transition-colors">superficie</a>
         <a href="#transition-weather" id="nav-pressure" class="nav-link text-muted hover:text-carbon transition-colors">clima</a>
         <a href="#signal" id="nav-signal" class="nav-link text-muted hover:text-carbon transition-colors">gemelo</a>
@@ -593,10 +593,10 @@
        ======================================================== -->
   <div class="relative w-full bg-pureWhite">
     
-    <!-- CONTENEDOR DE LA IMAGEN COMPLETA FONDOUNOYDOS.PNG (ENCUADRE RESPONSIVE CELULAR & DESKTOP) -->
+    <!-- CONTENEDOR DE LA IMAGEN DE PORTADA FONDOVEGAS.JPEG (ENCUADRE RESPONSIVE CELULAR & DESKTOP) -->
     <div class="relative w-full h-[100dvh] lg:h-screen overflow-hidden bg-carbon">
-      <img src="assets/fondos/fondounoydos.png" alt="Fondo Interlagos y Transición" 
-           class="absolute inset-0 w-full h-full object-cover object-[50%_18%] sm:object-top select-none pointer-events-none">
+      <img src="assets/fondos/fondovegas.jpeg" alt="Fondo Las Vegas Strip Portada" 
+           class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
       <!-- Viñeta sutil en la parte superior para garantizar legibilidad del hero -->
       <div class="absolute top-0 inset-x-0 h-44 bg-gradient-to-b from-black/85 via-black/40 to-transparent pointer-events-none z-10"></div>
 
@@ -750,24 +750,24 @@
 
 <section id="surface" class="relative w-full h-[360vh] bg-[#000000] text-pureWhite select-none scroll-mt-0">
     
-    <!-- ESCENARIO PINNED STICKY QUE MANTIENE NUEVOCIRCUITO CONTINUO EN EL VIEWPORT -->
+    <!-- ESCENARIO PINNED STICKY QUE MANTIENE CIRCUITO_VEGAS CONTINUO EN EL VIEWPORT -->
     <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8">
       
-      <!-- Fondo: nuevocircuito.jpeg continuo y fijo en el viewport -->
-      <img src="assets/circuitos/nuevocircuito.jpeg" alt="Circuito Interlagos Fondo" 
+      <!-- Fondo: circuito_vegas.jpeg continuo y fijo en el viewport con encuadre original -->
+      <img src="assets/circuitos/circuito_vegas.jpeg" alt="Las Vegas Strip Circuit Fondo" 
            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
       
-      <!-- Viñeta suave de contraste -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60 pointer-events-none"></div>
+      <!-- Viñeta suave de contraste analógico -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/70 pointer-events-none"></div>
 
-      <!-- CAPA 1: DASHBOARD TELEMÉTRICO DE LAS VEGAS (TITULAR + HITOS ORIGINALES + TECH CARD + STATS) -->
-      <div id="surfaceDashboardWrap" class="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 pt-24 sm:pt-28 pb-4 h-full flex flex-col justify-between will-change-transform transition-opacity duration-200">
+      <!-- CAPA 1: DASHBOARD TELEMÉTRICO DE LAS VEGAS — ESTÉTICA ANALÓGICA & EDITORIAL -->
+      <div id="surfaceDashboardWrap" class="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 pt-14 sm:pt-16 pb-4 h-full flex flex-col justify-between will-change-transform transition-opacity duration-200">
 
-        <!-- ENCABEZADO SUPERPUESTO (ALINEACIÓN VERTICAL UNIFICADA) -->
+        <!-- ENCABEZADO ELEVADO (CIRCUITO ENTERO VISIBLE, SIN LA PALABRA TELEMETRÍA) -->
         <div class="text-left shrink-0 mb-1 sm:mb-2">
-          <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-2 drop-shadow-md">01 / SUPERFICIE</span>
+          <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-1 drop-shadow-md">01 / SUPERFICIE</span>
           <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            LAS VEGAS STRIP EN TELEMETRÍA
+            LAS VEGAS STRIP CIRCUIT
           </h2>
         </div>
 
@@ -776,7 +776,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             
             <!-- A LA IZQUIERDA: DATOS DE COLOR ORIGINALES -->
-            <div class="lg:col-span-6 space-y-2.5 max-w-[320px]">
+            <div class="lg:col-span-6 space-y-2.5 max-w-[340px]">
               <span id="surfaceHitoHeader" class="text-[10px] sm:text-[11px] font-[900] uppercase text-white/90 tracking-wider block mb-1 drop-shadow-md opacity-0 will-change-transform">
                 DATOS DE COLOR &amp; HITOS DE LA PISTA
               </span>
@@ -834,7 +834,7 @@
 
             </div>
 
-            <!-- A LA DERECHA: RECUADRO DE DATOS TÉCNICOS EN VERDE FLÚOR (BARRIDO DERECHA A IZQUIERDA) -->
+            <!-- A LA DERECHA: RECUADRO DE DATOS TÉCNICOS LIMPIO (SIN LA PALABRA TELEMETRÍA) -->
             <div class="lg:col-span-6 flex justify-start lg:justify-end">
               <div id="surfaceTechCard" class="group w-full sm:w-64 md:w-72 bg-black/55 hover:bg-black/75 p-4 sm:p-5 rounded-2xl border border-[#d4ff32]/35 hover:border-[#d4ff32]/70 transition-all duration-300 space-y-3 backdrop-blur-md shadow-2xl opacity-0 will-change-transform">
                 
@@ -842,50 +842,38 @@
                   <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-white">DATOS TÉCNICOS</span>
                   <span class="text-[10px] sm:text-xs uppercase font-[900] tracking-wider text-[#d4ff32] flex items-center gap-1.5 drop-shadow-[0_0_8px_rgba(212,255,50,0.6)]">
                     <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-ping"></span>
-                    TELEMETRÍA
+                    OFICIAL
                   </span>
                 </div>
 
                 <!-- RECTA STRIP -->
-                <div class="flex items-center justify-between py-0.5">
-                  <div>
-                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">RECTA STRIP</span>
-                    <span class="text-[10px] sm:text-[11px] text-[#d4ff32]/85 font-[600] block">aproximadamente 2 km</span>
-                  </div>
-                  <div class="text-right">
-                    <span class="font-[900] text-xl sm:text-2xl text-[#d4ff32]">~2</span><span class="text-xs font-[800] text-[#d4ff32] ml-0.5">km</span>
-                  </div>
-                </div>
-
-                <!-- ABRASIÓN -->
-                <div class="flex items-center justify-between py-0.5 border-t border-white/10">
-                  <div>
-                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">ABRASIÓN</span>
-                    <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">rugosidad pirelli</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">1 / 5</span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                <div class="space-y-0.5">
+                  <div class="flex items-baseline justify-between">
+                    <div>
+                      <span class="text-xs font-[800] uppercase text-white block">RECTA STRIP</span>
+                      <span class="text-[10px] text-white/60">aproximadamente 2 km</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="font-[900] text-xl text-[#d4ff32]">~2</span><span class="text-xs font-[700] text-[#d4ff32] ml-0.5">km</span>
+                    </div>
                   </div>
                 </div>
 
                 <!-- FRENADA -->
-                <div class="flex items-center justify-between py-0.5 border-t border-white/10">
-                  <div>
-                    <span class="text-xs font-[800] uppercase text-white group-hover:text-white transition-colors block">FRENADA</span>
-                    <span class="text-[10px] sm:text-[11px] text-white/70 font-[500] block">Brembo (exigencia media)</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <span class="font-[900] text-xs sm:text-sm text-[#d4ff32] group-hover:text-[#d4ff32] mr-1">3 / 5</span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shadow-[0_0_6px_#d4ff32]"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+                <div class="space-y-0.5 pt-2 border-t border-white/10">
+                  <div class="flex items-baseline justify-between">
+                    <div>
+                      <span class="text-xs font-[800] uppercase text-white block">FRENADA</span>
+                      <span class="text-[10px] text-white/60">3/5 · Brembo (exigencia media)</span>
+                    </div>
+                    <div class="flex items-center gap-1 font-mono text-[#d4ff32]">
+                      <span class="font-[900] text-sm">3 / 5</span>
+                      <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
+                      <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
+                      <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
+                      <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                      <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -895,26 +883,24 @@
           </div>
         </div>
 
-        <!-- ABAJO: DATOS GENERALES (BARRA INFERIOR) -->
-        <div class="w-full max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center relative z-30 bg-gradient-to-r from-transparent via-black/85 to-transparent backdrop-blur-xl py-4 sm:py-5 px-6 sm:px-12 shrink-0 shadow-[0_0_60px_25px_rgba(0,0,0,0.65)]">
-          <div class="py-1 sm:py-2">
-            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">longitud</span>
-            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">6.201<span class="text-sm sm:text-base font-[700] text-white/70 ml-1.5">km</span></div>
+        <!-- ABAJO: DATOS DEL CIRCUITO -->
+        <div class="w-full max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center relative z-30 bg-black/60 border border-white/10 rounded-2xl backdrop-blur-md py-3 sm:py-4 px-6 sm:px-10 shrink-0">
+          <div class="py-1">
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">LONGITUD</span>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">6.201<span class="text-xs sm:text-sm font-[600] text-white/70 ml-1">km</span></div>
           </div>
-          <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
-            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">vueltas</span>
-            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">50</div>
-            <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">vueltas</span>
+          <div class="py-1">
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">VUELTAS</span>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">50</div>
           </div>
-          <div class="border-l border-white/15 py-1 sm:py-2 flex flex-col items-center justify-center">
-            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">curvas</span>
-            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">17</div>
-            <span class="text-xs sm:text-sm font-[600] text-white/70 tracking-normal block mt-1.5">(nocturno)</span>
+          <div class="py-1">
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">CURVAS</span>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">17</div>
           </div>
-          <div class="border-l border-white/15 py-1 sm:py-2">
-            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-white/80 font-[800] block mb-1">récord oficial</span>
-            <div class="text-3xl sm:text-4xl md:text-5xl font-[900] text-white tracking-tighter leading-none">1:33.365</div>
-            <span class="text-xs sm:text-sm font-[700] text-[#d4ff32] block mt-1 font-mono uppercase">max verstappen · 2025</span>
+          <div class="py-1">
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">RÉCORD OFICIAL</span>
+            <div class="text-sm sm:text-base md:text-lg font-[900] text-white font-mono tracking-tight leading-tight">1:33.365</div>
+            <span class="text-[9px] uppercase tracking-wider text-[#d4ff32] font-mono block mt-0.5 font-[700]">MAX VERSTAPPEN · 2025</span>
           </div>
         </div>
 
@@ -1134,7 +1120,7 @@
        - Primera vista casi vacía con apenas el primer bloque asomándose
        - Amplio espacio entre bloques para máxima elegancia y legibilidad
        ======================================================== -->
-  <section id="pressure" class="relative w-full h-[500vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
+  <section id="pressure" class="relative w-full h-[340vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
     
     <!-- GRADIENTE SUPERIOR DE INTEGRACIÓN CON LA TRANSICIÓN -->
     <div class="absolute top-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20"></div>
@@ -1172,313 +1158,176 @@
       <!-- ESCENARIO CENTRAL: TRACK HORIZONTAL CON BLOQUES ASIMÉTRICOS (UNOS MÁS ARRIBA, OTROS MÁS ABAJO) -->
       <div class="relative z-10 w-full flex-1 flex items-center overflow-visible py-2">
         
-        <div id="pressureGalleryTrack" class="flex items-center gap-20 sm:gap-32 md:gap-40 w-max will-change-transform pl-4 pr-48">
+        <div id="pressureGalleryTrack" class="flex items-center gap-16 sm:gap-24 md:gap-32 w-max will-change-transform pl-4 pr-36">
           
-          <!-- ITEM 1: 12°C ASFALTO HELADO (MÁS ARRIBA) -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group -translate-y-8 sm:-translate-y-12 transition-transform duration-500">
-            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
-              <span class="text-white/60 font-mono">asfalto · 12°c</span>
-              <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[9px] border border-blue-400/30">frío extremo</span>
-            </div>
-            
-            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-white/15 group-hover:border-[#d4ff32]/60 transition-all bg-black/40 shadow-2xl">
-              <img src="assets/clima/asfalto caliente.jpeg" alt="Graining en asfalto frío" 
-                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-              
-              <div class="absolute bottom-5 left-5 right-5 space-y-2">
-                <div class="inline-block px-2.5 py-0.5 rounded bg-blue-500/80 text-white font-[900] text-[10px] uppercase font-mono tracking-wider">
-                  the cold graining trap
-                </div>
-                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
-                  Gomas heladas tras 1.9 km
-                </h4>
-                <p class="text-xs text-white/80 font-[300] leading-relaxed">
-                  A 10°C de ambiente y 12°C de pista, el neumático se enfría en la recta y patina al frenar en C14, arrancando virutas de caucho superficial.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ITEM 2: GRÁFICO 01: PREVISIBILIDAD EN PISTA FRÍA VS CALIENTE (DATASET 05) -->
-          <div class="w-[320px] sm:w-[380px] shrink-0 space-y-3 bg-[#121316]/95 border border-white/20 hover:border-[#d4ff32]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md translate-y-6 sm:translate-y-8 transition-all duration-500 group">
-            <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-[#d4ff32]">
+          <!-- TABLERO 01: EL FRÍO NOCTURNO & GRAINING (RESUMIDO Y FÁCIL DE ENTENDER) -->
+          <div class="w-[340px] sm:w-[400px] shrink-0 space-y-4 bg-[#121316]/95 border border-white/20 hover:border-[#60A5FA]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md -translate-y-4 sm:-translate-y-6 transition-all duration-300 group">
+            <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-[#60A5FA]">
               <span class="flex items-center gap-1.5 font-[800]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] animate-pulse"></span>
-                TELEMETRÍA CLIMÁTICA // DATASET 05
+                <span class="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse"></span>
+                01. FRÍO EXTREMO &amp; GRAINING
               </span>
-              <span class="text-white/40">n=2927</span>
+              <span class="text-white/40">1.9 KM STRIP</span>
             </div>
 
             <div class="space-y-1">
-              <h4 class="font-[900] text-lg sm:text-xl uppercase text-white tracking-tight leading-tight">
-                COMPORTAMIENTO TÉRMICO EN FRÍO
+              <h4 class="font-[900] text-xl sm:text-2xl uppercase text-white tracking-tight leading-tight">
+                ASFALTO A 12°C: LA PISTA MÁS HELADA DEL AÑO
               </h4>
-              <p class="text-xs text-white/70 font-[300]">
-                diferencial de rendimiento con asfalto helado (&lt;20°C) frente a condiciones estándar.
+              <p class="text-xs text-white/70 font-[300] leading-relaxed">
+                A 10°C en el desierto, la recta de 1.9 km congela los neumáticos (&lt;60°C). Al llegar a la Curva 14, la goma fría se rompe y los autos bloquean frente al muro.
               </p>
             </div>
 
-            <!-- BARRAS COMPARATIVAS VISUALES -->
-            <div class="space-y-3 pt-2">
-              <div>
-                <div class="flex justify-between text-xs font-mono mb-1">
-                  <span class="text-white/80 font-[600]">Ventana Fría (&lt;20°C)</span>
-                  <span class="text-[#d4ff32] font-[900]">78.6% agarre progresivo</span>
+            <!-- COMPARADOR VISUAL DE TEMPERATURA -->
+            <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-3 font-mono text-[10px]">
+              <span class="text-white/50 text-[9px] uppercase tracking-wider block">TEMPERATURA DE ASFALTO EN F1:</span>
+              
+              <div class="space-y-1.5">
+                <div class="flex justify-between items-center text-white/80">
+                  <span class="font-[700] text-[#60A5FA]">LAS VEGAS (NOCHE)</span>
+                  <span class="font-[900] text-[#60A5FA] text-xs">12°C [ZONA CRÍTICA]</span>
                 </div>
                 <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-                  <div class="h-full bg-[#d4ff32] rounded-full" style="width: 78.6%;"></div>
+                  <div class="h-full bg-[#60A5FA] rounded-full" style="width: 24%;"></div>
                 </div>
               </div>
 
-              <div>
-                <div class="flex justify-between text-xs font-mono mb-1">
-                  <span class="text-white/80 font-[600]">Riesgo de Bloqueo C14</span>
-                  <span class="text-[#60A5FA] font-[900]">64.8% probabilidad</span>
+              <div class="space-y-1.5">
+                <div class="flex justify-between items-center text-white/60">
+                  <span>PROMEDIO TEMPORADA</span>
+                  <span class="font-[700] text-white/80 text-xs">34°C</span>
                 </div>
                 <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-                  <div class="h-full bg-[#60A5FA] rounded-full" style="width: 64.8%;"></div>
+                  <div class="h-full bg-white/40 rounded-full" style="width: 65%;"></div>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between items-center text-white/60">
+                  <span>PISTAS CÁLIDAS (BAHRÉIN)</span>
+                  <span class="font-[700] text-[#FFA726] text-xs">48°C</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-[#FFA726]/70 rounded-full" style="width: 95%;"></div>
                 </div>
               </div>
             </div>
 
-            <!-- DETALLE DE DATOS REALES -->
-            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-white/10 text-center font-mono">
-              <div class="p-2 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[9px] uppercase text-white/50 block">Velocidad Strip</span>
-                <span class="text-xs sm:text-sm font-[900] text-white">352 <span class="text-[#d4ff32] text-[10px]">km/h</span></span>
-              </div>
-              <div class="p-2 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[9px] uppercase text-white/50 block">Delta Frenada C14</span>
-                <span class="text-xs sm:text-sm font-[900] text-[#d4ff32]">-260 <span class="text-[9px] text-[#d4ff32]/70">km/h en 1.8s</span></span>
-              </div>
+            <div class="text-[9px] font-mono text-white/40 border-t border-white/10 pt-2 flex items-center justify-between">
+              <span>CONSECUENCIA EN PISTA:</span>
+              <span class="text-red-400 font-[800]">GRAINING SEVERO</span>
             </div>
           </div>
 
-          <!-- ITEM 3: VENTANA FRÍA NORRIS & MCLAREN (+1.32 EN FRÍO) -->
-          <div class="w-[340px] sm:w-[440px] shrink-0 space-y-3 group translate-y-0 transition-transform duration-500">
-            <div class="flex items-center justify-between text-[10px] uppercase tracking-widest font-[800] text-white/80 px-1">
-              <span>las vegas · 12°c asfalto</span>
-              <span class="text-[#d4ff32] font-[900] bg-[#d4ff32]/10 px-2 py-0.5 rounded-full border border-[#d4ff32]/30 font-mono text-[9px]">terreno mclaren</span>
-            </div>
-
-            <div class="aspect-[4/5] sm:aspect-[1/1.12] rounded-3xl overflow-hidden relative border-2 border-[#d4ff32] bg-black/60 shadow-[0_0_40px_rgba(212,255,50,0.25)]">
-              <img src="assets/pilotos/centered/norris.jpeg" alt="Lando Norris McLaren" 
-                   class="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.08] group-hover:scale-102 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-transparent"></div>
-              
-              <div class="absolute bottom-6 left-6 right-6 space-y-2.5">
-                <div class="inline-flex items-center gap-2 bg-[#d4ff32] text-carbon px-3 py-1 rounded-full text-[10px] font-[900] uppercase tracking-wider shadow-lg">
-                  <span>ganancia en frío: +1.32 puestos</span>
-                </div>
-                <h4 class="font-[900] text-xl sm:text-2xl text-white uppercase tracking-tight leading-tight">
-                  La ventaja térmica de McLaren
-                </h4>
-                <p class="text-xs sm:text-sm font-[300] text-white/90 leading-relaxed">
-                  El chasis del MCL38 genera carga térmica progresiva sin quemar el núcleo. En el frío nocturno del desierto, Norris y Piastri cuentan con la mejor ventana para evitar el graining.
-                </p>
-                <div class="pt-1 space-y-1">
-                  <div class="w-full h-1.5 rounded-full bg-gradient-to-r from-blue-400 via-[#d4ff32] via-yellow-400 to-accentRed relative overflow-hidden">
-                    <div class="absolute top-0 bottom-0 left-[22%] w-1.5 bg-white shadow-[0_0_6px_#fff]"></div>
-                  </div>
-                  <div class="flex justify-between text-[9px] font-mono text-white/70">
-                    <span>10°c ambiente</span>
-                    <span class="text-[#d4ff32] font-[800]">12°c asfalto strip</span>
-                    <span>30°c verano</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ITEM 4: GRÁFICO 02: MATRIZ TÉRMICA DE CONSTRUCTORES (DATASET 06) -->
-          <div class="w-[340px] sm:w-[400px] shrink-0 space-y-3 bg-[#121316]/95 border border-white/20 hover:border-[#d4ff32]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md -translate-y-6 sm:-translate-y-8 transition-all duration-500 group">
+          <!-- TABLERO 02: QUIÉN GANA CON EL FRÍO (MCLAREN VS RED BULL) -->
+          <div class="w-[340px] sm:w-[400px] shrink-0 space-y-4 bg-[#121316]/95 border border-white/20 hover:border-[#d4ff32]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md translate-y-2 sm:translate-y-4 transition-all duration-300 group">
             <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-[#d4ff32]">
               <span class="flex items-center gap-1.5 font-[800]">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] animate-pulse"></span>
-                DATASET 06 // RENDIMIENTO EN FRÍO
+                02. CONSTRUCTORES &amp; VELOCIDAD
               </span>
-              <span class="text-white/40">pista fría &lt;20°C</span>
+              <span class="text-white/40">DATASET 06 AUDITADO</span>
             </div>
 
             <div class="space-y-1">
-              <h4 class="font-[900] text-lg sm:text-xl uppercase text-white tracking-tight leading-tight">
-                QUIÉN GANA Y PIERDE EN FRÍO
+              <h4 class="font-[900] text-xl sm:text-2xl uppercase text-white tracking-tight leading-tight">
+                MCLAREN EN FRÍO VS RED BULL EN RECTA
               </h4>
-              <p class="text-xs text-white/70 font-[300]">
-                delta neto de posiciones ganadas en asfalto frío frente a pistas calientes.
+              <p class="text-xs text-white/70 font-[300] leading-relaxed">
+                El frío no afecta a todos por igual: McLaren calienta las gomas progresivamente, mientras Red Bull arrasa por pura velocidad en los 1.9 km.
               </p>
             </div>
 
-            <!-- BARRAS COMPARATIVAS DE ESCUDERÍAS (DATOS 06) -->
-            <div class="space-y-2.5 pt-2 text-xs font-mono">
-              <!-- McLaren: +1.32 pos en frío -->
-              <div>
-                <div class="flex justify-between items-baseline mb-0.5">
-                  <span class="text-white font-[700]">McLaren</span>
-                  <span class="text-[#d4ff32] font-[900]">+1.32 pos (máximo)</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
-                  <div class="h-full bg-[#d4ff32] rounded-full" style="width: 82%;"></div>
-                </div>
-                <div class="flex justify-between text-[9px] text-white/40 mt-0.5">
-                  <span>Frío: +1.32</span>
-                  <span>Caliente: +0.12</span>
-                </div>
-              </div>
-
-              <!-- Red Bull: +2.07 pos -->
-              <div>
-                <div class="flex justify-between items-baseline mb-0.5">
-                  <span class="text-white font-[700]">Red Bull</span>
-                  <span class="text-[#FFA726] font-[900]">+2.07 pos (top drag)</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
-                  <div class="h-full bg-[#FFA726] rounded-full" style="width: 90%;"></div>
-                </div>
-                <div class="flex justify-between text-[9px] text-white/40 mt-0.5">
-                  <span>Frío: +2.07</span>
-                  <span>Caliente: +1.39</span>
-                </div>
-              </div>
-
-              <!-- Ferrari: encendido rápido -->
-              <div>
-                <div class="flex justify-between items-baseline mb-0.5">
-                  <span class="text-white font-[700]">Ferrari</span>
-                  <span class="text-[#60A5FA] font-[900]">+0.70 pos (rápido en frío)</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
-                  <div class="h-full bg-[#60A5FA] rounded-full" style="width: 60%;"></div>
-                </div>
-                <div class="flex justify-between text-[9px] text-white/40 mt-0.5">
-                  <span>Enciende goma rápido</span>
-                  <span>Riesgo graining medio</span>
-                </div>
-              </div>
-
-              <!-- Williams: alerones planos -->
-              <div>
-                <div class="flex justify-between items-baseline mb-0.5">
-                  <span class="text-white font-[700]">Williams</span>
-                  <span class="text-[#d4ff32] font-[900]">+1.67 pos (top speed)</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
-                  <div class="h-full bg-[#d4ff32] rounded-full" style="width: 75%;"></div>
-                </div>
-                <div class="flex justify-between text-[9px] text-white/40 mt-0.5">
-                  <span>Frío: +1.67</span>
-                  <span>Bajo drag en Strip</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ITEM 5: RECTA STRIP A FONDO -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group translate-y-10 sm:translate-y-14 transition-transform duration-500">
-            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
-              <span class="text-[#d4ff32] font-mono">las vegas · 1.9 km strip</span>
-              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] border border-emerald-400/30">radar a fondo</span>
-            </div>
-
-            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-[#d4ff32]/60 group-hover:border-[#d4ff32] transition-all bg-black/40 shadow-2xl">
-              <img src="assets/clima/lluvia.jpeg" alt="Recta nocturna de Las Vegas" 
-                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+            <!-- BARRAS CLAVE DE RENDIMIENTO -->
+            <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-3.5 font-mono text-[10px]">
               
-              <div class="absolute bottom-5 left-5 right-5 space-y-2">
-                <div class="inline-block px-2.5 py-0.5 rounded bg-[#d4ff32] text-black font-[900] text-[10px] uppercase font-mono tracking-wider">
-                  352 km/h radar
+              <div class="space-y-1">
+                <div class="flex justify-between items-center">
+                  <span class="font-[800] text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#FF8000]"></span> MCLAREN (AGARRE EN FRÍO)
+                  </span>
+                  <span class="text-[#d4ff32] font-[900] text-xs">+1.32 puestos</span>
                 </div>
-                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
-                  20 segundos a fondo continuo
-                </h4>
-                <p class="text-xs text-white/80 font-[300] leading-relaxed">
-                  Las alas ultra-planas estilo Monza permiten volar a 350 km/h, pero enfrían frenos y gomas delanteras antes de la curva 14.
-                </p>
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-[#d4ff32] rounded-full" style="width: 88%;"></div>
+                </div>
+                <span class="text-[9px] text-white/50 block">No desgarran la goma; favoritos en ritmo de carrera.</span>
               </div>
+
+              <div class="space-y-1 pt-1.5 border-t border-white/10">
+                <div class="flex justify-between items-center">
+                  <span class="font-[800] text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#3671C6]"></span> RED BULL (VELOCIDAD EN STRIP)
+                  </span>
+                  <span class="text-[#FFA726] font-[900] text-xs">&gt;352 km/h</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-[#FFA726] rounded-full" style="width: 95%;"></div>
+                </div>
+                <span class="text-[9px] text-white/50 block">Paquete ultra-low drag estilo Monza letal con DRS.</span>
+              </div>
+
+            </div>
+
+            <div class="text-[9px] font-mono text-white/40 border-t border-white/10 pt-2 flex items-center justify-between">
+              <span>DUELO CLAVE:</span>
+              <span class="text-[#d4ff32] font-[800]">NORRIS VS VERSTAPPEN</span>
             </div>
           </div>
 
-          <!-- ITEM 6: GRÁFICO 03: SAFETY CAR 76.5% HISTÓRICO -->
-          <div class="w-[320px] sm:w-[380px] shrink-0 space-y-3 bg-[#121316]/95 border border-white/20 hover:border-[#d4ff32]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md -translate-y-6 sm:-translate-y-8 transition-all duration-500 group">
-            <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-[#d4ff32]">
+          <!-- TABLERO 03: EL FACTOR DECISIVO (76.5% SAFETY CAR) -->
+          <div class="w-[340px] sm:w-[400px] shrink-0 space-y-4 bg-[#121316]/95 border border-white/20 hover:border-[#EAB308]/60 rounded-3xl p-6 sm:p-7 shadow-2xl backdrop-blur-md -translate-y-4 sm:-translate-y-6 transition-all duration-300 group">
+            <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-[#EAB308]">
               <span class="flex items-center gap-1.5 font-[800]">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] animate-pulse"></span>
-                INCIDENTES // DISPERSIÓN ESTRATÉGICA
+                <span class="w-1.5 h-1.5 rounded-full bg-[#EAB308] animate-pulse"></span>
+                03. ESTRATEGIA &amp; CAOS
               </span>
-              <span class="text-white/40">las vegas strip</span>
+              <span class="text-white/40">76.5% PROB. HISTÓRICA</span>
             </div>
 
             <div class="space-y-1">
-              <h4 class="font-[900] text-lg sm:text-xl uppercase text-white tracking-tight leading-tight">
-                SAFETY CAR: 76.5% HISTÓRICO
+              <h4 class="font-[900] text-xl sm:text-2xl uppercase text-white tracking-tight leading-tight">
+                EL REGALO DE 12 SEGUNDOS EN BOXES
               </h4>
-              <p class="text-xs text-white/70 font-[300]">
-                muros de hormigón a centímetros y frenadas con goma subenfriada garantizan neutralizaciones.
+              <p class="text-xs text-white/70 font-[300] leading-relaxed">
+                Con muros a centímetros y frenadas en frío, las neutralizaciones son casi seguras. Parar bajo Safety Car te regala 12 segundos netos frente a bandera verde.
               </p>
             </div>
 
-            <!-- DETALLE DE RANGOS DE GRILLA -->
-            <div class="space-y-2.5 pt-2 text-xs font-mono">
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                <div>
-                  <span class="text-white font-[700] block text-xs">P1 a P5 (Punta)</span>
-                  <span class="text-[9px] text-white/50">Líderes pierden la brecha</span>
+            <!-- GRÁFICO COMPARATIVO DE TIEMPO DE PARADA -->
+            <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-3 font-mono text-[10px]">
+              <span class="text-white/50 text-[9px] uppercase tracking-wider block">PÉRDIDA DE TIEMPO EN PIT LANE:</span>
+
+              <div class="space-y-1">
+                <div class="flex justify-between items-center text-white/80">
+                  <span>PARADA NORMAL (BANDERA VERDE)</span>
+                  <span class="font-[700] text-red-400 text-xs">22.8 s</span>
                 </div>
-                <div class="text-right">
-                  <span class="text-accentRed font-[900] text-sm">-1.18 pos</span>
-                  <span class="text-[9px] text-white/40 block">vulnerable en relanzada</span>
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-red-400/80 rounded-full" style="width: 100%;"></div>
                 </div>
               </div>
 
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                <div>
-                  <span class="text-white font-[700] block text-xs">P6 a P10 (Midfield Alto)</span>
-                  <span class="text-[9px] text-white/50">Ventaja de pit stop barato</span>
+              <div class="space-y-1">
+                <div class="flex justify-between items-center text-white/80">
+                  <span class="text-[#d4ff32] font-[700]">PARADA BAJO SAFETY CAR</span>
+                  <span class="font-[900] text-[#d4ff32] text-xs">10.8 s</span>
                 </div>
-                <div class="text-right">
-                  <span class="text-[#d4ff32] font-[900] text-sm">+0.86 pos</span>
-                  <span class="text-[9px] text-white/40 block">ahorro 12 seg en boxes</span>
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-[#d4ff32] rounded-full" style="width: 47%;"></div>
                 </div>
               </div>
 
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                <div>
-                  <span class="text-white font-[700] block text-xs">P11+ (Colapinto & Midfield)</span>
-                  <span class="text-[9px] text-white/50">Remontada con Duro</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-[#60A5FA] font-[900] text-sm">+3.60 pos</span>
-                  <span class="text-[9px] text-[#60A5FA]/70 block">ventana a puntos</span>
-                </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                <span class="text-white/60 font-[700]">AHORRO NETO:</span>
+                <span class="text-[#d4ff32] font-[900] text-sm">-12.0 SEGUNDOS</span>
               </div>
             </div>
-          </div>
 
-          <!-- ITEM 7: SAFETY CAR & FRANCO COLAPINTO -->
-          <div class="w-[300px] sm:w-[360px] shrink-0 space-y-3 group translate-y-6 sm:translate-y-8 transition-transform duration-500">
-            <div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-[800] px-1">
-              <span class="text-white/60 font-mono">estrategia nominal</span>
-              <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 font-mono text-[9px] border border-yellow-400/30">1 parada: medio a duro</span>
-            </div>
-
-            <div class="aspect-[4/5] rounded-3xl overflow-hidden relative border-2 border-white/15 group-hover:border-[#d4ff32]/60 transition-all bg-black/40 shadow-xl">
-              <img src="assets/clima/safety car.jpeg" alt="Safety Car en pista" 
-                   class="w-full h-full object-cover object-center filter contrast-125 opacity-75 group-hover:scale-105 transition-transform duration-700">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-              
-              <div class="absolute bottom-5 left-5 right-5 space-y-2">
-                <div class="inline-block px-2.5 py-0.5 rounded bg-yellow-500/80 text-black font-[900] text-[10px] uppercase font-mono tracking-wider">
-                  ventana táctica
-                </div>
-                <h4 class="font-[900] text-lg sm:text-xl text-white uppercase leading-snug tracking-tight">
-                  Colapinto y la gestión del Duro
-                </h4>
-                <p class="text-xs text-white/80 font-[300] leading-relaxed">
-                  Superar el graining en las primeras 8 vueltas y estirar el neumático Duro permite aprovechar paradas bajo auto de seguridad para saltar a zona de puntos.
-                </p>
-              </div>
+            <div class="text-[9px] font-mono text-white/40 border-t border-white/10 pt-2 flex items-center justify-between">
+              <span>VENTANA DE ORO:</span>
+              <span class="text-[#EAB308] font-[800]">VUELTAS 18 A 24</span>
             </div>
           </div>
 
@@ -1659,6 +1508,10 @@
                 class="px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon">
           Segundo Piloto por Escudería ⇄
         </button>
+        <button id="btnDeck3" onclick="switchDeck(3)" 
+                class="px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon flex items-center gap-1.5">
+          <span>⚡ 5 Favorecidos (Más Puestos Ganados)</span>
+        </button>
       </div>
 
       <span class="text-[10px] sm:text-[11px] text-muted font-[400]">
@@ -1785,184 +1638,164 @@
   </section>
 
   <!-- ========================================================
-       PANTALLA 05: CHOQUE (THE CROSSOVER)
-       TIRA DE CONTACTO 35MM (KODAK 400TX // CONTACT SHEET)
-       - Perforaciones analógicas en bordes (film sprockets)
-       - Metadatos de emulsión y número de frame
-       - Anotaciones editoriales manuscritas en lápiz graso rojo (Caveat)
-       - Botones de Audio Waveform para Mateo
+       NUEVO FEATURE: PILOTOS Y SECTORES (ANÁLISIS POR SECTORES)
+       Muestra qué pilotos se ven favorecidos por las características
+       de cada sector del circuito: rectas, curvas rápidas, curvas lentas,
+       frenadas y zonas de tracción. Respaldado con datos reales.
        ======================================================== -->
-    <!-- ========================================================
-       PANTALLA 05: EL CRUCE (INTERSECCIÓN TELEMÉTRICA)
-       IDEA UNO: HUD TELEMÉTRICO CON RADAR POLIGONAL DE COMBATE
-       - Selector de arquetipos: Max Verstappen, Oliver Bearman, Charles Leclerc
-       - Display central con Radar Poligonal SVG interactivo y morphing
-       - Análisis telemétrico de vértice crítico en Interlagos
-       ======================================================== -->
-    <!-- ========================================================
-       PANTALLA 05: EL CRUCE (INTERSECCIÓN TELEMÉTRICA)
-       LAYOUT EDITORIAL LIMPIO Y MINIMALISTA
-       ======================================================== -->
-    <!-- ========================================================
-       PANTALLA 05: EL CRUCE (LÍNEA VERTICAL TELEMÉTRICA)
-       ANIMACIÓN DE SCROLL: LÍNEA CENTRAL QUE SE ILUMINA
-       Y BLOQUES DE DATOS ALTERNADOS A IZQUIERDA Y DERECHA
-       ======================================================== -->
-    <!-- ========================================================
+  
+
+  <!-- ========================================================
        PANTALLA 05: EL CRUCE (INTERSECCIÓN CONDUCTUAL)
-       - Título sticky fijo a la izquierda esquivado por la línea
-       - Línea curva orgánica que une los 3 vértices de combate
-       - Máxima jerarquía tipográfica, datos al grano, sin fotos
+       - Todos los insights en una sola pantalla integrada (min-h-screen)
+       - Sin animaciones de aparición escalonadas
+       - Información visualmente integrada, clara y atractiva
        ======================================================== -->
-    <!-- ========================================================
-       PANTALLA 05: EL CRUCE (INTERSECCIÓN CONDUCTUAL)
-       - STICKY PINNED STAGE (h-[360vh])
-       - ARRANCA VACÍA: LA LÍNEA Y EL AUTITO SUBEN CON EL SCROLL
-       - LA LÍNEA IMITA LA TRAZADA DE INTERLAGOS
-       - UN AUTITO GUÍA EL RECORRIDO Y ROTA EN LAS CURVAS
-       - LOS 3 INSIGHTS SE PRESENTAN DE A UNO (NUNCA JUNTOS)
-       - TEXTOS INFORMALES, DIRECTOS Y MÍNIMOS
-       ======================================================== -->
-  <section id="crossover" class="relative w-full h-[360vh] bg-[#0A0A0C] text-pureWhite select-none scroll-mt-0 border-t border-white/10">
+  <section id="crossover" class="relative w-full min-h-screen bg-[#0A0A0C] text-pureWhite select-none scroll-mt-20 py-20 sm:py-28 px-6 sm:px-10 flex flex-col justify-center border-t border-white/10">
     
     <!-- GRADIENTE CINEMÁTICO DE FONDO -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_40%,rgba(212,255,50,0.03),transparent_70%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(212,255,50,0.04),transparent_70%)] pointer-events-none"></div>
 
-    <!-- ESCENARIO PINNED STICKY (ALINEACIÓN VERTICAL UNIFICADA pt-24 sm:pt-28) -->
-    <div class="sticky top-0 h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-6 sm:pb-8 overflow-hidden">
+    <div class="max-w-6xl mx-auto w-full space-y-8 my-auto relative z-10">
       
-      <div class="max-w-6xl mx-auto w-full px-6 sm:px-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
-        
-        <!-- LADO IZQUIERDO: TÍTULO FIJO Y MATRIZ INTEGRADA DE VARIABLES -->
-        <div class="lg:col-span-5 space-y-4">
-          <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-2">05 / EL CRUCE CONDUCTUAL</span>
-          
-          <h2 class="font-[900] text-3xl sm:text-5xl lg:text-[3.2rem] uppercase leading-[0.98] tracking-tight text-white">
-            HAY PISTAS QUE <br>
-            NEUTRALIZAN <br>
-            <span class="font-[100] text-white/60 normal-case">a los mejores y premian</span> <br>
-            A LOS CAZADORES.
+      <!-- CABECERA DE LA SECCIÓN Y MATRIZ SUPERIOR RESUMIDA -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/15">
+        <div>
+          <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-2">
+            05 / EL CRUCE CONDUCTUAL
+          </span>
+          <h2 class="font-[900] text-3xl sm:text-5xl uppercase leading-[0.98] tracking-tight text-white max-w-2xl">
+            NO GANA EL MÁS RÁPIDO. <br>
+            <span class="font-[200] text-white/60 normal-case">gana el que sobrevive</span> <br>
+            A LA TRAMPA DEL FRÍO.
           </h2>
+        </div>
 
-          <!-- MATRIZ VISUAL DE CRUCE DE VARIABLES (ENTENDIMIENTO INMEDIATO) -->
-          <div class="pt-4 border-t border-white/15 space-y-2.5">
-            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-[#d4ff32] font-[800] block">
-              VARIABLES CRUZADAS EN ESTE ANÁLISIS:
-            </span>
-            <div class="grid grid-cols-3 gap-2 font-mono text-left">
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[9px] text-[#FFA726] uppercase font-[700] block">VAR A · PISTA</span>
-                <span class="text-xs text-white font-[800] block mt-0.5">Recta 1.9 km</span>
-                <span class="text-[9px] text-white/50 block">Alas Planas · C14</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[9px] text-[#d4ff32] uppercase font-[700] block">VAR B · CLIMA</span>
-                <span class="text-xs text-white font-[800] block mt-0.5">12°C Asfalto</span>
-                <span class="text-[9px] text-white/50 block">76.5% Safety Car</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[9px] text-[#C084FC] uppercase font-[700] block">VAR C · PILOTO</span>
-                <span class="text-xs text-white font-[800] block mt-0.5">Graining Trap</span>
-                <span class="text-[9px] text-white/50 block">Colapinto & Midfield</span>
-              </div>
+        <!-- BANDA HORIZONTAL DE VARIABLES CRUZADAS -->
+        <div class="space-y-2">
+          <span class="text-[9px] font-mono uppercase tracking-[0.2em] text-white/50 font-[800] block">
+            MATRIZ FÍSICA DE IMPACTO:
+          </span>
+          <div class="grid grid-cols-3 gap-2 font-mono text-left">
+            <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-[9px] text-[#FFA726] uppercase font-[700] block">PISTA</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">1.9 km Strip</span>
+              <span class="text-[9px] text-white/50 block">&gt;350 km/h</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-[9px] text-[#60A5FA] uppercase font-[700] block">CLIMA</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">12°C Asfalto</span>
+              <span class="text-[9px] text-white/50 block">Graining Severo</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
+              <span class="text-[9px] text-[#d4ff32] uppercase font-[700] block">CAOS</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">76.5% SC</span>
+              <span class="text-[9px] text-white/50 block">-12s en Boxes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRILLA DE 3 INSIGHTS DIRECTOS Y SHOCKEANTES (SIN COLAPINTO) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- TARJETA INSIGHT 01: VELOCIDAD VS AGARRE TÉRMICO -->
+        <div class="p-6 rounded-3xl bg-white/5 border border-white/15 hover:border-[#FFA726]/60 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[9px] uppercase">
+              <span class="px-2 py-0.5 rounded bg-[#FFA726]/20 text-[#FFA726] font-[800]">352 km/h</span>
+              <span class="text-white/40">×</span>
+              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-[800]">12°C Frío</span>
+              <span class="text-white/40">➔</span>
+              <span class="text-[#FFA726] font-[900]">01</span>
+            </div>
+
+            <h3 class="font-[900] text-xl sm:text-2xl uppercase tracking-tight text-white leading-snug">
+              Velocidad salvaje <br>
+              <span class="text-[#FFA726]">vs. agarre térmico.</span>
+            </h3>
+
+            <p class="text-xs sm:text-sm text-zinc-300 font-[300] leading-relaxed">
+              Red Bull es un proyectil inalcanzable con DRS en el Strip (>352 km/h), pero McLaren domina el ritmo de carrera (+1.32 puestos) al ser el único monoplaza que no destruye el caucho en curvas lentas.
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 grid grid-cols-2 gap-2 text-center font-mono text-[9px]">
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">MCLAREN EN FRÍO</span>
+              <span class="text-[#d4ff32] font-[900] text-xs">+1.32 puestos</span>
+            </div>
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">RED BULL V-MAX</span>
+              <span class="text-[#FFA726] font-[900] text-xs">352.4 km/h</span>
             </div>
           </div>
         </div>
 
-        <!-- CENTRO: CIRCUITO SVG CON EL AUTITO QUE GUÍA POR DÓNDE LEER (2 COLS) -->
-        <div class="hidden lg:flex lg:col-span-2 items-center justify-center relative h-[440px]">
-          <svg id="crossoverSvgTrack" viewBox="0 0 100 440" class="w-full h-full overflow-visible select-none">
-            <!-- Trazada tenue base -->
-            <path id="circuitBaseTrack" d="M 50 20 C 95 80, 95 150, 40 210 C -10 270, 20 350, 75 420" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5" stroke-dasharray="4 4" />
-            <!-- Trazada viva iluminada (gradiente neón) -->
-            <path id="circuitLiveTrack" d="M 50 20 C 95 80, 95 150, 40 210 C -10 270, 20 350, 75 420" fill="none" stroke="url(#circuitNeonGrad)" stroke-width="3" stroke-linecap="round" />
-            
-            <!-- 3 puntos clave del trazado -->
-            <circle cx="50" cy="20" r="4.5" fill="#FFA726" />
-            <circle cx="40" cy="210" r="4.5" fill="#d4ff32" />
-            <circle cx="75" cy="420" r="4.5" fill="#C084FC" />
+        <!-- TARJETA INSIGHT 02: LA CARNICERÍA DE CURVA 14 -->
+        <div class="p-6 rounded-3xl bg-white/5 border border-white/15 hover:border-red-500/60 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[9px] uppercase">
+              <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-[800]">Frenada 5.2G</span>
+              <span class="text-white/40">×</span>
+              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-[800]">Gomas Heladas</span>
+              <span class="text-white/40">➔</span>
+              <span class="text-red-400 font-[900]">02</span>
+            </div>
 
-            <defs>
-              <linearGradient id="circuitNeonGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FFA726" />
-                <stop offset="50%" stop-color="#d4ff32" />
-                <stop offset="100%" stop-color="#C084FC" />
-              </linearGradient>
-            </defs>
-          </svg>
+            <h3 class="font-[900] text-xl sm:text-2xl uppercase tracking-tight text-white leading-snug">
+              La emboscada mortal <br>
+              <span class="text-red-400">de Curva 14.</span>
+            </h3>
 
-          <!-- AUTITO F1 QUE RECORRE EL CIRCUITO (POSICIONADO EXACTAMENTE POR JS) -->
-          <div id="crossoverCar" class="absolute top-0 left-0 w-9 h-auto pointer-events-none z-30 will-change-transform filter drop-shadow-[0_0_10px_rgba(212,255,50,0.8)]" style="opacity: 0; transform: translate3d(0,0,0);">
-            <img src="assets/car_tracker.png" alt="Auto F1" class="w-full h-auto object-contain">
+            <p class="text-xs sm:text-sm text-zinc-300 font-[300] leading-relaxed">
+              20 segundos continuos a fondo congelan el neumático delantero izquierdo a 58°C. Frenar de 350 a 90 km/h sin agarre garantiza bloqueos masivos y toques contra el hormigón.
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 grid grid-cols-2 gap-2 text-center font-mono text-[9px]">
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">DESACELERACIÓN</span>
+              <span class="text-red-400 font-[900] text-xs">5.2G en 110m</span>
+            </div>
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">RIESGO DE BLOQUEO</span>
+              <span class="text-[#FFA726] font-[900] text-xs">MÁXIMO DEL AÑO</span>
+            </div>
           </div>
         </div>
 
-        <!-- LADO DERECHO: DISPLAY DE INSIGHTS INDIVIDUALES Y VISUALMENTE CRUZADOS -->
-        <div class="lg:col-span-5 relative min-h-[300px] flex items-center">
-
-          <!-- INSIGHT 1: MCLAREN VS RED BULL -->
-          <div id="crossoverInsight1" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
-            <!-- FÓRMULA DE CRUCE VISUAL -->
-            <div class="inline-flex flex-wrap items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 w-fit font-mono text-[9px] uppercase">
-              <span class="px-2 py-0.5 rounded bg-[#FFA726]/20 text-[#FFA726] font-[800]">VAR A: 1.9 km Strip</span>
+        <!-- TARJETA INSIGHT 03: EL REGALO DE 12 SEGUNDOS -->
+        <div class="p-6 rounded-3xl bg-white/5 border border-white/15 hover:border-[#d4ff32]/60 transition-all duration-300 space-y-4 flex flex-col justify-between group">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[9px] uppercase">
+              <span class="px-2 py-0.5 rounded bg-[#d4ff32]/20 text-[#d4ff32] font-[800]">76.5% SC</span>
               <span class="text-white/40">×</span>
-              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-[800]">VAR B: Frío 12°C</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-[800]">Pit Stop</span>
               <span class="text-white/40">➔</span>
-              <span class="text-[#FFA726] font-[900]">Descubrimiento 01</span>
+              <span class="text-[#d4ff32] font-[900]">03</span>
             </div>
-            
-            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
-              Duelo McLaren <br>
-              <span class="text-[#FFA726]">vs. Red Bull en recta.</span>
+
+            <h3 class="font-[900] text-xl sm:text-2xl uppercase tracking-tight text-white leading-snug">
+              El regalo de 12 segundos <br>
+              <span class="text-[#d4ff32]">en la calle de boxes.</span>
             </h3>
 
-            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
-              McLaren tiene ventaja térmica en frío (+1.32 puestos), pero Red Bull lidera los radares en la recta infinita de 1.9 km gracias a su paquete de bajísima resistencia aerodinámica.
+            <p class="text-xs sm:text-sm text-zinc-300 font-[300] leading-relaxed">
+              Una parada normal cuesta 22.8 segundos; bajo auto de seguridad cuesta apenas 10.8s. Esos 12 segundos de ventaja neta definen el podio sin necesidad de adelantar en pista.
             </p>
           </div>
 
-          <!-- INSIGHT 2: CURVA 14 Y SAFETY CAR -->
-          <div id="crossoverInsight2" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
-            <!-- FÓRMULA DE CRUCE VISUAL -->
-            <div class="inline-flex flex-wrap items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 w-fit font-mono text-[9px] uppercase">
-              <span class="px-2 py-0.5 rounded bg-[#d4ff32]/20 text-[#d4ff32] font-[800]">VAR A: Frenada C14</span>
-              <span class="text-white/40">×</span>
-              <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 font-[800]">VAR B: SC 76.5%</span>
-              <span class="text-white/40">➔</span>
-              <span class="text-[#d4ff32] font-[900]">Descubrimiento 02</span>
+          <div class="pt-3 border-t border-white/10 grid grid-cols-2 gap-2 text-center font-mono text-[9px]">
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">PROB. SAFETY CAR</span>
+              <span class="text-[#d4ff32] font-[900] text-xs">76.5% histórico</span>
             </div>
-            
-            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
-              Gomas congeladas <br>
-              <span class="text-[#d4ff32]">y muros a centímetros.</span>
-            </h3>
-
-            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
-              Llegar a 350 km/h en aire a 10°C subenfría la rueda delantera izquierda: los bloqueos masivos en Curva 14 y el riesgo de toques garantizan neutralizaciones.
-            </p>
-          </div>
-
-          <!-- INSIGHT 3: FRANCO COLAPINTO -->
-          <div id="crossoverInsight3" class="absolute inset-0 flex flex-col justify-center space-y-3 opacity-0 pointer-events-none transition-all duration-500 will-change-transform">
-            <!-- FÓRMULA DE CRUCE VISUAL -->
-            <div class="inline-flex flex-wrap items-center gap-1.5 p-1 rounded-lg bg-white/5 border border-white/10 w-fit font-mono text-[9px] uppercase">
-              <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 font-[800]">VAR B: SC Tardío</span>
-              <span class="text-white/40">×</span>
-              <span class="px-2 py-0.5 rounded bg-[#C084FC]/20 text-[#C084FC] font-[800]">VAR C: Compuesto Duro</span>
-              <span class="text-white/40">➔</span>
-              <span class="text-[#C084FC] font-[900]">Descubrimiento 03</span>
+            <div class="p-2 rounded-xl bg-black/40 border border-white/10">
+              <span class="text-white/40 block">AHORRO EN BOXES</span>
+              <span class="text-[#d4ff32] font-[900] text-xs">-12.0 segundos</span>
             </div>
-            
-            <h3 class="font-[900] text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white leading-none">
-              La ventana de <br>
-              <span class="text-[#C084FC]">Franco Colapinto.</span>
-            </h3>
-
-            <p class="text-sm sm:text-base text-zinc-300 font-[300] leading-relaxed max-w-lg">
-              Superando las primeras 8 vueltas críticas sin caer en graining, Franco puede estirar el compuesto Duro en aire limpio y pescar un pit stop bajo Safety Car para saltar al Top 10 (P9 a P12).
-            </p>
           </div>
-
         </div>
 
       </div>
@@ -1970,7 +1803,7 @@
     </div>
 
     <!-- FUNDIDO SUAVE A BLANCO PURO PARA CONECTAR PERFECTAMENTE CON LA PANTALLA SIGUIENTE -->
-    <div class="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-b from-transparent via-[#0B0C0E]/60 to-pureWhite pointer-events-none z-20"></div>
+    <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-pureWhite pointer-events-none z-20"></div>
 
   </section>
 
@@ -2925,14 +2758,109 @@
     }
   ];
 
-  let currentDeckId = 1;
+  
+  // MAZO 3: LOS 5 PILOTOS MÁS FAVORECIDOS EN LA CARRERA (MAYOR GANANCIA DE POSICIONES)
+  // Basado estrictamente en Dataset 02 (puestos_ganados_prom) y delta_sc
+  const deck3Pilots = [
+    {
+      id: "bearman",
+      name: "Oliver Bearman",
+      team: "Haas F1 Team",
+      teamColor: "#E6002B",
+      teamGlow: "rgba(230, 0, 43, 0.7)",
+      teamLogo: "assets/escuderias/haas.png",
+      dorsal: "#87",
+      category: "Top 1 Remontador",
+      portrait: "assets/pilotos/centered/bearman.jpeg",
+      matchTag: "+3.33 puestos ganados",
+      gain: "+3.33 pos",
+      consist: "1.46 seg",
+      tyre: "78 / 100",
+      carModel: "VF-24 · Ferrari",
+      fact: "Líder absoluto de la F1 en avance neto: gana en promedio +3.33 posiciones el domingo. En carreras con asfalto resbaladizo y neutralizaciones (+2.0 bajo Safety Car) es el piloto más letal de la parrilla.",
+      hook: "«Bearman clasifica atrás pero el domingo es demoledor: remonta más de tres puestos netos por carrera aprovechando cualquier neutralización.»"
+    },
+    {
+      id: "stroll",
+      name: "Lance Stroll",
+      team: "Aston Martin Aramco",
+      teamColor: "#229971",
+      teamGlow: "rgba(34, 153, 113, 0.7)",
+      teamLogo: "assets/escuderias/astonmartin.png",
+      dorsal: "#18",
+      category: "Especialista en Frío",
+      portrait: "assets/pilotos/centered/stroll.jpeg",
+      matchTag: "+2.47 puestos ganados",
+      gain: "+2.47 pos",
+      consist: "1.40 seg",
+      tyre: "76 / 100",
+      carModel: "AMR24 · Mercedes",
+      fact: "Segundo piloto con mayor ganancia neta (+2.47 puestos promedio). Su agresividad en la primera vuelta y su lectura en baja adherencia le permiten avanzar sin importar dónde clasifique.",
+      hook: "«En asfalto frío Stroll encuentra agarre donde otros patinan: gana +2.5 puestos por carrera atacando en los primeros giros.»"
+    },
+    {
+      id: "ocon",
+      name: "Esteban Ocon",
+      team: "Haas / Alpine",
+      teamColor: "#E6002B",
+      teamGlow: "rgba(230, 0, 43, 0.7)",
+      teamLogo: "assets/escuderias/haas.png",
+      dorsal: "#31",
+      category: "Cazador de Reinicios",
+      portrait: "assets/pilotos/centered/ocon.jpeg",
+      matchTag: "+2.00 puestos ganados",
+      gain: "+2.00 pos",
+      consist: "1.33 seg",
+      tyre: "80 / 100",
+      carModel: "VF-25 / A524",
+      fact: "Promedia +2.00 puestos ganados por carrera y un delta extraordinario de +1.87 bajo Safety Car. Experto en esquivar incidentes en trazados urbanos cerrados.",
+      hook: "«Ocon es un seguro de vida en carreras caóticas: remonta dos posiciones completas por gran premio pescando en las neutralizaciones.»"
+    },
+    {
+      id: "albon",
+      name: "Alexander Albon",
+      team: "Williams Racing",
+      teamColor: "#00A0DE",
+      teamGlow: "rgba(0, 160, 222, 0.7)",
+      teamLogo: "assets/escuderias/williams.png",
+      dorsal: "#23",
+      category: "Bajo Drag en Recta",
+      portrait: "assets/pilotos/centered/albon.jpeg",
+      matchTag: "+1.75 puestos ganados",
+      gain: "+1.75 pos",
+      consist: "1.37 seg",
+      tyre: "82 / 100",
+      carModel: "FW46 · Mercedes",
+      fact: "Williams tiene el menor coeficiente de arrastre de la F1 (+2.23 en rectas). Albon gana en promedio +1.75 posiciones por puro ritmo terminal y sobrepasos con DRS en el Strip.",
+      hook: "«Albon convierte a Williams en un avión en el Strip: con más de 350 km/h gana casi dos puestos netos por carrera.»"
+    },
+    {
+      id: "colapinto",
+      name: "Franco Colapinto",
+      team: "BWT Alpine F1 Team",
+      teamColor: "#0090FF",
+      teamGlow: "rgba(0, 144, 255, 0.7)",
+      teamLogo: "assets/escuderias/alpine.png",
+      dorsal: "#43",
+      category: "Gestión y Remontada",
+      portrait: "assets/pilotos/centered/colapinto.jpeg",
+      matchTag: "+1.26 puestos ganados",
+      gain: "+1.26 pos",
+      consist: "1.19 seg",
+      tyre: "84 / 100",
+      carModel: "A524 · Renault",
+      fact: "Consistencia de 1.19s y +1.26 puestos ganados promedio. Su fortaleza es estirar el compuesto Duro para capitalizar neutralizaciones tardías y saltar a los puntos.",
+      hook: "«Colapinto sabe estirar la goma dura y aprovechar el caos: su ritmo de carrera le permite avanzar hacia el Top 10 el domingo.»"
+    }
+  ];
+let currentDeckId = 1;
   let pilotsDB = deck1Pilots;
   let activePilotIndex = -1; // NINGUNA SELECCIONADA POR DEFECTO COMO PIDIÓ EL USUARIO
   let userHasInteracted = false;
   const fanStage = document.getElementById('fanDeckContainer');
   const fanIndicators = document.getElementById('fanIndicators');
 
-  // Alternar entre mazo 1 y 2
+  // Alternar entre mazo 1, mazo 2 y mazo 3 (Top 5 Remontadores)
   window.switchDeck = function(deckId) {
     if (currentDeckId === deckId) {
       const container = document.getElementById('fanDeckContainer');
@@ -2943,23 +2871,22 @@
 
     const btn1 = document.getElementById('btnDeck1');
     const btn2 = document.getElementById('btnDeck2');
+    const btn3 = document.getElementById('btnDeck3');
+
+    // Resetear clases inactivas
+    [btn1, btn2, btn3].forEach(b => {
+      if (b) b.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon flex items-center gap-1.5";
+    });
 
     if (deckId === 1) {
       pilotsDB = deck1Pilots;
-      if (btn1) {
-        btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
-      }
-      if (btn2) {
-        btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
-      }
-    } else {
+      if (btn1) btn1.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm";
+    } else if (deckId === 2) {
       pilotsDB = deck2Pilots;
-      if (btn1) {
-        btn1.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon";
-      }
-      if (btn2) {
-        btn2.className = "px-5 sm:px-6 py-2 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-md";
-      }
+      if (btn2) btn2.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm";
+    } else if (deckId === 3) {
+      pilotsDB = deck3Pilots;
+      if (btn3) btn3.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm flex items-center gap-1.5";
     }
 
     activePilotIndex = -1; // Ninguna seleccionada al cambiar
@@ -3486,114 +3413,11 @@
     sWrap.style.pointerEvents = revealP > 0.5 ? 'auto' : 'none';
   }
 
-  // ANIMACIÓN DE LÍNEA CURVA DE EL CRUCE AL SCROLLEAR
   // ========================================================
-  // ANIMACIÓN DE SCROLL EN EL CRUCE:
-  // - El autito F1 recorre la trazada del circuito
-  // - Los insights se presentan estrictamente de a uno (nunca juntos)
-  // - Al principio la pantalla está vacía
-  // ========================================================
-  function updateCrossoverCarProgress() {
-    const section = document.getElementById('crossover');
-    const svgTrack = document.getElementById('circuitLiveTrack');
-    const car = document.getElementById('crossoverCar');
-    const emptyHint = document.getElementById('crossoverEmptyHint');
-    const in1 = document.getElementById('crossoverInsight1');
-    const in2 = document.getElementById('crossoverInsight2');
-    const in3 = document.getElementById('crossoverInsight3');
-
-    if (!section || !svgTrack || !car) return;
-
-    const rect = section.getBoundingClientRect();
-    const winH = window.innerHeight;
-    const maxScroll = rect.height - winH;
-    if (maxScroll <= 0) return;
-
-    // Progreso de 0.0 (al entrar a la sección) a 1.0 (al salir hacia transition-desk)
-    const p = Math.max(0, Math.min(1, -rect.top / maxScroll));
-
-    // Longitud total del path SVG del circuito
-    const totalLength = svgTrack.getTotalLength();
-    
-    // Trazada viva iluminada: se llena progresivamente
-    svgTrack.style.strokeDasharray = totalLength;
-    const dashOffset = totalLength * (1 - Math.max(0, (p - 0.08) / 0.88));
-    svgTrack.style.strokeDashoffset = Math.max(0, dashOffset).toFixed(1);
-
-    // Calcular posición del autito a lo largo de la curva del circuito
-    if (p < 0.06) {
-      // Al principio la pantalla está vacía y el autito oculto
-      car.style.opacity = '0';
-      if (emptyHint) emptyHint.style.opacity = '0.7';
-    } else {
-      car.style.opacity = '1';
-      if (emptyHint) emptyHint.style.opacity = '0';
-
-      const carP = Math.max(0, Math.min(1, (p - 0.06) / 0.90));
-      const dist = carP * totalLength;
-      const pt = svgTrack.getPointAtLength(dist);
-      const ptNext = svgTrack.getPointAtLength(Math.min(totalLength, dist + 2));
-      const angle = (Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * 180 / Math.PI) + 90;
-
-      // El SVG está escalado en viewBox="0 0 100 440" dentro de un contenedor de alto 440px
-      // Calculamos escala real
-      const svgRect = document.getElementById('crossoverSvgTrack')?.getBoundingClientRect();
-      const scaleX = svgRect ? svgRect.width / 100 : 1;
-      const scaleY = svgRect ? svgRect.height / 440 : 1;
-
-      const posX = pt.x * scaleX;
-      const posY = pt.y * scaleY;
-
-      car.style.transform = `translate3d(${posX.toFixed(1)}px, ${posY.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(1)}deg)`;
-    }
-
-    // CONTROL DE INSIGHTS ESTRICTAMENTE INDIVIDUALES (DE A UNO, NUNCA JUNTOS):
-    // Fase 1: Insight 1 (p: 0.12 a 0.40)
-    // Fase 2: Insight 2 (p: 0.44 a 0.70)
-    // Fase 3: Insight 3 (p: 0.74 a 0.98)
-    function setInsightState(el, active, subProg) {
-      if (!el) return;
-      if (active) {
-        el.style.opacity = '1';
-        el.style.pointerEvents = 'auto';
-        // Entrada suave de abajo hacia el centro
-        const shiftY = (1 - subProg) * 14;
-        el.style.transform = `translate3d(0, ${shiftY.toFixed(1)}px, 0)`;
-      } else {
-        el.style.opacity = '0';
-        el.style.pointerEvents = 'none';
-        el.style.transform = 'translate3d(0, -18px, 0)';
-      }
-    }
-
-    // Insight 1
-    if (p >= 0.10 && p <= 0.40) {
-      const subP = Math.min(1, (p - 0.10) / 0.08);
-      setInsightState(in1, true, subP);
-    } else {
-      setInsightState(in1, false, 0);
-    }
-
-    // Insight 2
-    if (p >= 0.43 && p <= 0.71) {
-      const subP = Math.min(1, (p - 0.43) / 0.08);
-      setInsightState(in2, true, subP);
-    } else {
-      setInsightState(in2, false, 0);
-    }
-
-    // Insight 3
-    if (p >= 0.74 && p <= 0.99) {
-      const subP = Math.min(1, (p - 0.74) / 0.08);
-      setInsightState(in3, true, subP);
-    } else {
-      setInsightState(in3, false, 0);
-    }
-  }
+  
 
   window.addEventListener('scroll', () => {
     updateDeskTransitionScrollParallax();
-    updateCrossoverCarProgress();
   }, { passive: true });
 
 
