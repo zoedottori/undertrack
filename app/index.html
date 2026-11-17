@@ -2005,73 +2005,30 @@
 
   </section>
 
-<footer class="w-full bg-[#0A0A0C] text-pureWhite pt-16 pb-12 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-6 sm:px-10 space-y-12">
+<footer class="w-full bg-[#0A0A0C] text-pureWhite py-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
       
-      <!-- CABECERA DE FOOTER Y METADATOS -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-10 border-b border-white/10">
-        <div class="space-y-1">
-          <div class="flex items-center gap-3">
-            <span class="font-[900] text-lg uppercase tracking-tight text-white">UNDERTRACK</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA V3.0</span>
-          </div>
-          <p class="text-xs text-white/60 font-[300]">
-            Sistema de análisis cinemático y reclasificación conductual de Fórmula 1 · Ronda 22: Las Vegas Strip Circuit.
-          </p>
+      <div class="space-y-1.5">
+        <div class="flex items-center gap-3">
+          <span class="font-[900] text-base uppercase tracking-tight text-white">UNDERTRACK</span>
+          <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-[#d4ff32] text-black font-[900]">CIRCUITDNA</span>
         </div>
-        <div class="text-xs font-mono text-white/50 text-left md:text-right">
-          <span>Temporada 2026</span> · <span class="text-[#d4ff32]">GP de Las Vegas</span>
-        </div>
+        <p class="text-xs text-white/50 font-[300] max-w-md">
+          análisis cinemático y predicción conductual de fórmula 1 para creadores de contenido. proyecto independiente de diseño y datos · temporada 2026.
+        </p>
       </div>
 
-      <!-- GRILLA DEL DISCLAIMER METODOLÓGICO Y TÉCNICO -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs font-[300] leading-relaxed text-white/70">
-        
-        <!-- COLUMNA 1: CÓMO SE CALCULA LA TELEMETRÍA -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-mono text-[11px] text-[#d4ff32] tracking-wider">
-            01 / Metodología de Cálculo
-          </h4>
-          <p>
-            <strong class="text-white">Clustering K-Means:</strong> Clasificación matemática en 4 familias genéticas procesando variables de violencia física: aceleración lateral ($>200$ km/h), frenadas bruscas ($>5G$), pendiente altimétrica ($\Delta h$) y porcentaje de vuelta con acelerador a fondo.
-          </p>
-          <p>
-            <strong class="text-white">Ganancia Neta ($\Delta 	ext{pos}$):</strong> Cálculo del diferencial de posiciones sobre la grilla oficial de largada en las últimas 5 ediciones cruzado con registros meteorológicos en tiempo real (temperatura de pista y pluviometría).
-          </p>
-        </div>
-
-        <!-- COLUMNA 2: ARQUETIPOS CONDUCTUALES -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-mono text-[11px] text-[#C084FC] tracking-wider">
-            02 / Arquetipos de Pilotos
-          </h4>
-          <p>
-            <strong class="text-white">Agrupamiento Conductual:</strong> Los 22 pilotos de la grilla se agrupan según su consistencia cronometrada ($\sigma_{	ext{ritmo}}$), telemetría de frenada tardía respecto a la referencia del circuito y capacidad de gestión térmica del compuesto.
-          </p>
-          <p>
-            <strong class="text-white">Correlación Gemela:</strong> El índice de afinidad del 84.6% entre São Paulo y Spielberg surge del análisis cinemático de curvas de aceleración lenta que trepan pendientes ciegas.
-          </p>
-        </div>
-
-        <!-- COLUMNA 3: LÍMITES Y AVISO LEGAL -->
-        <div class="space-y-2.5">
-          <h4 class="font-[800] uppercase font-mono text-[11px] text-white tracking-wider">
-            03 / Alcance y Límites del Trabajo
-          </h4>
-          <p>
-            <strong class="text-white">Factores Estocásticos:</strong> Este modelo analiza patrones históricos y telemetría de ingeniería. No puede predecir factores aleatorios como fallas mecánicas de la unidad de potencia, errores humanos en paradas de boxes o penalizaciones deportivas.
-          </p>
-          <p class="text-white/40 text-[11px]">
-            Proyecto independiente de periodismo de datos y análisis telemétrico para Mateo y la comunidad de F1. No afiliado, patrocinado ni vinculado a Formula One Licensing B.V., FIA o Formula 1.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- COPYRIGHT INFERIOR -->
-      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-white/40">
-        <span>© 2026 UNDERTRACK · Diseñado con precisión milimétrica para streaming y editorial deportiva.</span>
-        <span>Las Vegas Strip Circuit · 6.201 km · 50 vueltas</span>
+      <div class="flex flex-wrap items-center gap-6 text-xs font-[500] text-white/70">
+        <a href="../entregas/entrega_4/racional.html" class="text-white hover:text-[#d4ff32] transition-colors flex items-center gap-1 font-[700]">
+          <span>racional de diseño</span>
+          <span>↗</span>
+        </a>
+        <a href="redaccion.html" class="hover:text-white transition-colors">
+          mesa de redacción
+        </a>
+        <a href="https://github.com/zoedottori/undertrack" target="_blank" class="hover:text-white transition-colors">
+          repositorio github ↗
+        </a>
       </div>
 
     </div>
