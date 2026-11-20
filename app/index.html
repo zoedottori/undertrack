@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Square+Peg&family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=La+Belle+Aurore&family=Oooh+Baby&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP Core for Fan Carousel Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -249,49 +251,164 @@
     }
 
     /* ========================================================
-       ABANICO DE CARTAS VIVO (SCROLL-DRIVEN FAN DECK ESTILO LANDO NORRIS)
+       ABANICO DE CARTAS VIVO (GSAP FAN CAROUSEL ESTILO 21ST.DEV)
        ======================================================== */
     .fan-stage {
       position: relative;
-      height: 480px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 380px;
+      width: 100%;
       perspective: 1200px;
     }
 
     .fan-card {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      aspect-ratio: 1 / 1;
-      border-radius: 16px;
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      margin-left: -70px !important;
+      margin-top: -120px !important;
+      width: 140px !important;
+      height: 240px !important;
+      border-radius: 18px;
       overflow: hidden;
       cursor: pointer;
-      transform-origin: center 120%;
+      transform-origin: center bottom;
       transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
                   box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 0.35s ease;
+                  border-color 0.35s ease, filter 0.35s ease;
       will-change: transform, box-shadow;
       user-select: none;
       background-color: #121316;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
     }
 
     .fan-card.is-active {
-      box-shadow: 0 30px 70px rgba(0,0,0,0.3), 0 0 0 2px #111114;
-      filter: grayscale(0%) contrast(120%) brightness(1.02);
-      transform: scale(1.06) translateZ(40px) !important;
-      z-index: 30;
+      box-shadow: 0 0 35px var(--team-glow, rgba(255,128,0,0.6)), 0 25px 60px rgba(0,0,0,0.7) !important;
+      border-color: var(--team-color, #ffffff) !important;
+      filter: grayscale(0%) contrast(115%) brightness(1.05) !important;
+      z-index: 50 !important;
     }
 
     .fan-card:not(.is-active) {
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      filter: grayscale(90%) contrast(110%) brightness(0.9);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      filter: grayscale(90%) contrast(110%) brightness(0.92);
     }
     .fan-card:not(.is-active):hover {
-      filter: grayscale(20%) contrast(115%) brightness(1);
+      filter: grayscale(0%) contrast(115%) brightness(1.02);
+      border-color: var(--team-color, #ffffff) !important;
+      box-shadow: 0 0 32px var(--team-glow, rgba(255,255,255,0.45)), 0 20px 45px rgba(0,0,0,0.65) !important;
+      z-index: 45 !important;
+    }
+
+    /* ========================================================
+       BOTONES Y CONTROLES DEL ABANICO: HOVER DE ALTO CONTRASTE
+       (Garantiza texto blanco puro sobre fondo oscuro en hover)
+       ======================================================== */
+    .btn-deck-tab {
+      padding: 0.45rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      border: 1.5px solid transparent;
+      color: #6E6E73;
+      background: transparent;
+    }
+    .btn-deck-tab.is-active {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border-color: #111114 !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 10px rgba(17, 17, 20, 0.2) !important;
+    }
+    .btn-deck-tab.is-active * {
+      color: #FFFFFF !important;
+    }
+    .btn-deck-tab:not(.is-active):hover {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border-color: #111114 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(17, 17, 20, 0.2);
+    }
+    .btn-deck-tab:not(.is-active):hover * {
+      color: #FFFFFF !important;
+    }
+
+    .btn-fan-nav {
+      padding: 0.5rem 1.3rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background-color: #FFFFFF;
+      color: #111114 !important;
+      border: 1.5px solid rgba(17, 17, 20, 0.18);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .btn-fan-nav * {
+      color: #111114 !important;
+      transition: color 0.2s ease;
+    }
+    .btn-fan-nav:hover {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border-color: #111114 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(17, 17, 20, 0.22);
+    }
+    .btn-fan-nav:hover * {
+      color: #FFFFFF !important;
+    }
+
+    /* ========================================================
+       BOTÓN PRINCIPAL CALL-TO-ACTION (TRANSICIÓN REDACCIÓN)
+       Hover invertido de alto impacto: Fondo Flúor #d4ff32 + Tipografía Carbon #111114
+       ======================================================== */
+    .btn-redaccion-cta {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #111114 !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22) !important;
+      user-select: none;
+    }
+    .btn-redaccion-cta * {
+      color: #FFFFFF !important;
+      transition: all 0.25s ease;
+    }
+    .btn-redaccion-cta .cta-dot {
+      background-color: #d4ff32 !important;
+      box-shadow: 0 0 12px #d4ff32;
+    }
+    .btn-redaccion-cta:hover {
+      background-color: #d4ff32 !important;
+      border-color: #d4ff32 !important;
+      color: #111114 !important;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 16px 38px rgba(212, 255, 50, 0.42), 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+    .btn-redaccion-cta:hover * {
+      color: #111114 !important;
+    }
+    .btn-redaccion-cta:hover .cta-dot {
+      background-color: #111114 !important;
+      box-shadow: none !important;
+    }
+    .btn-redaccion-cta:hover .cta-arrow {
+      transform: translateX(4px);
     }
 
     /* ========================================================
@@ -373,15 +490,45 @@
       color: #d4ff32 !important;
       font-weight: 800 !important;
     }
+    .desk-cta {
+      background-color: #111114 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #111114 !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      user-select: none;
+    }
+    .desk-cta * {
+      transition: all 0.2s ease;
+    }
+    .desk-cta:hover {
+      background-color: #d4ff32 !important;
+      border-color: #d4ff32 !important;
+      color: #111114 !important;
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 0 22px rgba(212, 255, 50, 0.45), 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+    .desk-cta:hover * {
+      color: #111114 !important;
+    }
+
     .header-dark-mode .desk-cta {
       background-color: #d4ff32 !important;
       color: #111114 !important;
+      border-color: #d4ff32 !important;
       font-weight: 800 !important;
     }
-    .header-dark-mode .desk-cta:hover {
-      background-color: #c4ef2b !important;
+    .header-dark-mode .desk-cta * {
       color: #111114 !important;
-      opacity: 0.95 !important;
+    }
+    .header-dark-mode .desk-cta:hover {
+      background-color: #FFFFFF !important;
+      border-color: #FFFFFF !important;
+      color: #111114 !important;
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    }
+    .header-dark-mode .desk-cta:hover * {
+      color: #111114 !important;
     }
 .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -400,14 +547,15 @@
   
     /* Adaptaciones Mobile & Touch */
     @media (max-width: 640px) {
-      .fan-card {
-        width: 150px !important;
-        height: 150px !important;
-        aspect-ratio: 1 / 1 !important;
-        border-radius: 12px !important;
+      .fan-stage {
+        height: 230px !important;
       }
-      .fan-card.is-active {
-        transform: translateX(0px) translateY(-14px) rotate(0deg) scale(1.06) !important;
+      .fan-card {
+        width: 82px !important;
+        height: 140px !important;
+        margin-left: -41px !important;
+        margin-top: -70px !important;
+        border-radius: 12px !important;
       }
     }
 
@@ -476,36 +624,13 @@
       animation: circuitGlowRed 3s ease-in-out infinite;
     }
 
-    .fan-card {
-      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    .fan-card:hover {
-      border-color: var(--team-color, #ffffff) !important;
-      box-shadow: 0 0 30px var(--team-glow, rgba(255,255,255,0.4)), 0 20px 45px rgba(0,0,0,0.6) !important;
-      z-index: 50 !important;
-    }
-
-    .fan-card {
-      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
     .fan-card img {
       filter: grayscale(100%) contrast(1.15) brightness(0.92);
-      transition: filter 0.45s ease, transform 0.45s ease;
+      transition: filter 0.45s ease;
     }
     .fan-card:hover img,
     .fan-card.is-active img {
       filter: grayscale(0%) contrast(1.08) saturate(1.25) brightness(1.02) !important;
-    }
-    .fan-card:hover {
-      border-color: var(--team-color, #ffffff) !important;
-      box-shadow: 0 0 32px var(--team-glow, rgba(255,255,255,0.45)), 0 20px 45px rgba(0,0,0,0.65) !important;
-      z-index: 50 !important;
-    }
-    .fan-card.is-active {
-      border-color: var(--team-color, #ffffff) !important;
-      box-shadow: 0 0 25px var(--team-glow, rgba(255,255,255,0.35)), 0 15px 35px rgba(0,0,0,0.5) !important;
     }
 
     /* ========================================================
@@ -1497,68 +1622,65 @@
        PANTALLA 04: PILOTOS (UNDER THE HELMET)
        (ABANICO VIVO DE CARTAS CON EL SCROLL ESTILO LANDO NORRIS)
        ======================================================== -->
-  <section id="helmet" class="min-h-screen w-full flex flex-col justify-start pt-14 sm:pt-16 pb-8 sm:pb-10 border-t border-hairline scroll-mt-20">
+  <section id="helmet" class="min-h-screen w-full flex flex-col justify-center items-center pt-24 sm:pt-28 pb-12 border-t border-hairline scroll-mt-16 relative bg-canvas">
     
-    <!-- CABECERA DE LA SECCIÓN (ALINEACIÓN VERTICAL UNIFICADA Y COMPACTA) -->
-    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10">
-    <div class="reveal-blur mb-2 sm:mb-3">
-      <div class="mb-1">
-        <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-accentRed block mb-1">04 / PILOTOS</span>
-      </div>
-      
-      <h2 class="font-[900] text-3xl sm:text-5xl uppercase leading-[1.04] tracking-tight max-w-4xl text-carbon">
-        EL TALENTO TIENE <br>
-        <span class="font-[100] text-muted normal-case">patrones</span> OBJETIVOS.
-      </h2>
+    <!-- CABECERA DE LA SECCIÓN (ALINEADA A LA IZQUIERDA SEGÚN EL DISEÑO ORIGINAL) -->
+    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 text-left shrink-0 mb-4 sm:mb-6">
+      <div class="reveal-blur">
+        <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.25em] text-accentRed block mb-1">04 / PILOTOS</span>
+        
+        <h2 class="font-[900] text-3xl sm:text-5xl uppercase leading-[1.04] tracking-tight text-carbon">
+          EL TALENTO TIENE <span class="font-[100] text-muted normal-case">patrones</span><br>
+          OBJETIVOS.
+        </h2>
 
-      <p class="text-xs sm:text-sm font-[300] text-carbon/80 mt-1 sm:mt-1.5 max-w-3xl leading-snug">
-        Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico: hacé click en cualquier piloto para abrir su ficha técnica interactiva.
-      </p>
-    </div>
+        <p class="text-xs sm:text-sm font-[300] text-carbon/80 mt-1 sm:mt-1.5 max-w-2xl leading-relaxed">
+          Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico: hacé click en cualquier piloto para abrir su ficha técnica interactiva.
+        </p>
+      </div>
     </div>
 
-    <!-- BOTONES SELECTORES DE MAZO (PRIMER PILOTO VS SEGUNDO PILOTO POR ESCUDERÍA) -->
-    <div class="mt-2 sm:mt-3 flex flex-col items-center space-y-1.5">
-      
-      <div class="inline-flex p-1 bg-canvas border border-hairline rounded-full shadow-xs">
-        <button id="btnDeck1" onclick="switchDeck(1)" 
-                class="px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm">
-          Primeros Pilotos
-        </button>
-        <button id="btnDeck2" onclick="switchDeck(2)" 
-                class="px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon">
-          Segundo Piloto por Escudería ⇄
-        </button>
-        <button id="btnDeck3" onclick="switchDeck(3)" 
-                class="px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon flex items-center gap-1.5">
-          <span>⚡ 5 Favorecidos (Más Puestos Ganados)</span>
-        </button>
-      </div>
-
-      <span class="text-[10px] sm:text-[11px] text-muted font-[400]">
-        click en cualquier carta para desplegar la ficha técnica completa
-      </span>
-    </div>
-
-    <!-- ESCENARIO DEL ABANICO DE CARTAS SIMÉTRICO (SUPERPUESTAS, JUNTAS Y CENTRADAS) -->
-    <div class="relative w-full max-w-5xl mx-auto my-2 sm:my-3 px-6 sm:px-10">
-      <div class="fan-stage relative h-[320px] sm:h-[350px] flex items-center justify-center overflow-visible" id="fanDeckContainer">
-        <!-- Inyectado dinámicamente con JS -->
-      </div>
-
-      <!-- Controles de Navegación del Abanico -->
-      <div class="flex items-center justify-between max-w-sm mx-auto pt-1 px-4">
-        <button onclick="prevPilot()" class="px-4 py-2 rounded-full border border-hairline bg-pureWhite text-xs font-[600] text-carbon hover:bg-carbon hover:text-pureWhite transition-all flex items-center gap-1.5 shadow-sm">
-          <span>←</span> <span>anterior</span>
-        </button>
-
-        <div id="fanIndicators" class="flex gap-2 items-center">
-          <!-- Indicadores de puntos -->
+    <!-- CONTENEDOR CENTRAL: CENTRADO EXACTO EN EL MEDIO DE LA PANTALLA -->
+    <div class="flex flex-col items-center justify-center w-full">
+      <!-- BOTONES SELECTORES DE MAZO (PRIMER PILOTO VS SEGUNDO PILOTO POR ESCUDERÍA) -->
+      <div class="mb-3 flex flex-col items-center space-y-1.5 shrink-0">
+        
+        <div class="inline-flex p-1 bg-pureWhite border border-hairline rounded-full shadow-xs gap-1">
+          <button id="btnDeck1" onclick="switchDeck(1)" 
+                  class="btn-deck-tab is-active">
+            <span>Primeros Pilotos</span>
+          </button>
+          <button id="btnDeck2" onclick="switchDeck(2)" 
+                  class="btn-deck-tab">
+            <span>Segundo Piloto por Escudería ⇄</span>
+          </button>
         </div>
 
-        <button onclick="nextPilot()" class="px-4 py-2 rounded-full border border-hairline bg-pureWhite text-xs font-[600] text-carbon hover:bg-carbon hover:text-pureWhite transition-all flex items-center gap-1.5 shadow-sm">
-          <span>siguiente</span> <span>→</span>
-        </button>
+        <span class="text-[10px] sm:text-[11px] text-muted font-[400]">
+          click en cualquier carta para desplegar la ficha técnica completa
+        </span>
+      </div>
+
+      <!-- ESCENARIO DEL ABANICO DE CARTAS SIMÉTRICO (SUPERPUESTAS, JUNTAS Y CENTRADAS) -->
+      <div class="relative w-full max-w-6xl mx-auto flex flex-col items-center overflow-visible">
+        <div class="fan-stage relative h-[340px] sm:h-[380px] w-full overflow-visible" id="fanDeckContainer">
+          <!-- Inyectado dinámicamente con JS -->
+        </div>
+
+        <!-- Controles de Navegación del Abanico -->
+        <div class="flex items-center justify-center gap-6 pt-3 px-4">
+          <button onclick="prevPilot()" class="btn-fan-nav">
+            <span>←</span> <span>anterior</span>
+          </button>
+
+          <div id="fanIndicators" class="flex gap-2 items-center">
+            <!-- Indicadores de puntos -->
+          </div>
+
+          <button onclick="nextPilot()" class="btn-fan-nav">
+            <span>siguiente</span> <span>→</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1884,42 +2006,35 @@
 
   <!-- ========================================================
        PANTALLA COMPLETA 100% BLANCA: TRANSICIÓN A LA REDACCIÓN
-       Ocupa la pantalla entera (min-h-screen h-screen) sin franjas oscuras
+       Ocupa la pantalla entera (min-h-screen) sin franjas oscuras
        ======================================================== -->
-  <section id="transition-desk" class="relative w-full min-h-screen h-screen bg-pureWhite text-carbon select-none flex flex-col justify-between items-center px-6 sm:px-12 py-16 sm:py-24 z-30 scroll-mt-0 overflow-hidden">
+  <section id="transition-desk" class="relative w-full min-h-screen bg-pureWhite text-carbon select-none flex flex-col justify-center items-center px-6 sm:px-12 py-16 sm:py-24 z-30 scroll-mt-0">
     
-    <!-- ESPACIADOR SUPERIOR PARA BALANCE VERTICAL -->
-    <div class="shrink-0 text-center">
-      <span class="text-[10px] sm:text-xs uppercase font-mono font-[800] tracking-[0.25em] text-[#00875A] inline-block px-3 py-1 rounded-full bg-[#00875A]/10">
-        06 / DE LA TELEMETRÍA AL CONTENIDO
-      </span>
-    </div>
+    <!-- NÚCLEO EDITORIAL EN EL CENTRO EXACTO DE LA PANTALLA -->
+    <div class="max-w-4xl mx-auto text-center space-y-5 sm:space-y-6 my-auto py-4">
 
-    <!-- NÚCLEO EDITORIAL PROTAGONISTA EN EL CENTRO EXACTO DE LA PANTALLA -->
-    <div class="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 my-auto py-6">
-
-      <h2 class="font-sans font-[900] text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.95] tracking-tight text-carbon">
+      <h2 class="font-sans font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-carbon">
         DE LOS DATOS EN PISTA <br>
         <span class="font-[100] text-carbon/60 normal-case tracking-normal">a la voz del</span> STREAMING.
       </h2>
 
-      <p class="font-sans text-base sm:text-xl md:text-2xl font-[300] text-carbon/80 max-w-3xl mx-auto leading-relaxed">
+      <p class="font-sans text-xs sm:text-base font-[300] text-carbon/75 max-w-xl mx-auto leading-relaxed">
         Los números ya hablaron: ahora convertí los datos del fin de semana en guiones, historias y debates listos para salir al aire con tu comunidad.
       </p>
 
       <!-- BOTÓN HOOK PROTAGONISTA -->
-      <div class="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="redaccion.html" class="inline-flex items-center gap-4 px-10 sm:px-14 py-5 sm:py-5.5 rounded-full bg-carbon hover:bg-black text-pureWhite font-[800] text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-2xl hover:scale-105 active:scale-95 group cursor-pointer">
-          <span>INGRESAR A LA REDACCIÓN</span>
-          <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] group-hover:scale-125 transition-transform shadow-[0_0_10px_#d4ff32]"></span>
-          <span class="text-lg font-bold">➔</span>
+      <div class="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="redaccion.html" class="btn-redaccion-cta inline-flex items-center gap-3.5 px-8 sm:px-12 py-4 sm:py-4.5 rounded-full font-[900] text-xs sm:text-sm uppercase tracking-wider group cursor-pointer">
+          <span class="tracking-wider">INGRESAR A LA REDACCIÓN</span>
+          <span class="cta-dot w-2.5 h-2.5 rounded-full"></span>
+          <span class="cta-arrow text-base font-bold">➔</span>
         </a>
       </div>
 
     </div>
 
     <!-- REMATE INFERIOR INTEGRADO EN LA PANTALLA BLANCA -->
-    <div class="shrink-0 text-center text-[10px] sm:text-[11px] font-mono text-carbon/40 uppercase tracking-widest">
+    <div class="shrink-0 text-center text-[10px] sm:text-[11px] font-mono text-carbon/40 uppercase tracking-widest pb-4">
       UNDERTRACK REDACCIÓN DESK · EDICIÓN GP DE LAS VEGAS 2026
     </div>
 
@@ -2940,53 +3055,61 @@
       hook: "«Colapinto sabe estirar la goma dura y aprovechar el caos: su ritmo de carrera le permite avanzar hacia el Top 10 el domingo.»"
     }
   ];
-let currentDeckId = 1;
+  let currentDeckId = 1;
   let pilotsDB = deck1Pilots;
-  let activePilotIndex = -1; // NINGUNA SELECCIONADA POR DEFECTO COMO PIDIÓ EL USUARIO
-  let userHasInteracted = false;
+  let activePilotIndex = 5; // Lando Norris (centro) activo por defecto como en la referencia
   const fanStage = document.getElementById('fanDeckContainer');
   const fanIndicators = document.getElementById('fanIndicators');
 
-  // Alternar entre mazo 1, mazo 2 y mazo 3 (Top 5 Remontadores)
-  window.switchDeck = function(deckId) {
-    if (currentDeckId === deckId) {
-      const container = document.getElementById('fanDeckContainer');
-      if (container) container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    currentDeckId = deckId;
+  // ========================================================
+  // MOTOR DEL ABANICO DE CARTAS SIMÉTRICO Y CENTRADO
+  // (11 cartas desplegadas en arco armónico exactamente como en el diseño de referencia)
+  // ========================================================
+  function renderFanSpread(spreadFactor = 1.0) {
+    if (!fanStage || !pilotsDB.length) return;
+    const winW = window.innerWidth;
+    const isMobile = winW < 640;
+    const isTablet = winW >= 640 && winW < 1024;
+    const centerIdx = 5; // El centro exacto de 11 cartas (Norris en mazo 1, Piastri en mazo 2)
 
-    const btn1 = document.getElementById('btnDeck1');
-    const btn2 = document.getElementById('btnDeck2');
-    const btn3 = document.getElementById('btnDeck3');
+    // Desplazamiento horizontal compacto y armónico para las 11 cartas
+    const stepX = isMobile ? 25 : (isTablet ? 46 : 58);
+    const stepRot = isMobile ? 2.4 : 3.4;
+    const curveY = isMobile ? 2.8 : 4.6;
 
-    // Resetear clases inactivas
-    [btn1, btn2, btn3].forEach(b => {
-      if (b) b.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[700] uppercase tracking-wider transition-all text-muted hover:text-carbon flex items-center gap-1.5";
+    pilotsDB.forEach((p, idx) => {
+      const card = document.getElementById(`fanCard_${idx}`);
+      if (!card) return;
+
+      const offset = idx - centerIdx; // -5 a +5
+      const rot = offset * stepRot * spreadFactor;
+      const transX = offset * stepX * spreadFactor;
+      const transY = Math.pow(Math.abs(offset), 1.25) * curveY * spreadFactor;
+      const zIndex = 30 - Math.abs(offset);
+
+      card.style.display = 'block';
+      card.style.opacity = '1';
+
+      if (idx === activePilotIndex) {
+        card.classList.add('is-active');
+        card.style.zIndex = '100';
+        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 32).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
+      } else {
+        card.classList.remove('is-active');
+        card.style.zIndex = zIndex.toString();
+        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.0)`;
+      }
     });
 
-    if (deckId === 1) {
-      pilotsDB = deck1Pilots;
-      if (btn1) btn1.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm";
-    } else if (deckId === 2) {
-      pilotsDB = deck2Pilots;
-      if (btn2) btn2.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm";
-    } else if (deckId === 3) {
-      pilotsDB = deck3Pilots;
-      if (btn3) btn3.className = "px-4 sm:px-5 py-1.5 rounded-full text-xs font-[800] uppercase tracking-wider transition-all bg-carbon text-pureWhite shadow-sm flex items-center gap-1.5";
+    if (fanIndicators) {
+      fanIndicators.innerHTML = pilotsDB.map((p, idx) => `
+        <button onclick="handleCardClick(${idx})" id="fanDot_${idx}" 
+                class="h-2 rounded-full transition-all duration-300 ${idx === activePilotIndex ? 'bg-carbon w-5' : 'bg-carbon/20 hover:bg-carbon/50 w-2'}"
+                title="${p.name}"></button>
+      `).join('');
     }
+  }
 
-    activePilotIndex = -1; // Ninguna seleccionada al cambiar
-    createFanCards();
-    renderFanSpread(1.0);
-
-    const container = document.getElementById('fanDeckContainer');
-    if (container) {
-      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
-  // CREAR CARTAS: SIN NOMBRES NI NÚMEROS, SOLO LA FOTO EN B&W CENTRADA Y EL BORDE DE ESCUDERÍA
   function createFanCards() {
     if (!fanStage) return;
 
@@ -2994,12 +3117,12 @@ let currentDeckId = 1;
       const dorsalNum = (p.dorsal || '').replace('#', '');
       const teamSlug = (p.team || '').split(' ')[0].toUpperCase();
       return `
-        <div class="fan-card overflow-hidden shadow-xl cursor-pointer relative bg-zinc-950 group" 
+        <div class="fan-card overflow-hidden shadow-xl cursor-pointer bg-zinc-950 group" 
              id="fanCard_${idx}" 
              onclick="handleCardClick(${idx})"
              style="--team-color: ${p.teamColor}; --team-glow: ${p.teamGlow};">
           
-          <!-- FOTO EN BLANCO Y NEGRO PURO EN FORMATO PÓKER (2.5:3.5) -->
+          <!-- FOTO EN BLANCO Y NEGRO PURO EN FORMATO PÓKER -->
           <img src="${p.portrait}" alt="${p.name}" class="w-full h-full object-cover object-[50%_18%] pointer-events-none select-none transition-all duration-500">
           
           <!-- ÍNDICE DE NAIPE PÓKER: ESQUINA SUPERIOR IZQUIERDA (DORSAL + PUNTO DE ESCUDERÍA) -->
@@ -3011,7 +3134,7 @@ let currentDeckId = 1;
           <!-- Borde sutil superior con el color de escudería que brilla en hover -->
           <div class="absolute top-0 inset-x-0 h-1 transition-all z-20" style="background-color: ${p.teamColor};"></div>
 
-          <!-- SIGLA INFERIOR DEL EQUIPO: ESQUINA INFERIOR DERECHA (ESTILO NAIPE DE COLECCIÓN) -->
+          <!-- SIGLA INFERIOR DEL EQUIPO: ESQUINA INFERIOR DERECHA -->
           <div class="absolute bottom-2 right-2 z-20 pointer-events-none bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-mono font-[800] uppercase text-white/80 border border-white/10">
             ${teamSlug}
           </div>
@@ -3022,66 +3145,7 @@ let currentDeckId = 1;
       `;
     }).join('');
 
-    if (fanIndicators) {
-      fanIndicators.innerHTML = pilotsDB.map((p, idx) => `
-        <button onclick="handleCardClick(${idx})" id="fanDot_${idx}" 
-                class="w-2 h-2 rounded-full transition-all ${idx === activePilotIndex ? 'bg-carbon w-5' : 'bg-carbon/20 hover:bg-carbon/50'}"
-                title="${p.name}"></button>
-      `).join('');
-    }
-  }
-
-  // ANIMACIÓN EN ABANICO DESDE EL CENTRO (NORRIS EN EL ÍNDICE 5 ES EL CENTRO NATURAL)
-  function renderFanSpread(spreadFactor = 0.0) {
-    if (!fanStage) return;
-
-    const isMobile = window.innerWidth < 640;
-    const centerIdx = 5; // El centro exacto de 11 cartas (Norris en mazo 1, Piastri en mazo 2)
-
-    pilotsDB.forEach((p, idx) => {
-      const card = document.getElementById(`fanCard_${idx}`);
-      if (!card) return;
-
-      const offset = idx - centerIdx; // -5 a +5
-      
-      // Superposición estrecha y centrada para cartas cuadradas juntas (estilo baraja en mano):
-      // Rotación angular contenida
-      const rot = offset * (isMobile ? 2.5 : 3.4) * spreadFactor;
-      // Desplazamiento horizontal compacto para superponer fuertemente las cartas y dejar amplios márgenes blancos
-      const transX = offset * (isMobile ? 12 : 24) * spreadFactor;
-      // Caída arqueada parabólica suave
-      const transY = Math.pow(Math.abs(offset), 1.35) * (isMobile ? 3.0 : 5.5) * spreadFactor;
-      
-      // Z-Index en capas idéntico a la referencia:
-      // El centro queda al frente (30), y hacia los costados quedan progresivamente detrás
-      const zIndex = 30 - Math.abs(offset);
-
-      card.style.setProperty('--x', `${transX.toFixed(1)}px`);
-      card.style.setProperty('--y', `${transY.toFixed(1)}px`);
-      card.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
-      card.style.zIndex = idx === activePilotIndex ? 100 : zIndex;
-
-      if (idx === activePilotIndex) {
-        card.classList.add('is-active');
-        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 36).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
-      } else {
-        card.classList.remove('is-active');
-        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg)`;
-      }
-    });
-
-    if (fanIndicators) {
-      pilotsDB.forEach((p, idx) => {
-        const dot = document.getElementById(`fanDot_${idx}`);
-        if (dot) {
-          if (idx === activePilotIndex) {
-            dot.className = "w-5 h-2 rounded-full bg-carbon transition-all";
-          } else {
-            dot.className = "w-2 h-2 rounded-full bg-carbon/20 hover:bg-carbon/50 transition-all";
-          }
-        }
-      });
-    }
+    renderFanSpread(1.0);
   }
 
   window.handleCardClick = function(idx) {
@@ -3091,22 +3155,48 @@ let currentDeckId = 1;
   };
 
   window.prevPilot = function() {
-    if (activePilotIndex === -1) {
-      activePilotIndex = 5; // Empezar por el centro
-    } else {
-      activePilotIndex = (activePilotIndex - 1 + pilotsDB.length) % pilotsDB.length;
-    }
+    if (activePilotIndex === -1) activePilotIndex = 5;
+    else activePilotIndex = (activePilotIndex - 1 + pilotsDB.length) % pilotsDB.length;
     renderFanSpread(1.0);
   };
 
   window.nextPilot = function() {
-    if (activePilotIndex === -1) {
-      activePilotIndex = 5; // Empezar por el centro
-    } else {
-      activePilotIndex = (activePilotIndex + 1) % pilotsDB.length;
-    }
+    if (activePilotIndex === -1) activePilotIndex = 5;
+    else activePilotIndex = (activePilotIndex + 1) % pilotsDB.length;
     renderFanSpread(1.0);
   };
+
+  window.goToCard = function(targetIdx) {
+    activePilotIndex = targetIdx;
+    renderFanSpread(1.0);
+  };
+
+  window.switchDeck = function(deckId) {
+    if (currentDeckId === deckId) return;
+    currentDeckId = deckId;
+
+    const btn1 = document.getElementById('btnDeck1');
+    const btn2 = document.getElementById('btnDeck2');
+
+    [btn1, btn2].forEach(b => {
+      if (b) b.className = "btn-deck-tab";
+    });
+
+    if (deckId === 1) {
+      pilotsDB = deck1Pilots;
+      if (btn1) btn1.classList.add('is-active');
+    } else if (deckId === 2) {
+      pilotsDB = deck2Pilots;
+      if (btn2) btn2.classList.add('is-active');
+    }
+
+    activePilotIndex = 5; // Volver al centro
+    createFanCards();
+  };
+
+  window.addEventListener('resize', () => {
+    renderFanSpread(1.0);
+  });
 
   // MOTOR DE APERTURA DEL FICHERO VIDRIOSO ELEGANTE (FROSTED GLASS BLUR)
   window.openPilotModal = function(p) {
@@ -3323,27 +3413,9 @@ let currentDeckId = 1;
   if (initEl1) initEl1.textContent = "";
   if (initEl2) initEl2.textContent = "";
 
-  // INICIALIZACIÓN
+  // INICIALIZACIÓN DEL ABANICO DE CARTAS SIMÉTRICO Y CENTRADO
   createFanCards();
   renderFanSpread(1.0);
-
-  // Scroll listener para animar el despliegue en abanico al entrar a la sección
-  // SINCRONIZACIÓN DE LA APERTURA EN ABANICO CON EL SCROLL (IDÉNTICA AL VIDEO)
-  function updateHelmetFanScroll() {
-    const stage = document.getElementById('fanDeckContainer');
-    if (!stage) return;
-    const rect = stage.getBoundingClientRect();
-    const winH = window.innerHeight;
-    
-    // Conforme el mazo de cartas entra desde abajo (winH * 0.95)
-    // hasta que llega cómodamente a la vista central (winH * 0.45):
-    // Las cartas se abren desde la pila central (0.0) hasta el abanico completo (1.0)
-    const progress = Math.max(0.0, Math.min(1.0, (winH * 0.95 - rect.top) / (winH * 0.50)));
-    renderFanSpread(progress);
-  }
-
-  window.addEventListener('scroll', updateHelmetFanScroll, { passive: true });
-  updateHelmetFanScroll();
 
 // 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
     window.addEventListener('scroll', () => {
