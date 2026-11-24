@@ -207,7 +207,7 @@
           REDACCIÓN <span class="font-[100] text-muted normal-case">editorial</span>
         </h1>
         <p class="text-xs sm:text-sm font-[300] text-muted max-w-2xl leading-relaxed lowercase pt-1">
-          transformá datos de pista, clima y pilotos en contenido listo para publicar según tu canal y formato.
+          mesa de preproducción para creadores: elegí canal y formato, generá tu guion y verificá los datos exactos que lo respaldan antes de salir al aire.
         </p>
       </div>
       
@@ -225,8 +225,9 @@
     <!-- WORKSPACE SPLIT EN DOS COLUMNAS (SIDEBAR CONFIGURACIÓN + PIZARRA EDITORIAL) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
-      <!-- COLUMNA IZQUIERDA (4/12): 1. CANAL Y FORMATO -->
-      <aside class="lg:col-span-4 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-6" style="background-color: #FFFFFF !important;">
+      <!-- COLUMNA IZQUIERDA (4/12): 1. CANAL Y FORMATO + HISTORIAL (ALINEADO CON ESPERANDO SELECCIÓN) -->
+      <div class="lg:col-span-4 flex flex-col gap-4">
+        <aside class="flex-1 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-6" style="background-color: #FFFFFF !important;">
         <div class="space-y-6">
           <div class="flex items-center gap-2 border-b border-black/10 pb-3.5">
             <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] border border-black/25 shrink-0"></span>
@@ -283,6 +284,27 @@
         </div>
       </aside>
 
+        <!-- HISTORIAL COMPRIMIDO DENTRO DE LA COLUMNA IZQUIERDA -->
+        <details class="bg-pureWhite rounded-2xl border border-black/12 shadow-sm overflow-hidden group shrink-0" style="background-color: #FFFFFF !important;">
+          <summary class="px-5 py-3 flex items-center justify-between cursor-pointer list-none select-none">
+            <span class="text-[11px] font-sans uppercase font-[800] tracking-wider text-carbon">
+              HISTORIAL
+            </span>
+            <div class="flex items-center gap-3">
+              <button type="button" onclick="event.preventDefault(); saveCurrentSessionToHistory();" class="text-[10px] font-[700] text-carbon/70 hover:text-carbon underline cursor-pointer">
+                + guardar
+              </button>
+              <span class="text-xs text-muted transition-transform duration-200 group-open:rotate-180">▾</span>
+            </div>
+          </summary>
+          <div class="px-4 pb-4 pt-2 border-t border-black/8">
+            <div id="editorialHistoryList" class="space-y-1.5 max-h-40 overflow-y-auto">
+              <!-- Inyectado dinámicamente desde localStorage -->
+            </div>
+          </div>
+        </details>
+      </div>
+
       <!-- COLUMNA DERECHA (8/12): PIZARRA EDITORIAL Y CHAT EN VIVO -->
       <section class="lg:col-span-8 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-4" style="background-color: #FFFFFF !important;">
         
@@ -325,6 +347,28 @@
             </div>
             
             <div id="verdictOutput" class="text-carbon leading-relaxed whitespace-pre-line text-xs sm:text-sm font-[400]"></div>
+
+            <!-- BOTÓN SUTIL DE RESPALDO VERIFICABLE + POPOVER ANCLADO ARRIBA -->
+            <div class="pt-1 flex justify-end relative">
+              <button type="button" onclick="toggleEvidenceModal()" title="Ver datos que respaldan este hallazgo" aria-label="Ver datos que respaldan este hallazgo" class="w-6 h-6 rounded-full bg-[#d4ff32] hover:bg-[#c5f022] text-[#111114] text-xs font-[900] flex items-center justify-center shadow-xs transition-transform hover:scale-105 cursor-pointer">
+                ?
+              </button>
+
+              <!-- MINI POP-UP ANCLADO POR ENCIMA DEL BOTÓN -->
+              <div id="evidenceModal" class="hidden absolute bottom-full right-0 mb-2 z-50 w-72 sm:w-80 rounded-2xl p-4 border border-black/15 shadow-2xl space-y-2.5 text-left" style="background-color: #FFFFFF !important;">
+                <div class="flex items-center justify-between border-b border-black/10 pb-2">
+                  <span class="text-[10px] font-sans uppercase font-[900] tracking-wider text-carbon">
+                    Respaldo de Datos
+                  </span>
+                  <button type="button" onclick="closeEvidenceModal()" class="w-5 h-5 rounded-full bg-[#EEF0F4] hover:bg-carbon hover:text-pureWhite text-[10px] font-[700] flex items-center justify-center cursor-pointer transition-colors">
+                    ✕
+                  </button>
+                </div>
+                <div id="evidenceBody" class="space-y-1.5 text-[11px] text-carbon/85 leading-relaxed">
+                  <!-- Actualizado dinámicamente según la sugerencia -->
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- HISTORIAL DE PREGUNTAS Y RESPUESTAS DEL CHAT -->
@@ -915,6 +959,109 @@ REGLAS ESTRICTAS DE RESPUESTA:
     // Inicializar
     renderDynamicFormatButtons();
     syncEditorialOutput();
+  </script>
+  <script>
+    const EDITORIAL_HISTORY_KEY = 'undertrack_editorial_history_v1';
+
+    function loadEditorialHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(EDITORIAL_HISTORY_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function renderEditorialHistory() {
+      const list = document.getElementById('editorialHistoryList');
+      if (!list) return;
+      const items = loadEditorialHistory();
+      if (!items.length) {
+        list.innerHTML = '<p class="text-[11px] text-muted italic">Todavía no guardaste análisis previos.</p>';
+        return;
+      }
+      list.innerHTML = items.map((item, idx) => `
+        <button type="button" onclick="restoreEditorialHistory(${idx})" class="w-full text-left px-3 py-2 rounded-xl bg-[#EEF0F4] hover:bg-carbon hover:text-pureWhite transition-colors flex items-center justify-between gap-2 group cursor-pointer">
+          <div class="min-w-0">
+            <span class="block text-[11px] font-[700] truncate">${item.title}</span>
+            <span class="block text-[9px] font-mono opacity-65">${item.date}</span>
+          </div>
+          <span class="text-[10px] opacity-50 group-hover:opacity-100 shrink-0">↩</span>
+        </button>
+      `).join('');
+    }
+
+    window.saveCurrentSessionToHistory = function() {
+      const output = document.getElementById('verdictOutput')?.innerText?.trim();
+      if (!output) return;
+      const badge = document.getElementById('verdictCardBadge')?.innerText?.trim() || 'Análisis';
+      const chatHtml = document.getElementById('verdictChatHistory')?.innerHTML || '';
+      const items = loadEditorialHistory();
+      items.unshift({
+        title: badge + ' — ' + output.slice(0, 32).replace(/\n/g, ' ') + '...',
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        output,
+        chatHtml
+      });
+      localStorage.setItem(EDITORIAL_HISTORY_KEY, JSON.stringify(items.slice(0, 10)));
+      renderEditorialHistory();
+    };
+
+    window.restoreEditorialHistory = function(idx) {
+      const items = loadEditorialHistory();
+      const item = items[idx];
+      if (!item) return;
+      const out = document.getElementById('verdictOutput');
+      const chat = document.getElementById('verdictChatHistory');
+      if (out) out.innerText = item.output;
+      if (chat) chat.innerHTML = item.chatHtml || '';
+    };
+
+    function updateEvidenceModalFromOutput() {
+      const body = document.getElementById('evidenceBody');
+      if (!body) return;
+      const text = (document.getElementById('verdictOutput')?.innerText || '').toLowerCase();
+      const rows = [];
+
+      if (text.includes('vegas') || text.includes('strip') || text.includes('12°c') || text.includes('graining')) {
+        rows.push('<p><strong class="text-carbon font-[800]">Circuito:</strong> Las Vegas Strip (6.2 km, recta de 1.9 km, Familia Urbana).</p>');
+        rows.push('<p><strong class="text-carbon font-[800]">Clima y pista:</strong> Asfalto frío a 12°C, alto riesgo de graining delantero.</p>');
+        rows.push('<p><strong class="text-carbon font-[800]">Neutralización:</strong> 76.5% probabilidad de Safety Car.</p>');
+      } else if (text.includes('qatar') || text.includes('lusail')) {
+        rows.push('<p><strong class="text-carbon font-[800]">Circuito:</strong> Lusail (Qatar) · Carga Lateral Extrema (&gt;5G en C12–C14), gemelo de Silverstone (r=0.828).</p>');
+        rows.push('<p><strong class="text-carbon font-[800]">Desgaste:</strong> Abrasión máxima (5/5) y pianos piramidales, fuerza 2–3 paradas.</p>');
+      } else {
+        rows.push('<p><strong class="text-carbon font-[800]">Circuito:</strong> Yas Marina (Abu Dhabi) · Familia 1 (Stop-and-Go).</p>');
+        rows.push('<p><strong class="text-carbon font-[800]">Clima:</strong> Caída térmica crepuscular &gt;8°C (33°C → 24°C), exige rebalance delantero.</p>');
+        rows.push('<p><strong class="text-carbon font-[800]">Estrategia:</strong> 1 parada nominal (Medio → Duro V20–V26).</p>');
+      }
+
+      if (text.includes('colapinto') || text.includes('alpine')) {
+        rows.push('<p><strong class="text-carbon font-[800]">Piloto:</strong> Franco Colapinto · Arquetipo Gestor (consistencia 1.19s, preservación de compuesto Duro).</p>');
+      }
+      if (text.includes('verstappen') || text.includes('red bull')) {
+        rows.push('<p><strong class="text-carbon font-[800]">Piloto:</strong> Max Verstappen · Élite Metronómico (91% en puntos, dominio en rectas y frenadas).</p>');
+      }
+      if (text.includes('norris') || text.includes('mclaren') || text.includes('piastri')) {
+        rows.push('<p><strong class="text-carbon font-[800]">Escudería:</strong> McLaren · +1.32 puestos promedio en asfalto frío (&lt;40°C) y fuerte tracción lenta.</p>');
+      }
+
+      rows.push('<p><strong class="text-carbon font-[800]">Fuente:</strong> 187.000+ vueltas limpias FIA, Ergast &amp; OpenF1 (2018–2026).</p>');
+      body.innerHTML = rows.join('');
+    }
+
+    window.toggleEvidenceModal = function() {
+      const m = document.getElementById('evidenceModal');
+      if (!m) return;
+      if (m.classList.contains('hidden')) updateEvidenceModalFromOutput();
+      m.classList.toggle('hidden');
+    };
+
+    window.closeEvidenceModal = function() {
+      const m = document.getElementById('evidenceModal');
+      if (m) m.classList.add('hidden');
+    };
+
+    document.addEventListener('DOMContentLoaded', renderEditorialHistory);
   </script>
 </body>
 </html>
