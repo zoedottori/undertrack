@@ -641,15 +641,22 @@
     <main id="vistaPirueta" class="hidden flex-1 w-full max-w-5xl px-6 sm:px-12 lg:px-16 py-12 sm:py-20 space-y-12 transition-opacity duration-500">
       
       <!-- 1. SIMULADOR CINEMÁTICO EN TIEMPO REAL: RECTA PRINCIPAL DE INTERLAGOS -->
-      <div id="piruetaSimulatorWrap" class="w-full bg-[#111114] text-pureWhite rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
+      <!-- BOTÓN ÚNICO DE PLAY ANTES DE INICIAR LA PIRUETA -->
+      <div id="piruetaPlayGate" class="min-h-[60vh] flex flex-col items-center justify-center">
+        <button type="button" onclick="startPiruetaExperience()" class="group inline-flex items-center gap-4 px-10 py-5 rounded-full bg-[#111114] hover:bg-[#d4ff32] text-white hover:text-[#111114] font-[900] text-sm sm:text-base uppercase tracking-widest shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer">
+          <span class="w-3.5 h-3.5 rounded-full bg-[#d4ff32] group-hover:bg-[#111114] transition-colors"></span>
+          <span>▶ Play</span>
+        </button>
+      </div>
+
+      <div id="piruetaSimulatorWrap" class="hidden w-full bg-[#111114] text-pureWhite rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
         
         <!-- ENCABEZADO TÉCNICO Y CONTROLES -->
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div class="flex items-center gap-3">
             <span class="w-2.5 h-2.5 rounded-full bg-[#FF1801] animate-ping"></span>
             <div>
-              <span class="text-[10px] uppercase font-mono tracking-widest text-[#d4ff32] font-[800] block">SIMULADOR CINEMÁTICO EN TIEMPO REAL</span>
-              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DE INTERLAGOS · 320 KM/H (88.8 M/S)</span>
+              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DE VEGAS</span>
             </div>
           </div>
           
@@ -721,30 +728,10 @@
           </div>
         </div>
 
-        <!-- HUD TELEMÉTRICO EN TIEMPO REAL -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono pt-1">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-            <span class="text-[9px] uppercase text-white/50 block font-[600]">VELOCIDAD TELEMÉTRICA</span>
-            <span id="hudSpeed" class="text-sm sm:text-base font-[900] text-[#d4ff32] block">320.0 km/h</span>
-          </div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-            <span class="text-[9px] uppercase text-white/50 block font-[600]">METROS / SEGUNDO</span>
-            <span id="hudMps" class="text-sm sm:text-base font-[900] text-white block">88.8 m/s</span>
-          </div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-            <span class="text-[9px] uppercase text-white/50 block font-[600]">CRONÓMETRO DE CRUCE</span>
-            <span id="hudTimer" class="text-sm sm:text-base font-[900] text-white block">+0.000s</span>
-          </div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-            <span class="text-[9px] uppercase text-white/50 block font-[600]">NOTACIÓN ESPACIAL</span>
-            <span id="hudScale" class="text-sm sm:text-base font-[900] text-[#d4ff32] block">0.001s = 8.8 cm</span>
-          </div>
-        </div>
-
       </div>
 
-      <!-- 2. NARRATIVA CON SEPARACIÓN ESPACIAL Y COLORES DE ESCUDERÍA -->
-      <div id="piruetaContentWrap" class="space-y-12 text-sm sm:text-base font-[300] leading-loose text-tinta">
+      <!-- 2. NARRATIVA CON SEPARACIÓN ESPACIAL (OCULTA HASTA TOCAR PLAY) -->
+      <div id="piruetaContentWrap" class="hidden space-y-12 text-sm sm:text-base font-[300] leading-loose text-tinta">
         
         <p class="leading-relaxed text-xs sm:text-sm text-tintaSuave">
           en cualquier pantalla o transmisión de fórmula 1 tradicional, el tiempo se aplana en tablas de renglones idénticos de cuarenta píxeles.
@@ -752,54 +739,51 @@
 
         <!-- LAS PALABRAS SE EMPIEZAN A ALEJAR SIN EXPLICACIÓN PREVIA (CON COLORES DE ESCUDERÍA) -->
         <p id="piruetaStoryParagraph" class="text-xs sm:text-sm font-[400] text-tinta leading-loose">
-          cuando cayó la bandera a cuadros en interlagos, 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#FF8000] drop-shadow-xs" title="McLaren F1 Team #4">norris</span>
-          <span class="inline-block w-40 sm:w-72"></span>
+          cuando cayó la bandera a cuadros en las vegas, 
+          <span class="driver-tag font-[900] text-base sm:text-xl" style="--team-color: #3671C6;" title="Red Bull Racing #1 · Líder (0.0 m)">verstappen</span>
+          <span class="inline-block w-10 sm:w-16"></span>
           cruzó la meta adelante de 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#3671C6] drop-shadow-xs" title="Red Bull Racing #3">verstappen</span>
-          <span class="inline-block w-28 sm:w-48"></span>
+          <span class="driver-tag font-[900] text-base sm:text-xl" style="--team-color: #FF8000;" title="McLaren F1 Team #4 · +0.639s (56.8 m)">norris</span>
+          <span class="inline-block w-14 sm:w-20"></span>
           que dejaba atrás a 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#4E78E8] drop-shadow-xs" title="Red Bull Racing #6">hadjar</span>
-          <span class="inline-block w-24 sm:w-44"></span>
+          <span class="driver-tag font-[900] text-base sm:text-xl" style="--team-color: #FF8000;" title="McLaren F1 Team #81 · +0.890s (79.1 m)">piastri</span>
+          <span class="inline-block w-16 sm:w-24"></span>
           seguido por 
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#00A19B]" title="Mercedes-AMG #63">russell</span>
-          <span class="inline-block w-20 sm:w-32"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#27F4D2]" title="Mercedes-AMG #12">antonelli</span>
-          <span class="inline-block w-36 sm:w-64"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#FF8000]" title="McLaren F1 Team #81">piastri</span>
-          <span class="inline-block w-44 sm:w-80"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#4466EE]" title="Racing Bulls #30">lawson</span>
-          <span class="inline-block w-12 sm:w-20"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#E80020]" title="Scuderia Ferrari #16">leclerc</span>
-          <span class="inline-block w-64 sm:w-[420px]"></span>
-          y el pelotón rezagado con 
-          <span class="driver-tag font-[500] text-[#E80020]" title="Scuderia Ferrari #44">hamilton</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #27">hulkenberg</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#4466EE]" title="Racing Bulls #41">lindblad</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#229971]" title="Aston Martin #14">alonso</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[600] text-[#0093CC] underline decoration-[#0093CC]/50 decoration-2 underline-offset-4" title="BWT Alpine F1 Team #43">colapinto</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#0093CC]" title="BWT Alpine F1 Team #10">gasly</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#64C4FF]" title="Williams Racing #23">albon</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #5">bortoleto</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#E6002B]" title="Haas F1 Team #87">bearman</span>
-          <span class="inline-block w-72 sm:w-[600px]"></span>
-          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #11">perez</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#64C4FF]" title="Williams Racing #55">sainz</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#E6002B]" title="Haas F1 Team #89">câmara</span>
-          <span class="inline-block w-12"></span>
-          <span class="driver-tag font-[400] text-[#229971]" title="Aston Martin #18">stroll</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #77">bottas</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #27F4D2;" title="Mercedes-AMG #12 · +1.045s (92.9 m)">antonelli</span>
+          <span class="inline-block w-6 sm:w-10"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #0090FF;" title="BWT Alpine #10 · +0.353s (31.4 m)">gasly</span>
+          <span class="inline-block w-44 sm:w-72"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #0090FF;" title="BWT Alpine #43 · +5.028s (446.9 m)">colapinto</span>
+          <span class="inline-block w-40 sm:w-64"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #E80020;" title="Scuderia Ferrari #44 · +4.840s (430.2 m)">hamilton</span>
+          <span class="inline-block w-3 sm:w-5"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #1868DB;" title="Williams Racing #55 · +0.143s (12.7 m)">sainz</span>
+          <span class="inline-block w-5 sm:w-8"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #00A19B;" title="Mercedes-AMG #63 · +0.254s (22.6 m)">russell</span>
+          <span class="inline-block w-36 sm:w-56"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--team-color: #E80020;" title="Scuderia Ferrari #16 · +4.362s (387.7 m)">leclerc</span>
+          <span class="inline-block w-44 sm:w-72"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #52E252;" title="Stake Kick / Audi #27 · +5.166s (459.2 m)">hulkenberg</span>
+          <span class="inline-block w-48 sm:w-80"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #52E252;" title="Stake Kick / Audi #5 · +5.882s (522.8 m)">bortoleto</span>
+          <span class="inline-block w-4 sm:w-7"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #B6BABD;" title="Haas F1 Team #87 · +0.241s (21.4 m)">bearman</span>
+          <span class="inline-block w-56 sm:w-96"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #4466EE;" title="Racing Bulls #30 · +7.745s (688.4 m)">lawson</span>
+          <span class="inline-block w-64 sm:w-[440px]"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #4E78E8;" title="Red Bull Racing #6 · +9.900s (880.0 m)">hadjar</span>
+          <span class="inline-block w-20 sm:w-28"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #B6BABD;" title="Haas F1 Team #50 · +1.326s (117.9 m)">câmara</span>
+          <span class="inline-block w-80 sm:w-[620px]"></span>
+          <span class="driver-tag font-[500]" style="--team-color: #006F62;" title="Aston Martin #18 · +20.539s (1.825,7 m)">stroll</span>
+          <span class="inline-block w-28 sm:w-44"></span>
+          y <span class="driver-tag font-[500]" style="--team-color: #888888;" title="Cadillac / Bottas · +3.320s (295.1 m)">bottas</span>
+          <span class="inline-block w-32 sm:w-52"></span>
+          mientras el vacío del DNF dejaba fuera a 
+          <span class="driver-tag font-[500]" style="--team-color: #006F62;" title="Aston Martin #14 · DNF">alonso</span>, 
+          <span class="driver-tag font-[500]" style="--team-color: #4466EE;" title="Racing Bulls #41 · DNF">lindblad</span>, 
+          <span class="driver-tag font-[500]" style="--team-color: #888888;" title="Cadillac #11 · DNF">perez</span> y 
+          <span class="driver-tag font-[500]" style="--team-color: #1868DB;" title="Williams Racing #23 · DNF">albon</span>.
         </p>
 
         <!-- RECIÉN CUANDO TERMINA EL TEXTO SE EXPLICA POR QUÉ ESTÁN TAN SEPARADAS -->
@@ -808,13 +792,13 @@
             si te preguntás por qué estas palabras están tan separadas...
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            lo que acabás de recorrer con los ojos no fue un error de maquetación: fue la <strong class="font-[900] text-tinta">distancia física real a la que estaban los 22 pilotos de fórmula 1</strong> al cruzar la línea de meta en la última carrera oficial de interlagos 2026.
+            lo que acabás de recorrer con los ojos no fue un error de maquetación: fue la <strong class="font-[900] text-tinta">distancia física real a la que estaban los 22 pilotos de fórmula 1</strong> al cruzar la línea de meta en la última carrera oficial de las vegas 2026.
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            a 320 km/h en la recta principal, cada milésima de segundo (0.001s) equivale exactamente a <strong class="font-[900] text-tinta">8.8 centímetros de asfalto</strong> (el ancho exacto de una mano humana).
+            a 320 km/h en la recta principal, cada milésima de segundo (0.001s) equivale exactamente a <strong class="font-[900] text-tinta">8.8 centímetros de asfalto</strong> (el ancho exacto de una mano humana) y <strong class="font-[900] text-tinta">1 segundo a 88.88 metros</strong>.
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            el vacío que viste entre norris y verstappen son los <strong class="font-[900] text-tinta">1.297 metros de asfalto vacío</strong> (+14.602s) que los separaban. entre verstappen y hadjar hubo <strong class="font-[900] text-tinta">878 metros</strong> (+9.883s). entre hadjar y russell hubo <strong class="font-[900] text-tinta">845 metros</strong> (+9.506s). entre russell y antonelli <strong class="font-[900] text-tinta">624 metros</strong>. entre antonelli y piastri <strong class="font-[900] text-tinta">1.374 metros</strong>. entre piastri y lawson <strong class="font-[900] text-tinta">1.682 metros</strong>. entre lawson y leclerc <strong class="font-[900] text-tinta">283 metros</strong>. y a partir de hamilton, colapinto y el resto del pelotón, la distancia superaba los <strong class="font-[900] text-tinta">4.300 metros</strong> (una vuelta completa de retraso).
+            el espacio que viste entre verstappen y norris son los <strong class="font-[900] text-tinta">56.8 metros</strong> (+0.639s · 639 manos) que los separaban. entre norris y piastri hubo <strong class="font-[900] text-tinta">79.1 metros</strong> (+0.890s). entre piastri y antonelli <strong class="font-[900] text-tinta">92.9 metros</strong> (+1.045s) y entre antonelli y gasly apenas <strong class="font-[900] text-tinta">31.4 metros</strong> (+0.353s). después el pelotón se partió: <strong class="font-[900] text-tinta">446.9 metros</strong> hasta colapinto, <strong class="font-[900] text-tinta">430.2 metros</strong> hasta hamilton —con sainz a <strong class="font-[900] text-tinta">12.7 metros</strong> y russell a <strong class="font-[900] text-tinta">22.6 metros</strong>—, luego <strong class="font-[900] text-tinta">387.7 m</strong> a leclerc, <strong class="font-[900] text-tinta">459.2 m</strong> a hulkenberg, <strong class="font-[900] text-tinta">522.8 m</strong> a bortoleto (con bearman pegado a <strong class="font-[900] text-tinta">21.4 m</strong>), <strong class="font-[900] text-tinta">688.4 m</strong> a lawson, <strong class="font-[900] text-tinta">880.0 m</strong> a hadjar, <strong class="font-[900] text-tinta">117.9 m</strong> a câmara, y un abismo de <strong class="font-[900] text-tinta">1.825,7 metros (1.8 km)</strong> hasta stroll antes de cerrar con bottas a <strong class="font-[900] text-tinta">295.1 metros</strong> y el vacío del DNF de alonso, lindblad, perez y albon.
           </p>
           <p class="text-xs sm:text-[13px] font-[500] text-tinta border-l-2 border-tinta pl-4 py-1 leading-relaxed">
             el diseño no necesitó dibujar un gráfico con barras de colores: hizo que el propio texto sienta físicamente la soledad del líder y el abismo de metros que hay detrás de cada milésima de segundo en la pista.
@@ -1033,71 +1017,87 @@
     let f1CarAnimId = null;
     let carRunning = false;
 
+    let vegasCarTimeouts = [];
     function lanzarAutoEnTiempoReal() {
       if (carRunning) return;
       carRunning = true;
-
-      initF1Audio();
-      playF1FlybySound();
+      vegasCarTimeouts.forEach(t => clearTimeout(t));
+      vegasCarTimeouts = [];
 
       const car = document.getElementById('f1CarWrap');
       const finishBeam = document.getElementById('finishLineBeam');
-      const hudSpeed = document.getElementById('hudSpeed');
-      const hudTimer = document.getElementById('hudTimer');
-      const hudMps = document.getElementById('hudMps');
       if (!car) { carRunning = false; return; }
 
-      const startTime = performance.now();
-      const duration = 1800; // 1.8 segundos
-      const startX = -160;
       const track = car.parentElement;
       const trackWidth = track ? track.clientWidth : 800;
+      const startX = -160;
       const finishX = trackWidth * 0.62;
       const endX = trackWidth + 160;
 
-      let crossedLine = false;
+      const vegasCars = [
+        { name: 'VER', dt: 0, color: '#3671C6' },
+        { name: 'NOR', dt: 0.639, color: '#FF8000' },
+        { name: 'PIA', dt: 0.890, color: '#FF8000' },
+        { name: 'ANT', dt: 1.045, color: '#27F4D2' },
+        { name: 'GAS', dt: 0.353, color: '#0090FF' },
+        { name: 'COL', dt: 5.028, color: '#0090FF' },
+        { name: 'HAM', dt: 4.840, color: '#E80020' },
+        { name: 'SAI', dt: 0.143, color: '#1868DB' },
+        { name: 'RUS', dt: 0.254, color: '#00A19B' },
+        { name: 'LEC', dt: 4.362, color: '#E80020' },
+        { name: 'HUL', dt: 5.166, color: '#52E252' },
+        { name: 'BOR', dt: 5.882, color: '#52E252' },
+        { name: 'BEA', dt: 0.241, color: '#B6BABD' },
+        { name: 'LAW', dt: 7.745, color: '#4466EE' },
+        { name: 'HAD', dt: 9.900, color: '#4E78E8' },
+        { name: 'CAM', dt: 1.326, color: '#B6BABD' },
+        { name: 'STR', dt: 20.539, color: '#006F62' },
+        { name: 'BOT', dt: 3.320, color: '#888888' }
+      ];
 
-      function frame(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
+      function animarPaso(color) {
+        const clone = car.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.style.left = `${startX}px`;
+        clone.style.filter = `drop-shadow(0 0 12px ${color})`;
+        clone.querySelectorAll('[fill="#FF8000"], [fill="#ff8000"], [fill="#d4ff32"]').forEach(el => {
+          el.setAttribute('fill', color);
+        });
+        track.appendChild(clone);
 
-        // Aceleración física hacia 320 km/h
-        const currentX = startX + (endX - startX) * Math.pow(progress, 1.12);
-        car.style.left = `${currentX.toFixed(1)}px`;
+        const t0 = performance.now();
+        const dur = 1100;
+        let flashed = false;
 
-        // Telemetría en tiempo real
-        const currentSpeed = Math.min(320.0, 240 + progress * 80);
-        const currentTimer = (progress * 1.46).toFixed(3);
-        const currentMps = (currentSpeed / 3.6).toFixed(1);
-
-        if (hudSpeed) hudSpeed.textContent = `${currentSpeed.toFixed(1)} km/h`;
-        if (hudTimer) hudTimer.textContent = `+${currentTimer}s`;
-        if (hudMps) hudMps.textContent = `${currentMps} m/s`;
-
-        // Momento exacto del cruce de línea de cuadros
-        if (currentX >= finishX - 35 && !crossedLine) {
-          crossedLine = true;
-          if (finishBeam) {
-            finishBeam.style.boxShadow = '0 0 35px #ffffff, 0 0 70px #d4ff32, 0 0 100px #FF8000';
-            finishBeam.style.transform = 'scale(1.12)';
-            setTimeout(() => {
-              if (finishBeam) {
-                finishBeam.style.boxShadow = '0 0 15px rgba(255,255,255,0.2)';
-                finishBeam.style.transform = 'scale(1.0)';
-              }
-            }, 380);
+        function step(now) {
+          const p = Math.min(1, (now - t0) / dur);
+          const x = startX + (endX - startX) * p;
+          clone.style.left = `${x.toFixed(1)}px`;
+          if (x >= finishX - 25 && !flashed) {
+            flashed = true;
+            if (finishBeam) {
+              finishBeam.style.boxShadow = `0 0 28px ${color}, 0 0 60px #d4ff32`;
+              setTimeout(() => { if (finishBeam) finishBeam.style.boxShadow = '0 0 15px rgba(255,255,255,0.2)'; }, 220);
+            }
           }
+          if (p < 1) requestAnimationFrame(step);
+          else clone.remove();
         }
-
-        if (progress < 1) {
-          f1CarAnimId = requestAnimationFrame(frame);
-        } else {
-          carRunning = false;
-          car.style.left = `${endX}px`;
-        }
+        requestAnimationFrame(step);
       }
 
-      f1CarAnimId = requestAnimationFrame(frame);
+      let accMs = 0;
+      vegasCars.forEach((c, idx) => {
+        accMs += c.dt * 1000;
+        const tid = setTimeout(() => {
+          if (idx === 0) { initF1Audio(); playF1FlybySound(); }
+          animarPaso(c.color);
+          if (idx === vegasCars.length - 1) {
+            setTimeout(() => { carRunning = false; }, 1200);
+          }
+        }, accMs);
+        vegasCarTimeouts.push(tid);
+      });
     }
 
     // ANIMACIÓN DE MÁQUINA DE ESCRIBIR PARA EL PÁRRAFO DE LA PIRUETA
@@ -1108,6 +1108,7 @@
       if (!piruetaOriginalParagraphHTML) {
         piruetaOriginalParagraphHTML = pStory.innerHTML;
       } else {
+        pStory.classList.remove('pirueta-ready');
         pStory.innerHTML = piruetaOriginalParagraphHTML;
       }
 
@@ -1168,10 +1169,11 @@
         } else {
           clearInterval(typewriterTimer);
           typewriterTimer = null;
+          pStory.classList.add('pirueta-ready');
         }
       }
 
-      typewriterTimer = setInterval(revelarSiguiente, 22);
+      typewriterTimer = setInterval(revelarSiguiente, 85);
 
       pStory.onclick = function() {
         if (typewriterTimer) {
@@ -1187,8 +1189,44 @@
           const last = hiddenWords[hiddenWords.length - 1];
           last.parentNode.insertBefore(cursor, last.nextSibling);
         }
+        pStory.classList.add('pirueta-ready');
       };
     }
+
+        function startPiruetaExperience() {
+      const gate = document.getElementById('piruetaPlayGate');
+      const sim = document.getElementById('piruetaSimulatorWrap');
+      const content = document.getElementById('piruetaContentWrap');
+      if (gate) gate.classList.add('hidden');
+      if (sim) sim.classList.remove('hidden');
+      if (content) content.classList.remove('hidden');
+
+      lanzarAutoEnTiempoReal();
+      iniciarMaquinaDeEscribirPirueta();
+    }
+
+    
+    // Delegación directa de hover en nombres de pilotos (color de escudería + zoom in)
+    (function initDriverTagHover() {
+      const story = document.getElementById('piruetaStoryParagraph');
+      if (!story) return;
+      story.addEventListener('mouseover', (e) => {
+        const tag = e.target.closest('.driver-tag');
+        if (!tag) return;
+        const c = tag.style.getPropertyValue('--team-color').trim() || '#FF8000';
+        tag.style.setProperty('color', c, 'important');
+        tag.style.setProperty('transform', 'scale(1.18)', 'important');
+        tag.style.position = 'relative';
+        tag.style.zIndex = '20';
+      });
+      story.addEventListener('mouseout', (e) => {
+        const tag = e.target.closest('.driver-tag');
+        if (!tag) return;
+        tag.style.setProperty('color', '#111114', 'important');
+        tag.style.setProperty('transform', 'scale(1)', 'important');
+        tag.style.zIndex = '';
+      });
+    })();
 
     function toggleVistaPirueta() {
       enModoPirueta = !enModoPirueta;
@@ -1209,11 +1247,13 @@
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        // Iniciar máquina de escribir y lanzar auto con sonido de inmediato
-        iniciarMaquinaDeEscribirPirueta();
-        setTimeout(() => {
-          lanzarAutoEnTiempoReal();
-        }, 200);
+        // Mostrar únicamente el botón Play al entrar en modo Pirueta
+        const gate = document.getElementById('piruetaPlayGate');
+        const sim = document.getElementById('piruetaSimulatorWrap');
+        const content = document.getElementById('piruetaContentWrap');
+        if (gate) gate.classList.remove('hidden');
+        if (sim) sim.classList.add('hidden');
+        if (content) content.classList.add('hidden');
       } else {
         if (typewriterTimer) {
           clearInterval(typewriterTimer);
@@ -1221,7 +1261,8 @@
         }
         if (piruetaOriginalParagraphHTML) {
           const pStory = document.getElementById('piruetaStoryParagraph');
-          if (pStory) pStory.innerHTML = piruetaOriginalParagraphHTML;
+          if (pStory) pStory.classList.remove('pirueta-ready');
+        pStory.innerHTML = piruetaOriginalParagraphHTML;
         }
 
         vistaPirueta.classList.add('hidden');

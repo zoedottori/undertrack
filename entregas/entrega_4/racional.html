@@ -98,6 +98,25 @@
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
+  
+    /* PILOTOS EN LA PIRUETA: NEGRO PURO POR DEFECTO + ZOOM IN & COLOR EN HOVER */
+    .driver-tag {
+      display: inline-block;
+      color: #1C1A17 !important;
+      cursor: pointer;
+      position: relative;
+      vertical-align: baseline;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.22s ease, text-shadow 0.22s ease;
+      will-change: transform;
+      user-select: none;
+    }
+    .driver-tag:hover {
+      transform: scale(1.32) translateY(-2px) !important;
+      color: var(--driver-color, #FF1801) !important;
+      text-shadow: 0 0 16px var(--driver-glow, rgba(255, 24, 1, 0.45));
+      z-index: 50;
+    }
+
   </style>
 </head>
 <body class="bg-crema text-tinta antialiased">
@@ -649,7 +668,7 @@
             <span class="w-2.5 h-2.5 rounded-full bg-[#FF1801] animate-ping"></span>
             <div>
               <span class="text-[10px] uppercase font-mono tracking-widest text-[#d4ff32] font-[800] block">SIMULADOR CINEMÁTICO EN TIEMPO REAL</span>
-              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DE INTERLAGOS · 320 KM/H (88.8 M/S)</span>
+              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DEL STRIP EN LAS VEGAS · 320 KM/H (88.8 M/S)</span>
             </div>
           </div>
           
@@ -677,12 +696,12 @@
 
           <!-- MARCADORES DE METROS EN LA PISTA -->
           <div class="absolute inset-x-0 bottom-1 flex justify-between px-6 text-[9px] font-mono text-white/30 pointer-events-none select-none">
-            <span>0m (SUBIDA DOS BOXES)</span>
+            <span>0m (CURVA 17)</span>
             <span>200m</span>
             <span>400m</span>
             <span class="text-white/70 font-[800]">META (0.000s)</span>
             <span>800m</span>
-            <span>1.297m (VERSTAPPEN)</span>
+            <span>56.8m (NORRIS)</span>
           </div>
 
           <!-- LÍNEA DE META A CUADROS (FINISH LINE) -->
@@ -750,74 +769,79 @@
           en cualquier pantalla o transmisión de fórmula 1 tradicional, el tiempo se aplana en tablas de renglones idénticos de cuarenta píxeles.
         </p>
 
-        <!-- LAS PALABRAS SE EMPIEZAN A ALEJAR SIN EXPLICACIÓN PREVIA (CON COLORES DE ESCUDERÍA) -->
+                <!-- LAS PALABRAS SE EMPIEZAN A ALEJAR SIN EXPLICACIÓN PREVIA (TODO EN NEGRO PURO + COLOR EN HOVER) -->
         <p id="piruetaStoryParagraph" class="text-xs sm:text-sm font-[400] text-tinta leading-loose">
-          cuando cayó la bandera a cuadros en interlagos, 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#FF8000] drop-shadow-xs" title="McLaren F1 Team #4">norris</span>
-          <span class="inline-block w-40 sm:w-72"></span>
+          cuando cayó la bandera a cuadros en las vegas, 
+          <span class="driver-tag font-[900] text-base sm:text-xl" style="--driver-color: #3671C6; --driver-glow: rgba(54, 113, 198, 0.5);" title="Red Bull Racing #3 · Max Verstappen (1:27:39.624 · 25 pts)">verstappen</span>
+          <span class="inline-block w-14 sm:w-20"></span>
           cruzó la meta adelante de 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#3671C6] drop-shadow-xs" title="Red Bull Racing #3">verstappen</span>
-          <span class="inline-block w-28 sm:w-48"></span>
-          que dejaba atrás a 
-          <span class="driver-tag font-[900] text-base sm:text-xl text-[#4E78E8] drop-shadow-xs" title="Red Bull Racing #6">hadjar</span>
-          <span class="inline-block w-24 sm:w-44"></span>
+          <span class="driver-tag font-[900] text-base sm:text-xl" style="--driver-color: #FF8000; --driver-glow: rgba(255, 128, 0, 0.5);" title="McLaren F1 Team #1 · Lando Norris (+0.639s · 56.8m)">norris</span>
+          <span class="inline-block w-16 sm:w-24"></span>
           seguido por 
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#00A19B]" title="Mercedes-AMG #63">russell</span>
-          <span class="inline-block w-20 sm:w-32"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#27F4D2]" title="Mercedes-AMG #12">antonelli</span>
-          <span class="inline-block w-36 sm:w-64"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#FF8000]" title="McLaren F1 Team #81">piastri</span>
-          <span class="inline-block w-44 sm:w-80"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#4466EE]" title="Racing Bulls #30">lawson</span>
-          <span class="inline-block w-12 sm:w-20"></span>
-          <span class="driver-tag font-[700] text-sm sm:text-base text-[#E80020]" title="Scuderia Ferrari #16">leclerc</span>
-          <span class="inline-block w-64 sm:w-[420px]"></span>
-          y el pelotón rezagado con 
-          <span class="driver-tag font-[500] text-[#E80020]" title="Scuderia Ferrari #44">hamilton</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #27">hulkenberg</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#4466EE]" title="Racing Bulls #41">lindblad</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#229971]" title="Aston Martin #14">alonso</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[600] text-[#0093CC] underline decoration-[#0093CC]/50 decoration-2 underline-offset-4" title="BWT Alpine F1 Team #43">colapinto</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#0093CC]" title="BWT Alpine F1 Team #10">gasly</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#64C4FF]" title="Williams Racing #23">albon</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #5">bortoleto</span>
-          <span class="inline-block w-8"></span>
-          <span class="driver-tag font-[500] text-[#E6002B]" title="Haas F1 Team #87">bearman</span>
-          <span class="inline-block w-72 sm:w-[600px]"></span>
-          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #11">perez</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#64C4FF]" title="Williams Racing #55">sainz</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#E6002B]" title="Haas F1 Team #89">câmara</span>
-          <span class="inline-block w-12"></span>
-          <span class="driver-tag font-[400] text-[#229971]" title="Aston Martin #18">stroll</span>
-          <span class="inline-block w-6"></span>
-          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #77">bottas</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #FF8000; --driver-glow: rgba(255, 128, 0, 0.5);" title="McLaren F1 Team #81 · Oscar Piastri (+0.890s · 79.1m)">piastri</span>
+          <span class="inline-block w-20 sm:w-28"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #27F4D2; --driver-glow: rgba(39, 244, 210, 0.5);" title="Mercedes-AMG #12 · Kimi Antonelli (+1.045s · 92.9m)">antonelli</span>
+          <span class="inline-block w-8 sm:w-12"></span>
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #0093CC; --driver-glow: rgba(0, 147, 204, 0.5);" title="BWT Alpine F1 Team #10 · Pierre Gasly (+0.353s · 31.4m)">gasly</span>
+          <span class="inline-block w-48 sm:w-[280px]"></span>
+          y un solitario 
+          <span class="driver-tag font-[900] text-base sm:text-xl underline decoration-tinta/40 decoration-2 underline-offset-4" style="--driver-color: #0093CC; --driver-glow: rgba(0, 147, 204, 0.6);" title="BWT Alpine F1 Team #43 · Franco Colapinto (¡P6 histórica! +5.028s · 446.9m)">colapinto</span>
+          <span class="inline-block w-48 sm:w-[270px]"></span>
+          que dejaba atrás a 
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #E80020; --driver-glow: rgba(232, 0, 32, 0.5);" title="Scuderia Ferrari #44 · Lewis Hamilton (+4.840s · 430.2m)">hamilton</span>
+          <span class="inline-block w-4 sm:w-6"></span>
+          perseguido por 
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #64C4FF; --driver-glow: rgba(100, 196, 255, 0.5);" title="Williams Racing #55 · Carlos Sainz Jr. (+0.143s · 12.7m)">sainz</span>
+          <span class="inline-block w-6 sm:w-8"></span>
+          y 
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #27F4D2; --driver-glow: rgba(39, 244, 210, 0.5);" title="Mercedes-AMG #63 · George Russell (+0.254s · 22.6m)">russell</span>
+          <span class="inline-block w-44 sm:w-[240px]"></span>
+          con 
+          <span class="driver-tag font-[700] text-sm sm:text-base" style="--driver-color: #E80020; --driver-glow: rgba(232, 0, 32, 0.5);" title="Scuderia Ferrari #16 · Charles Leclerc (+4.362s · 387.7m)">leclerc</span>
+          <span class="inline-block w-48 sm:w-[280px]"></span>
+          <span class="driver-tag font-[500]" style="--driver-color: #52E252; --driver-glow: rgba(82, 226, 82, 0.5);" title="Stake Kick / Audi #27 · Nico Hülkenberg (+5.166s · 459.2m)">hulkenberg</span>
+          <span class="inline-block w-52 sm:w-[320px]"></span>
+          <span class="driver-tag font-[500]" style="--driver-color: #52E252; --driver-glow: rgba(82, 226, 82, 0.5);" title="Stake Kick / Audi #5 · Gabriel Bortoleto (+5.882s · 522.8m)">bortoleto</span>
+          <span class="inline-block w-6 sm:w-8"></span>
+          <span class="driver-tag font-[500]" style="--driver-color: #E6002B; --driver-glow: rgba(230, 0, 43, 0.5);" title="Haas F1 Team #87 · Oliver Bearman (+0.241s · 21.4m)">bearman</span>
+          <span class="inline-block w-60 sm:w-[380px]"></span>
+          <span class="driver-tag font-[500]" style="--driver-color: #4466EE; --driver-glow: rgba(68, 102, 238, 0.5);" title="Racing Bulls #30 · Liam Lawson (+7.745s · 688.4m)">lawson</span>
+          <span class="inline-block w-64 sm:w-[440px]"></span>
+          <span class="driver-tag font-[500]" style="--driver-color: #3671C6; --driver-glow: rgba(54, 113, 198, 0.5);" title="Red Bull Racing #6 · Isack Hadjar (+9.900s · 880.0m)">hadjar</span>
+          <span class="inline-block w-20 sm:w-28"></span>
+          <span class="driver-tag font-[400]" style="--driver-color: #E6002B; --driver-glow: rgba(230, 0, 43, 0.5);" title="Haas F1 Team #51 · Rafael Câmara (+1.326s · 117.9m)">câmara</span>
+          <span class="inline-block w-72 sm:w-[580px]"></span>
+          <span class="driver-tag font-[400]" style="--driver-color: #229971; --driver-glow: rgba(34, 153, 113, 0.5);" title="Aston Martin #18 · Lance Stroll (+20.539s · 1.825m)">stroll</span>
+          <span class="inline-block w-32 sm:w-48"></span>
+          <span class="driver-tag font-[400]" style="--driver-color: #CC1E4A; --driver-glow: rgba(204, 30, 74, 0.5);" title="Cadillac F1 #77 · Valtteri Bottas (+3.320s · 295.1m)">bottas</span>
+          <span class="inline-block w-72 sm:w-[500px]"></span>
+          y el muro del abandono con 
+          <span class="driver-tag font-[400]" style="--driver-color: #229971; --driver-glow: rgba(34, 153, 113, 0.5);" title="Aston Martin #14 · Fernando Alonso (DNF)">alonso</span>
+          <span class="inline-block w-4 sm:w-6"></span>
+          <span class="driver-tag font-[400]" style="--driver-color: #4466EE; --driver-glow: rgba(68, 102, 238, 0.5);" title="Racing Bulls #41 · Arvid Lindblad (DNF)">lindblad</span>
+          <span class="inline-block w-4 sm:w-6"></span>
+          <span class="driver-tag font-[400]" style="--driver-color: #CC1E4A; --driver-glow: rgba(204, 30, 74, 0.5);" title="Cadillac F1 #11 · Sergio Pérez (DNF)">perez</span>
+          <span class="inline-block w-4 sm:w-6"></span>
+          y 
+          <span class="driver-tag font-[400]" style="--driver-color: #64C4FF; --driver-glow: rgba(100, 196, 255, 0.5);" title="Williams Racing #23 · Alexander Albon (DNS)">albon</span>.
         </p>
 
-        <!-- RECIÉN CUANDO TERMINA EL TEXTO SE EXPLICA POR QUÉ ESTÁN TAN SEPARADAS -->
+                <!-- RECIÉN CUANDO TERMINA EL TEXTO SE EXPLICA POR QUÉ ESTÁN TAN SEPARADAS -->
         <div class="pt-12 border-t border-cremaBorde space-y-4 max-w-2xl">
           <p class="font-[900] text-tinta text-base sm:text-lg leading-snug">
             si te preguntás por qué estas palabras están tan separadas...
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            lo que acabás de recorrer con los ojos no fue un error de maquetación: fue la <strong class="font-[900] text-tinta">distancia física real a la que estaban los 22 pilotos de fórmula 1</strong> al cruzar la línea de meta en la última carrera oficial de interlagos 2026.
+            lo que acabás de recorrer con los ojos no fue un error de maquetación: fue la <strong class="font-[900] text-tinta">distancia física real a la que estaban los 22 pilotos de fórmula 1</strong> al cruzar la línea de meta en la última carrera oficial de las vegas 2026.
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            a 320 km/h en la recta principal, cada milésima de segundo (0.001s) equivale exactamente a <strong class="font-[900] text-tinta">8.8 centímetros de asfalto</strong> (el ancho exacto de una mano humana).
+            a 320 km/h en la recta del strip, cada milésima de segundo (0.001s) equivale exactamente a <strong class="font-[900] text-tinta">8.8 centímetros de asfalto</strong> (el ancho exacto de una mano humana).
           </p>
           <p class="text-xs sm:text-[13px] font-[300] text-tintaSuave leading-relaxed">
-            el vacío que viste entre norris y verstappen son los <strong class="font-[900] text-tinta">1.297 metros de asfalto vacío</strong> (+14.602s) que los separaban. entre verstappen y hadjar hubo <strong class="font-[900] text-tinta">878 metros</strong> (+9.883s). entre hadjar y russell hubo <strong class="font-[900] text-tinta">845 metros</strong> (+9.506s). entre russell y antonelli <strong class="font-[900] text-tinta">624 metros</strong>. entre antonelli y piastri <strong class="font-[900] text-tinta">1.374 metros</strong>. entre piastri y lawson <strong class="font-[900] text-tinta">1.682 metros</strong>. entre lawson y leclerc <strong class="font-[900] text-tinta">283 metros</strong>. y a partir de hamilton, colapinto y el resto del pelotón, la distancia superaba los <strong class="font-[900] text-tinta">4.300 metros</strong> (una vuelta completa de retraso).
+            la pelea por la punta entre <strong class="font-[900] text-tinta">verstappen y norris</strong> se definió por apenas <strong class="font-[900] text-tinta">56.8 metros</strong> (+0.639s = 639 manos). pero mirá el desierto blanco de <strong class="font-[900] text-tinta">446.9 metros</strong> que separa a gasly de <strong class="font-[900] text-tinta">colapinto</strong> (+5.028s = 5.029 manos), y los <strong class="font-[900] text-tinta">430.2 metros</strong> de colchón que franco le sacó a lewis hamilton para sellar su histórico sexto puesto. entre hamilton, sainz y russell hubo apenas <strong class="font-[900] text-tinta">12.7 y 22.6 metros</strong> (chapa contra chapa a 143 manos de distancia), mientras que hacia stroll y los retirados, el abismo supera los <strong class="font-[900] text-tinta">1.800 metros</strong>.
           </p>
           <p class="text-xs sm:text-[13px] font-[500] text-tinta border-l-2 border-tinta pl-4 py-1 leading-relaxed">
-            el diseño no necesitó dibujar un gráfico con barras de colores: hizo que el propio texto sienta físicamente la soledad del líder y el abismo de metros que hay detrás de cada milésima de segundo en la pista.
+            el diseño no necesitó dibujar un gráfico con barras de colores: hizo que la propia tipografía exprese físicamente la respiración en la nuca entre autos pegados y la soledad de cientos de metros de asfalto vacío. pasá el mouse sobre cualquier nombre para descubrir su color de escudería.
           </p>
         </div>
 
@@ -1171,7 +1195,7 @@
         }
       }
 
-      typewriterTimer = setInterval(revelarSiguiente, 22);
+      typewriterTimer = setInterval(revelarSiguiente, 48);
 
       pStory.onclick = function() {
         if (typewriterTimer) {
