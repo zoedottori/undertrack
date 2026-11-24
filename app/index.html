@@ -1520,20 +1520,265 @@
       </div>
     </div>
 
-    <!-- CONTENEDOR CENTRAL: AMBOS MAZOS EN COMPOSICIÓN SEMICIRCULAR COMPLEMENTARIA -->
-    <div class="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4 overflow-visible">
-      
-      <!-- ABANICO 1: PRIMEROS PILOTOS (ARCO SUPERIOR) -->
-      <div class="fan-stage relative h-[150px] sm:h-[215px] w-full overflow-visible" id="fanDeckContainer1">
+    <!-- CONTENEDOR CENTRAL: 3 CARPETAS GLASS DE PILOTOS (BENEFICIADOS / NEUTROS / PERJUDICADOS) -->
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10 overflow-visible">
+      <div id="pilotFoldersGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-14 items-end justify-items-center">
         <!-- Inyectado dinámicamente con JS -->
       </div>
-
-      <!-- ABANICO 2: SEGUNDOS PILOTOS (ARCO INVERTIDO INFERIOR) -->
-      <div class="fan-stage fan-stage-inverted relative h-[150px] sm:h-[215px] w-full overflow-visible mt-6 sm:mt-10 md:mt-12" id="fanDeckContainer2">
-        <!-- Inyectado dinámicamente con JS -->
-      </div>
-
+      <p class="text-center font-mono text-[10px] sm:text-[11px] tracking-[0.18em] text-muted uppercase mt-10">
+        Hover para inclinar · Click para abrir carpeta · Click en un piloto para ver su ficha
+      </p>
     </div>
+
+    <style>
+      .gf-root {
+        --gf-px: 0;
+        --gf-py: 0;
+        --gf-ease: cubic-bezier(.2, .8, .2, 1);
+        --gf-spring: cubic-bezier(.34, 1.36, .5, 1);
+        --gf-hinge: 0deg;
+        --gf-lift: 42px;
+        --gf-spread: 0px;
+        --gf-fan: 0deg;
+        --gf-stack: 15px;
+        --gf-ink: #141416;
+        --gf-ink-soft: rgba(20, 20, 22, .58);
+        position: relative;
+        display: inline-block;
+        flex: none;
+        vertical-align: top;
+        isolation: isolate;
+      }
+      .gf-root[data-tone="dark"] { --gf-ink: #f5f5f7; --gf-ink-soft: rgba(245, 245, 247, .62); }
+      .gf-root:hover, .gf-root:focus-within { --gf-hinge: -11deg; --gf-lift: -34px; --gf-spread: 8px; --gf-fan: 1.4deg; --gf-stack: 10px; }
+      .gf-root[data-open] { --gf-hinge: -24deg; --gf-lift: -96px; --gf-spread: 40px; --gf-fan: 5deg; --gf-stack: 30px; }
+
+      .gf-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 340px;
+        height: 272px;
+        transform-origin: 0 0;
+      }
+      .gf-tilt {
+        position: absolute;
+        inset: 0;
+        transform: perspective(1400px) rotateX(calc(var(--gf-py) * -3deg)) rotateY(calc(var(--gf-px) * 4deg));
+        transition: transform .9s var(--gf-ease);
+      }
+      .gf-shadow {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: -6px;
+        height: 60px;
+        border-radius: 40px;
+        background: rgba(16, 18, 24, .28);
+        filter: blur(22px);
+        transform: translateX(calc(var(--gf-px) * -8px));
+        transition: transform .9s var(--gf-ease), opacity .9s var(--gf-ease);
+      }
+      .gf-root[data-tone="dark"] .gf-shadow { background: rgba(0, 0, 0, .55); }
+      .gf-back {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: linear-gradient(180deg, #f3f3f4 0%, #e3e3e6 100%);
+      }
+      .gf-root[data-tone="dark"] .gf-back { background: linear-gradient(180deg, #2a2a2e 0%, #121214 100%); }
+      .gf-back-sheen {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .22) 0%, rgba(255, 255, 255, 0) 22%),
+          radial-gradient(120% 80% at 80% 0%, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0) 60%);
+        pointer-events: none;
+      }
+      .gf-rim {
+        position: absolute;
+        left: 0;
+        top: 0;
+        max-width: none;
+        overflow: visible;
+        pointer-events: none;
+        fill: none;
+      }
+      .gf-back-rim { width: 340px; height: 272px; }
+      .gf-back-rim path { stroke: rgba(255, 255, 255, .45); stroke-width: 1; }
+      .gf-root[data-tone="dark"] .gf-back-rim path { stroke: rgba(255, 255, 255, .16); }
+
+      .gf-files {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+        clip-path: inset(-400px -400px 10px -400px);
+      }
+      .gf-sheet {
+        all: unset;
+        box-sizing: border-box;
+        position: absolute;
+        left: 34px;
+        top: 96px;
+        width: 272px;
+        height: 184px;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        pointer-events: auto;
+        background: #1a1a1d;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .24),
+          0 0 0 .5px rgba(0, 0, 0, .18),
+          0 10px 26px -8px rgba(10, 12, 20, .35);
+        transform-origin: 50% 100%;
+        transform:
+          translate(calc(var(--gf-jx, 0px) + var(--gf-slot, 0) * var(--gf-spread)), calc(var(--gf-lift) + var(--gf-depth, 0) * var(--gf-stack) * -1))
+          rotate(calc(var(--gf-jr, 0deg) + var(--gf-slot, 0) * var(--gf-fan)));
+        transition:
+          transform .75s var(--gf-spring) calc(var(--gf-depth, 0) * 40ms),
+          box-shadow .4s var(--gf-ease);
+      }
+      .gf-root[data-open] .gf-sheet:hover,
+      .gf-root[data-open] .gf-sheet:focus-visible {
+        transform:
+          translate(calc(var(--gf-jx, 0px) + var(--gf-slot, 0) * var(--gf-spread)), calc(var(--gf-lift) + var(--gf-depth, 0) * var(--gf-stack) * -1 - 18px))
+          rotate(calc(var(--gf-slot, 0) * var(--gf-fan) * .6));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 22px 40px -12px rgba(10, 12, 20, .5);
+        transition-delay: 0s;
+      }
+      .gf-sheet-art {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .gf-sheet::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(180deg, rgba(0, 0, 0, .65) 0%, rgba(0, 0, 0, .05) 45%, rgba(0, 0, 0, .35) 100%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2);
+        pointer-events: none;
+      }
+      .gf-sheet-head {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        top: 11px;
+        z-index: 2;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        white-space: nowrap;
+      }
+      .gf-sheet-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: -.01em;
+        color: #fafafa;
+      }
+      .gf-sheet-meta {
+        flex: none;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 10px;
+        letter-spacing: .04em;
+        color: rgba(250, 250, 250, .78);
+      }
+
+      .gf-front {
+        position: absolute;
+        left: 0;
+        top: 74px;
+        width: 340px;
+        height: 198px;
+        z-index: 10;
+        -webkit-backdrop-filter: blur(22px) saturate(1.5);
+        backdrop-filter: blur(22px) saturate(1.5);
+        transform-origin: 50% 100%;
+        transform: perspective(760px) rotateX(var(--gf-hinge));
+        transition: transform .8s var(--gf-spring);
+      }
+      .gf-tint {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .18) 0%, rgba(255, 255, 255, .55) 42%, rgba(252, 252, 252, .93) 100%);
+      }
+      .gf-root[data-tone="dark"] .gf-tint {
+        background: linear-gradient(180deg, rgba(18, 18, 20, .22) 0%, rgba(14, 14, 16, .66) 46%, rgba(8, 8, 10, .94) 100%);
+      }
+      .gf-spec {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(260px 200px at calc(50% + var(--gf-px) * 46%) calc(30% + var(--gf-py) * 40%), rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 70%);
+        mix-blend-mode: soft-light;
+        opacity: .9;
+        pointer-events: none;
+      }
+      .gf-front-rim { width: 340px; height: 198px; }
+      .gf-front-rim path { stroke-width: 2.4; }
+      .gf-hit {
+        all: unset;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        cursor: pointer;
+      }
+      .gf-label {
+        position: absolute;
+        left: 26px;
+        bottom: 26px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        max-width: 220px;
+        pointer-events: none;
+        color: var(--gf-ink);
+      }
+      .gf-title {
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -.015em;
+      }
+      .gf-meta {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 11px;
+        letter-spacing: .03em;
+        color: var(--gf-ink-soft);
+      }
+      .gf-key {
+        all: unset;
+        box-sizing: border-box;
+        position: absolute;
+        right: 22px;
+        bottom: 22px;
+        z-index: 12;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        color: #fff;
+        background: radial-gradient(120% 90% at 50% 0%, #3a3a3f 0%, #121214 55%, #050506 100%);
+        box-shadow: 0 10px 18px -6px rgba(0, 0, 0, .45);
+        transition: transform .35s var(--gf-spring);
+      }
+      .gf-root[data-tone="dark"] .gf-key {
+        color: #111113;
+        background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #ececee 55%, #d2d2d6 100%);
+      }
+      .gf-key:hover { transform: translateY(-2px); }
+    </style>
 
     <!-- ========================================================
          MODAL POP-UP EDITORIAL: FICHA TÉCNICA DEL PILOTO ACTIVO
@@ -2850,6 +3095,144 @@
   ];
   let activeCard = null; // Ninguna carta preseleccionada al cargar la web
   let hoveredCard = null; // { deck: 1 | 2, index: number } | null
+
+  // ========================================================
+  // MOTOR DE CARPETAS GLASS PARA PILOTOS (BENEFICIADOS / NEUTROS / PERJUDICADOS)
+  // ========================================================
+  function renderPilotFolders() {
+    const grid = document.getElementById('pilotFoldersGrid');
+    if (!grid) return;
+
+    const allPilots = [...(typeof deck1Pilots !== 'undefined' ? deck1Pilots : []), ...(typeof deck2Pilots !== 'undefined' ? deck2Pilots : [])];
+    const favoredIds = ['verstappen', 'norris', 'colapinto', 'piastri'];
+    const neutralIds = ['leclerc', 'russell', 'sainz', 'antonelli', 'gasly', 'hulkenberg'];
+
+    const groups = [
+      {
+        id: 'beneficiados',
+        title: 'Beneficiados',
+        subtitle: 'Yas Marina · ritmo y stint único',
+        tone: 'light',
+        backGradient: 'linear-gradient(135deg, #f4efe9 0%, #e9c2b8 40%, #22395e 100%)',
+        pilots: allPilots.filter(p => favoredIds.includes((p.id || '').toLowerCase()) || favoredIds.some(k => (p.name || '').toLowerCase().includes(k)))
+      },
+      {
+        id: 'neutros',
+        title: 'Neutros',
+        subtitle: 'Dependen del rebalance en pitstop',
+        tone: 'light',
+        backGradient: 'linear-gradient(135deg, #f7f8fa 0%, #d9e2ea 50%, #9fb4c7 100%)',
+        pilots: allPilots.filter(p => neutralIds.includes((p.id || '').toLowerCase()) || neutralIds.some(k => (p.name || '').toLowerCase().includes(k)))
+      },
+      {
+        id: 'perjudicados',
+        title: 'Perjudicados',
+        subtitle: 'Sufren caída térmica (>8°C) o tráfico',
+        tone: 'dark',
+        backGradient: 'linear-gradient(135deg, #16252c 0%, #a3201a 60%, #ef4a2b 100%)',
+        pilots: allPilots.filter(p => {
+          const n = (p.id || p.name || '').toLowerCase();
+          return !favoredIds.some(k => n.includes(k)) && !neutralIds.some(k => n.includes(k));
+        })
+      }
+    ];
+
+    const W = 340, H = 272, HEADROOM = 54, FRONT_H = H - 74;
+    const BACK_PATH = "M0 56A22 22 0 0 1 22 34L146 34C170 34 172 0 198 0L318 0A22 22 0 0 1 340 22L340 250A22 22 0 0 1 318 272L22 272A22 22 0 0 1 0 250Z";
+    const FRONT_PATH = "M0 22A22 22 0 0 1 22 0L118 0C144 0 146 32 172 32L318 32A22 22 0 0 1 340 54L340 " + (FRONT_H - 22) + "A22 22 0 0 1 318 " + FRONT_H + "L22 " + FRONT_H + "A22 22 0 0 1 0 " + (FRONT_H - 22) + "Z";
+    const width = 310, k = width / W;
+
+    grid.innerHTML = '';
+    groups.forEach((grp) => {
+      const visible = grp.pilots.slice(0, 4);
+      const root = document.createElement('div');
+      root.className = 'gf-root';
+      root.dataset.tone = grp.tone;
+      root.style.width = width + 'px';
+      root.style.height = Math.round((H + HEADROOM) * k) + 'px';
+
+      const sheetsHtml = visible.map((p, v) => {
+        const slot = visible.length <= 1 ? 0 : (v / (visible.length - 1)) * 2 - 1;
+        const depth = visible.length - 1 - v;
+        const jx = ((v % 2 === 0 ? 1 : -1) * 3).toFixed(1) + 'px';
+        const jr = ((v % 2 === 0 ? -1 : 1) * 1.4).toFixed(1) + 'deg';
+        const img = p.img || p.portrait || 'assets/pilotos/centered/norris.jpeg';
+        const lastName = (p.name || '').trim().split(/\s+/).pop();
+        return `
+          <button type="button" class="gf-sheet" data-pilot-idx="${allPilots.indexOf(p)}"
+            style="--gf-slot:${slot};--gf-depth:${depth};--gf-jx:${jx};--gf-jr:${jr};z-index:${v + 1};">
+            <img class="gf-sheet-art" src="${img}" alt="${p.name}" draggable="false">
+            <span class="gf-sheet-head">
+              <span class="gf-sheet-name">${lastName}</span>
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      root.innerHTML = `
+        <div class="gf-stage" style="transform: translateY(${HEADROOM * k}px) scale(${k});">
+          <div class="gf-tilt">
+            <div class="gf-shadow" aria-hidden="true"></div>
+            <div class="gf-back" style="clip-path: path('${BACK_PATH}'); background: ${grp.backGradient};" aria-hidden="true">
+              <div class="gf-back-sheen"></div>
+            </div>
+            <svg class="gf-rim gf-back-rim" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${BACK_PATH}"/></svg>
+            <div class="gf-front" style="clip-path: path('${FRONT_PATH}');">
+              <div class="gf-tint" aria-hidden="true"></div>
+              <div class="gf-spec" aria-hidden="true"></div>
+              <svg class="gf-rim gf-front-rim" viewBox="0 0 ${W} ${FRONT_H}" aria-hidden="true">
+                <path d="${FRONT_PATH}" stroke="rgba(255,255,255,0.55)"/>
+              </svg>
+              <button type="button" class="gf-hit" aria-label="Abrir carpeta ${grp.title}"></button>
+              <div class="gf-label">
+                <span class="gf-title">${grp.title}</span>
+                <span class="gf-meta">${grp.pilots.length} pilotos · ${grp.subtitle}</span>
+              </div>
+            </div>
+            <div class="gf-files" role="list">${sheetsHtml}</div>
+            <button type="button" class="gf-key" aria-label="Abrir ${grp.title}">
+              <span style="font-size:16px;font-weight:700;line-height:1;">+</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      const toggleOpen = () => {
+        const isOpen = root.hasAttribute('data-open');
+        grid.querySelectorAll('.gf-root[data-open]').forEach(el => { if (el !== root) el.removeAttribute('data-open'); });
+        if (isOpen) root.removeAttribute('data-open');
+        else root.setAttribute('data-open', '');
+      };
+
+      root.querySelector('.gf-hit').addEventListener('click', toggleOpen);
+      root.querySelector('.gf-key').addEventListener('click', toggleOpen);
+      root.querySelectorAll('.gf-sheet').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.dataset.pilotIdx, 10);
+          if (!isNaN(idx) && allPilots[idx] && typeof openPilotModal === 'function') {
+            openPilotModal(allPilots[idx]);
+          }
+        });
+      });
+
+      root.addEventListener('pointermove', (e) => {
+        if (e.pointerType === 'touch') return;
+        const r = root.getBoundingClientRect();
+        const px = ((e.clientX - r.left) / r.width) * 2 - 1;
+        const py = ((e.clientY - r.top) / r.height) * 2 - 1;
+        root.style.setProperty('--gf-px', px.toFixed(3));
+        root.style.setProperty('--gf-py', py.toFixed(3));
+      });
+      root.addEventListener('pointerleave', () => {
+        root.style.setProperty('--gf-px', '0');
+        root.style.setProperty('--gf-py', '0');
+      });
+
+      grid.appendChild(root);
+    });
+  }
+  renderPilotFolders();
 
   const fanStage1 = document.getElementById('fanDeckContainer1');
   const fanStage2 = document.getElementById('fanDeckContainer2');
