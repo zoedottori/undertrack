@@ -194,137 +194,167 @@
     </header>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL DE LA REDACCIÓN -->
-  <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12 space-y-8">
+  <!-- CONTENIDO PRINCIPAL DE LA REDACCIÓN (LAYOUT SPLIT 2 COLUMNAS) -->
+  <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12 space-y-6">
     
     <!-- ENCABEZADO EDITORIAL -->
-    <div class="space-y-2 border-b border-hairline pb-6">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <span class="text-[10px] sm:text-[11px] uppercase font-[800] tracking-[0.2em] text-accentRed block mb-1">
-            MESA DE PRODUCCIÓN & STREAMING
-          </span>
-          <h1 class="font-[900] text-3xl sm:text-5xl uppercase tracking-tight text-carbon">
-            REDACCIÓN <span class="font-[100] text-muted normal-case">editorial</span>
-          </h1>
-        </div>
-        
-        <div class="text-right hidden md:block text-xs font-[500] text-muted">
-          <span>MODELO TELEMÉTRICO: R22 LAS VEGAS STRIP CIRCUIT</span><br>
-          <span class="text-carbon font-[700]">ASISTENTE IA ACTIVO (GROQ)</span>
-        </div>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-hairline pb-5">
+      <div class="space-y-1">
+        <span class="text-[10px] sm:text-[11px] uppercase font-[800] tracking-[0.2em] text-accentRed block">
+          MESA DE PRODUCCIÓN & STREAMING
+        </span>
+        <h1 class="font-[900] text-3xl sm:text-5xl uppercase tracking-tight text-carbon leading-none">
+          REDACCIÓN <span class="font-[100] text-muted normal-case">editorial</span>
+        </h1>
+        <p class="text-xs sm:text-sm font-[300] text-muted max-w-2xl leading-relaxed lowercase pt-1">
+          transformá datos de pista, clima y pilotos en contenido listo para publicar según tu canal y formato.
+        </p>
       </div>
-      <p class="text-xs sm:text-sm font-[300] text-muted max-w-2xl leading-relaxed lowercase">
-        transformá datos de pista, clima y pilotos en contenido listo para publicar según tu canal y formato.
-      </p>
+      
+      <div class="hidden md:flex flex-col items-end gap-1.5 shrink-0">
+        <span class="text-[10px] font-[700] text-muted uppercase tracking-wider">
+          MODELO TELEMÉTRICO: <span class="text-carbon">R22 LAS VEGAS STRIP CIRCUIT</span>
+        </span>
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-carbon text-pureWhite text-[10px] font-[800] uppercase tracking-wider shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-[#d4ff32] animate-pulse"></span>
+          ASISTENTE IA ACTIVO (GROQ)
+        </span>
+      </div>
     </div>
 
-    <!-- PASO 1 Y 2: RECUADRO SUPERIOR CON CONFIGURACIÓN DE CANAL Y FORMATO (100% BLANCO PURO Y MÁXIMO CONTRASTE) -->
-    <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-black/15 shadow-[0_16px_36px_rgba(0,0,0,0.06)] space-y-6" style="background-color: #FFFFFF !important;">
-      
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/10 pb-4">
-        <span class="text-xs sm:text-sm font-[900] uppercase tracking-wider text-carbon flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] border border-black/30"></span>
-          1. CONFIGURACIÓN DEL CANAL Y FORMATO
-        </span>
-        <span class="text-xs font-[600] text-carbon/60 lowercase">
-          la sugerencia se adapta automáticamente al tocar cualquier opción
-        </span>
-      </div>
+    <!-- WORKSPACE SPLIT EN DOS COLUMNAS (SIDEBAR CONFIGURACIÓN + PIZARRA EDITORIAL) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
-      <!-- SELECCIÓN DE RED SOCIAL -->
-      <div class="space-y-2.5">
-        <span class="text-xs font-sans uppercase text-carbon font-[900] tracking-wider block">
-          ¿En qué red vas a publicar?
-        </span>
-        <div class="flex flex-wrap items-center gap-2.5">
-          <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn is-active flex-1 min-w-[120px]">
-            Instagram
-          </button>
-          <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn flex-1 min-w-[120px]">
-            TikTok
-          </button>
-          <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn flex-1 min-w-[120px]">
-            X (Twitter)
-          </button>
-          <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn flex-1 min-w-[120px]">
-            YouTube
-          </button>
-        </div>
-      </div>
-
-      <!-- SELECCIÓN DINÁMICA DE FORMATO -->
-      <div class="space-y-2.5">
-        <span class="text-xs font-sans uppercase text-carbon font-[900] tracking-wider block">
-          ¿Qué formato necesitás hoy?
-        </span>
-        <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center gap-2.5">
-          <!-- Inyectado dinámicamente -->
-        </div>
-      </div>
-
-      <!-- BOTÓN PARA GENERAR VARIACIÓN FRESCA CON IA -->
-      <div class="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-black/10">
-        <span class="text-[11px] font-[500] text-muted">
-          ¿Querés una versión única redactada con IA en vivo?
-        </span>
-        <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full sm:w-auto px-7 py-3 rounded-full bg-carbon hover:bg-black text-pureWhite font-[700] text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer shadow-sm active:scale-95">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span>
-          <span>Generar con IA (Groq)</span>
-          <span class="text-xs font-bold">➔</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- PASO 4: LA PIZARRA EDITORIAL Y CHAT EN VIVO -->
-    <div class="bg-pureWhite p-6 sm:p-8 rounded-3xl border border-black/10 shadow-[0_16px_36px_rgba(0,0,0,0.06)] space-y-6">
-      
-      <!-- BARRA DE ESTADO Y ACCIONES -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-hairline">
-        <span id="verdictCardBadge" class="text-xs font-sans uppercase font-[800] text-accentRed tracking-wider flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accentRed animate-pulse"></span>
-          Post listo para Instagram
-        </span>
-
-        <div class="flex items-center gap-2">
-          <button onclick="clearChatHistory()" id="btnClearChatHistory" class="text-[10px] uppercase font-[700] px-3.5 py-1.5 bg-[#EEF0F4] hover:bg-zinc-200 text-muted hover:text-carbon rounded-full border border-hairline transition-colors duration-200 flex items-center gap-1.5" title="Limpiar repreguntas del chat">
-            <span>limpiar chat</span> ↺
-          </button>
-          <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[700] px-4 py-1.5 bg-[#EEF0F4] hover:bg-carbon hover:text-pureWhite rounded-full border border-hairline text-carbon transition-colors duration-200 shadow-xs flex items-center gap-1.5">
-            <span id="copyButtonText">copiar contenido</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- CONTENEDOR DE CONTENIDO GENERADO / HISTORIAL -->
-      <div id="verdictChatContainer" class="p-5 sm:p-7 bg-[#EEF0F4] rounded-2xl border border-black/5 min-h-[260px] max-h-[520px] overflow-y-auto space-y-4 text-xs sm:text-sm font-[300] leading-relaxed select-text scroll-smooth">
-        
-        <!-- TARJETA DEL CONTENIDO PRINCIPAL -->
-        <div id="verdictOutputCard" class="p-5 sm:p-6 bg-pureWhite rounded-xl border border-black/8 shadow-sm space-y-3">
-          <div class="flex items-center justify-between border-b border-hairline pb-2.5">
-            <span class="text-[10px] font-sans text-muted uppercase font-[600]">Propuesta Editorial</span>
-            <span class="text-[10px] font-sans text-muted uppercase">Sugerencia Adaptada</span>
+      <!-- COLUMNA IZQUIERDA (4/12): 1. CANAL Y FORMATO -->
+      <aside class="lg:col-span-4 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-6" style="background-color: #FFFFFF !important;">
+        <div class="space-y-6">
+          <div class="flex items-center gap-2 border-b border-black/10 pb-3.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] border border-black/25 shrink-0"></span>
+            <span class="text-xs font-[900] uppercase tracking-wider text-carbon">
+              1. CANAL Y FORMATO
+            </span>
           </div>
+
+          <!-- SELECCIÓN DE RED SOCIAL (GRID 2x2) -->
+          <div class="space-y-2.5">
+            <span class="text-[11px] font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
+              ¿EN QUÉ RED VAS A PUBLICAR?
+            </span>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
+                Instagram
+              </button>
+              <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
+                TikTok
+              </button>
+              <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
+                X (Twitter)
+              </button>
+              <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
+                YouTube
+              </button>
+            </div>
+          </div>
+
+          <!-- SELECCIÓN DINÁMICA DE FORMATO -->
+          <div class="space-y-2.5">
+            <span class="text-[11px] font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
+              ¿QUÉ FORMATO NECESITÁS HOY?
+            </span>
+            <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center gap-2">
+              <!-- Inyectado dinámicamente -->
+            </div>
+          </div>
+
+          <p class="text-[11px] font-[400] text-muted leading-snug lowercase">
+            la sugerencia se adapta automáticamente al tocar cualquier opción
+          </p>
+        </div>
+
+        <!-- BOTÓN GENERAR CON IA (GROQ) DESTACADO EN VERDE VOLT -->
+        <div class="pt-5 border-t border-black/10 space-y-2.5">
+          <span class="text-[11px] font-[500] text-muted text-center block">
+            ¿Querés una versión única redactada con IA en vivo?
+          </span>
+          <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full py-3.5 px-5 rounded-full bg-[#d4ff32] hover:bg-[#c5f022] text-[#111114] font-[900] text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-[0_8px_20px_rgba(212,255,50,0.35)] hover:shadow-[0_12px_28px_rgba(212,255,50,0.5)] hover:-translate-y-0.5 active:scale-95">
+            <span>GENERAR CON IA (GROQ)</span>
+            <span class="text-sm font-bold">➔</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- COLUMNA DERECHA (8/12): PIZARRA EDITORIAL Y CHAT EN VIVO -->
+      <section class="lg:col-span-8 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-4" style="background-color: #FFFFFF !important;">
+        
+        <!-- BARRA SUPERIOR DE ESTADO Y ACCIONES -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b border-hairline">
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <span id="verdictCardBadge" class="text-xs font-sans uppercase font-[900] text-carbon tracking-wider flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-black/25"></span>
+              Esperando selección
+            </span>
+            <span id="verdictFormatTag" class="hidden px-2.5 py-0.5 rounded-full bg-[#d4ff32] text-[#111114] text-[10px] font-[900] uppercase tracking-wider">
+              POST
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="clearChatHistory()" id="btnClearChatHistory" class="text-[10px] uppercase font-[700] px-3.5 py-1.5 bg-[#EEF0F4] text-muted rounded-full border border-hairline transition-colors duration-200 flex items-center gap-1.5 cursor-pointer" title="Limpiar repreguntas del chat">
+              <span>limpiar chat</span> ↺
+            </button>
+            <button onclick="copyVerdict()" id="btnCopyVerdictMain" class="text-[10px] uppercase font-[800] px-4 py-1.5 bg-carbon text-pureWhite rounded-full border border-carbon transition-colors duration-200 shadow-xs flex items-center gap-1.5 cursor-pointer">
+              <span id="copyButtonText">copiar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CONTENEDOR DE CONTENIDO GENERADO / HISTORIAL -->
+        <div id="verdictChatContainer" class="p-4 sm:p-5 bg-[#EEF0F4] rounded-2xl border border-black/5 flex-1 min-h-[320px] max-h-[470px] overflow-y-auto space-y-3.5 text-xs sm:text-sm font-[300] leading-relaxed select-text scroll-smooth">
           
-          <div id="verdictOutput" class="text-carbon leading-relaxed whitespace-pre-line text-sm sm:text-base font-[300]"></div>
+          <!-- BURBUJA DE PROMPT ACTIVO -->
+          <div id="verdictPromptWrap" class="hidden flex justify-end">
+            <div id="verdictPromptBubble" class="bg-carbon text-pureWhite px-4 py-2 rounded-2xl rounded-tr-xs text-xs font-[500] shadow-xs">
+            </div>
+          </div>
+
+          <!-- TARJETA DEL CONTENIDO PRINCIPAL -->
+          <div id="verdictOutputCard" class="p-5 sm:p-6 bg-pureWhite rounded-2xl border border-black/8 shadow-sm space-y-3">
+            <div class="flex items-center justify-between border-b border-hairline pb-2.5">
+              <span class="text-[10px] font-sans text-muted uppercase font-[700] tracking-wider">Propuesta Editorial</span>
+              <span class="text-[10px] font-sans text-muted uppercase tracking-wider">Sugerencia Adaptada</span>
+            </div>
+            
+            <div id="verdictOutput" class="text-carbon leading-relaxed whitespace-pre-line text-xs sm:text-sm font-[400]"></div>
+          </div>
+
+          <!-- HISTORIAL DE PREGUNTAS Y RESPUESTAS DEL CHAT -->
+          <div id="verdictChatHistory" class="space-y-3"></div>
+
+          <!-- CHIPS DE REFINAMIENTO RÁPIDO -->
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <button type="button" onclick="applyQuickRefinement('Hacelo más corto y directo')" class="px-3.5 py-1.5 rounded-full bg-pureWhite hover:bg-carbon hover:text-pureWhite border border-black/10 text-[11px] font-[600] text-carbon transition-colors cursor-pointer shadow-2xs">
+              Hacelo más corto
+            </button>
+            <button type="button" onclick="applyQuickRefinement('Dale un tono más polémico para generar debate en comentarios')" class="px-3.5 py-1.5 rounded-full bg-pureWhite hover:bg-carbon hover:text-pureWhite border border-black/10 text-[11px] font-[600] text-carbon transition-colors cursor-pointer shadow-2xs">
+              Tono más polémico
+            </button>
+            <button type="button" onclick="applyQuickRefinement('Sumá el dato del clima frío de 12°C y el graining')" class="px-3.5 py-1.5 rounded-full bg-pureWhite hover:bg-carbon hover:text-pureWhite border border-black/10 text-[11px] font-[600] text-carbon transition-colors cursor-pointer shadow-2xs">
+              Sumá el clima
+            </button>
+          </div>
+
         </div>
 
-        <!-- HISTORIAL DE PREGUNTAS Y RESPUESTAS DEL CHAT -->
-        <div id="verdictChatHistory" class="space-y-3 pt-1"></div>
+        <!-- BARRA DE PREGUNTAS Y CONSULTA TELEMÉTRICA RÁPIDA -->
+        <form onsubmit="event.preventDefault(); handleGroqQuery();" class="flex items-center gap-2 bg-[#EEF0F4] p-1.5 pl-5 rounded-full border border-black/10 focus-within:border-carbon transition-colors">
+          <input type="text" id="groqInput" placeholder="preguntar o pedir un ajuste al post..."
+                 class="flex-1 bg-transparent text-xs sm:text-sm text-carbon placeholder:text-muted focus:outline-none font-sans">
+          <button type="submit" id="btnGroqQuery" class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 cursor-pointer text-sm font-bold" title="Preguntar o pedir ajuste">
+            ➔
+          </button>
+        </form>
 
-      </div>
-
-      <!-- BARRA DE PREGUNTAS Y CONSULTA TELEMÉTRICA RÁPIDA -->
-      <form onsubmit="event.preventDefault(); handleGroqQuery();" class="flex flex-col sm:flex-row gap-2.5 pt-1">
-        <div class="relative flex-1">
-          <input type="text" id="groqInput" placeholder="Preguntale a la telemetría (ej: ¿cómo afecta el frío a McLaren? / ¿qué ventana tiene Colapinto?)..."
-                 class="w-full px-5 py-3.5 bg-pureWhite border border-black/15 rounded-full text-xs text-carbon focus:outline-none focus:border-carbon shadow-xs font-sans">
-        </div>
-        <button type="submit" id="btnGroqQuery" class="px-7 py-3.5 bg-carbon text-pureWhite text-xs font-[600] rounded-full hover:bg-black transition-transform active:scale-95 shadow-sm shrink-0 flex items-center justify-center gap-1.5 cursor-pointer">
-          <span>preguntar</span> ➔
-        </button>
-      </form>
+      </section>
 
     </div>
 
@@ -369,8 +399,8 @@
     window.GROQ_API_KEY = window.GROQ_API_KEY || localStorage.getItem('groq_api_key');
     window.GROQ_MODEL = window.GROQ_MODEL || "qwen/qwen3.8-27b";
 
-    let currentDeskPlatform = 'instagram';
-    let currentDeskFormat = 'post';
+    let currentDeskPlatform = null;
+    let currentDeskFormat = null;
     let currentEditorialNeed = 'debate';
 
     const platformFormatsMap = {
@@ -460,8 +490,28 @@
     };
 
     function syncEditorialOutput() {
-      const plat = currentDeskPlatform || 'instagram';
-      const fmt = currentDeskFormat || 'post';
+      const badgeEl = document.getElementById('verdictCardBadge');
+      const formatTagEl = document.getElementById('verdictFormatTag');
+      const promptWrap = document.getElementById('verdictPromptWrap');
+      const promptBubble = document.getElementById('verdictPromptBubble');
+      const copyBtnText = document.getElementById('copyButtonText');
+      const output = document.getElementById('verdictOutput');
+
+      if (!currentDeskPlatform || !currentDeskFormat) {
+        if (badgeEl) {
+          badgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-black/25"></span> Esperando selección`;
+        }
+        if (formatTagEl) formatTagEl.classList.add('hidden');
+        if (promptWrap) promptWrap.classList.add('hidden');
+        if (copyBtnText) copyBtnText.textContent = 'copiar';
+        if (output) {
+          output.innerHTML = '<span class="text-muted italic">Seleccioná una red social y un formato en el panel izquierdo para ver la propuesta editorial adaptada, o hacé una consulta directa en el chat inferior.</span>';
+        }
+        return;
+      }
+
+      const plat = currentDeskPlatform;
+      const fmt = currentDeskFormat;
       const need = currentEditorialNeed || 'debate';
 
       const formatBadges = {
@@ -485,11 +535,21 @@
       };
 
       const meta = (formatBadges[plat] && formatBadges[plat][fmt]) || { badge: 'Guion listo para el aire', copy: 'copiar guion' };
-      const badgeEl = document.getElementById('verdictCardBadge');
       if (badgeEl) {
-        badgeEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accentRed animate-pulse"></span> ${meta.badge}`;
+        badgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-accentRed animate-pulse"></span> ${meta.badge}`;
       }
-      const copyBtnText = document.getElementById('copyButtonText');
+      if (formatTagEl) {
+        const formatObj = (platformFormatsMap[plat] || []).find(f => f.id === fmt);
+        formatTagEl.textContent = (formatObj ? formatObj.label : fmt).toUpperCase();
+        formatTagEl.classList.remove('hidden');
+      }
+      if (promptWrap && promptBubble) {
+        const platNames = { instagram: 'Instagram', tiktok: 'TikTok', x: 'X (Twitter)', youtube: 'YouTube' };
+        const formatObj = (platformFormatsMap[plat] || []).find(f => f.id === fmt);
+        const fmtLabel = formatObj ? formatObj.label.toLowerCase() : fmt;
+        promptBubble.textContent = `Armame un ${fmtLabel} para ${platNames[plat] || plat} sobre el GP de Las Vegas.`;
+        promptWrap.classList.remove('hidden');
+      }
       if (copyBtnText) {
         copyBtnText.textContent = meta.copy;
       }
@@ -501,7 +561,6 @@
         text = editorialNeedsByFormat.instagram.post.debate;
       }
 
-      const output = document.getElementById('verdictOutput');
       if (output && text) {
         output.textContent = text;
       }
@@ -511,10 +570,12 @@
       const container = document.getElementById('deskFormatButtonsContainer');
       if (!container) return;
 
-      const formats = platformFormatsMap[currentDeskPlatform] || platformFormatsMap.instagram;
-      if (!formats.some(f => f.id === currentDeskFormat)) {
-        currentDeskFormat = formats[0].id;
+      if (!currentDeskPlatform) {
+        container.innerHTML = '<span class="text-[11px] text-muted italic lowercase">elegí primero una red social arriba...</span>';
+        return;
       }
+
+      const formats = platformFormatsMap[currentDeskPlatform] || platformFormatsMap.instagram;
 
       container.innerHTML = formats.map(f => {
         const isActive = f.id === currentDeskFormat;
@@ -522,7 +583,7 @@
           <button type="button" 
                   onclick="selectDeskFormat('${f.id}')" 
                   id="deskFormatBtn-${f.id}" 
-                  class="desk-choice-btn ${isActive ? 'is-active' : ''} flex-1 min-w-[120px]">
+                  class="desk-choice-btn ${isActive ? 'is-active' : ''} flex-1 min-w-[85px] !py-2 !px-3 !text-xs">
             ${f.label}
           </button>
         `;
@@ -531,6 +592,7 @@
 
     window.selectDeskPlatform = function(plat) {
       currentDeskPlatform = plat;
+      currentDeskFormat = null;
       ['instagram', 'tiktok', 'x', 'youtube'].forEach(p => {
         const btn = document.getElementById(`deskPlatformBtn-${p}`);
         if (btn) {
@@ -588,13 +650,13 @@
     };
 
     // BASE DE CONOCIMIENTO EXCLUSIVA PARA GROQ: INFORMACION_PARA_GROQ.MD
-    const INFORMACION_PARA_GROQ = "# INFORMACI\u00d3N PARA GROQ \u00b7 BASE DE CONOCIMIENTO UNDERTRACK\n**Plataforma de Inteligencia Telem\u00e9trica y Predicci\u00f3n Cinem\u00e1tica de F\u00f3rmula 1**  \n*Destinatario del modelo:* Asistente y Productor Editorial de Mateo (Streamer y Creador de Contenido de F1).  \n*Regla de Inferencia:* Groq debe responder **\u00fanicamente** con los datos, correlaciones, arquetipos y hechos documentados en este archivo. Si se le consulta algo fuera de este documento, responder\u00e1 con la regla de corte estricta.\n\n---\n\n## 0. DIRECTIVAS DE COMPORTAMIENTO Y GUARDRAILS PARA GROQ\n\n1. **Fuente de Verdad \u00danica:** Tu \u00fanica y exclusiva base de datos es la contenida en este documento. Queda estrictamente prohibido inventar tiempos, telemetr\u00edas, probabilidades o eventos no registrados ac\u00e1.\n2. **Cl\u00e1usula de Corte por Falta de Datos:** Si el usuario pregunta algo que no figura expl\u00edcitamente en este documento (por ejemplo, resultados de carreras que no est\u00e9n ac\u00e1 o rumores de traspasos), tu respuesta debe ser **\u00fanica y textualmente**:  \n   > *\"El dataset oficial de UNDERTRACK no contiene informaci\u00f3n suficiente sobre este punto.\"*\n3. **Tono y Estilo para Mateo:** Directo, asertivo, t\u00e9cnico y period\u00edstico. M\u00e1ximo 1 a 2 oraciones contundentes por respuesta. Pensado para ser le\u00eddo al aire en un stream de Twitch o guion de TikTok.\n4. **Sin Relleno ni Pre\u00e1mbulos:** Prohibido empezar con frases vac\u00edas como *\"Respecto a tu consulta...\", \"Para responder a eso...\", \"En cuanto al piloto...\"*. And\u00e1 directo al dato.\n5. **Cero Emojis:** Prohibido el uso de emojis en las respuestas t\u00e9cnicas.\n\n---\n\n## 1. SISTEMA DE CLASIFICACI\u00d3N DE CIRCUITOS (LAS 4 FAMILIAS UNDERTRACK)\n\nEl modelo matem\u00e1tico clasifica los circuitos del campeonato mediante clustering no supervisado ($K\\text{-Means}$) sobre 3 variables cinem\u00e1ticas: **porcentaje de acelerador a fondo (`full_throttle_pct`)**, **abrasi\u00f3n del asfalto (escala 1 a 5)** y **severidad de frenada (escala 1 a 5)**:\n\n| ID Familia | Nombre de la Familia | Caracter\u00edsticas F\u00edsicas | Circuitos Clave | Par\u00e1metros Promedio |\n| :---: | :--- | :--- | :--- | :--- |\n| **Familia 0** | **Carga Lateral Extrema** | Curvas r\u00e1pidas enlazadas de alta fuerza G lateral (>4.5G), asfalto muy abrasivo, alto estr\u00e9s t\u00e9rmico en el hombro del neum\u00e1tico. | Silverstone (5/5 abrasi\u00f3n, 70% gas), Spa-Francorchamps (70% gas), Suzuka (5/5 abrasi\u00f3n), Barcelona-Catalunya, Zandvoort, Losail (Qatar), Jeddah. | Acelerador: 68-79%<br>Abrasi\u00f3n: 4-5<br>Frenada: 2-3 |\n| **Familia 1** | **Stop-and-Go y Recta Extrema** | Largas rectas combinadas con frenadas bruscas a 90\u00b0 o horquillas lentas. Muy baja carga aerodin\u00e1mica (alas recortadas estilo Monza), frenos al l\u00edmite t\u00e9rmico y tracci\u00f3n en 2da marcha. | Monza (76% gas, 5/5 frenada), Red Bull Ring (72% gas), Las Vegas Strip (78% gas, 1/5 abrasi\u00f3n, 4/5 frenada), Albert Park, Montreal (Villeneuve), Miami, Yas Marina. | Acelerador: 60-78%<br>Abrasi\u00f3n: 1-3<br>Frenada: 4-5 |\n| **Familia 2** | **Mixtos y T\u00e9cnicos** | Combinaci\u00f3n de sectores trabados lentos con pendientes pronunciadas y curvas medias. Demandan compromiso aerodin\u00e1mico y tracci\u00f3n mec\u00e1nica pura. | Interlagos (43m desnivel, 68% gas), Circuit of the Americas / COTA (58% gas, 4/5 abrasi\u00f3n), Paul Ricard, Imola, Bahrein, Shanghai, N\u00fcrburgring. | Acelerador: 56-71%<br>Abrasi\u00f3n: 3-5<br>Frenada: 3-4 |\n| **Familia 3** | **Laberintos Urbanos / Baja Densidad** | Calles estrechas delimitadas por muros ciegos de hormig\u00f3n, asfalto urbano resbaladizo, poco grip y altitud extrema en M\u00e9xico. | M\u00f3naco (34% gas, 1/5 abrasi\u00f3n), Bak\u00fa (56% gas, 5/5 frenada), Marina Bay (Singapur), Hungaroring, Hermanos Rodr\u00edguez (M\u00e9xico - 2.285m altitud). | Acelerador: 34-60%<br>Abrasi\u00f3n: 1-2<br>Frenada: 2-5 |\n\n---\n\n## 2. RED DE CIRCUITOS GEMELOS (CORRELACI\u00d3N DE PEARSON $r$)\n\nCuando un monoplaza funciona en un circuito, el modelo proyecta su rendimiento en su circuito gemelo con id\u00e9ntica demanda f\u00edsica:\n\n* **Red Bull Ring (Spielberg) $\\longleftrightarrow$ Interlagos (S\u00e3o Paulo): $r = 0.846$ (84.6% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Comparten desniveles abruptos y tracci\u00f3n mec\u00e1nica en subida desde curvas lentas ciegas donde el downforce no apoya. Si la suspensi\u00f3n trasera tracciona en Austria, tracciona en Brasil.\n* **Baku City Circuit $\\longleftrightarrow$ Las Vegas Strip Circuit: $r = 0.824$ (82.4% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Rectas kilom\u00e9tricas a m\u00e1s de 345 km/h que desembocan en frenadas a 90\u00b0 con muros pegados al asfalto urbano.\n* **Monza $\\longleftrightarrow$ Las Vegas Strip Circuit: $r = 0.810$ (81.0% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Configuraci\u00f3n aerodin\u00e1mica obligatoria de m\u00ednimo drag (*low drag*), alas ultra-planas y m\u00e1xima dependencia de velocidad punta y eficiencia de DRS.\n* **Circuit Paul Ricard / Silverstone $\\longleftrightarrow$ COTA Austin: $r = 0.811$ y $r = 0.802$**  \n  *Explicaci\u00f3n f\u00edsica:* Curvas r\u00e1pidas enlazadas de alta carga lateral que saturan la temperatura del neum\u00e1tico delantero en apoyo prolongado.\n* **Monza / Red Bull Ring $\\longleftrightarrow$ M\u00e9xico (Hnos. Rodr\u00edguez): $r = 0.792$ y $r = 0.785$**  \n  *Explicaci\u00f3n f\u00edsica:* Recta infinita que exige velocidad final compensando la baja densidad del aire (2.285m s.n.m.) combinada con la lenta tracci\u00f3n del Foro Sol.\n\n---\n\n## 3. MATRIZ DE SENSIBILIDAD T\u00c9RMICA DE CONSTRUCTORES (ASPHALT TEMP SENSITIVITY)\n\nEl rendimiento de los monoplazas var\u00eda dr\u00e1sticamente seg\u00fan la temperatura del asfalto (Pista Fr\u00eda $<25^\\circ\\text{C}$ vs. Pista Caliente $>40^\\circ\\text{C}$). Datos verificados sobre m\u00e1s de 300 Grandes Premios:\n\n| Constructor | Diferencial Puestos en Fr\u00edo ($<25^\\circ\\text{C}$) | Diferencial Puestos en Calor ($>40^\\circ\\text{C}$) | Salto Neto ($\\Delta$) | Comportamiento Cinem\u00e1tico y Mec\u00e1nico |\n| :--- | :---: | :---: | :---: | :--- |\n| **McLaren** | **+1.32** | **+0.12** | **-1.20** | **Alerta Cr\u00edtica en Calor:** Sufre degradaci\u00f3n t\u00e9rmica severa en el tren delantero cuando la pista supera 40\u00b0C. En cambio, en fr\u00edo (<15\u00b0C) genera temperatura progresiva \u00f3ptima sin sobrecalentar el n\u00facleo. |\n| **Ferrari** | **+0.70** | **+0.82** | **+0.11** | **Resistencia T\u00e9rmica:** Chasis que no destruye la goma en calor. Encendido ultrarr\u00e1pido de neum\u00e1ticos delanteros (fuerte qualy y primeros 5 giros), pero riesgo de ca\u00edda a mitad de stint en fr\u00edo. |\n| **Red Bull** | **+2.07** | **+1.39** | **-0.68** | **Eficiencia Global:** Paquete aerodin\u00e1mico de baj\u00edsimo drag y DRS letal (>352 km/h punta). Suspensi\u00f3n trasera superior para traccionar en subida y proteger compuestos blandos. |\n| **Mercedes** | **+0.89** | **+0.68** | **-0.21** | **Consistencia Metron\u00f3mica:** Ritmo s\u00f3lido y estable en tandas largas sin picos extremos de degradaci\u00f3n. |\n| **Williams** | **+1.67** | **+2.23** | **+0.56** | **Especialistas en Recta:** Monoplaza con poqu\u00edsimo drag. Rinde mejor en calor abrasivo donde no sufre para calentar el neum\u00e1tico; sufre en pistas con baches (*bumps*). |\n| **Alpine F1** | **+1.36** | **+1.31** | **-0.05** | **Neutro T\u00e9rmico / D\u00e9ficit de Motor:** Gesti\u00f3n limpia de gomas pero penalizado por velocidad final en rectas de subida. Dificultad para encender compuestos duros en fr\u00edo. |\n| **Aston Martin**| **+1.94** | **+0.97** | **-0.97** | Ca\u00edda notable en calor; sobrecalentamiento en tren trasero que compromete la tracci\u00f3n en salida de curvas. |\n| **RB F1 Team** | **-1.09** | **+0.10** | **+1.20** | Rinde considerablemente mejor en asfalto caliente donde activa la ventana de trabajo del neum\u00e1tico. |\n\n---\n\n## 4. PERFILES CONDUCTUALES DE LOS PILOTOS (CLUSTERING $K\\text{-MEANS}$)\n\nClasificaci\u00f3n de los pilotos de la grilla seg\u00fan su consistencia cronom\u00e9trica por vuelta (`consistencia_seg`), gesti\u00f3n de degradaci\u00f3n (`gestion_gomas`), salto en mojado (`delta_lluvia`) y ganancia bajo Safety Car (`delta_sc`):\n\n### A. \u00c9lite Metron\u00f3mico\n* **Pilotos:** Max Verstappen, Charles Leclerc, Lewis Hamilton, Lando Norris, Oscar Piastri, Carlos Sainz.\n* **Caracter\u00edsticas:** Consistencia casi quir\u00fargica (desviaci\u00f3n est\u00e1ndar $<1.32\\text{s}$ por vuelta). Promedio de posiciones ganadas en circuitos mixtos/t\u00e9cnicos: **+1.28 puestos**.\n* **Fortaleza:** Monopolizan el Top 5 en carreras sin neutralizaciones gracias a la regularidad de ritmo en tandas de m\u00e1s de 20 giros.\n\n### B. Gestores de Midfield\n* **Pilotos:** Franco Colapinto (Alpine #43), Isack Hadjar (Red Bull #6), Nico H\u00fclkenberg (Audi #27), Liam Lawson (RB #30), Yuki Tsunoda, Gabriel Bortoleto (Audi #5), Kevin Magnussen.\n* **Caracter\u00edsticas:** Alta capacidad de estirar la vida \u00fatil de los compuestos duro y medio sin caer en degradaci\u00f3n lineal (*tyre management* $>0.53$).\n* **Rendimiento:** Ganan un promedio de **+1.15 puestos** en carreras de alta degradaci\u00f3n ejecutando *overcuts* frente a rivales que van a boxes prematuramente.\n* **Perfil espec\u00edfico Franco Colapinto:**\n  - Consistencia: $1.19\\text{s}$ de desviaci\u00f3n media.\n  - Gesti\u00f3n de gomas: $0.561$ (en el percentil m\u00e1s alto del pelot\u00f3n medio).\n  - Puestos ganados promedio: $+1.26$ posiciones por Gran Premio en tandas largas.\n  - Fortaleza: Ritmo sostenido con gomas duras en aire limpio y defensa limpia de posici\u00f3n.\n  - Debilidad relativa: Dificultad del paquete Alpine para sobrepasar en rectas cortas con tren de DRS.\n\n### C. \u00c9lite Agresivo\n* **Pilotos:** Andrea Kimi Antonelli (Mercedes #12 - Campe\u00f3n del Mundo 2026), George Russell (Mercedes #63), Fernando Alonso (Aston Martin #14), Sergio P\u00e9rez (Cadillac #11), Pierre Gasly (Alpine #10), Esteban Ocon, Alexander Albon.\n* **Caracter\u00edsticas:** Explotan frenadas tard\u00edas al l\u00edmite geom\u00e9trico. Capaces de ganar posiciones en las primeras 5 vueltas, pero con riesgo de sobrecalentar el tren delantero si quedan atrapados en aire sucio.\n\n### D. Pilotos de Lluvia y Oportunistas de Caos\n* **Pilotos:** Oliver Bearman (Haas #87), Lance Stroll (Aston Martin #18), Zhou Guanyu, Logan Sargeant.\n* **Caracter\u00edsticas:** Salto estad\u00edstico contundente bajo pista h\u00fameda (**+2.70 puestos promedio en lluvia**) y alta ganancia bajo neutralizaciones de Safety Car (+1.7 a +2.3 puestos) al arriesgar con paradas tempranas.\n\n---\n\n## 5. BIT\u00c1CORA DE TEMPORADA 2026: PRON\u00d3STICO VS. REALIDAD\n\n### RONDA 19: GP de Estados Unidos \u2014 Austin (COTA)\n* **Condiciones:** Pista abrasiva (4/5) a temperatura extrema de **42\u00b0C \u2013 45\u00b0C**. Ondulaciones (*bumps*) en sectores 1 y 3.\n* **Pron\u00f3stico UNDERTRACK:** Ca\u00edda dr\u00e1stica de McLaren por asfalto caliente (-1.20 en matriz t\u00e9rmica). Ferrari y Red Bull favoritos a podio.\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Andrea Kimi Antonelli (Mercedes) \u2014 Ganador (+13s sobre Leclerc).\n  2. \ud83e\udd48 Charles Leclerc (Ferrari) \u2014 +13.078s.\n  3. \ud83e\udd49 Max Verstappen (Red Bull) \u2014 +17.485s.\n  * 4\u00b0 Lewis Hamilton (Ferrari) | 5\u00b0 Lando Norris (McLaren a +30.5s) | 6\u00b0 Isack Hadjar (Red Bull) | 7\u00b0 Oscar Piastri (McLaren a +52.6s) | 8\u00b0 George Russell | 9\u00b0 Liam Lawson (RB) | 10\u00b0 Pierre Gasly (Alpine).\n  * DNF: Franco Colapinto (rotura mec\u00e1nica), Valtteri Bottas, Oliver Bearman.\n  * Williams: Albon P17 y Sainz P18 a 1 vuelta por problemas con baches.\n* **Validaci\u00f3n:** **Acierto Total** en la ca\u00edda t\u00e9rmica de McLaren (Norris a 30s de la punta) y en la solidez de Ferrari. Desv\u00edo: Antonelli sorprendi\u00f3 con ritmo dominante en calor.\n\n---\n\n### RONDA 20: GP de M\u00e9xico \u2014 Aut\u00f3dromo Hermanos Rodr\u00edguez\n* **Condiciones:** Altitud extrema de **2.285 metros sobre el nivel del mar** (p\u00e9rdida del 22% de densidad de aire). Asfalto a 46\u00b0C \u2013 49\u00b0C. Refrigeraci\u00f3n cr\u00edtica.\n* **Pron\u00f3stico UNDERTRACK:** Victoria de Verstappen por tracci\u00f3n en Foro Sol. Fricci\u00f3n alta entre pilotos Ferrari en Curva 1.\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Max Verstappen (Red Bull) \u2014 Ganador en 2:20:28.772 (largando penalizado, aguant\u00f3 con goma blanda tras bandera roja).\n  2. \ud83e\udd48 Lewis Hamilton (Ferrari) \u2014 a +0.799s.\n  3. \ud83e\udd49 Andrea Kimi Antonelli (Mercedes) \u2014 a +4.006s \u2014 **\u00a1CORONADO CAMPE\u00d3N DEL MUNDO 2026!**\n  * 4\u00b0 Charles Leclerc (Ferrari - penalizado con 5s por toque con Hamilton en vuelta 1).\n  * 5\u00b0 Lando Norris | 6\u00b0 George Russell | 7\u00b0 Liam Lawson | 8\u00b0 Gabriel Bortoleto | 9\u00b0 Isack Hadjar | 10\u00b0 Ryo Hirakawa.\n  * **Caso Franco Colapinto (Alpine #43):** **Cruz\u00f3 la meta 8.\u00b0 en pista** con un ritmo brillante. Sanciones posteriores por bandera amarilla lo ubicaron formalmente en P15, pero el ritmo mec\u00e1nico proyectado (P8) se cumpli\u00f3 de forma exacta.\n  * Abandonos (5 DNF): Lindblad, Bearman, Bottas, Stroll, Alonso.\n* **Hito Hist\u00f3rico:** Kimi Antonelli se consagr\u00f3 **Campe\u00f3n Mundial de F1 con 20 a\u00f1os y 68 d\u00edas** (el m\u00e1s joven de la historia, batiendo el r\u00e9cord de Vettel por 3 a\u00f1os, y primer italiano campe\u00f3n desde Ascari en 1953).\n\n---\n\n### RONDA 21: GP de S\u00e3o Paulo \u2014 Interlagos\n* **Condiciones:** 43m de desnivel natural. Nubosidad con claros que contuvo el asfalto en **38\u00b0C \u2013 42\u00b0C**. Viento fuerte del Este (**25 a 40 km/h**) con r\u00e1fagas de cola en S do Senna.\n* **Pron\u00f3stico UNDERTRACK:** Si la pista no superaba 44\u00b0C, McLaren recuperaba downforce en Sector 2. Red Bull al podio por tracci\u00f3n de su gemelo Spielberg ($r=0.846$).\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Lando Norris (McLaren) \u2014 Ganador en 1:35:23.504.\n  2. \ud83e\udd48 Max Verstappen (Red Bull) \u2014 a +14.602s.\n  3. \ud83e\udd49 Isack Hadjar (Red Bull) \u2014 a +24.485s (primer gran podio de su carrera).\n  * 4\u00b0 George Russell | 5\u00b0 Kimi Antonelli | 6\u00b0 Oscar Piastri | 7\u00b0 Liam Lawson | 8\u00b0 Charles Leclerc (+78s) | 9\u00b0 Lewis Hamilton (+1 vuelta) | 10\u00b0 Nico H\u00fclkenberg (Audi).\n  * 13\u00b0 Franco Colapinto (Alpine - a 1 vuelta, encerrado en tren de DRS) | 14\u00b0 Pierre Gasly.\n* **Validaci\u00f3n:** **Acierto Total** en el triunfo de Norris (el asfalto templado revivi\u00f3 al McLaren) y en el doble podio de Red Bull por tracci\u00f3n mec\u00e1nica en la subida de Jun\u00e7\u00e3o. Desv\u00edo: Crisis de Ferrari (P8 y P9 a 1 vuelta por baches e inestabilidad con viento).\n\n---\n\n### RONDA 22: GP de Las Vegas \u2014 Las Vegas Strip *(PR\u00d3XIMA CARRERA)*\n* **Fecha y Horario:** Domingo 22 de noviembre de 2026, 22:00hs local (Lunes 03:00hs ARG / 01:00hs transmisi\u00f3n) \u2014 Carrera Nocturna.\n* **Longitud y Distancia:** 6.201 km, 50 vueltas (310.050 km), 17 curvas.\n* **Familia:** Familia 3 \u2014 Urbanos de Baja Carga y Baja Temperatura. Gemelos: Bak\u00fa ($r = 0.824$) y Monza ($r = 0.810$).\n* **Condiciones F\u00edsicas Confirmadas:**\n  * **Cielo:** Despejado, noche fr\u00eda en el desierto de Mojave.\n  * **Temperatura Ambiente:** **10\u00b0C (50\u00b0F)**.\n  * **Temperatura de Asfalto Estimada:** **12\u00b0C a 15\u00b0C** (la carrera m\u00e1s fr\u00eda del a\u00f1o).\n  * **Lluvia:** < 5% (Seco absoluto).\n  * **Abrasi\u00f3n Asf\u00e1ltica:** Muy baja (1/5), asfalto urbano resbaladizo (*low grip*).\n* **El Fen\u00f3meno Cr\u00edtico: La Trampa del Graining Helado (*Cold Graining Trap*):**\n  * En la recta de 1.9 km a fondo por el Strip (>345 km/h durante 20 segundos a 10\u00b0C ambiente), los neum\u00e1ticos delanteros sufren un enfriamiento violento en la superficie de la banda de rodadura.\n  * Al llegar a la frenada extrema de la Curva 14 (de 350 a 90 km/h con frenos subenfriados), la goma patina sobre el asfalto helado arrancando virutas de caucho (graining). Riesgo alt\u00edsimo de bloqueos y roces con muros.\n* **Probabilidad Hist\u00f3rica de Safety Car:** **76.5%**. El ahorro neto de una parada bajo Safety Car es de **12 segundos** respecto a bandera verde.\n* **Estrategia Nominal:** **1 Parada: Medio (C4) $\\to$ Duro (C3)**, entre las vueltas 18 y 24.\n* **Proyecciones Clave para la Carrera:**\n  1. **McLaren (Norris y Piastri):** Candidatos firmes por su diferencial positivo en fr\u00edo (+1.32 puestos). El MCL38 calienta la goma progresivamente sin granularla.\n  2. **Red Bull (Verstappen y Hadjar):** Dominio de radares de velocidad m\u00e1xima (>352 km/h) por eficiencia aerodin\u00e1mica de m\u00ednimo drag con DRS.\n  3. **Ferrari (Leclerc y Hamilton):** Fuerte qualy y primeros giros por encendido r\u00e1pido de gomas, pero vulnerabilidad a mitad de tanda si no gestionan el graining.\n  4. **Williams (Albon y Sainz):** Monoplaza con poqu\u00edsimo drag y alta velocidad punta. Si logran temperatura en las curvas 1 a 4, pueden pelear en el Top 8.\n  5. **Franco Colapinto (Alpine #43):** Clave: no destruir el neum\u00e1tico en las primeras 8 vueltas. Si estabiliza el compuesto Duro (C3) y aprovecha neutralizaciones de Safety Car, tiene ventana matem\u00e1tica para pelear del **P9 al P12**.\n\n---\n\n## 6. PREGUNTAS R\u00c1PIDAS Y RESPUESTAS T\u00c9CNICAS (PARA STREAMING DE MATEO)\n\n* **\u00bfQui\u00e9n gana en Las Vegas?**  \n  *Respuesta:* Duelo directo entre la ventaja t\u00e9rmica de McLaren en fr\u00edo (+1.32 en matriz) y la velocidad punta demoledora de Red Bull superando los 352 km/h en los 1.9 km del Strip.\n* **\u00bfQu\u00e9 le pasa a las gomas en el fr\u00edo de Las Vegas?**  \n  *Respuesta:* Con asfalto a 12\u00b0C, la recta de 1.9 km subenfr\u00eda la superficie del neum\u00e1tico provocando graining severo y bloqueos masivos en la frenada de Curva 14.\n* **\u00bfQu\u00e9 chances tiene Franco Colapinto en Las Vegas?**  \n  *Respuesta:* Colapinto debe capear las primeras 8 vueltas sin granular gomas: estirando el compuesto Duro en aire limpio, la tasa de Safety Car (76.5%) le abre la ventana para saltar al Top 10 (P9 a P12).\n* **\u00bfPor qu\u00e9 McLaren perdi\u00f3 en Austin pero gan\u00f3 en Brasil?**  \n  *Respuesta:* En Austin el asfalto a 45\u00b0C destruy\u00f3 el tren delantero de McLaren (-1.20 en calor); en Brasil el asfalto templado a 38\u00b0C revivi\u00f3 el downforce del MCL38 en el Sector 2.\n* **\u00bfCu\u00e1l es la estrategia ganadora en Las Vegas?**  \n  *Respuesta:* Plan de 1 parada de Medio a Duro entre vueltas 18 y 24; parar bajo Safety Car otorga un ahorro neto de 12 segundos respecto a bandera verde.\n* **\u00bfQu\u00e9 significa la equivalencia f\u00edsica de los 8.8 cm de UnderTrack?**  \n  *Respuesta:* A 320 km/h en recta, cada mil\u00e9sima de segundo (0.001s) equivale a exactamente 8.8 cent\u00edmetros de asfalto real, el ancho exacto de una mano humana.\n";
+    const INFORMACION_PARA_GROQ = "# INFORMACI\u00d3N PARA GROQ \u00b7 BASE DE CONOCIMIENTO UNDERTRACK\n**Plataforma de Inteligencia Telem\u00e9trica y Predicci\u00f3n Cinem\u00e1tica de F\u00f3rmula 1**  \n*Destinatario del modelo:* Asistente y Productor Editorial de Mateo (Streamer y Creador de Contenido de F1).  \n*Regla de Inferencia:* Groq debe responder **\u00fanicamente** con los datos, correlaciones, arquetipos y hechos documentados en este archivo. Si se le consulta algo fuera de este documento, responder\u00e1 con la regla de corte estricta.\n\n---\n\n## 0. DIRECTIVAS DE COMPORTAMIENTO Y GUARDRAILS PARA GROQ\n\n1. **Fuente de Verdad \u00danica:** Tu \u00fanica y exclusiva base de datos es la contenida en este documento. Queda estrictamente prohibido inventar tiempos, telemetr\u00edas, probabilidades o eventos no registrados ac\u00e1.\n2. **Cl\u00e1usula de Corte por Falta de Datos:** Si el usuario pregunta algo que no figura expl\u00edcitamente en este documento (por ejemplo, resultados de carreras que no est\u00e9n ac\u00e1 o rumores de traspasos), tu respuesta debe ser **\u00fanica y textualmente**:  \n   > *\"El dataset oficial de UNDERTRACK no contiene informaci\u00f3n suficiente sobre este punto.\"*\n3. **Tono y Estilo para Mateo:** Directo, asertivo, t\u00e9cnico y period\u00edstico. M\u00e1ximo 1 a 2 oraciones contundentes por respuesta. Pensado para ser le\u00eddo al aire en un stream de Twitch o guion de TikTok.\n4. **Sin Relleno ni Pre\u00e1mbulos:** Prohibido empezar con frases vac\u00edas como *\"Respecto a tu consulta...\", \"Para responder a eso...\", \"En cuanto al piloto...\"*. And\u00e1 directo al dato.\n5. **Cero Emojis:** Prohibido el uso de emojis en las respuestas t\u00e9cnicas.\n\n---\n\n## 1. SISTEMA DE CLASIFICACI\u00d3N DE CIRCUITOS (LAS 4 FAMILIAS UNDERTRACK)\n\nEl modelo matem\u00e1tico clasifica los circuitos del campeonato mediante clustering no supervisado ($K\\text{-Means}$) sobre 3 variables cinem\u00e1ticas: **porcentaje de acelerador a fondo (`full_throttle_pct`)**, **abrasi\u00f3n del asfalto (escala 1 a 5)** y **severidad de frenada (escala 1 a 5)**:\n\n| ID Familia | Nombre de la Familia | Caracter\u00edsticas F\u00edsicas | Circuitos Clave | Par\u00e1metros Promedio |\n| :---: | :--- | :--- | :--- | :--- |\n| **Familia 0** | **Carga Lateral Extrema** | Curvas r\u00e1pidas enlazadas de alta fuerza G lateral (>4.5G), asfalto muy abrasivo, alto estr\u00e9s t\u00e9rmico en el hombro del neum\u00e1tico. | Silverstone (5/5 abrasi\u00f3n, 70% gas), Spa-Francorchamps (70% gas), Suzuka (5/5 abrasi\u00f3n), Barcelona-Catalunya, Zandvoort, Losail (Qatar), Jeddah. | Acelerador: 68-79%<br>Abrasi\u00f3n: 4-5<br>Frenada: 2-3 |\n| **Familia 1** | **Stop-and-Go y Recta Extrema** | Largas rectas combinadas con frenadas bruscas a 90\u00b0 o horquillas lentas. Muy baja carga aerodin\u00e1mica (alas recortadas estilo Monza), frenos al l\u00edmite t\u00e9rmico y tracci\u00f3n en 2da marcha. | Monza (76% gas, 5/5 frenada), Red Bull Ring (72% gas), Las Vegas Strip (78% gas, 1/5 abrasi\u00f3n, 4/5 frenada), Albert Park, Montreal (Villeneuve), Miami, Yas Marina. | Acelerador: 60-78%<br>Abrasi\u00f3n: 1-3<br>Frenada: 4-5 |\n| **Familia 2** | **Mixtos y T\u00e9cnicos** | Combinaci\u00f3n de sectores trabados lentos con pendientes pronunciadas y curvas medias. Demandan compromiso aerodin\u00e1mico y tracci\u00f3n mec\u00e1nica pura. | Interlagos (43m desnivel, 68% gas), Circuit of the Americas / COTA (58% gas, 4/5 abrasi\u00f3n), Paul Ricard, Imola, Bahrein, Shanghai, N\u00fcrburgring. | Acelerador: 56-71%<br>Abrasi\u00f3n: 3-5<br>Frenada: 3-4 |\n| **Familia 3** | **Laberintos Urbanos / Baja Densidad** | Calles estrechas delimitadas por muros ciegos de hormig\u00f3n, asfalto urbano resbaladizo, poco grip y altitud extrema en M\u00e9xico. | M\u00f3naco (34% gas, 1/5 abrasi\u00f3n), Bak\u00fa (56% gas, 5/5 frenada), Marina Bay (Singapur), Hungaroring, Hermanos Rodr\u00edguez (M\u00e9xico - 2.285m altitud). | Acelerador: 34-60%<br>Abrasi\u00f3n: 1-2<br>Frenada: 2-5 |\n\n---\n\n## 2. RED DE CIRCUITOS GEMELOS (CORRELACI\u00d3N DE PEARSON $r$)\n\nCuando un monoplaza funciona en un circuito, el modelo proyecta su rendimiento en su circuito gemelo con id\u00e9ntica demanda f\u00edsica:\n\n* **Red Bull Ring (Spielberg) $\\longleftrightarrow$ Interlagos (S\u00e3o Paulo): $r = 0.846$ (84.6% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Comparten desniveles abruptos y tracci\u00f3n mec\u00e1nica en subida desde curvas lentas ciegas donde el downforce no apoya. Si la suspensi\u00f3n trasera tracciona en Austria, tracciona en Brasil.\n* **Baku City Circuit $\\longleftrightarrow$ Las Vegas Strip Circuit: $r = 0.824$ (82.4% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Rectas kilom\u00e9tricas a m\u00e1s de 345 km/h que desembocan en frenadas a 90\u00b0 con muros pegados al asfalto urbano.\n* **Monza $\\longleftrightarrow$ Las Vegas Strip Circuit: $r = 0.810$ (81.0% de correlaci\u00f3n)**  \n  *Explicaci\u00f3n f\u00edsica:* Configuraci\u00f3n aerodin\u00e1mica obligatoria de m\u00ednimo drag (*low drag*), alas ultra-planas y m\u00e1xima dependencia de velocidad punta y eficiencia de DRS.\n* **Circuit Paul Ricard / Silverstone $\\longleftrightarrow$ COTA Austin: $r = 0.811$ y $r = 0.802$**  \n  *Explicaci\u00f3n f\u00edsica:* Curvas r\u00e1pidas enlazadas de alta carga lateral que saturan la temperatura del neum\u00e1tico delantero en apoyo prolongado.\n* **Monza / Red Bull Ring $\\longleftrightarrow$ M\u00e9xico (Hnos. Rodr\u00edguez): $r = 0.792$ y $r = 0.785$**  \n  *Explicaci\u00f3n f\u00edsica:* Recta infinita que exige velocidad final compensando la baja densidad del aire (2.285m s.n.m.) combinada con la lenta tracci\u00f3n del Foro Sol.\n\n---\n\n## 3. MATRIZ DE SENSIBILIDAD T\u00c9RMICA DE CONSTRUCTORES (ASPHALT TEMP SENSITIVITY)\n\nEl rendimiento de los monoplazas var\u00eda dr\u00e1sticamente seg\u00fan la temperatura del asfalto (Pista Fr\u00eda $<25^\\circ\\text{C}$ vs. Pista Caliente $>40^\\circ\\text{C}$). Datos verificados sobre m\u00e1s de 300 Grandes Premios:\n\n| Constructor | Diferencial Puestos en Fr\u00edo ($<25^\\circ\\text{C}$) | Diferencial Puestos en Calor ($>40^\\circ\\text{C}$) | Salto Neto ($\\Delta$) | Comportamiento Cinem\u00e1tico y Mec\u00e1nico |\n| :--- | :---: | :---: | :---: | :--- |\n| **McLaren** | **+1.32** | **+0.12** | **-1.20** | **Alerta Cr\u00edtica en Calor:** Sufre degradaci\u00f3n t\u00e9rmica severa en el tren delantero cuando la pista supera 40\u00b0C. En cambio, en fr\u00edo (<15\u00b0C) genera temperatura progresiva \u00f3ptima sin sobrecalentar el n\u00facleo. |\n| **Ferrari** | **+0.70** | **+0.82** | **+0.11** | **Resistencia T\u00e9rmica:** Chasis que no destruye la goma en calor. Encendido ultrarr\u00e1pido de neum\u00e1ticos delanteros (fuerte qualy y primeros 5 giros), pero riesgo de ca\u00edda a mitad de stint en fr\u00edo. |\n| **Red Bull** | **+2.07** | **+1.39** | **-0.68** | **Eficiencia Global:** Paquete aerodin\u00e1mico de baj\u00edsimo drag y DRS letal (>352 km/h punta). Suspensi\u00f3n trasera superior para traccionar en subida y proteger compuestos blandos. |\n| **Mercedes** | **+0.89** | **+0.68** | **-0.21** | **Consistencia Metron\u00f3mica:** Ritmo s\u00f3lido y estable en tandas largas sin picos extremos de degradaci\u00f3n. |\n| **Williams** | **+1.67** | **+2.23** | **+0.56** | **Especialistas en Recta:** Monoplaza con poqu\u00edsimo drag. Rinde mejor en calor abrasivo donde no sufre para calentar el neum\u00e1tico; sufre en pistas con baches (*bumps*). |\n| **Alpine F1** | **+1.36** | **+1.31** | **-0.05** | **Neutro T\u00e9rmico / D\u00e9ficit de Motor:** Gesti\u00f3n limpia de gomas pero penalizado por velocidad final en rectas de subida. Dificultad para encender compuestos duros en fr\u00edo. |\n| **Aston Martin**| **+1.94** | **+0.97** | **-0.97** | Ca\u00edda notable en calor; sobrecalentamiento en tren trasero que compromete la tracci\u00f3n en salida de curvas. |\n| **RB F1 Team** | **-1.09** | **+0.10** | **+1.20** | Rinde considerablemente mejor en asfalto caliente donde activa la ventana de trabajo del neum\u00e1tico. |\n\n---\n\n## 4. PERFILES CONDUCTUALES DE LOS PILOTOS (CLUSTERING $K\\text{-MEANS}$)\n\nClasificaci\u00f3n de los pilotos de la grilla seg\u00fan su consistencia cronom\u00e9trica por vuelta (`consistencia_seg`), gesti\u00f3n de degradaci\u00f3n (`gestion_gomas`), salto en mojado (`delta_lluvia`) y ganancia bajo Safety Car (`delta_sc`):\n\n### A. \u00c9lite Metron\u00f3mico\n* **Pilotos:** Max Verstappen, Charles Leclerc, Lewis Hamilton, Lando Norris, Oscar Piastri, Carlos Sainz.\n* **Caracter\u00edsticas:** Consistencia casi quir\u00fargica (desviaci\u00f3n est\u00e1ndar $<1.32\\text{s}$ por vuelta). Promedio de posiciones ganadas en circuitos mixtos/t\u00e9cnicos: **+1.28 puestos**.\n* **Fortaleza:** Monopolizan el Top 5 en carreras sin neutralizaciones gracias a la regularidad de ritmo en tandas de m\u00e1s de 20 giros.\n\n### B. Gestores de Midfield\n* **Pilotos:** Franco Colapinto (Alpine #43), Isack Hadjar (Red Bull #6), Nico H\u00fclkenberg (Audi #27), Liam Lawson (RB #30), Yuki Tsunoda, Gabriel Bortoleto (Audi #5), Kevin Magnussen.\n* **Caracter\u00edsticas:** Alta capacidad de estirar la vida \u00fatil de los compuestos duro y medio sin caer en degradaci\u00f3n lineal (*tyre management* $>0.53$).\n* **Rendimiento:** Ganan un promedio de **+1.15 puestos** en carreras de alta degradaci\u00f3n ejecutando *overcuts* frente a rivales que van a boxes prematuramente.\n* **Perfil espec\u00edfico Franco Colapinto:**\n  - Consistencia: $1.19\\text{s}$ de desviaci\u00f3n media.\n  - Gesti\u00f3n de gomas: $0.561$ (en el percentil m\u00e1s alto del pelot\u00f3n medio).\n  - Puestos ganados promedio: $+1.26$ posiciones por Gran Premio en tandas largas.\n  - Fortaleza: Ritmo sostenido con gomas duras en aire limpio y defensa limpia de posici\u00f3n.\n  - Debilidad relativa: Dificultad del paquete Alpine para sobrepasar en rectas cortas con tren de DRS.\n\n### C. \u00c9lite Agresivo\n* **Pilotos:** Andrea Kimi Antonelli (Mercedes #12 - Campe\u00f3n del Mundo 2026), George Russell (Mercedes #63), Fernando Alonso (Aston Martin #14), Sergio P\u00e9rez (Cadillac #11), Pierre Gasly (Alpine #10), Esteban Ocon, Alexander Albon.\n* **Caracter\u00edsticas:** Explotan frenadas tard\u00edas al l\u00edmite geom\u00e9trico. Capaces de ganar posiciones en las primeras 5 vueltas, pero con riesgo de sobrecalentar el tren delantero si quedan atrapados en aire sucio.\n\n### D. Pilotos de Lluvia y Oportunistas de Caos\n* **Pilotos:** Oliver Bearman (Haas #87), Lance Stroll (Aston Martin #18), Zhou Guanyu, Logan Sargeant.\n* **Caracter\u00edsticas:** Salto estad\u00edstico contundente bajo pista h\u00fameda (**+2.70 puestos promedio en lluvia**) y alta ganancia bajo neutralizaciones de Safety Car (+1.7 a +2.3 puestos) al arriesgar con paradas tempranas.\n\n---\n\n## 5. BIT\u00c1CORA DE TEMPORADA 2026: PRON\u00d3STICO VS. REALIDAD\n\n### RONDA 19: GP de Estados Unidos \u2014 Austin (COTA)\n* **Condiciones:** Pista abrasiva (4/5) a temperatura extrema de **42\u00b0C \u2013 45\u00b0C**. Ondulaciones (*bumps*) en sectores 1 y 3.\n* **Pron\u00f3stico UNDERTRACK:** Ca\u00edda dr\u00e1stica de McLaren por asfalto caliente (-1.20 en matriz t\u00e9rmica). Ferrari y Red Bull favoritos a podio.\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Andrea Kimi Antonelli (Mercedes) \u2014 Ganador (+13s sobre Leclerc).\n  2. \ud83e\udd48 Charles Leclerc (Ferrari) \u2014 +13.078s.\n  3. \ud83e\udd49 Max Verstappen (Red Bull) \u2014 +17.485s.\n  * 4\u00b0 Lewis Hamilton (Ferrari) | 5\u00b0 Lando Norris (McLaren a +30.5s) | 6\u00b0 Isack Hadjar (Red Bull) | 7\u00b0 Oscar Piastri (McLaren a +52.6s) | 8\u00b0 George Russell | 9\u00b0 Liam Lawson (RB) | 10\u00b0 Pierre Gasly (Alpine).\n  * DNF: Franco Colapinto (rotura mec\u00e1nica), Valtteri Bottas, Oliver Bearman.\n  * Williams: Albon P17 y Sainz P18 a 1 vuelta por problemas con baches.\n* **Validaci\u00f3n:** **Acierto Total** en la ca\u00edda t\u00e9rmica de McLaren (Norris a 30s de la punta) y en la solidez de Ferrari. Desv\u00edo: Antonelli sorprendi\u00f3 con ritmo dominante en calor.\n\n---\n\n### RONDA 20: GP de M\u00e9xico \u2014 Aut\u00f3dromo Hermanos Rodr\u00edguez\n* **Condiciones:** Altitud extrema de **2.285 metros sobre el nivel del mar** (p\u00e9rdida del 22% de densidad de aire). Asfalto a 46\u00b0C \u2013 49\u00b0C. Refrigeraci\u00f3n cr\u00edtica.\n* **Pron\u00f3stico UNDERTRACK:** Victoria de Verstappen por tracci\u00f3n en Foro Sol. Fricci\u00f3n alta entre pilotos Ferrari en Curva 1.\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Max Verstappen (Red Bull) \u2014 Ganador en 2:20:28.772 (largando penalizado, aguant\u00f3 con goma blanda tras bandera roja).\n  2. \ud83e\udd48 Lewis Hamilton (Ferrari) \u2014 a +0.799s.\n  3. \ud83e\udd49 Andrea Kimi Antonelli (Mercedes) \u2014 a +4.006s \u2014 **\u00a1CORONADO CAMPE\u00d3N DEL MUNDO 2026!**\n  * 4\u00b0 Charles Leclerc (Ferrari - penalizado con 5s por toque con Hamilton en vuelta 1).\n  * 5\u00b0 Lando Norris | 6\u00b0 George Russell | 7\u00b0 Liam Lawson | 8\u00b0 Gabriel Bortoleto | 9\u00b0 Isack Hadjar | 10\u00b0 Ryo Hirakawa.\n  * **Caso Franco Colapinto (Alpine #43):** **Cruz\u00f3 la meta 8.\u00b0 en pista** con un ritmo brillante. Sanciones posteriores por bandera amarilla lo ubicaron formalmente en P15, pero el ritmo mec\u00e1nico proyectado (P8) se cumpli\u00f3 de forma exacta.\n  * Abandonos (5 DNF): Lindblad, Bearman, Bottas, Stroll, Alonso.\n* **Hito Hist\u00f3rico:** Kimi Antonelli se consagr\u00f3 **Campe\u00f3n Mundial de F1 con 20 a\u00f1os y 68 d\u00edas** (el m\u00e1s joven de la historia, batiendo el r\u00e9cord de Vettel por 3 a\u00f1os, y primer italiano campe\u00f3n desde Ascari en 1953).\n\n---\n\n### RONDA 21: GP de S\u00e3o Paulo \u2014 Interlagos\n* **Condiciones:** 43m de desnivel natural. Nubosidad con claros que contuvo el asfalto en **38\u00b0C \u2013 42\u00b0C**. Viento fuerte del Este (**25 a 40 km/h**) con r\u00e1fagas de cola en S do Senna.\n* **Pron\u00f3stico UNDERTRACK:** Si la pista no superaba 44\u00b0C, McLaren recuperaba downforce en Sector 2. Red Bull al podio por tracci\u00f3n de su gemelo Spielberg ($r=0.846$).\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Lando Norris (McLaren) \u2014 Ganador en 1:35:23.504.\n  2. \ud83e\udd48 Max Verstappen (Red Bull) \u2014 a +14.602s.\n  3. \ud83e\udd49 Isack Hadjar (Red Bull) \u2014 a +24.485s (primer gran podio de su carrera).\n  * 4\u00b0 George Russell | 5\u00b0 Kimi Antonelli | 6\u00b0 Oscar Piastri | 7\u00b0 Liam Lawson | 8\u00b0 Charles Leclerc (+78s) | 9\u00b0 Lewis Hamilton (+1 vuelta) | 10\u00b0 Nico H\u00fclkenberg (Audi).\n  * 13\u00b0 Franco Colapinto (Alpine - a 1 vuelta, encerrado en tren de DRS) | 14\u00b0 Pierre Gasly.\n* **Validaci\u00f3n:** **Acierto Total** en el triunfo de Norris (el asfalto templado revivi\u00f3 al McLaren) y en el doble podio de Red Bull por tracci\u00f3n mec\u00e1nica en la subida de Jun\u00e7\u00e3o. Desv\u00edo: Crisis de Ferrari (P8 y P9 a 1 vuelta por baches e inestabilidad con viento).\n\n---\n\n### RONDA 22: GP de Las Vegas \u2014 Las Vegas Strip\n* **Fecha:** Domingo 22 de noviembre de 2026 \u2014 22:00hs local (Lunes 03:00hs ARG) \u2014 Carrera Nocturna.\n* **Circuito:** Las Vegas Strip Circuit (6.201 km, 50 vueltas). Familia 3 \u2014 Urbanos de Baja Carga y Baja Temperatura. Gemelos: Bak\u00fa ($r = 0.824$) y Monza ($r = 0.810$).\n* **Condiciones:** Despejado y fr\u00edo des\u00e9rtico: 10\u00b0C ambiente, asfalto a 12\u00b0C\u201314\u00b0C. Trampa del graining por subenfriamiento en los 1.9 km del Strip.\n* **Resultado Real Oficial:**\n  1. \ud83e\udd47 Max Verstappen (Red Bull) \u2014 50 vueltas en 1:27:39.624 (25 pts).\n  2. \ud83e\udd48 Lando Norris (McLaren) \u2014 a +0.639s (18 pts).\n  3. \ud83e\udd49 Oscar Piastri (McLaren) \u2014 a +1.529s (15 pts).\n  * 4\u00b0 Andrea Kimi Antonelli (Mercedes) a +2.574s | 5\u00b0 Pierre Gasly (Alpine) a +2.927s | **6\u00b0 Franco Colapinto (Alpine) a +7.955s (\u00a1Hist\u00f3rica P6 y 8 pts!)** | 7\u00b0 Lewis Hamilton (Ferrari) a +12.795s | 8\u00b0 Carlos Sainz Jr. (Williams) a +12.938s | 9\u00b0 George Russell (Mercedes) a +13.192s | 10\u00b0 Charles Leclerc (Ferrari) a +17.554s.\n  * Abandonos (DNF): Fernando Alonso (Aston Martin), Arvid Lindblad (RB), Sergio P\u00e9rez (Cadillac), Alexander Albon (Williams).\n* **Validaci\u00f3n UNDERTRACK:** **Acierto Total** en el duelo Verstappen vs. McLaren definido por 0.6s, acierto en el podio doble de McLaren en fr\u00edo (+1.32), acierto en la ca\u00edda de Ferrari por graining (Leclerc 10\u00b0), y **actuaci\u00f3n sobresaliente de Franco Colapinto** superando el techo proyectado para finalizar 6\u00b0 tras una gesti\u00f3n impecable del compuesto Duro.\n\n---\n\n### RONDA 23: GP de Qatar \u2014 Lusail International Circuit *(PR\u00d3XIMA CARRERA \u2014 Domingo 29 de Noviembre)*\n* **Fecha y Horario:** Domingo 29 de noviembre de 2026, 20:00hs local (14:00hs ARG) \u2014 Carrera Nocturna.\n* **Longitud y Distancia:** 5.419 km (57 vueltas \u2014 308.611 km), 16 curvas (10 a derecha, 6 a izquierda).\n* **Familia:** Familia 0 \u2014 Carga Lateral Extrema y Estr\u00e9s de Neum\u00e1ticos. Gemelos: Silverstone ($r = 0.828$), Suzuka ($r = 0.815$), Barcelona ($r = 0.804$).\n* **Condiciones Meteorol\u00f3gicas Confirmadas:**\n  * **Cielo:** Parcialmente soleado de d\u00eda, nubosidad variable de noche. Jornada seca.\n  * **Temperatura Ambiente:** M\u00e1xima diurna de 28\u00b0C; desciende a **18\u00b0C \u2013 21\u00b0C** en horario de carrera (20:00hs).\n  * **Temperatura de Pista Estimada:** **24\u00b0C a 27\u00b0C** (asfalto templado).\n  * **Humedad Relativa:** ~62% promedio diario (53% a 66% en franja nocturna).\n  * **Viento:** Suave del Norte (~11 km/h / 7 mph) rotando a Este/Sureste (2 a 5 mph) por la noche.\n  * **Lluvia:** 0% a 10% (pr\u00e1cticamente nula).\n* **El Fen\u00f3meno Cr\u00edtico: Cizallamiento y Pianos Piramidales (Lateral Stress):**\n  * Lusail es una pista de fuerzas G laterales continuas (>5.0G en el triple v\u00e9rtice de Curvas 12-13-14).\n  * Asfalto con m\u00e1xima abrasi\u00f3n (5/5) y pianos agresivos que amenazan la integridad de la carcasa del neum\u00e1tico delantero izquierdo.\n* **Proyecciones Clave para la Carrera:**\n  1. **McLaren (Favorito Absoluto):** En trazados de alta carga lateral (gemelo Silverstone), el MCL38 es la referencia. Norris y Piastri cuentan con la mayor velocidad de paso por curva en apoyo prolongado.\n  2. **Red Bull:** Verstappen pelear\u00e1 en la recta y frenada de Curva 1, pero sufrir\u00e1 mayor degradaci\u00f3n en el Sector 2 y 3 frente al downforce de McLaren.\n  3. **Estrategia Obligatoria:** M\u00ednimo **2 a 3 paradas** por degradaci\u00f3n estructural de Pirelli.\n  4. **Franco Colapinto (Alpine #43):** Tras el podio moral de Las Vegas (P6), Lusail pondr\u00e1 a prueba la carga vertical del Alpine. La meta de Franco es defenderse con consistencia ($1.19\\text{s}$) para pelear la zona de puntos bajos (**P8 a P11**).\n\n---\n\n### RONDA 24: GP de Abu Dhabi \u2014 Yas Marina Circuit *(GRAN FINAL \u2014 Domingo 6 de Diciembre)*\n* **Fecha y Horario:** Domingo 6 de diciembre de 2026, 17:00hs local (10:00hs ARG) \u2014 Carrera Crepuscular / Nocturna.\n* **Longitud y Distancia:** 5.281 km (58 vueltas \u2014 306.183 km), 16 curvas.\n* **Familia:** Familia 1 \u2014 Stop-and-Go y Transici\u00f3n Crepuscular. Gemelos: Albert Park ($r = 0.812$), Red Bull Ring ($r = 0.795$), Montreal ($r = 0.788$).\n* **Condiciones Meteorol\u00f3gicas Confirmadas:**\n  * **Cielo:** Cielos despejados, jornada seca y soleada.\n  * **Temperatura Ambiente:** M\u00e1ximas de **26\u00b0C \u2013 28\u00b0C** de d\u00eda, descendiendo a **19\u00b0C \u2013 21\u00b0C** de noche.\n  * **Lluvia:** 0% (Seco absoluto).\n  * **Viento:** Suave a moderado (8 a 14 km/h).\n* **El Fen\u00f3meno Cr\u00edtico: La Ca\u00edda T\u00e9rmica Crepuscular (Twilight Drop):**\n  * La carrera arranca al atardecer con asfalto a 32\u00b0C\u201334\u00b0C y cae m\u00e1s de 8\u00b0C hasta los 24\u00b0C al anochecer.\n  * Modifica dr\u00e1sticamente el balance del auto: quienes no ajusten el aler\u00f3n delantero en pitstop sufrir\u00e1n subviraje severo en el stint final.\n* **Proyecciones Clave para la Carrera:**\n  1. **Duelo Final Verstappen vs. Norris:** Red Bull tiene ventaja en los sectores 1 y 2 (rectas y frenadas de chicana), mientras McLaren domina la tracci\u00f3n lenta del Sector 3 (Marina).\n  2. **Estrategia:** 1 Parada nominal (Medio a Duro entre vueltas 20 y 26).\n  3. **Cierre de Franco Colapinto:** En un trazado que conoce a la perfecci\u00f3n, Colapinto buscar\u00e1 cerrar la temporada consolidando su arquetipo de Gestor en el **Top 10 (P8 a P10)**.\n\n---\n\n## 6. PREGUNTAS R\u00c1PIDAS Y RESPUESTAS T\u00c9CNICAS (PARA STREAMING DE MATEO)\n\n* **\u00bfC\u00f3mo le fue a Franco Colapinto en Las Vegas?**  \n  *Respuesta:* Colapinto dio un recital de gesti\u00f3n de neum\u00e1ticos en asfalto helado (12\u00b0C), estir\u00f3 el compuesto Duro y capitaliz\u00f3 los abandonos para cruzar la meta en un hist\u00f3rico 6\u00b0 puesto (+7.9s) sumando 8 puntos.\n* **\u00bfPor qu\u00e9 Verstappen le gan\u00f3 a McLaren en Las Vegas?**  \n  *Respuesta:* Red Bull explot\u00f3 su velocidad punta superior (>352 km/h con DRS) en los 1.9 km del Strip para contener a Norris por apenas 0.6 segundos en la bandera a cuadros.\n* **\u00bfQui\u00e9n es el candidato en el GP de Qatar?**  \n  *Respuesta:* McLaren es el favorito absoluto en Lusail por su eficiencia aerodin\u00e1mica en curvas enlazadas r\u00e1pidas (>5G en Curvas 12-14), trazado gemelo de Silverstone ($r=0.828$).\n* **\u00bfCu\u00e1l es el peligro de Lusail para los neum\u00e1ticos?**  \n  *Respuesta:* La combinaci\u00f3n de fuerzas laterales de 5.0G, abrasi\u00f3n m\u00e1xima (5/5) y pianos piramidales agresivos que inducen micro-cortes, forzando una carrera a 2 o 3 paradas.\n* **\u00bfQu\u00e9 define el GP de Abu Dhabi en Yas Marina?**  \n  *Respuesta:* La ca\u00edda de m\u00e1s de 8\u00b0C en el asfalto entre el atardecer y la noche, obligando a los equipos a rebalancear el auto en boxes para no perder el tren delantero en el Sector 3.\n* **\u00bfQu\u00e9 significa la equivalencia f\u00edsica de los 8.8 cm de UnderTrack?**  \n  *Respuesta:* A 320 km/h en recta, cada mil\u00e9sima de segundo (0.001s) equivale a exactamente 8.8 cent\u00edmetros de asfalto real, el ancho exacto de una mano humana.\n";
 
     // GENERACIÓN EN VIVO CON GROQ IA (LAS VEGAS STRIP 2026)
     window.generateCustomScript = async function() {
       const btn = document.getElementById('btnGenerateCustomScript');
       if (btn) {
-        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-white animate-ping mr-2"></span> Redactando con IA...';
+        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-[#111114] animate-ping mr-1"></span> <span>Redactando con IA...</span>';
         btn.disabled = true;
       }
 
@@ -680,9 +742,16 @@ REGLAS ESTRICTAS DE RESPUESTA:
       }
 
       if (btn) {
-        btn.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[#d4ff32] shrink-0"></span> <span>Generar con IA (Groq)</span> <span class="text-xs font-bold">➔</span>';
+        btn.innerHTML = '<span>GENERAR CON IA (GROQ)</span> <span class="text-sm font-bold">➔</span>';
         btn.disabled = false;
       }
+    };
+
+    window.applyQuickRefinement = function(promptText) {
+      const input = document.getElementById('groqInput');
+      if (!input) return;
+      input.value = promptText;
+      handleGroqQuery();
     };
 
     // CHAT TELEMÉTRICO CON GROQ (DIRECTO AL GRANO, BASADO EXCLUSIVAMENTE EN DATASET, SIN EMOJIS)
@@ -697,7 +766,7 @@ REGLAS ESTRICTAS DE RESPUESTA:
       input.value = '';
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span> <span>analizando...</span>';
+        btn.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] animate-ping"></span>';
       }
 
       const userBubble = document.createElement('div');
@@ -839,7 +908,7 @@ REGLAS ESTRICTAS DE RESPUESTA:
 
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = '<span>preguntar</span> ➔';
+        btn.innerHTML = '➔';
       }
     };
 

@@ -137,41 +137,72 @@ Clasificación de los pilotos de la grilla según su consistencia cronométrica 
 
 ---
 
-### RONDA 22: GP de Las Vegas — Las Vegas Strip *(PRÓXIMA CARRERA)*
-* **Fecha y Horario:** Domingo 22 de noviembre de 2026, 22:00hs local (Lunes 03:00hs ARG / 01:00hs transmisión) — Carrera Nocturna.
-* **Longitud y Distancia:** 6.201 km, 50 vueltas (310.050 km), 17 curvas.
-* **Familia:** Familia 3 — Urbanos de Baja Carga y Baja Temperatura. Gemelos: Bakú ($r = 0.824$) y Monza ($r = 0.810$).
-* **Condiciones Físicas Confirmadas:**
-  * **Cielo:** Despejado, noche fría en el desierto de Mojave.
-  * **Temperatura Ambiente:** **10°C (50°F)**.
-  * **Temperatura de Asfalto Estimada:** **12°C a 15°C** (la carrera más fría del año).
-  * **Lluvia:** < 5% (Seco absoluto).
-  * **Abrasión Asfáltica:** Muy baja (1/5), asfalto urbano resbaladizo (*low grip*).
-* **El Fenómeno Crítico: La Trampa del Graining Helado (*Cold Graining Trap*):**
-  * En la recta de 1.9 km a fondo por el Strip (>345 km/h durante 20 segundos a 10°C ambiente), los neumáticos delanteros sufren un enfriamiento violento en la superficie de la banda de rodadura.
-  * Al llegar a la frenada extrema de la Curva 14 (de 350 a 90 km/h con frenos subenfriados), la goma patina sobre el asfalto helado arrancando virutas de caucho (graining). Riesgo altísimo de bloqueos y roces con muros.
-* **Probabilidad Histórica de Safety Car:** **76.5%**. El ahorro neto de una parada bajo Safety Car es de **12 segundos** respecto a bandera verde.
-* **Estrategia Nominal:** **1 Parada: Medio (C4) $\to$ Duro (C3)**, entre las vueltas 18 y 24.
+### RONDA 22: GP de Las Vegas — Las Vegas Strip
+* **Fecha:** Domingo 22 de noviembre de 2026 — 22:00hs local (Lunes 03:00hs ARG) — Carrera Nocturna.
+* **Circuito:** Las Vegas Strip Circuit (6.201 km, 50 vueltas). Familia 3 — Urbanos de Baja Carga y Baja Temperatura. Gemelos: Bakú ($r = 0.824$) y Monza ($r = 0.810$).
+* **Condiciones:** Despejado y frío desértico: 10°C ambiente, asfalto a 12°C–14°C. Trampa del graining por subenfriamiento en los 1.9 km del Strip.
+* **Resultado Real Oficial:**
+  1. 🥇 Max Verstappen (Red Bull) — 50 vueltas en 1:27:39.624 (25 pts).
+  2. 🥈 Lando Norris (McLaren) — a +0.639s (18 pts).
+  3. 🥉 Oscar Piastri (McLaren) — a +1.529s (15 pts).
+  * 4° Andrea Kimi Antonelli (Mercedes) a +2.574s | 5° Pierre Gasly (Alpine) a +2.927s | **6° Franco Colapinto (Alpine) a +7.955s (¡Histórica P6 y 8 pts!)** | 7° Lewis Hamilton (Ferrari) a +12.795s | 8° Carlos Sainz Jr. (Williams) a +12.938s | 9° George Russell (Mercedes) a +13.192s | 10° Charles Leclerc (Ferrari) a +17.554s.
+  * Abandonos (DNF): Fernando Alonso (Aston Martin), Arvid Lindblad (RB), Sergio Pérez (Cadillac), Alexander Albon (Williams).
+* **Validación UNDERTRACK:** **Acierto Total** en el duelo Verstappen vs. McLaren definido por 0.6s, acierto en el podio doble de McLaren en frío (+1.32), acierto en la caída de Ferrari por graining (Leclerc 10°), y **actuación sobresaliente de Franco Colapinto** superando el techo proyectado para finalizar 6° tras una gestión impecable del compuesto Duro.
+
+---
+
+### RONDA 23: GP de Qatar — Lusail International Circuit *(PRÓXIMA CARRERA — Domingo 29 de Noviembre)*
+* **Fecha y Horario:** Domingo 29 de noviembre de 2026, 20:00hs local (14:00hs ARG) — Carrera Nocturna.
+* **Longitud y Distancia:** 5.419 km (57 vueltas — 308.611 km), 16 curvas (10 a derecha, 6 a izquierda).
+* **Familia:** Familia 0 — Carga Lateral Extrema y Estrés de Neumáticos. Gemelos: Silverstone ($r = 0.828$), Suzuka ($r = 0.815$), Barcelona ($r = 0.804$).
+* **Condiciones Meteorológicas Confirmadas:**
+  * **Cielo:** Parcialmente soleado de día, nubosidad variable de noche. Jornada seca.
+  * **Temperatura Ambiente:** Máxima diurna de 28°C; desciende a **18°C – 21°C** en horario de carrera (20:00hs).
+  * **Temperatura de Pista Estimada:** **24°C a 27°C** (asfalto templado).
+  * **Humedad Relativa:** ~62% promedio diario (53% a 66% en franja nocturna).
+  * **Viento:** Suave del Norte (~11 km/h / 7 mph) rotando a Este/Sureste (2 a 5 mph) por la noche.
+  * **Lluvia:** 0% a 10% (prácticamente nula).
+* **El Fenómeno Crítico: Cizallamiento y Pianos Piramidales (Lateral Stress):**
+  * Lusail es una pista de fuerzas G laterales continuas (>5.0G en el triple vértice de Curvas 12-13-14).
+  * Asfalto con máxima abrasión (5/5) y pianos agresivos que amenazan la integridad de la carcasa del neumático delantero izquierdo.
 * **Proyecciones Clave para la Carrera:**
-  1. **McLaren (Norris y Piastri):** Candidatos firmes por su diferencial positivo en frío (+1.32 puestos). El MCL38 calienta la goma progresivamente sin granularla.
-  2. **Red Bull (Verstappen y Hadjar):** Dominio de radares de velocidad máxima (>352 km/h) por eficiencia aerodinámica de mínimo drag con DRS.
-  3. **Ferrari (Leclerc y Hamilton):** Fuerte qualy y primeros giros por encendido rápido de gomas, pero vulnerabilidad a mitad de tanda si no gestionan el graining.
-  4. **Williams (Albon y Sainz):** Monoplaza con poquísimo drag y alta velocidad punta. Si logran temperatura en las curvas 1 a 4, pueden pelear en el Top 8.
-  5. **Franco Colapinto (Alpine #43):** Clave: no destruir el neumático en las primeras 8 vueltas. Si estabiliza el compuesto Duro (C3) y aprovecha neutralizaciones de Safety Car, tiene ventana matemática para pelear del **P9 al P12**.
+  1. **McLaren (Favorito Absoluto):** En trazados de alta carga lateral (gemelo Silverstone), el MCL38 es la referencia. Norris y Piastri cuentan con la mayor velocidad de paso por curva en apoyo prolongado.
+  2. **Red Bull:** Verstappen peleará en la recta y frenada de Curva 1, pero sufrirá mayor degradación en el Sector 2 y 3 frente al downforce de McLaren.
+  3. **Estrategia Obligatoria:** Mínimo **2 a 3 paradas** por degradación estructural de Pirelli.
+  4. **Franco Colapinto (Alpine #43):** Tras el podio moral de Las Vegas (P6), Lusail pondrá a prueba la carga vertical del Alpine. La meta de Franco es defenderse con consistencia ($1.19\text{s}$) para pelear la zona de puntos bajos (**P8 a P11**).
+
+---
+
+### RONDA 24: GP de Abu Dhabi — Yas Marina Circuit *(GRAN FINAL — Domingo 6 de Diciembre)*
+* **Fecha y Horario:** Domingo 6 de diciembre de 2026, 17:00hs local (10:00hs ARG) — Carrera Crepuscular / Nocturna.
+* **Longitud y Distancia:** 5.281 km (58 vueltas — 306.183 km), 16 curvas.
+* **Familia:** Familia 1 — Stop-and-Go y Transición Crepuscular. Gemelos: Albert Park ($r = 0.812$), Red Bull Ring ($r = 0.795$), Montreal ($r = 0.788$).
+* **Condiciones Meteorológicas Confirmadas:**
+  * **Cielo:** Cielos despejados, jornada seca y soleada.
+  * **Temperatura Ambiente:** Máximas de **26°C – 28°C** de día, descendiendo a **19°C – 21°C** de noche.
+  * **Lluvia:** 0% (Seco absoluto).
+  * **Viento:** Suave a moderado (8 a 14 km/h).
+* **El Fenómeno Crítico: La Caída Térmica Crepuscular (Twilight Drop):**
+  * La carrera arranca al atardecer con asfalto a 32°C–34°C y cae más de 8°C hasta los 24°C al anochecer.
+  * Modifica drásticamente el balance del auto: quienes no ajusten el alerón delantero en pitstop sufrirán subviraje severo en el stint final.
+* **Proyecciones Clave para la Carrera:**
+  1. **Duelo Final Verstappen vs. Norris:** Red Bull tiene ventaja en los sectores 1 y 2 (rectas y frenadas de chicana), mientras McLaren domina la tracción lenta del Sector 3 (Marina).
+  2. **Estrategia:** 1 Parada nominal (Medio a Duro entre vueltas 20 y 26).
+  3. **Cierre de Franco Colapinto:** En un trazado que conoce a la perfección, Colapinto buscará cerrar la temporada consolidando su arquetipo de Gestor en el **Top 10 (P8 a P10)**.
 
 ---
 
 ## 6. PREGUNTAS RÁPIDAS Y RESPUESTAS TÉCNICAS (PARA STREAMING DE MATEO)
 
-* **¿Quién gana en Las Vegas?**  
-  *Respuesta:* Duelo directo entre la ventaja térmica de McLaren en frío (+1.32 en matriz) y la velocidad punta demoledora de Red Bull superando los 352 km/h en los 1.9 km del Strip.
-* **¿Qué le pasa a las gomas en el frío de Las Vegas?**  
-  *Respuesta:* Con asfalto a 12°C, la recta de 1.9 km subenfría la superficie del neumático provocando graining severo y bloqueos masivos en la frenada de Curva 14.
-* **¿Qué chances tiene Franco Colapinto en Las Vegas?**  
-  *Respuesta:* Colapinto debe capear las primeras 8 vueltas sin granular gomas: estirando el compuesto Duro en aire limpio, la tasa de Safety Car (76.5%) le abre la ventana para saltar al Top 10 (P9 a P12).
-* **¿Por qué McLaren perdió en Austin pero ganó en Brasil?**  
-  *Respuesta:* En Austin el asfalto a 45°C destruyó el tren delantero de McLaren (-1.20 en calor); en Brasil el asfalto templado a 38°C revivió el downforce del MCL38 en el Sector 2.
-* **¿Cuál es la estrategia ganadora en Las Vegas?**  
-  *Respuesta:* Plan de 1 parada de Medio a Duro entre vueltas 18 y 24; parar bajo Safety Car otorga un ahorro neto de 12 segundos respecto a bandera verde.
+* **¿Cómo le fue a Franco Colapinto en Las Vegas?**  
+  *Respuesta:* Colapinto dio un recital de gestión de neumáticos en asfalto helado (12°C), estiró el compuesto Duro y capitalizó los abandonos para cruzar la meta en un histórico 6° puesto (+7.9s) sumando 8 puntos.
+* **¿Por qué Verstappen le ganó a McLaren en Las Vegas?**  
+  *Respuesta:* Red Bull explotó su velocidad punta superior (>352 km/h con DRS) en los 1.9 km del Strip para contener a Norris por apenas 0.6 segundos en la bandera a cuadros.
+* **¿Quién es el candidato en el GP de Qatar?**  
+  *Respuesta:* McLaren es el favorito absoluto en Lusail por su eficiencia aerodinámica en curvas enlazadas rápidas (>5G en Curvas 12-14), trazado gemelo de Silverstone ($r=0.828$).
+* **¿Cuál es el peligro de Lusail para los neumáticos?**  
+  *Respuesta:* La combinación de fuerzas laterales de 5.0G, abrasión máxima (5/5) y pianos piramidales agresivos que inducen micro-cortes, forzando una carrera a 2 o 3 paradas.
+* **¿Qué define el GP de Abu Dhabi en Yas Marina?**  
+  *Respuesta:* La caída de más de 8°C en el asfalto entre el atardecer y la noche, obligando a los equipos a rebalancear el auto en boxes para no perder el tren delantero en el Sector 3.
 * **¿Qué significa la equivalencia física de los 8.8 cm de UnderTrack?**  
   *Respuesta:* A 320 km/h en recta, cada milésima de segundo (0.001s) equivale a exactamente 8.8 centímetros de asfalto real, el ancho exacto de una mano humana.

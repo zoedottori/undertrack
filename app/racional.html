@@ -633,68 +633,173 @@
 
     <!-- ========================================================
          VISTA 2: LA PIRUETA EXCLUSIVA
-         SIN CUADROS: LAS PALABRAS SE ALEJAN DE GOLPE SIN EXPLICACIÓN PREVIA
-         Y RECIÉN AL FINAL SE REVELA EL CÁLCULO DE INTERLAGOS 2026
+         MEJORADA CON:
+         1. SIMULADOR DE AUTO EN TIEMPO REAL A 320 KM/H
+         2. SONIDO DEL MOTOR CON EFECTO DOPPLER AL CRUZAR LA LÍNEA DE CUADROS (WEB AUDIO API)
+         3. COLORES OFICIALES DE ESCUDERÍA EN TODOS LOS NOMBRES DE PILOTOS
          ======================================================== -->
-    <main id="vistaPirueta" class="hidden flex-1 w-full max-w-5xl px-6 sm:px-12 lg:px-16 py-16 sm:py-24 space-y-16 transition-opacity duration-500">
+    <main id="vistaPirueta" class="hidden flex-1 w-full max-w-5xl px-6 sm:px-12 lg:px-16 py-12 sm:py-20 space-y-12 transition-opacity duration-500">
       
-      <!-- EL TEXTO COMIENZA DE FORMA NORMAL Y SE VA SEPARANDO DE GOLPE -->
-      <div class="space-y-12 text-sm sm:text-base font-[300] leading-loose text-tinta">
+      <!-- 1. SIMULADOR CINEMÁTICO EN TIEMPO REAL: RECTA PRINCIPAL DE INTERLAGOS -->
+      <div id="piruetaSimulatorWrap" class="w-full bg-[#111114] text-pureWhite rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
+        
+        <!-- ENCABEZADO TÉCNICO Y CONTROLES -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FF1801] animate-ping"></span>
+            <div>
+              <span class="text-[10px] uppercase font-mono tracking-widest text-[#d4ff32] font-[800] block">SIMULADOR CINEMÁTICO EN TIEMPO REAL</span>
+              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DE INTERLAGOS · 320 KM/H (88.8 M/S)</span>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <!-- Botón de sonido -->
+            <button id="btnSoundToggle" onclick="toggleF1Sound()" type="button" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-[11px] font-mono font-[700] text-white flex items-center gap-1.5 transition-all border border-white/10">
+              <span id="soundIcon">🔊</span>
+              <span id="soundLabel">SONIDO V6 TURBO</span>
+            </button>
+
+            <!-- Botón de reproducir cruce -->
+            <button onclick="lanzarAutoEnTiempoReal()" type="button" class="px-4 py-1.5 rounded-full bg-[#d4ff32] hover:bg-[#c2f01f] text-black text-xs font-mono font-[900] uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg active:scale-95">
+              <span>▶</span>
+              <span>LARGAR CRUCE (320 KM/H)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PISTA DE ASFALTO CON AUTO Y LÍNEA DE CUADROS -->
+        <div id="trackAsphalt" class="relative w-full h-24 sm:h-28 bg-[#18181C] rounded-xl overflow-hidden border border-white/10 flex items-center shadow-inner">
+          <!-- Asfalto textura y líneas de carril -->
+          <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] border-b border-dashed border-white/20 pointer-events-none"></div>
+          <div class="absolute inset-x-0 top-0 h-2 bg-[#FF1801] pointer-events-none opacity-40"></div>
+          <div class="absolute inset-x-0 bottom-0 h-2 bg-[#FFFFFF] pointer-events-none opacity-40"></div>
+
+          <!-- MARCADORES DE METROS EN LA PISTA -->
+          <div class="absolute inset-x-0 bottom-1 flex justify-between px-6 text-[9px] font-mono text-white/30 pointer-events-none select-none">
+            <span>0m (SUBIDA DOS BOXES)</span>
+            <span>200m</span>
+            <span>400m</span>
+            <span class="text-white/70 font-[800]">META (0.000s)</span>
+            <span>800m</span>
+            <span>1.297m (VERSTAPPEN)</span>
+          </div>
+
+          <!-- LÍNEA DE META A CUADROS (FINISH LINE) -->
+          <div id="finishLineBeam" class="absolute top-0 bottom-0 left-[62%] w-5 z-10 transition-all duration-300 pointer-events-none" 
+               style="background: repeating-conic-gradient(#FFFFFF 0% 25%, #000000 0% 50%) 50% / 8px 8px; box-shadow: 0 0 15px rgba(255,255,255,0.2);">
+            <div class="absolute -top-1 left-1/2 -translate-x-1/2 px-1.5 py-0.5 rounded bg-black text-[#d4ff32] font-mono text-[8px] font-[900] tracking-tighter whitespace-nowrap border border-white/20">
+              🏁 META
+            </div>
+          </div>
+
+          <!-- AUTO DE F1 ANIMADO EN TIEMPO REAL -->
+          <div id="f1CarWrap" class="absolute top-1/2 -translate-y-1/2 z-20 pointer-events-none transition-none" style="left: -160px;">
+            <!-- ESTELA AERODINÁMICA Y FUEGO DEL ESCAPE -->
+            <div id="carExhaustGlow" class="absolute right-full top-1/2 -translate-y-1/2 w-28 h-2.5 bg-gradient-to-l from-[#FF4500] via-[#FF8000]/60 to-transparent blur-[2px] rounded-full"></div>
+            
+            <!-- SVG MONOPLAZA F1 AERODINÁMICO -->
+            <svg class="w-24 sm:w-28 h-auto drop-shadow-[0_4px_12px_rgba(255,128,0,0.5)]" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="8" width="6" height="24" rx="2" fill="#FF8000" />
+              <rect x="0" y="6" width="10" height="3" fill="#1C1A17" />
+              <rect x="0" y="31" width="10" height="3" fill="#1C1A17" />
+              <rect x="18" y="2" width="16" height="8" rx="2" fill="#151515" stroke="#333" stroke-width="1" />
+              <rect x="18" y="30" width="16" height="8" rx="2" fill="#151515" stroke="#333" stroke-width="1" />
+              <rect x="8" y="16" width="14" height="8" fill="#222" />
+              <rect x="20" y="10" width="4" height="20" fill="#444" />
+              <path d="M22 13 C32 10, 48 9, 65 11 L76 13 C82 14, 95 16, 105 18 L105 22 C95 24, 82 26, 76 27 L65 29 C48 31, 32 30, 22 27 Z" fill="#FF8000" />
+              <path d="M30 18 L60 18 L48 22 Z" fill="#111114" />
+              <ellipse cx="64" cy="20" rx="9" ry="4" fill="#000000" />
+              <circle cx="62" cy="20" r="3.2" fill="#FFE500" stroke="#FF1801" stroke-width="1" />
+              <path d="M56 18 C64 16, 72 16, 75 19 L75 21 C72 24, 64 24, 56 22 Z" fill="none" stroke="#222" stroke-width="1.8" />
+              <path d="M75 16 L108 19 L108 21 L75 24 Z" fill="#1C1A17" />
+              <rect x="86" y="4" width="14" height="7" rx="2" fill="#151515" stroke="#333" stroke-width="1" />
+              <rect x="86" y="29" width="14" height="7" rx="2" fill="#151515" stroke="#333" stroke-width="1" />
+              <path d="M106 7 L118 10 L118 30 L106 33 Z" fill="#FF8000" />
+              <rect x="117" y="10" width="3" height="20" fill="#FFFFFF" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- HUD TELEMÉTRICO EN TIEMPO REAL -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono pt-1">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
+            <span class="text-[9px] uppercase text-white/50 block font-[600]">VELOCIDAD TELEMÉTRICA</span>
+            <span id="hudSpeed" class="text-sm sm:text-base font-[900] text-[#d4ff32] block">320.0 km/h</span>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
+            <span class="text-[9px] uppercase text-white/50 block font-[600]">METROS / SEGUNDO</span>
+            <span id="hudMps" class="text-sm sm:text-base font-[900] text-white block">88.8 m/s</span>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
+            <span class="text-[9px] uppercase text-white/50 block font-[600]">CRONÓMETRO DE CRUCE</span>
+            <span id="hudTimer" class="text-sm sm:text-base font-[900] text-white block">+0.000s</span>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
+            <span class="text-[9px] uppercase text-white/50 block font-[600]">NOTACIÓN ESPACIAL</span>
+            <span id="hudScale" class="text-sm sm:text-base font-[900] text-[#d4ff32] block">0.001s = 8.8 cm</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2. NARRATIVA CON SEPARACIÓN ESPACIAL Y COLORES DE ESCUDERÍA -->
+      <div id="piruetaContentWrap" class="space-y-12 text-sm sm:text-base font-[300] leading-loose text-tinta">
         
         <p class="leading-relaxed text-xs sm:text-sm text-tintaSuave">
           en cualquier pantalla o transmisión de fórmula 1 tradicional, el tiempo se aplana en tablas de renglones idénticos de cuarenta píxeles.
         </p>
 
-        <!-- LAS PALABRAS SE EMPIEZAN A ALEJAR SIN EXPLICACIÓN PREVIA -->
-        <p class="text-xs sm:text-sm font-[400] text-tinta leading-loose">
+        <!-- LAS PALABRAS SE EMPIEZAN A ALEJAR SIN EXPLICACIÓN PREVIA (CON COLORES DE ESCUDERÍA) -->
+        <p id="piruetaStoryParagraph" class="text-xs sm:text-sm font-[400] text-tinta leading-loose">
           cuando cayó la bandera a cuadros en interlagos, 
-          <span class="font-[900] text-base sm:text-xl">norris</span>
+          <span class="driver-tag font-[900] text-base sm:text-xl text-[#FF8000] drop-shadow-xs" title="McLaren F1 Team #4">norris</span>
           <span class="inline-block w-40 sm:w-72"></span>
           cruzó la meta adelante de 
-          <span class="font-[900] text-base sm:text-xl">verstappen</span>
+          <span class="driver-tag font-[900] text-base sm:text-xl text-[#3671C6] drop-shadow-xs" title="Red Bull Racing #3">verstappen</span>
           <span class="inline-block w-28 sm:w-48"></span>
           que dejaba atrás a 
-          <span class="font-[900] text-base sm:text-xl">hadjar</span>
+          <span class="driver-tag font-[900] text-base sm:text-xl text-[#4E78E8] drop-shadow-xs" title="Red Bull Racing #6">hadjar</span>
           <span class="inline-block w-24 sm:w-44"></span>
           seguido por 
-          <span class="font-[700] text-sm sm:text-base">russell</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base text-[#00A19B]" title="Mercedes-AMG #63">russell</span>
           <span class="inline-block w-20 sm:w-32"></span>
-          <span class="font-[700] text-sm sm:text-base">antonelli</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base text-[#27F4D2]" title="Mercedes-AMG #12">antonelli</span>
           <span class="inline-block w-36 sm:w-64"></span>
-          <span class="font-[700] text-sm sm:text-base">piastri</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base text-[#FF8000]" title="McLaren F1 Team #81">piastri</span>
           <span class="inline-block w-44 sm:w-80"></span>
-          <span class="font-[700] text-sm sm:text-base">lawson</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base text-[#4466EE]" title="Racing Bulls #30">lawson</span>
           <span class="inline-block w-12 sm:w-20"></span>
-          <span class="font-[700] text-sm sm:text-base">leclerc</span>
+          <span class="driver-tag font-[700] text-sm sm:text-base text-[#E80020]" title="Scuderia Ferrari #16">leclerc</span>
           <span class="inline-block w-64 sm:w-[420px]"></span>
           y el pelotón rezagado con 
-          <span class="font-[400] text-tintaMuted">hamilton</span>
+          <span class="driver-tag font-[500] text-[#E80020]" title="Scuderia Ferrari #44">hamilton</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">hulkenberg</span>
+          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #27">hulkenberg</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">lindblad</span>
+          <span class="driver-tag font-[500] text-[#4466EE]" title="Racing Bulls #41">lindblad</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">alonso</span>
+          <span class="driver-tag font-[500] text-[#229971]" title="Aston Martin #14">alonso</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">colapinto</span>
+          <span class="driver-tag font-[600] text-[#0093CC] underline decoration-[#0093CC]/50 decoration-2 underline-offset-4" title="BWT Alpine F1 Team #43">colapinto</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">gasly</span>
+          <span class="driver-tag font-[500] text-[#0093CC]" title="BWT Alpine F1 Team #10">gasly</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">albon</span>
+          <span class="driver-tag font-[500] text-[#64C4FF]" title="Williams Racing #23">albon</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">bortoleto</span>
+          <span class="driver-tag font-[500] text-[#52E252]" title="Stake Kick / Audi #5">bortoleto</span>
           <span class="inline-block w-8"></span>
-          <span class="font-[400] text-tintaMuted">bearman</span>
+          <span class="driver-tag font-[500] text-[#E6002B]" title="Haas F1 Team #87">bearman</span>
           <span class="inline-block w-72 sm:w-[600px]"></span>
-          <span class="font-[300] text-tintaTenue">perez</span>
+          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #11">perez</span>
           <span class="inline-block w-6"></span>
-          <span class="font-[300] text-tintaTenue">sainz</span>
+          <span class="driver-tag font-[400] text-[#64C4FF]" title="Williams Racing #55">sainz</span>
           <span class="inline-block w-6"></span>
-          <span class="font-[300] text-tintaTenue">câmara</span>
+          <span class="driver-tag font-[400] text-[#E6002B]" title="Haas F1 Team #89">câmara</span>
           <span class="inline-block w-12"></span>
-          <span class="font-[300] text-tintaTenue">stroll</span>
+          <span class="driver-tag font-[400] text-[#229971]" title="Aston Martin #18">stroll</span>
           <span class="inline-block w-6"></span>
-          <span class="font-[300] text-tintaTenue">bottas</span>
+          <span class="driver-tag font-[400] text-[#CC1E4A]" title="Cadillac F1 #77">bottas</span>
         </p>
 
         <!-- RECIÉN CUANDO TERMINA EL TEXTO SE EXPLICA POR QUÉ ESTÁN TAN SEPARADAS -->
@@ -786,20 +891,224 @@
       updateCylinder(0);
     });
 
-    // Control del interruptor Racional vs Pirueta (sin números) con animación de máquina de escribir
+    // Control del interruptor Racional vs Pirueta con:
+    // 1. Animación de máquina de escribir
+    // 2. Simulador de auto a 320 km/h en tiempo real
+    // 3. Sonido F1 V6 Turbo con efecto Doppler al cruzar la línea de meta (Web Audio API)
     let enModoPirueta = false;
-    let piruetaOriginalHTML = null;
+    let piruetaOriginalParagraphHTML = null;
     let typewriterTimer = null;
 
-    function iniciarMaquinaDeEscribirPirueta() {
-      const vista = document.getElementById('vistaPirueta');
-      if (!vista) return;
+    // MOTOR DE AUDIO F1 (WEB AUDIO API NATIVO - SIN ARCHIVOS EXTERNOS)
+    let f1AudioCtx = null;
+    let f1SoundActive = true;
 
-      if (!piruetaOriginalHTML) {
-        piruetaOriginalHTML = vista.innerHTML;
+    function initF1Audio() {
+      if (!f1AudioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) f1AudioCtx = new AudioContext();
+      }
+      if (f1AudioCtx && f1AudioCtx.state === 'suspended') {
+        f1AudioCtx.resume();
+      }
+    }
+
+    function toggleF1Sound() {
+      f1SoundActive = !f1SoundActive;
+      const icon = document.getElementById('soundIcon');
+      const label = document.getElementById('soundLabel');
+      if (icon && label) {
+        icon.textContent = f1SoundActive ? '🔊' : '🔇';
+        label.textContent = f1SoundActive ? 'SONIDO V6 TURBO' : 'SONIDO SILENCIADO';
+      }
+    }
+
+    function playF1FlybySound() {
+      if (!f1SoundActive) return;
+      try {
+        initF1Audio();
+        if (!f1AudioCtx) return;
+
+        const now = f1AudioCtx.currentTime;
+        const duration = 1.8;
+        const crossTime = now + 0.95; // Momento exacto del cruce de meta a cuadros
+
+        // Paneo estéreo físico de izquierda a derecha (-0.95 a +0.95)
+        const panner = f1AudioCtx.createStereoPanner ? f1AudioCtx.createStereoPanner() : null;
+        if (panner) {
+          panner.pan.setValueAtTime(-0.95, now);
+          panner.pan.linearRampToValueAtTime(0.95, now + duration);
+        }
+
+        // Ganancia maestra con curva de aceleración y alejamiento
+        const masterGain = f1AudioCtx.createGain();
+        masterGain.gain.setValueAtTime(0.001, now);
+        masterGain.gain.exponentialRampToValueAtTime(0.48, crossTime);
+        masterGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        // 1. Motor V6 Turbo primario (Onda sierra agresiva con efecto Doppler)
+        const osc1 = f1AudioCtx.createOscillator();
+        osc1.type = 'sawtooth';
+        osc1.frequency.setValueAtTime(540, now);
+        osc1.frequency.exponentialRampToValueAtTime(880, crossTime);
+        osc1.frequency.exponentialRampToValueAtTime(320, crossTime + 0.32);
+        osc1.frequency.linearRampToValueAtTime(210, now + duration);
+
+        // 2. Sub-armónico de potencia del chasis (Onda triangular una octava abajo)
+        const osc2 = f1AudioCtx.createOscillator();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(270, now);
+        osc2.frequency.exponentialRampToValueAtTime(440, crossTime);
+        osc2.frequency.exponentialRampToValueAtTime(160, crossTime + 0.32);
+        osc2.frequency.linearRampToValueAtTime(105, now + duration);
+
+        // 3. Silbido agudo del turbocompresor / MGU-H (2.6 kHz a 1.2 kHz)
+        const turboOsc = f1AudioCtx.createOscillator();
+        const turboGain = f1AudioCtx.createGain();
+        turboOsc.type = 'sine';
+        turboOsc.frequency.setValueAtTime(2600, now);
+        turboOsc.frequency.exponentialRampToValueAtTime(3600, crossTime);
+        turboOsc.frequency.exponentialRampToValueAtTime(1100, now + duration);
+        turboGain.gain.setValueAtTime(0.001, now);
+        turboGain.gain.exponentialRampToValueAtTime(0.14, crossTime);
+        turboGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        // 4. Ráfaga de aire supersónico a 320 km/h (Ruido blanco filtrado en paso de banda)
+        const bufferSize = Math.floor(f1AudioCtx.sampleRate * duration);
+        const noiseBuffer = f1AudioCtx.createBuffer(1, bufferSize, f1AudioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        const whiteNoise = f1AudioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+
+        const noiseFilter = f1AudioCtx.createBiquadFilter();
+        noiseFilter.type = 'bandpass';
+        noiseFilter.Q.value = 2.8;
+        noiseFilter.frequency.setValueAtTime(450, now);
+        noiseFilter.frequency.exponentialRampToValueAtTime(1900, crossTime);
+        noiseFilter.frequency.exponentialRampToValueAtTime(380, now + duration);
+
+        const noiseGain = f1AudioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.001, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.38, crossTime);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        // Conexiones de la cadena de audio
+        osc1.connect(masterGain);
+        osc2.connect(masterGain);
+        
+        turboOsc.connect(turboGain);
+        turboGain.connect(masterGain);
+
+        whiteNoise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(masterGain);
+
+        if (panner) {
+          masterGain.connect(panner);
+          panner.connect(f1AudioCtx.destination);
+        } else {
+          masterGain.connect(f1AudioCtx.destination);
+        }
+
+        // Inicio y parada sincronizada
+        osc1.start(now);
+        osc2.start(now);
+        turboOsc.start(now);
+        whiteNoise.start(now);
+
+        osc1.stop(now + duration);
+        osc2.stop(now + duration);
+        turboOsc.stop(now + duration);
+        whiteNoise.stop(now + duration);
+
+      } catch (e) {
+        console.warn("F1 Audio synthesis notice:", e);
+      }
+    }
+
+    // SIMULADOR DE AUTO EN TIEMPO REAL (CRUCE DE META A 320 KM/H)
+    let f1CarAnimId = null;
+    let carRunning = false;
+
+    function lanzarAutoEnTiempoReal() {
+      if (carRunning) return;
+      carRunning = true;
+
+      initF1Audio();
+      playF1FlybySound();
+
+      const car = document.getElementById('f1CarWrap');
+      const finishBeam = document.getElementById('finishLineBeam');
+      const hudSpeed = document.getElementById('hudSpeed');
+      const hudTimer = document.getElementById('hudTimer');
+      const hudMps = document.getElementById('hudMps');
+      if (!car) { carRunning = false; return; }
+
+      const startTime = performance.now();
+      const duration = 1800; // 1.8 segundos
+      const startX = -160;
+      const track = car.parentElement;
+      const trackWidth = track ? track.clientWidth : 800;
+      const finishX = trackWidth * 0.62;
+      const endX = trackWidth + 160;
+
+      let crossedLine = false;
+
+      function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+
+        // Aceleración física hacia 320 km/h
+        const currentX = startX + (endX - startX) * Math.pow(progress, 1.12);
+        car.style.left = `${currentX.toFixed(1)}px`;
+
+        // Telemetría en tiempo real
+        const currentSpeed = Math.min(320.0, 240 + progress * 80);
+        const currentTimer = (progress * 1.46).toFixed(3);
+        const currentMps = (currentSpeed / 3.6).toFixed(1);
+
+        if (hudSpeed) hudSpeed.textContent = `${currentSpeed.toFixed(1)} km/h`;
+        if (hudTimer) hudTimer.textContent = `+${currentTimer}s`;
+        if (hudMps) hudMps.textContent = `${currentMps} m/s`;
+
+        // Momento exacto del cruce de línea de cuadros
+        if (currentX >= finishX - 35 && !crossedLine) {
+          crossedLine = true;
+          if (finishBeam) {
+            finishBeam.style.boxShadow = '0 0 35px #ffffff, 0 0 70px #d4ff32, 0 0 100px #FF8000';
+            finishBeam.style.transform = 'scale(1.12)';
+            setTimeout(() => {
+              if (finishBeam) {
+                finishBeam.style.boxShadow = '0 0 15px rgba(255,255,255,0.2)';
+                finishBeam.style.transform = 'scale(1.0)';
+              }
+            }, 380);
+          }
+        }
+
+        if (progress < 1) {
+          f1CarAnimId = requestAnimationFrame(frame);
+        } else {
+          carRunning = false;
+          car.style.left = `${endX}px`;
+        }
+      }
+
+      f1CarAnimId = requestAnimationFrame(frame);
+    }
+
+    // ANIMACIÓN DE MÁQUINA DE ESCRIBIR PARA EL PÁRRAFO DE LA PIRUETA
+    function iniciarMaquinaDeEscribirPirueta() {
+      const pStory = document.getElementById('piruetaStoryParagraph');
+      if (!pStory) return;
+
+      if (!piruetaOriginalParagraphHTML) {
+        piruetaOriginalParagraphHTML = pStory.innerHTML;
       } else {
-        // Restaurar estado base antes de animar
-        vista.innerHTML = piruetaOriginalHTML;
+        pStory.innerHTML = piruetaOriginalParagraphHTML;
       }
 
       if (typewriterTimer) {
@@ -807,17 +1116,11 @@
         typewriterTimer = null;
       }
 
-      // Preparar elementos de texto para animación palabra por palabra
-      const textBlock = vista.querySelector('.space-y-12');
-      if (!textBlock) return;
-
-      // Recorremos los nodos hijos y envolvemos las palabras en spans animados
       function prepararNodos(nodo) {
         if (nodo.nodeType === Node.TEXT_NODE) {
           const texto = nodo.textContent;
           if (!texto.trim()) return;
           const fragment = document.createDocumentFragment();
-          // Separar preservando espacios
           const partes = texto.split(/(\s+)/);
           partes.forEach(p => {
             if (/^\s+$/.test(p)) {
@@ -831,8 +1134,7 @@
           });
           nodo.parentNode.replaceChild(fragment, nodo);
         } else if (nodo.nodeType === Node.ELEMENT_NODE) {
-          // Si es un span con nombre de piloto o espacio en blanco
-          if (nodo.classList.contains('font-[900]') || nodo.classList.contains('font-[700]') || nodo.classList.contains('font-[400]') || nodo.classList.contains('font-[300]') || nodo.classList.contains('inline-block')) {
+          if (nodo.classList.contains('driver-tag') || nodo.classList.contains('font-[900]') || nodo.classList.contains('font-[700]') || nodo.classList.contains('font-[600]') || nodo.classList.contains('font-[500]') || nodo.classList.contains('font-[400]') || nodo.classList.contains('font-[300]') || nodo.classList.contains('inline-block')) {
             nodo.classList.add('tw-word-hidden');
           } else {
             Array.from(nodo.childNodes).forEach(prepararNodos);
@@ -840,17 +1142,15 @@
         }
       }
 
-      Array.from(textBlock.childNodes).forEach(prepararNodos);
+      Array.from(pStory.childNodes).forEach(prepararNodos);
 
-      // Crear cursor titilante de máquina de escribir
       const cursor = document.createElement('span');
       cursor.id = 'twCursor';
       cursor.className = 'typewriter-cursor';
 
-      const hiddenWords = Array.from(vista.querySelectorAll('.tw-word-hidden'));
+      const hiddenWords = Array.from(pStory.querySelectorAll('.tw-word-hidden'));
       let currentIndex = 0;
 
-      // Insertar cursor antes de la primera palabra
       if (hiddenWords.length > 0) {
         hiddenWords[0].parentNode.insertBefore(cursor, hiddenWords[0]);
       }
@@ -861,7 +1161,6 @@
           el.classList.remove('tw-word-hidden');
           el.classList.add('tw-word-visible');
           
-          // Mover cursor después del elemento revelado
           if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
           el.parentNode.insertBefore(cursor, el.nextSibling);
 
@@ -872,11 +1171,9 @@
         }
       }
 
-      // Ritmo de teletipo / máquina de escribir dinámico (22ms por palabra/espacio)
       typewriterTimer = setInterval(revelarSiguiente, 22);
 
-      // Si el usuario hace click en el contenedor, se revela todo de golpe
-      vista.onclick = function() {
+      pStory.onclick = function() {
         if (typewriterTimer) {
           clearInterval(typewriterTimer);
           typewriterTimer = null;
@@ -912,15 +1209,19 @@
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        // Iniciar animación de máquina de escribir al entrar
+        // Iniciar máquina de escribir y lanzar auto con sonido de inmediato
         iniciarMaquinaDeEscribirPirueta();
+        setTimeout(() => {
+          lanzarAutoEnTiempoReal();
+        }, 200);
       } else {
         if (typewriterTimer) {
           clearInterval(typewriterTimer);
           typewriterTimer = null;
         }
-        if (piruetaOriginalHTML && vistaPirueta) {
-          vistaPirueta.innerHTML = piruetaOriginalHTML;
+        if (piruetaOriginalParagraphHTML) {
+          const pStory = document.getElementById('piruetaStoryParagraph');
+          if (pStory) pStory.innerHTML = piruetaOriginalParagraphHTML;
         }
 
         vistaPirueta.classList.add('hidden');
@@ -934,6 +1235,7 @@
       }
     }
   </script>
+</script>
 
 </body>
 </html>

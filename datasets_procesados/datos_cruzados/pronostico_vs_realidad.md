@@ -9,9 +9,9 @@
 1. [Ronda 19: GP de Estados Unidos (Austin — COTA)](#ronda-19-gp-de-estados-unidos--austin--cota)
 2. [Ronda 20: GP de México (Ciudad de México — Hnos. Rodríguez)](#ronda-20-gp-de-méxico--autódromo-hermanos-rodríguez)
 3. [Ronda 21: GP de São Paulo (Brasil — Interlagos)](#ronda-21-gp-de-são-paulo--interlagos)
-4. [Ronda 22: GP de Las Vegas (Las Vegas Strip)](#ronda-22-gp-de-las-vegas--las-vegas-strip-próxima)
-5. [Ronda 23: GP de Qatar (Lusail)](#ronda-23-gp-de-qatar--lusail-próxima)
-6. [Ronda 24: GP de Abu Dhabi (Yas Marina)](#ronda-24-gp-de-abu-dhabi--yas-marina-próxima)
+4. [Ronda 22: GP de Las Vegas (Las Vegas Strip)](#ronda-22-gp-de-las-vegas--las-vegas-strip)
+5. [Ronda 23: GP de Qatar (Lusail)](#ronda-23-gp-de-qatar--lusail-international-circuit-próxima--domingo-29-de-noviembre)
+6. [Ronda 24: GP de Abu Dhabi (Yas Marina)](#ronda-24-gp-de-abu-dhabi--yas-marina-circuit-gran-final--domingo-6-de-diciembre)
 
 ---
 
@@ -249,7 +249,7 @@
 
 ---
 
-## Ronda 22: GP de Las Vegas — Las Vegas Strip *(PRÓXIMA — Domingo 22 de Noviembre)*
+## Ronda 22: GP de Las Vegas — Las Vegas Strip
 * **Fecha:** Domingo 22 de noviembre de 2026 — 22:00hs local (Lunes 03:00hs ARG — Carrera Nocturna)
 * **Circuito:** Las Vegas Strip Circuit (Las Vegas, Nevada, EE.UU.)
 * **Longitud del Trazado:** 6.201 km (50 vueltas — 310.050 km)
@@ -267,12 +267,12 @@
   * **Temperatura Ambiente:** **10°C / 50°F** (Frío extremo nocturno en el desierto de Mojave).
   * **Probabilidad de Precipitación:** **< 5%** (Seco absoluto).
   * **Humedad Relativa:** Baja (<25%).
-* **Temperatura de Asfalto Estimada:**
-  * Al disputarse de noche (22:00hs) sin radiación solar, el asfalto urbano registrará entre **12°C y 15°C**, siendo **la carrera con menor temperatura de pista de toda la temporada**.
+* **Temperatura de Asfalto Registrada:**
+  * La carrera nocturna sin radiación solar mantuvo el asfalto urbano entre **12°C y 14°C**, confirmándose como **la carrera con menor temperatura de pista de todo el año**.
 * **La Trampa del Frío Desértico (The Cold Graining Trap):**
-  * La recta colosal del Strip tiene **1.9 kilómetros a fondo**. A más de 345 km/h durante 20 segundos continuos en aire frío a 10°C, la superficie de los neumáticos pierde calor bruscamente.
-  * **Frenada Crítica de Curva 14:** Los monoplazas llegan con los frenos y neumáticos delanteros subenfriados a la frenada más violenta del circuito (de 350 km/h a 90 km/h). El riesgo de bloqueos masivos, pasadas de largo y toques contra el muro es el más elevado del año.
-  * **Abrasión Asfáltica:** Muy baja (1/5), asfalto urbano recién abierto al tráfico público, sumamente resbaladizo y con poco agarre (*low grip*).
+  * La recta colosal del Strip de **1.9 kilómetros a fondo** a más de 350 km/h subenfrió masivamente la superficie de los neumáticos delanteros.
+  * **Frenada de Curva 14:** Generó bloqueos masivos y desgaste por micro-deslizamiento (graining severo) en quienes no protegieron la temperatura de banda.
+  * **Abrasión Asfáltica:** 1 / 5 (Muy baja), asfalto urbano resbaladizo con agarre crítico.
 
 ---
 
@@ -280,52 +280,172 @@
 
 #### A. Tesis Térmica: El Desafío del Calentamiento en Frío
 * **Sensibilidad al Frío Extremo (10°C):**
-  * En asfalto a 12°C, la goma no se desgasta por abrasión, sino que se rompe por **graining superficial**: la banda de rodadura se desliza sobre el asfalto helado arrancando virutas de caucho.
-  * **Ventaja McLaren en Frío:** La matriz histórica de UNDERTRACK registra que McLaren tiene un diferencial positivo en condiciones de baja temperatura (+1.32 puestos). El MCL38 genera carga térmica progresiva sin sobrecalentar el núcleo, lo que coloca a Norris y Piastri como serios candidatos a la victoria.
-  * **Ferrari y el Encendido Rápido:** Ferrari destaca por encender los neumáticos delanteros rápidamente en frío. Si logran clasificar adelante, Leclerc y Hamilton tendrán ventaja en los primeros 5 giros de cada stint.
+  * **Ventaja McLaren en Frío:** Se proyectó un rendimiento diferencial de McLaren (+1.32 puestos en frío) al encender la goma progresivamente sin sobrecalentar el núcleo. Norris y Piastri firmes candidatos a pelear la punta.
+  * **Ferrari y el Riesgo de Graining:** Pese a su rapidez para encender gomas, se pronosticó vulnerabilidad de Ferrari en tandas largas por degradación superficial.
 
 #### B. Tesis Aerodinámica: Eficiencia en Recta (Low Drag)
-* Con 1.9 km de acelerador a fondo en el Strip, los monoplazas montarán paquetes aerodinámicos de **mínima carga (alas recortadas estilo Monza)**.
-* **Red Bull:** La eficiencia del DRS de Red Bull es la más alta de la parrilla. Verstappen e Isack Hadjar contarán con velocidad punta letal para sobrepasos en el Strip.
-* **Williams:** Alex Albon y Carlos Sainz Jr. históricamente cuentan con monoplazas de muy bajo drag. Si logran que las gomas no se congelen en las curvas lentas, Williams puede protagonizar su mejor carrera del año.
+* Paquetes de mínima carga aerodinámica (alas ultra-planas estilo Monza). Red Bull y Williams con ventaja teórica de velocidad punta en el Strip.
 
-#### C. Cruce de Perfiles de Piloto en Las Vegas
-* **Élite Metronómico (Verstappen, Norris, Leclerc):**
-  * Deberán modular la frenada en las curvas 1, 5 y 14 con precisión quirúrgica para evitar el bloqueo del neumático delantero izquierdo.
-* **Gestores de Midfield — Franco Colapinto (Alpine #43):**
-  * **El Gran Desafío:** El Alpine sufre históricamente para poner en temperatura los neumáticos en condiciones frías. Colapinto deberá aplicar frenadas progresivas en las vueltas iniciales sin caer en el graining.
-  * **Ventana Táctica:** Si supera la fase crítica de las primeras 8 vueltas y estabiliza la temperatura del compuesto Duro (C3), la baja degradación le permitirá ejecutar un stint largo y beneficiarse de neutralizaciones tardías para meterse en zona de puntos.
-* **Pilotos Agresivos & Riesgo de Muro (Russell, Bearman, Lawson):**
-  * Las curvas 1 a 4 están delimitadas por muros ciegos de hormigón. La agresividad excesiva con gomas frías en reinicios provocará toques. **Probabilidad de Safety Car: 76.5%**.
+#### C. Cruce de Perfiles & Franco Colapinto (Alpine #43)
+* **Gestores de Midfield:** Hipótesis de supervivencia al graining inicial en las primeras 8 vueltas y estiramiento del compuesto Duro (C3) para beneficiarse de neutralizaciones de Safety Car (probabilidad >75%), con ventana matemática hacia los puntos.
 
 #### D. Estrategia Óptima Nominal de Paradas
-* **Plan Nominal:** **1 Parada:** Medio (C4) $\to$ Duro (C3).
-  * Ventana de parada: Vueltas 18 a 24.
-  * El factor determinante no será el desgaste, sino entrar a boxes bajo Safety Car (ahorro de 12 segundos respecto a bandera verde).
+* Plan nominal: 1 Parada (Medio a Duro entre vueltas 18 y 24), aprovechando el ahorro neto de 12 segundos bajo Safety Car.
 
 ---
 
-### 3. Tablero de Predicciones Concretas (Las Vegas 2026)
+### 3. Realidad & Validación Post-Carrera
 
-| Dimensión Analizada | 🔮 Predicción UNDERTRACK (Las Vegas) | Parámetro Físico / Algorítmico |
+* **Clasificación Oficial (GP de Las Vegas 2026):**
+  1. 🥇 **Max Verstappen (Red Bull #3)** — 50 vueltas en 1:27:39.624 (25 pts)
+  2. 🥈 **Lando Norris (McLaren #1)** — a +0.639s (18 pts)
+  3. 🥉 **Oscar Piastri (McLaren #81)** — a +1.529s (15 pts)
+  * **4.** Andrea Kimi Antonelli (Mercedes #12) — a +2.574s (12 pts)
+  * **5.** Pierre Gasly (Alpine #10) — a +2.927s (10 pts)
+  * **6.** **Franco Colapinto (Alpine #43)** — a +7.955s (8 pts) — **¡Recital histórico del piloto argentino!**
+  * **7.** Lewis Hamilton (Ferrari #44) — a +12.795s (6 pts)
+  * **8.** Carlos Sainz Jr. (Williams #55) — a +12.938s (4 pts)
+  * **9.** George Russell (Mercedes #63) — a +13.192s (2 pts)
+  * **10.** Charles Leclerc (Ferrari #16) — a +17.554s (1 pt)
+  * **11.** Nico Hülkenberg (Audi #27) — a +22.720s
+  * **12.** Gabriel Bortoleto (Audi #5) — a +28.602s
+  * **13.** Oliver Bearman (Haas #87) — a +28.843s
+  * **14.** Liam Lawson (RB #30) — a +36.588s
+  * **15.** Isack Hadjar (Red Bull #6) — a +36.488s
+  * **16.** Rafael Câmara (Haas #51) — a +47.814s
+  * **17.** Lance Stroll (Aston Martin #18) — a +68.353s
+  * **18.** Valtteri Bottas (Cadillac #77) — a +71.673s
+  * **DNF (No Terminaron):**
+    * Fernando Alonso (Aston Martin #14) — NT
+    * Arvid Lindblad (RB #41) — NT
+    * Sergio Pérez (Cadillac #11) — NT
+    * Alexander Albon (Williams #23) — NC
+
+* **Lectura Analítica Post-Carrera:**
+  * **Final de Infarto por la Victoria (0.6s):** Duelo milimétrico cumplido al 100%. Red Bull aprovechó su velocidad terminal superior con DRS en el Strip (>352 km/h) para que Verstappen contuviera a Lando Norris (+0.639s) y Oscar Piastri (+1.529s). El doble podio de McLaren ratificó su diferencial positivo en frío (+1.32).
+  * **La Hazaña de Franco Colapinto y Alpine (P5 y P6):** Masterclass absoluto del arquetipo *Gestor de Midfield*. Colapinto cuidó los neumáticos en el primer tercio helado de carrera, estiró el compuesto Duro (C3) en aire limpio y sacó rédito pleno de las neutralizaciones. Superó su techo proyectado (P9–P12) para cruzar la meta en un colosal **6° puesto** (+7.9s), sumando 8 puntos vitales junto a su compañero Gasly (P5). Alpine cosechó 18 puntos en una sola noche.
+  * **Colapso de Ferrari por Graining:** Tal como anticipó el modelo, Ferrari sufrió una caída drástica en tandas largas por rotura superficial de la goma fría: Leclerc apenas rescató P10 (+17.5s) y Hamilton P7.
+  * **Williams en los Puntos con Sainz (P8):** La baja resistencia al avance del Williams pagó dividendos en el Strip, metiendo a Sainz 8° a +12.9s.
+  * **Bajas y Neutralizaciones:** Confirmación del alto riesgo de incidente: 4 abandonos (Alonso, Lindblad, Pérez, Albon) y neutralizaciones que reordenaron el clasificador.
+
+* **Tablero Resumen: Pronóstico vs. Realidad (Las Vegas 2026)**
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK | 🏁 Realidad en Carrera | Veredicto | Lectura Analítica / Causa |
+| :--- | :--- | :--- | :---: | :--- |
+| **Duelo por la Victoria** | Batalla cerrada Red Bull vs. McLaren por la cima. | Verstappen ganó por solo +0.63s sobre Norris y Piastri (2° y 3°). | ✅ **ACIERTO TOTAL** | Eficiencia en recta de Red Bull contuvo la carga térmica de McLaren. |
+| **Doble Podio McLaren en Frío** | Diferencial positivo (+1.32 en matriz térmica) colocaría a Norris y Piastri en vanguardia. | Norris P2 (+0.63s) y Piastri P3 (+1.52s). | ✅ **ACIERTO TOTAL** | El MCL38 generó temperatura óptima en asfalto a 12°C sin granular. |
+| **Caso Franco Colapinto (Alpine)** | Supervivencia al graining inicial y pelea por P9–P12 estirando duros. | **Terminó 6.° (P6)** a +7.9s tras una gestión brillante de carrera. | 🌟 **SUPERÓ EXPECTATIVA** | Ejecución perfecta del arquetipo Gestor; Alpine metió a sus dos autos en P5 y P6. |
+| **Vulnerabilidad de Ferrari** | Riesgo de graining en tandas largas tras encendido inicial rápido. | Hamilton P7 (+12.7s) y Leclerc P10 (+17.5s). Caída de ritmo notoria. | ✅ **ACIERTO TOTAL** | El SF26 degradó prematuramente la banda en frío tras la vuelta 15. |
+| **Williams en los Puntos** | Rendimiento destacado en recta gracias al bajísimo drag estilo Monza. | Carlos Sainz finalizó 8.° en zona de puntos (+12.9s). Albon DNF. | ✅ **ACIERTO TOTAL** | La velocidad punta en los 1.9 km del Strip sostuvo la posición de Sainz. |
+| **Neutralizaciones y Bajas** | Tasa >75% de Safety Car / incidentes en frenadas de muro. | Múltiples neutralizaciones y 4 abandonos (Alonso, Lindblad, Pérez, Albon). | ✅ **ACIERTO TOTAL** | El subenfriamiento de frenos en Curva 14 cobró víctimas en el pelotón. |
+
+---
+
+## Ronda 23: GP de Qatar — Lusail International Circuit *(PRÓXIMA — Domingo 29 de Noviembre)*
+* **Fecha:** Domingo 29 de noviembre de 2026 — 20:00hs local (14:00hs ARG — Carrera Nocturna)
+* **Circuito:** Circuito Internacional de Lusail (Lusail, Qatar)
+* **Longitud del Trazado:** 5.419 km (57 vueltas — 308.611 km), 16 curvas (10 a derecha, 6 a izquierda).
+* **Familia UNDERTRACK:** Familia 0 — *Carga Lateral Extrema y Estrés de Neumáticos*
+* **Gemelos de Referencia:**
+  * Silverstone ($r = 0.828$ en curvas enlazadas ultra-rápidas estilo Copse/Maggotts/Becketts).
+  * Suzuka ($r = 0.815$ en aceleración lateral sostenida en las Eses del Sector 1).
+  * Circuit de Barcelona-Catalunya ($r = 0.804$ en apoyo prolongado en Curva 3 peraltada).
+
+---
+
+### 1. Condiciones y Variables Físicas Oficiales del Entorno
+
+* **Condición Meteorológica Oficial Confirmada:**
+  * **Jornada Seca:** Cielos parcialmente soleados durante el día y nubosidad variable por la noche.
+  * **Temperatura Ambiente:** Máxima diurna de **28°C**, descendiendo a **18°C – 21°C** durante la franja nocturna de la carrera (20:00hs local).
+  * **Probabilidad de Precipitación:** Muy baja (**0% a 10%**).
+  * **Humedad Relativa:** Promedio diario de **~62%**, manteniéndose entre **53% y 66%** durante la competencia.
+  * **Viento:** Suave del Norte (~11 km/h / 7 mph) durante la tarde, rotando a brisas leves del Este/Sureste (2 a 5 mph) por la noche. Mínimo impacto aerodinámico por ráfagas.
+* **Temperatura de Asfalto Estimada:**
+  * Al disputarse de noche con brisa marina y 21°C ambiente, la pista se estabilizará entre **25°C y 28°C** (ventana templada óptima para evitar sobrecalentamiento instantáneo).
+* **El Desafío Crítico: Fuerzas G Laterales y Cizallamiento Estructural:**
+  * Lusail es una pista de velocidad de curva ininterrumpida: el complejo de curvas 12-13-14 se transita en un triple vértice a fondo a más de 240 km/h, generando **fuerzas laterales superiores a 5.0G durante más de 6 segundos continuos**.
+  * **Abrasión Asfáltica Máxima (5 / 5):** Reasfaltado reciente muy agresivo que, sumado a los pianos piramidales (*kerbs*) de 50mm, produce micro-cortes y cizallamiento en la carcasa interna del neumático delantero izquierdo.
+
+---
+
+### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera Qatar)
+
+#### A. Tesis Aerodinámica: El Reinado del Downforce Eficiente
+* En trazados de Familia 0 (Carga Lateral Extrema), las alas recortadas no sirven: los monoplazas montan alerones de máxima sustentación aerodinámica.
+* **McLaren como Favorito Absoluto:** El MCL38 es el monoplaza con mejor eficiencia de túnel de viento en curvas rápidas (gemelo Silverstone). Con asfalto templado a 26°C (lejos de la barrera crítica de los 40°C), Norris y Piastri cuentan con la plataforma aerodinámica más veloz de la parrilla.
+* **Red Bull y Verstappen:** Verstappen dominará la frenada de Curva 1 y la recta de 1.068 km, pero sufrirá mayor degradación en el tren delantero en el Sector 2 y 3 frente al paso por curva de McLaren.
+
+#### B. Tesis Térmica y de Neumáticos (Pirelli Safety Cap)
+* Lusail impone riesgo de delaminación por vibración sobre los pianos.
+* **Estrategia Obligada:** **Mínimo 2 a 3 Paradas (Medio $\to$ Duro $\to$ Medio)**. Las paradas en boxes serán dictadas por el límite de vida útil estructural de la goma (máximo 20-22 vueltas por stint).
+
+#### C. Cruce de Perfiles & Franco Colapinto (Alpine #43)
+* **Élite Metronómico en su Máximo Esplendor:** Las fuerzas G extremas penalizan cualquier micro-error de trayectoria. Antonelli, Leclerc, Verstappen y Norris coparán las primeras posiciones.
+* **Franco Colapinto y Alpine:** Tras la hazaña de Las Vegas (P6), Lusail representa un desafío puramente físico y de apoyo aerodinámico. El Alpine adolece de carga vertical en curvas rápidas respecto a McLaren y Red Bull. La meta de Colapinto será maximizar su consistencia rítmica ($1.19\text{s}$) para pelear la zona de puntos bajos (**P8 a P11**) ante Haas y Audi.
+
+---
+
+### 3. Tablero de Predicciones Concretas (Qatar 2026)
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK (Qatar) | Fundamento Cinemático / Algorítmico |
 | :--- | :--- | :--- |
-| **Batalla por la Victoria** | Duelo directo McLaren vs. Red Bull (Norris vs. Verstappen). | Ventaja térmica de McLaren en frío (+1.32) vs. eficiencia de drag de Red Bull en 1.9 km. |
-| **Impacto Térmico Frío (10°C)** | Aparición de graining severo en tren delantero en las primeras 10 vueltas. | Temperatura de pista helada (<15°C) y enfriamiento en recta del Strip. |
-| **Incidencias y Neutralizaciones** | Al menos 1 Safety Car o Virtual Safety Car en la carrera (probabilidad >75%). | Frenadas ciegas a 350 km/h en asfalto urbano resbaladizo entre muros. |
-| **Velocidad Punta en el Strip** | Red Bull y Williams liderarán los radares de velocidad máxima (>352 km/h). | Paquete de bajísima carga aerodinámica (Familia 3 / Gemelo Monza $r=0.810$). |
-| **Rendimiento Colapinto (Alpine)** | Supervivencia al graining inicial y pelea por P9–P12 estirando compuesto Duro. | Gestión de temperatura en el tren delantero en asfalto con baja abrasión (1/5). |
-| **Comportamiento Ferrari** | Fuerte ritmo de clasificación y largada, pero vulnerabilidad a mitad de stint. | Calentamiento rápido de neumático con riesgo de degradación superficial temprana. |
+| **Batalla por la Victoria** | McLaren favorito sobre Red Bull (Norris y Piastri candidatos al 1-2). | Superioridad del MCL38 en curvas rápidas (Familia 0 / Silverstone $r=0.828$). |
+| **Estrategia de Neumáticos** | Carrera obligatoria a múltiples paradas (mínimo 2 pits). | Carga lateral >5G sostenida y abrasión 5/5 en triple vértice de C12-C14. |
+| **Rendimiento Ferrari** | Sufrimiento por subviraje en tren delantero; lucha con Mercedes por el podio. | El SF26 pierde sustentación en apoyos prolongados a alta velocidad. |
+| **Antonelli y Mercedes** | Mercedes sólido en ritmo de carrera sin desgaste excesivo; Antonelli en Top 4. | Equilibrio de chasis en curvas de radio medio y tracción en la salida de C16. |
+| **Franco Colapinto (Alpine)** | Pelea cerrada en zona de puntos (P8–P11) por consistencia de stint. | El déficit de carga lateral del A524 se compensa con el arquetipo de Gestión. |
 
 ---
 
-## Ronda 23: GP de Qatar — Lusail *(Próxima)*
-* **Fecha:** Noviembre / Diciembre 2026
-* **Familia UNDERTRACK:** Familia 1 — *Carga Lateral Extrema y Estrés de Neumáticos*
-* *[Se habilitará al cerrar Ronda 22]*
+## Ronda 24: GP de Abu Dhabi — Yas Marina Circuit *(GRAN FINAL — Domingo 6 de Diciembre)*
+* **Fecha:** Domingo 6 de diciembre de 2026 — 17:00hs local (10:00hs ARG — Carrera Crepuscular / Nocturna)
+* **Circuito:** Yas Marina Circuit (Isla Yas, Abu Dhabi, EAU)
+* **Longitud del Trazado:** 5.281 km (58 vueltas — 306.183 km), 16 curvas.
+* **Familia UNDERTRACK:** Familia 1 — *Stop-and-Go y Transición Crepuscular*
+* **Gemelos de Referencia:**
+  * Albert Park ($r = 0.812$ en alternancia de rectas con chicanas y frenadas medias).
+  * Red Bull Ring ($r = 0.795$ en tracción mecánica tras horquilla lenta).
+  * Circuit Gilles Villeneuve — Montreal ($r = 0.788$ en aceleración 0-100% tras frenadas a 90°).
 
 ---
 
-## Ronda 24: GP de Abu Dhabi — Yas Marina *(Próxima)*
-* **Fecha:** Diciembre 2026
-* **Familia UNDERTRACK:** Familia 2 — *Mixtos y Técnicos / Transición Crepuscular*
-* *[Se habilitará al cerrar Ronda 23]*
+### 1. Condiciones y Variables Físicas Oficiales del Entorno
+
+* **Condición Meteorológica Oficial Confirmada:**
+  * **Jornada Seca, Soleada y Templada:** Cielos despejados típicos del inicio del invierno emiratí.
+  * **Temperatura Ambiente:** Máximas de **26°C – 28°C** durante el día, descendiendo a **19°C – 21°C** tras la caída del sol durante la carrera.
+  * **Probabilidad de Lluvia:** **0%** (Seco absoluto).
+  * **Viento:** Suave a moderado (8 a 14 km/h), sin ráfagas desestabilizadoras.
+* **El Fenómeno Crítico: La Caída Térmica Crepuscular (The Twilight Temperature Drop):**
+  * La carrera comienza con luz natural a las 17:00hs con asfalto a **32°C – 34°C**, pero a medida que anochece y se encienden los reflectores, la temperatura de pista **se desploma más de 8°C hasta los 24°C**.
+  * **El Desafío:** Los autos que configuran el balance mecánico para el calor del stint 1 sufren subviraje en el stint 2 y 3 al enfriarse el asfalto.
+
+---
+
+### 2. Hipótesis & Pronóstico UNDERTRACK (Pre-Carrera Abu Dhabi)
+
+#### A. Tesis Cinemática: Chicanas y Tracción en el Sector Marina
+* **Sector 1:** Rápido y fluido (Curvas 1 a 4).
+* **Sector 2:** Dos rectas consecutivas con DRS separadas por la horquilla de Curva 5 y la chicana de Curva 6-7. Premia velocidad punta y estabilidad en frenada dura.
+* **Sector 3 (Hotel y Marina):** Laberinto técnico de curvas lentas a 90° donde la tracción mecánica en 2da y 3ra marcha define el delta de la vuelta.
+
+#### B. Duelo de Constructores para el Cierre de Temporada
+* **Red Bull:** Favorito en los sectores 1 y 2 por tracción tras horquillas y velocidad de punta en las rectas gemelas con Montreal y Austria.
+* **McLaren:** Máxima consistencia en el Sector 3 gracias al agarre mecánico del chasis MCL38.
+* **Ferrari:** Candidatos a la pole position el sábado con neumáticos blandos (C5), pero vulnerables al cambio de balance durante la caída térmica nocturna.
+
+#### C. Cierre de Temporada — Franco Colapinto (Alpine #43)
+* Yas Marina es un circuito donde Colapinto cuenta con vasta experiencia previa en categorías formativas.
+* **Proyección Final:** El trazado premia la modulación de frenada y la salida limpia sin patinar en el Sector 3. Si Alpine configura una buena velocidad punta en el Sector 2 para defenderse del DRS, Colapinto cerrará el año consolidando su condición de arquetipo *Gestor de Midfield* con opciones firmes de despedirse en el **Top 10 (P8 a P10)**.
+
+---
+
+### 3. Tablero de Predicciones Concretas (Abu Dhabi 2026)
+
+| Dimensión Analizada | 🔮 Predicción UNDERTRACK (Abu Dhabi) | Fundamento Cinemático / Algorítmico |
+| :--- | :--- | :--- |
+| **Duelo por el Gran Final** | Batalla épica Verstappen vs. Norris por la última victoria del año. | Equilibrio cinemático: Red Bull domina Sector 2 y McLaren domina Sector 3. |
+| **Impacto de Caída Térmica** | Cambio de balance con subviraje en autos que no ajusten alerón delantero en pitstop. | Descenso de más de 8°C de asfalto entre el inicio crepuscular y la noche. |
+| **Estrategia Ganadora** | 1 Parada nominal: Medio (C4) $\to$ Duro (C3) entre vueltas 20 y 26. | Baja degradación en asfalto liso de Yas Marina (abrasión 3/5). |
+| **Despedida Colapinto (Alpine)** | Pelea directa con Williams (Sainz/Albon) y RB (Lawson) por el Top 10. | Fortaleza de tracción y gestión en el sector trabado del Hotel Marina. |

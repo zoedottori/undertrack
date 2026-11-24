@@ -251,24 +251,25 @@
     }
 
     /* ========================================================
-       ABANICO DE CARTAS VIVO (GSAP FAN CAROUSEL ESTILO 21ST.DEV)
+       ABANICO DE CARTAS VIVO (DOBLE ARCO COMPLEMENTARIO: PRIMEROS Y SEGUNDOS)
        ======================================================== */
     .fan-stage {
       position: relative;
-      height: 380px;
+      height: 215px;
       width: 100%;
       perspective: 1200px;
+      overflow: visible;
     }
 
     .fan-card {
       position: absolute !important;
       left: 50% !important;
       top: 50% !important;
-      margin-left: -70px !important;
-      margin-top: -120px !important;
-      width: 140px !important;
-      height: 240px !important;
-      border-radius: 18px;
+      margin-left: -55px !important;
+      margin-top: -92px !important;
+      width: 110px !important;
+      height: 185px !important;
+      border-radius: 14px;
       overflow: hidden;
       cursor: pointer;
       transform-origin: center bottom;
@@ -279,25 +280,29 @@
       user-select: none;
       background-color: #121316;
       border: 1.5px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .fan-stage-inverted .fan-card {
+      transform-origin: center top !important;
     }
 
     .fan-card.is-active {
-      box-shadow: 0 0 35px var(--team-glow, rgba(255,128,0,0.6)), 0 25px 60px rgba(0,0,0,0.7) !important;
-      border-color: var(--team-color, #ffffff) !important;
-      filter: grayscale(0%) contrast(115%) brightness(1.05) !important;
-      z-index: 50 !important;
+      box-shadow: 0 0 35px var(--team-glow, rgba(255,128,0,0.6)), 0 25px 60px rgba(0,0,0,0.7);
+      border-color: var(--team-color, #ffffff);
+      filter: grayscale(0%) contrast(115%) brightness(1.05);
     }
 
     .fan-card:not(.is-active) {
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      filter: grayscale(90%) contrast(110%) brightness(0.92);
+      filter: grayscale(85%) contrast(110%) brightness(0.92);
     }
-    .fan-card:not(.is-active):hover {
-      filter: grayscale(0%) contrast(115%) brightness(1.02);
+    .fan-card:hover,
+    .fan-card.is-hovered {
+      filter: grayscale(0%) contrast(115%) brightness(1.04) !important;
       border-color: var(--team-color, #ffffff) !important;
-      box-shadow: 0 0 32px var(--team-glow, rgba(255,255,255,0.45)), 0 20px 45px rgba(0,0,0,0.65) !important;
-      z-index: 45 !important;
+      box-shadow: 0 0 35px var(--team-glow, rgba(255,255,255,0.5)), 0 24px 50px rgba(0,0,0,0.75) !important;
+      z-index: 120 !important;
     }
 
     /* ========================================================
@@ -548,14 +553,14 @@
     /* Adaptaciones Mobile & Touch */
     @media (max-width: 640px) {
       .fan-stage {
-        height: 230px !important;
+        height: 150px !important;
       }
       .fan-card {
-        width: 82px !important;
-        height: 140px !important;
-        margin-left: -41px !important;
-        margin-top: -70px !important;
-        border-radius: 12px !important;
+        width: 66px !important;
+        height: 110px !important;
+        margin-left: -33px !important;
+        margin-top: -55px !important;
+        border-radius: 10px !important;
       }
     }
 
@@ -1622,10 +1627,10 @@
        PANTALLA 04: PILOTOS (UNDER THE HELMET)
        (ABANICO VIVO DE CARTAS CON EL SCROLL ESTILO LANDO NORRIS)
        ======================================================== -->
-  <section id="helmet" class="min-h-screen w-full flex flex-col justify-center items-center pt-24 sm:pt-28 pb-12 border-t border-hairline scroll-mt-16 relative bg-canvas">
+  <section id="helmet" class="min-h-screen w-full flex flex-col justify-center items-center pt-20 sm:pt-24 pb-6 border-t border-hairline scroll-mt-0 relative bg-canvas">
     
     <!-- CABECERA DE LA SECCIÓN (ALINEADA A LA IZQUIERDA SEGÚN EL DISEÑO ORIGINAL) -->
-    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 text-left shrink-0 mb-4 sm:mb-6">
+    <div class="w-full max-w-6xl mx-auto px-6 sm:px-10 text-left shrink-0 mb-2 sm:mb-3">
       <div class="reveal-blur">
         <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.25em] text-accentRed block mb-1">04 / PILOTOS</span>
         
@@ -1635,53 +1640,24 @@
         </h2>
 
         <p class="text-xs sm:text-sm font-[300] text-carbon/80 mt-1 sm:mt-1.5 max-w-2xl leading-relaxed">
-          Cruzamos la telemetría histórica de paradas, consistencia y degradación de neumáticos. Las cartas se despliegan en abanico: hacé click en cualquier piloto para abrir su ficha técnica interactiva.
+          paradas, consistencia y degradación de neumáticos de cada piloto. hacé click en una carta para ver su ficha técnica.
         </p>
       </div>
     </div>
 
-    <!-- CONTENEDOR CENTRAL: CENTRADO EXACTO EN EL MEDIO DE LA PANTALLA -->
-    <div class="flex flex-col items-center justify-center w-full">
-      <!-- BOTONES SELECTORES DE MAZO (PRIMER PILOTO VS SEGUNDO PILOTO POR ESCUDERÍA) -->
-      <div class="mb-3 flex flex-col items-center space-y-1.5 shrink-0">
-        
-        <div class="inline-flex p-1 bg-pureWhite border border-hairline rounded-full shadow-xs gap-1">
-          <button id="btnDeck1" onclick="switchDeck(1)" 
-                  class="btn-deck-tab is-active">
-            <span>Primeros Pilotos</span>
-          </button>
-          <button id="btnDeck2" onclick="switchDeck(2)" 
-                  class="btn-deck-tab">
-            <span>Segundo Piloto por Escudería ⇄</span>
-          </button>
-        </div>
-
-        <span class="text-[10px] sm:text-[11px] text-muted font-[400]">
-          click en cualquier carta para desplegar la ficha técnica completa
-        </span>
+    <!-- CONTENEDOR CENTRAL: AMBOS MAZOS EN COMPOSICIÓN SEMICIRCULAR COMPLEMENTARIA -->
+    <div class="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4 overflow-visible">
+      
+      <!-- ABANICO 1: PRIMEROS PILOTOS (ARCO SUPERIOR) -->
+      <div class="fan-stage relative h-[150px] sm:h-[215px] w-full overflow-visible" id="fanDeckContainer1">
+        <!-- Inyectado dinámicamente con JS -->
       </div>
 
-      <!-- ESCENARIO DEL ABANICO DE CARTAS SIMÉTRICO (SUPERPUESTAS, JUNTAS Y CENTRADAS) -->
-      <div class="relative w-full max-w-6xl mx-auto flex flex-col items-center overflow-visible">
-        <div class="fan-stage relative h-[340px] sm:h-[380px] w-full overflow-visible" id="fanDeckContainer">
-          <!-- Inyectado dinámicamente con JS -->
-        </div>
-
-        <!-- Controles de Navegación del Abanico -->
-        <div class="flex items-center justify-center gap-6 pt-3 px-4">
-          <button onclick="prevPilot()" class="btn-fan-nav">
-            <span>←</span> <span>anterior</span>
-          </button>
-
-          <div id="fanIndicators" class="flex gap-2 items-center">
-            <!-- Indicadores de puntos -->
-          </div>
-
-          <button onclick="nextPilot()" class="btn-fan-nav">
-            <span>siguiente</span> <span>→</span>
-          </button>
-        </div>
+      <!-- ABANICO 2: SEGUNDOS PILOTOS (ARCO INVERTIDO INFERIOR) -->
+      <div class="fan-stage fan-stage-inverted relative h-[150px] sm:h-[215px] w-full overflow-visible mt-6 sm:mt-10 md:mt-12" id="fanDeckContainer2">
+        <!-- Inyectado dinámicamente con JS -->
       </div>
+
     </div>
 
     <!-- ========================================================
@@ -3055,71 +3031,162 @@
       hook: "«Colapinto sabe estirar la goma dura y aprovechar el caos: su ritmo de carrera le permite avanzar hacia el Top 10 el domingo.»"
     }
   ];
-  let currentDeckId = 1;
-  let pilotsDB = deck1Pilots;
-  let activePilotIndex = 5; // Lando Norris (centro) activo por defecto como en la referencia
-  const fanStage = document.getElementById('fanDeckContainer');
-  const fanIndicators = document.getElementById('fanIndicators');
+  let activeCard = null; // Ninguna carta seleccionada de entrada (todas en gris)
+  let hoveredCard = null; // { deck: 1 | 2, index: number } | null
+
+  const fanStage1 = document.getElementById('fanDeckContainer1');
+  const fanStage2 = document.getElementById('fanDeckContainer2');
 
   // ========================================================
-  // MOTOR DEL ABANICO DE CARTAS SIMÉTRICO Y CENTRADO
-  // (11 cartas desplegadas en arco armónico exactamente como en el diseño de referencia)
+  // MOTOR DEL DOBLE ABANICO SEMICIRCULAR COMPLEMENTARIO
+  // - Deck 1: Primeros Pilotos (Arco superior)
+  // - Deck 2: Segundos Pilotos por Escudería (Arco invertido inferior)
   // ========================================================
-  function renderFanSpread(spreadFactor = 1.0) {
-    if (!fanStage || !pilotsDB.length) return;
+  function renderBothFans(spreadFactor = 1.0) {
     const winW = window.innerWidth;
     const isMobile = winW < 640;
     const isTablet = winW >= 640 && winW < 1024;
-    const centerIdx = 5; // El centro exacto de 11 cartas (Norris en mazo 1, Piastri en mazo 2)
+    const centerIdx = 5;
 
-    // Desplazamiento horizontal compacto y armónico para las 11 cartas
-    const stepX = isMobile ? 25 : (isTablet ? 46 : 58);
-    const stepRot = isMobile ? 2.4 : 3.4;
-    const curveY = isMobile ? 2.8 : 4.6;
+    const stepX = isMobile ? 22 : (isTablet ? 36 : 46);
+    const stepRot = isMobile ? 2.2 : 3.0;
+    const curveY = isMobile ? 2.0 : 3.4;
 
-    pilotsDB.forEach((p, idx) => {
-      const card = document.getElementById(`fanCard_${idx}`);
-      if (!card) return;
+    // 1. RENDER DECK 1: PRIMEROS PILOTOS (ARCO SUPERIOR)
+    if (fanStage1 && deck1Pilots.length) {
+      deck1Pilots.forEach((p, idx) => {
+        const card = document.getElementById(`fanCard_1_${idx}`);
+        if (!card) return;
 
-      const offset = idx - centerIdx; // -5 a +5
-      const rot = offset * stepRot * spreadFactor;
-      const transX = offset * stepX * spreadFactor;
-      const transY = Math.pow(Math.abs(offset), 1.25) * curveY * spreadFactor;
-      const zIndex = 30 - Math.abs(offset);
+        const offset = idx - centerIdx; // -5 a +5
+        let rot = offset * stepRot * spreadFactor;
+        let transX = offset * stepX * spreadFactor;
+        let transY = Math.pow(Math.abs(offset), 1.25) * curveY * spreadFactor;
+        let scale = 1.0;
+        let zIndex = 30 - Math.abs(offset);
 
-      card.style.display = 'block';
-      card.style.opacity = '1';
+        if (hoveredCard && hoveredCard.deck === 1) {
+          const diff = idx - hoveredCard.index;
+          if (diff === 0) {
+            transY -= (isMobile ? 20 : 34);
+            scale = isMobile ? 1.08 : 1.14;
+            rot = rot * 0.35;
+            zIndex = 120;
+          } else if (diff < 0) {
+            const dist = Math.abs(diff);
+            const push = (isMobile ? 20 : 44) + (dist - 1) * (isMobile ? 6 : 12);
+            transX -= push;
+            rot = rot * 0.75 - (isMobile ? 1.5 : 2.5);
+            transY += (isMobile ? 2 : 5);
+            zIndex = 40 + idx;
+          } else {
+            const dist = diff;
+            const push = (isMobile ? 20 : 44) + (dist - 1) * (isMobile ? 6 : 12);
+            transX += push;
+            rot = rot * 0.75 + (isMobile ? 1.5 : 2.5);
+            transY += (isMobile ? 2 : 5);
+            zIndex = 40 + (deck1Pilots.length - idx);
+          }
+        }
 
-      if (idx === activePilotIndex) {
-        card.classList.add('is-active');
-        card.style.zIndex = '100';
-        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 32).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
-      } else {
-        card.classList.remove('is-active');
-        card.style.zIndex = zIndex.toString();
-        card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.0)`;
-      }
-    });
+        card.style.display = 'block';
+        card.style.opacity = '1';
 
-    if (fanIndicators) {
-      fanIndicators.innerHTML = pilotsDB.map((p, idx) => `
-        <button onclick="handleCardClick(${idx})" id="fanDot_${idx}" 
-                class="h-2 rounded-full transition-all duration-300 ${idx === activePilotIndex ? 'bg-carbon w-5' : 'bg-carbon/20 hover:bg-carbon/50 w-2'}"
-                title="${p.name}"></button>
-      `).join('');
+        const isActive = activeCard && activeCard.deck === 1 && activeCard.index === idx;
+        if (isActive && (!hoveredCard || hoveredCard.deck !== 1)) {
+          card.classList.add('is-active');
+          card.style.zIndex = '100';
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY - 26).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
+        } else if (isActive && hoveredCard && hoveredCard.deck === 1) {
+          card.classList.add('is-active');
+          card.style.zIndex = (idx === hoveredCard.index ? '120' : zIndex.toString());
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(${scale})`;
+        } else {
+          card.classList.remove('is-active');
+          card.style.zIndex = zIndex.toString();
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(${scale})`;
+        }
+      });
+    }
+
+    // 2. RENDER DECK 2: SEGUNDOS PILOTOS (ARCO INVERTIDO INFERIOR)
+    if (fanStage2 && deck2Pilots.length) {
+      deck2Pilots.forEach((p, idx) => {
+        const card = document.getElementById(`fanCard_2_${idx}`);
+        if (!card) return;
+
+        const offset = idx - centerIdx; // -5 a +5
+        // Curvatura y rotación invertidas
+        let rot = -offset * stepRot * spreadFactor;
+        let transX = offset * stepX * spreadFactor;
+        let transY = -Math.pow(Math.abs(offset), 1.25) * curveY * spreadFactor;
+        let scale = 1.0;
+        let zIndex = 30 - Math.abs(offset);
+
+        if (hoveredCard && hoveredCard.deck === 2) {
+          const diff = idx - hoveredCard.index;
+          if (diff === 0) {
+            transY += (isMobile ? 20 : 34);
+            scale = isMobile ? 1.08 : 1.14;
+            rot = rot * 0.35;
+            zIndex = 120;
+          } else if (diff < 0) {
+            const dist = Math.abs(diff);
+            const push = (isMobile ? 20 : 44) + (dist - 1) * (isMobile ? 6 : 12);
+            transX -= push;
+            rot = rot * 0.75 + (isMobile ? 1.5 : 2.5);
+            transY -= (isMobile ? 2 : 5);
+            zIndex = 40 + idx;
+          } else {
+            const dist = diff;
+            const push = (isMobile ? 20 : 44) + (dist - 1) * (isMobile ? 6 : 12);
+            transX += push;
+            rot = rot * 0.75 - (isMobile ? 1.5 : 2.5);
+            transY -= (isMobile ? 2 : 5);
+            zIndex = 40 + (deck2Pilots.length - idx);
+          }
+        }
+
+        card.style.display = 'block';
+        card.style.opacity = '1';
+
+        const isActive = activeCard && activeCard.deck === 2 && activeCard.index === idx;
+        if (isActive && (!hoveredCard || hoveredCard.deck !== 2)) {
+          card.classList.add('is-active');
+          card.style.zIndex = '100';
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${(transY + 26).toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(1.08)`;
+        } else if (isActive && hoveredCard && hoveredCard.deck === 2) {
+          card.classList.add('is-active');
+          card.style.zIndex = (idx === hoveredCard.index ? '120' : zIndex.toString());
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(${scale})`;
+        } else {
+          card.classList.remove('is-active');
+          card.style.zIndex = zIndex.toString();
+          card.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0) rotate(${rot.toFixed(1)}deg) scale(${scale})`;
+        }
+      });
     }
   }
 
-  function createFanCards() {
-    if (!fanStage) return;
+  window.handleCardHover = function(deck, idx) {
+    if (!hoveredCard && idx === null) return;
+    if (hoveredCard && hoveredCard.deck === deck && hoveredCard.index === idx) return;
+    hoveredCard = idx === null ? null : { deck, index: idx };
+    renderBothFans(1.0);
+  };
 
-    fanStage.innerHTML = pilotsDB.map((p, idx) => {
+  function createAllFanCards() {
+    const stage1 = document.getElementById('fanDeckContainer1');
+    const stage2 = document.getElementById('fanDeckContainer2');
+
+    function buildCardHtml(p, idx, deckNum) {
       const dorsalNum = (p.dorsal || '').replace('#', '');
       const teamSlug = (p.team || '').split(' ')[0].toUpperCase();
       return `
         <div class="fan-card overflow-hidden shadow-xl cursor-pointer bg-zinc-950 group" 
-             id="fanCard_${idx}" 
-             onclick="handleCardClick(${idx})"
+             id="fanCard_${deckNum}_${idx}" 
+             onclick="handleCardClick(${deckNum}, ${idx})"
+             onmouseenter="handleCardHover(${deckNum}, ${idx})"
              style="--team-color: ${p.teamColor}; --team-glow: ${p.teamGlow};">
           
           <!-- FOTO EN BLANCO Y NEGRO PURO EN FORMATO PÓKER -->
@@ -3127,7 +3194,7 @@
           
           <!-- ÍNDICE DE NAIPE PÓKER: ESQUINA SUPERIOR IZQUIERDA (DORSAL + PUNTO DE ESCUDERÍA) -->
           <div class="absolute top-2 left-2 z-20 flex flex-col items-center leading-none pointer-events-none bg-black/60 backdrop-blur-md px-1.5 py-1 rounded-md border border-white/10">
-            <span class="font-mono font-[900] text-[10px] sm:text-xs text-pureWhite tracking-tighter">${dorsalNum}</span>
+            <span class="font-mono font-[900] text-[9px] sm:text-[10px] text-pureWhite tracking-tighter">${dorsalNum}</span>
             <span class="w-1.5 h-1.5 rounded-full mt-0.5" style="background-color: ${p.teamColor}; box-shadow: 0 0 6px ${p.teamColor};"></span>
           </div>
 
@@ -3135,7 +3202,7 @@
           <div class="absolute top-0 inset-x-0 h-1 transition-all z-20" style="background-color: ${p.teamColor};"></div>
 
           <!-- SIGLA INFERIOR DEL EQUIPO: ESQUINA INFERIOR DERECHA -->
-          <div class="absolute bottom-2 right-2 z-20 pointer-events-none bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-mono font-[800] uppercase text-white/80 border border-white/10">
+          <div class="absolute bottom-2 right-2 z-20 pointer-events-none bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[7px] sm:text-[8px] font-mono font-[800] uppercase text-white/80 border border-white/10">
             ${teamSlug}
           </div>
 
@@ -3143,59 +3210,33 @@
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25 pointer-events-none"></div>
         </div>
       `;
-    }).join('');
-
-    renderFanSpread(1.0);
-  }
-
-  window.handleCardClick = function(idx) {
-    activePilotIndex = idx;
-    renderFanSpread(1.0);
-    openPilotModal(pilotsDB[idx]);
-  };
-
-  window.prevPilot = function() {
-    if (activePilotIndex === -1) activePilotIndex = 5;
-    else activePilotIndex = (activePilotIndex - 1 + pilotsDB.length) % pilotsDB.length;
-    renderFanSpread(1.0);
-  };
-
-  window.nextPilot = function() {
-    if (activePilotIndex === -1) activePilotIndex = 5;
-    else activePilotIndex = (activePilotIndex + 1) % pilotsDB.length;
-    renderFanSpread(1.0);
-  };
-
-  window.goToCard = function(targetIdx) {
-    activePilotIndex = targetIdx;
-    renderFanSpread(1.0);
-  };
-
-  window.switchDeck = function(deckId) {
-    if (currentDeckId === deckId) return;
-    currentDeckId = deckId;
-
-    const btn1 = document.getElementById('btnDeck1');
-    const btn2 = document.getElementById('btnDeck2');
-
-    [btn1, btn2].forEach(b => {
-      if (b) b.className = "btn-deck-tab";
-    });
-
-    if (deckId === 1) {
-      pilotsDB = deck1Pilots;
-      if (btn1) btn1.classList.add('is-active');
-    } else if (deckId === 2) {
-      pilotsDB = deck2Pilots;
-      if (btn2) btn2.classList.add('is-active');
     }
 
-    activePilotIndex = 5; // Volver al centro
-    createFanCards();
+    if (stage1) {
+      stage1.innerHTML = deck1Pilots.map((p, idx) => buildCardHtml(p, idx, 1)).join('');
+      stage1.onmouseleave = () => handleCardHover(1, null);
+    }
+    if (stage2) {
+      stage2.innerHTML = deck2Pilots.map((p, idx) => buildCardHtml(p, idx, 2)).join('');
+      stage2.onmouseleave = () => handleCardHover(2, null);
+    }
+
+    renderBothFans(1.0);
+  }
+
+  window.handleCardClick = function(deck, idx) {
+    activeCard = { deck, index: idx };
+    renderBothFans(1.0);
+    const p = (deck === 1 ? deck1Pilots : deck2Pilots)[idx];
+    if (p) openPilotModal(p);
   };
 
+  // Compatibilidad hacia atrás
+  const renderFanSpread = renderBothFans;
+  const createFanCards = createAllFanCards;
+
   window.addEventListener('resize', () => {
-    renderFanSpread(1.0);
+    renderBothFans(1.0);
   });
 
   // MOTOR DE APERTURA DEL FICHERO VIDRIOSO ELEGANTE (FROSTED GLASS BLUR)
@@ -3265,7 +3306,19 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }, 200);
+
+    // Volver al estado de gris una vez ya visto el pop up
+    activeCard = null;
+    hoveredCard = null;
+    renderBothFans(1.0);
   };
+
+  // Soporte para cerrar con tecla Escape y volver a gris
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closePilotModal();
+    }
+  });
 
   window.copyPilotHook = function() {
     const text = document.getElementById('pilotHook');
@@ -3413,9 +3466,9 @@
   if (initEl1) initEl1.textContent = "";
   if (initEl2) initEl2.textContent = "";
 
-  // INICIALIZACIÓN DEL ABANICO DE CARTAS SIMÉTRICO Y CENTRADO
-  createFanCards();
-  renderFanSpread(1.0);
+  // INICIALIZACIÓN DEL DOBLE ABANICO SEMICIRCULAR COMPLEMENTARIO
+  createAllFanCards();
+  renderBothFans(1.0);
 
 // 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
     window.addEventListener('scroll', () => {
