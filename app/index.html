@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNDERTRACK // RONDA 22 LAS VEGAS</title>
+  <title>UNDERTRACK // RONDA 24 ABU DHABI</title>
 
   <!-- Tipografía Inter pura (100 a 900) y Tipografía Manuscrita Caveat (thin a bold) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -542,7 +542,14 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-      @keyframes spinSlow {
+    .circuit-spotlight-overlay {
+      color: #d4ff32;
+      -webkit-mask-image: radial-gradient(circle 65px at var(--spot-x, -200px) var(--spot-y, -200px), #000 0%, rgba(0,0,0,0.85) 45%, transparent 78%);
+      mask-image: radial-gradient(circle 65px at var(--spot-x, -200px) var(--spot-y, -200px), #000 0%, rgba(0,0,0,0.85) 45%, transparent 78%);
+      transition: opacity 0.22s ease;
+    }
+
+    @keyframes spinSlow {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
@@ -692,10 +699,10 @@
   <div class="fixed top-5 left-0 right-0 z-50 px-5 sm:px-8 pointer-events-none">
     <header id="mainHeaderPill" class="header-dark-mode w-[94%] sm:w-full max-w-5xl mx-auto h-12 sm:h-14 bg-pureWhite/90 pill-blur border border-hairline rounded-full px-4 sm:px-8 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] pointer-events-auto transition-all duration-300">
       
-      <!-- Marca: RONDA 22 en mayúscula completa -->
+      <!-- Marca: RONDA 24 en mayúscula completa -->
       <a href="#" class="flex items-baseline gap-1.5 group">
         <span class="logo-title font-[900] text-sm tracking-tighter uppercase text-carbon transition-colors">undertrack</span>
-        <span class="logo-sub font-[700] text-xs text-muted uppercase tracking-wider transition-colors">/ RONDA 22</span>
+        <span class="logo-sub font-[700] text-xs text-muted uppercase tracking-wider transition-colors">/ RONDA 24</span>
       </a>
 
       <!-- Navegación con la nomenclatura y orden preferido -->
@@ -723,10 +730,12 @@
        ======================================================== -->
   <div class="relative w-full bg-pureWhite">
     
-    <!-- CONTENEDOR DE LA IMAGEN DE PORTADA FONDOVEGAS.JPEG (ENCUADRE RESPONSIVE CELULAR & DESKTOP) -->
-    <div class="relative w-full h-[100dvh] lg:h-screen overflow-hidden bg-carbon">
-      <img src="assets/fondos/fondovegas.jpeg" alt="Fondo Las Vegas Strip Portada" 
-           class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
+    <!-- CONTENEDOR DEL VIDEO DE PORTADA COSMOS.MP4 (ENCUADRE RESPONSIVE CELULAR & DESKTOP) -->
+    <div class="relative w-full h-[100dvh] lg:h-screen overflow-hidden bg-[#0A0A0C]">
+      <video src="assets/fondos/cosmos.mp4" autoplay loop muted playsinline preload="auto"
+             class="absolute inset-0 w-full h-full object-cover object-center opacity-45 brightness-75 select-none pointer-events-none"></video>
+      <!-- Capa de oscurecimiento general para máximo contraste del timer -->
+      <div class="absolute inset-0 bg-black/45 pointer-events-none z-[5]"></div>
       <!-- Viñeta sutil en la parte superior para garantizar legibilidad del hero -->
       <div class="absolute top-0 inset-x-0 h-44 bg-gradient-to-b from-black/85 via-black/40 to-transparent pointer-events-none z-10"></div>
 
@@ -734,7 +743,7 @@
       <div class="absolute bottom-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-b from-transparent via-pureWhite/65 to-pureWhite pointer-events-none z-10"></div>
 
       <!-- PANTALLA 01: EL HOOK TIMER (SUPERPUESTO SIEMPRE SOBRE LA IMAGEN EN CELULAR Y DESKTOP) -->
-      <section id="hero" class="absolute inset-0 w-full h-full flex flex-col justify-between overflow-hidden select-none text-pureWhite z-20">
+      <section id="hero" class="absolute inset-0 w-full h-full flex flex-col justify-between overflow-hidden select-text text-pureWhite z-20">
         
         <!-- CONTENEDOR INTERNO DE CONTENIDO EDITORIAL CON PADDING RESPONSIVE -->
         <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-12 pt-20 sm:pt-28 pb-6 sm:pb-8 h-full flex flex-col justify-between">
@@ -742,7 +751,7 @@
           <!-- Meta superior alineado -->
           <div class="flex items-baseline justify-between text-xs tracking-tight shrink-0">
             <div class="text-white/80 font-[700] uppercase tracking-wider">
-              RONDA 22 - DOMINGO, 22 NOVIEMBRE, 01:00hs
+              RONDA 24 - DOMINGO, 6 DICIEMBRE, 10:00hs
             </div>
             <div class="flex items-center gap-2 text-[#d4ff32] font-[800] uppercase tracking-wider text-xs hidden sm:flex select-none">
               <span class="w-2 h-2 rounded-full bg-[#d4ff32] shadow-[0_0_8px_#d4ff32] animate-neon-delicate"></span>
@@ -779,9 +788,14 @@
                 <!-- GRUPO MINUTOS + SEGUNDOS: CON EL NOMBRE DEL CIRCUITO EN SQUARE PEG CENTRADO ENTRE AMBOS -->
                 <div class="relative flex items-baseline">
                   
-                  <!-- Nombre del circuito en Square Peg entre minutos y segundos (por arriba del timer y superpuesto, fino y delicado) -->
-                  <div class="absolute -top-4 sm:-top-5 md:-top-6 left-1/2 -translate-x-1/2 w-max text-center font-square font-[300] text-[clamp(1.15rem,2.4vw,2.25rem)] text-white/90 leading-none tracking-wide select-none pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)] whitespace-nowrap z-30">
-                    Las Vegas Strip Circuit, Las Vegas
+                  <!-- Nombre del circuito en Square Peg agrandado y superpuesto sobre el timer con efecto linterna -->
+                  <div id="heroCircuitTitle"
+                       class="absolute -top-2 sm:-top-3 md:-top-4 left-1/2 -translate-x-1/2 w-max text-center font-square font-[300] text-[clamp(1.85rem,4.4vw,4.25rem)] text-white/90 leading-none tracking-wide select-none pointer-events-auto cursor-default drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] whitespace-nowrap z-30 px-2 py-1">
+                    <span>Yas Marina Circuit, Abu Dhabi</span>
+                    <span id="heroCircuitSpotlight" aria-hidden="true"
+                          class="circuit-spotlight-overlay absolute inset-0 px-2 py-1 opacity-0 pointer-events-none drop-shadow-[0_0_12px_rgba(212,255,50,0.55)]">
+                      Yas Marina Circuit, Abu Dhabi
+                    </span>
                   </div>
 
                   <!-- MINUTOS -->
@@ -831,14 +845,19 @@
     </div>
 
     <!-- PANTALLA 02: PANTALLA BLANCA DE TRANSICIÓN ESCÉNICA (TÍTULO ANCLADO Y JERARQUÍA MEJORADA) -->
-    <section id="transition" class="relative w-full h-[300vh] bg-pureWhite text-carbon select-none">
+    <section id="transition" class="relative w-full h-[300vh] bg-pureWhite text-carbon select-text">
       
       <!-- CONTENEDOR STICKY: MANTIENE LA PANTALLA EN BLANCO TOTAL MIENTRAS SE SCROLLEA LA ETAPA -->
       <div class="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-6 sm:px-12 bg-pureWhite pt-20 sm:pt-28 pb-12">
         
-        <!-- CAPA 1: LA PREGUNTA CINÉTICA CON EL SCROLL -->
+        <!-- FONDO SUTIL PARA "NO ES SOLO VELOCIDAD" (SOLO VISIBLE EN CAPA 2, PREDOMINA EL BLANCO) -->
+        <div id="transNoVelocidadBg" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 select-none">
+          <img src="assets/fondos/no es velocidad.webp" alt="" class="w-full h-full object-cover object-center opacity-[0.08] select-none pointer-events-none">
+        </div>
+
+        <!-- CAPA 1: LA PREGUNTA CINÉTICA CON EL SCROLL (FONDO BLANCO PURO) -->
         <div id="transQuestionWrap" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none w-full px-6 overflow-visible will-change-transform opacity-0 pt-16 sm:pt-20">
-          <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] uppercase leading-[1.04] tracking-tight text-carbon select-none text-center max-w-4xl mx-auto">
+          <h2 class="font-[900] text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] uppercase leading-[1.04] tracking-tight text-carbon text-center max-w-4xl mx-auto">
             ¿HAY OTRA MANERA DE<br>
             CLASIFICAR UN CIRCUITO<br>
             <span class="font-[300] text-muted lowercase text-xl sm:text-2xl md:text-3xl lg:text-[2.4rem] tracking-normal inline-block mt-3 sm:mt-4">
@@ -848,12 +867,12 @@
         </div>
 
         <!-- CAPA 2: TEXTO EDITORIAL COMPLEMENTARIO (JERARQUÍA TIPOGRÁFICA DOMINANTE) -->
-        <div id="transSecondaryWrap" class="relative z-10 max-w-3xl mx-auto px-4 text-center space-y-8 opacity-0 will-change-transform pointer-events-none transition-all duration-300 my-auto">
+        <div id="transSecondaryWrap" class="relative z-10 max-w-4xl mx-auto px-4 text-center space-y-8 opacity-0 will-change-transform pointer-events-none transition-all duration-300 my-auto">
           
-          <!-- Frase cinética con tachado en minúscula con fuerte impacto visual -->
-          <div class="py-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xl sm:text-3xl md:text-4xl font-[900] tracking-tight">
-            <span class="text-carbon/40 line-through decoration-accentRed decoration-3 sm:decoration-4">no es solo velocidad</span>
-            <span class="text-accentRed font-[900] text-2xl sm:text-4xl">➔</span>
+          <!-- Frase cinética con tachado en gris claro y tipografía aumentada -->
+          <div class="py-2 flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-2xl sm:text-4xl md:text-5xl font-[900] tracking-tight">
+            <span class="text-neutral-400 line-through decoration-neutral-400/75 decoration-3 sm:decoration-4">no es solo velocidad</span>
+            <span class="text-neutral-400 font-[700] text-2xl sm:text-4xl md:text-5xl">➔</span>
             <span class="text-carbon font-[900]">es geometría y física</span>
           </div>
 
@@ -865,7 +884,7 @@
           <!-- Botón de avance hacia superficie -->
           <div class="pt-2">
             <a href="#surface" class="inline-flex items-center gap-2 text-sm sm:text-base font-[700] text-accentRed hover:text-carbon lowercase tracking-tight transition-colors group">
-              <span>ver el circuito de las vegas</span>
+              <span>ver el circuito de abu dhabi</span>
               <span class="text-base transition-transform group-hover:translate-y-1">↓</span>
             </a>
           </div>
@@ -878,13 +897,13 @@
 
   </div>
 
-<section id="surface" class="relative w-full h-[360vh] bg-[#000000] text-pureWhite select-none scroll-mt-0">
+<section id="surface" class="relative w-full h-[360vh] bg-[#000000] text-pureWhite select-text scroll-mt-0">
     
     <!-- ESCENARIO PINNED STICKY QUE MANTIENE CIRCUITO_VEGAS CONTINUO EN EL VIEWPORT -->
     <div class="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-6 sm:pb-8">
       
-      <!-- Fondo: circuito_vegas.jpeg continuo y fijo en el viewport con encuadre original -->
-      <img src="assets/circuitos/circuito_vegas.jpeg" alt="Las Vegas Strip Circuit Fondo" 
+      <!-- Fondo: abu dabi.png continuo y fijo en el viewport -->
+      <img src="assets/circuitos/abu dabi.png" alt="Yas Marina Circuit Abu Dhabi Fondo" 
            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
       
       <!-- Viñeta suave de contraste analógico -->
@@ -897,7 +916,7 @@
         <div class="text-left shrink-0 mb-1 sm:mb-2">
           <span class="text-[10px] sm:text-[11px] uppercase font-mono font-[800] tracking-[0.2em] text-[#d4ff32] block mb-1 drop-shadow-md">01 / SUPERFICIE</span>
           <h2 class="font-[900] text-2xl sm:text-4xl md:text-5xl uppercase leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            LAS VEGAS STRIP CIRCUIT
+            YAS MARINA CIRCUIT
           </h2>
         </div>
 
@@ -911,15 +930,15 @@
                 DATOS DE COLOR &amp; HITOS DE LA PISTA
               </span>
 
-              <!-- Hito 01: EL STRIP A TODA VELOCIDAD -->
+              <!-- Hito 01: RECTA TRASERA Y DOBLE DRS -->
               <div id="surfaceHito1" class="space-y-0.5 group opacity-0 will-change-transform">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
                   <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">01. EL STRIP A TODA VELOCIDAD</h5>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">01. RECTA TRASERA &amp; DOBLE DRS</h5>
                 </div>
                 <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                  Una recta de aproximadamente 2 kilómetros atraviesa el corazón de Las Vegas. Los monoplazas superan los 346 km/h y alcanzan velocidades máximas cercanas a los 370 km/h.
+                  Una recta de 1.2 kilómetros conecta la horquilla de Curva 5 con la frenada de Curva 6. Con doble zona de DRS, los autos superan los 335 km/h en el principal punto de sobrepaso.
                 </p>
                 <div class="pl-4 pt-0.5">
                   <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
@@ -928,36 +947,36 @@
                 </div>
               </div>
 
-              <!-- Hito 02: UNA CARRERA BAJO CERO -->
+              <!-- Hito 02: CREPÚSCULO EN YAS ISLAND -->
               <div id="surfaceHito2" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
                   <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">02. UNA CARRERA BAJO CERO</h5>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">02. DEL SOL A LA NOCHE</h5>
                 </div>
                 <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                  La carrera se disputa de noche, con temperaturas ambientales previstas de entre 10 y 15 °C. El frío dificulta mantener los neumáticos en su ventana óptima de funcionamiento.
+                  La carrera larga al atardecer con el asfalto a ~42 °C y termina bajo los reflectores cerca de los 31 °C. El balance aerodinámico cambia vuelta a vuelta.
                 </p>
                 <div class="pl-4 pt-0.5">
                   <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
-                    desafío térmico nocturno
+                    transición térmica crepuscular
                   </span>
                 </div>
               </div>
 
-              <!-- Hito 03: POCO AGARRE, MUCHA EXIGENCIA -->
+              <!-- Hito 03: TRACCIÓN EN EL SECTOR 3 -->
               <div id="surfaceHito3" class="space-y-0.5 group pt-1 opacity-0 will-change-transform">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full border border-white bg-white shrink-0 shadow-[0_0_6px_rgba(255,255,255,0.8)]"></div>
                   <div class="w-6 h-[1px] bg-white/40 shrink-0"></div>
-                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">03. POCO AGARRE, MUCHA EXIGENCIA</h5>
+                  <h5 class="text-[11px] sm:text-xs font-[800] uppercase text-white tracking-wide drop-shadow-md">03. SECTOR HOTEL Y TRACCIÓN</h5>
                 </div>
                 <p class="text-[10px] sm:text-[11px] font-[300] text-white/80 leading-relaxed pl-4 drop-shadow-sm">
-                  El asfalto urbano presenta poco grip inicial y acumula polvo y arena al reabrirse al tránsito. Las largas rectas y las fuertes frenadas también pueden favorecer la aparición de graining.
+                  Las curvas lentas alrededor de la marina y el hotel W castigan el tren trasero al acelerar en 2ª marcha. Con abrasión media (3/5), proteger la goma trasera define el último stint.
                 </p>
                 <div class="pl-4 pt-0.5">
                   <span class="inline-block text-[9px] font-[500] text-white/50 lowercase tracking-wider drop-shadow-sm">
-                    adherencia y superficie
+                    tracción y degradación trasera
                   </span>
                 </div>
               </div>
@@ -976,15 +995,15 @@
                   </span>
                 </div>
 
-                <!-- RECTA STRIP -->
+                <!-- RECTA TRASERA -->
                 <div class="space-y-0.5">
                   <div class="flex items-baseline justify-between">
                     <div>
-                      <span class="text-xs font-[800] uppercase text-white block">RECTA STRIP</span>
-                      <span class="text-[10px] text-white/60">aproximadamente 2 km</span>
+                      <span class="text-xs font-[800] uppercase text-white block">RECTA TRASERA</span>
+                      <span class="text-[10px] text-white/60">doble zona DRS</span>
                     </div>
                     <div class="text-right">
-                      <span class="font-[900] text-xl text-[#d4ff32]">~2</span><span class="text-xs font-[700] text-[#d4ff32] ml-0.5">km</span>
+                      <span class="font-[900] text-xl text-[#d4ff32]">1.2</span><span class="text-xs font-[700] text-[#d4ff32] ml-0.5">km</span>
                     </div>
                   </div>
                 </div>
@@ -994,14 +1013,14 @@
                   <div class="flex items-baseline justify-between">
                     <div>
                       <span class="text-xs font-[800] uppercase text-white block">FRENADA</span>
-                      <span class="text-[10px] text-white/60">3/5 · Brembo (exigencia media)</span>
+                      <span class="text-[10px] text-white/60">4/5 · Horquillas C6 y C9</span>
                     </div>
                     <div class="flex items-center gap-1 font-mono text-[#d4ff32]">
-                      <span class="font-[900] text-sm">3 / 5</span>
+                      <span class="font-[900] text-sm">4 / 5</span>
                       <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
                       <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
                       <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
-                      <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                      <span class="w-2 h-2 rounded-full bg-[#d4ff32]"></span>
                       <span class="w-2 h-2 rounded-full bg-white/20"></span>
                     </div>
                   </div>
@@ -1017,20 +1036,20 @@
         <div class="w-full max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center relative z-30 bg-black/60 border border-white/10 rounded-2xl backdrop-blur-md py-3 sm:py-4 px-6 sm:px-10 shrink-0">
           <div class="py-1">
             <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">LONGITUD</span>
-            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">6.201<span class="text-xs sm:text-sm font-[600] text-white/70 ml-1">km</span></div>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">5.281<span class="text-xs sm:text-sm font-[600] text-white/70 ml-1">km</span></div>
           </div>
           <div class="py-1">
             <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">VUELTAS</span>
-            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">50</div>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">58</div>
           </div>
           <div class="py-1">
             <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">CURVAS</span>
-            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">17</div>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-[900] text-white font-mono tracking-tight leading-none">16</div>
           </div>
           <div class="py-1">
-            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">RÉCORD OFICIAL</span>
-            <div class="text-sm sm:text-base md:text-lg font-[900] text-white font-mono tracking-tight leading-tight">1:33.365</div>
-            <span class="text-[9px] uppercase tracking-wider text-[#d4ff32] font-mono block mt-0.5 font-[700]">MAX VERSTAPPEN · 2025</span>
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-mono font-[700] block mb-0.5">VUELTA RÁPIDA</span>
+            <div class="text-sm sm:text-base md:text-lg font-[900] text-white font-mono tracking-tight leading-tight">1:25.637</div>
+            <span class="text-[9px] uppercase tracking-wider text-[#d4ff32] font-mono block mt-0.5 font-[700]">KEVIN MAGNUSSEN · 2024</span>
           </div>
         </div>
 
@@ -1088,10 +1107,10 @@
               </div>
             </div>
 
-            <!-- FAMILIA 02: STOP-AND-GO (SEDE LAS VEGAS STRIP DESTACADO) -->
+            <!-- FAMILIA 02: STOP-AND-GO (SEDE YAS MARINA DESTACADO) -->
             <div id="familyCard2" class="group bg-[#121316]/95 hover:bg-[#18191d] p-5 sm:p-6 rounded-2xl border-2 border-[#d4ff32] flex flex-col justify-between relative overflow-hidden shadow-[0_0_35px_rgba(212,255,50,0.25)] backdrop-blur-md transition-all duration-300">
               <div class="absolute top-0 right-0 bg-[#d4ff32] text-black text-[10px] font-[900] px-3.5 py-1 uppercase rounded-bl-lg tracking-wider">
-                las vegas
+                abu dhabi
               </div>
               <div class="space-y-2.5">
                 <span class="text-[#d4ff32] block text-[11px] font-[800] uppercase tracking-wider">familia 02</span>
@@ -1111,13 +1130,13 @@
                   <span class="text-[9px] text-[#d4ff32]/70 font-mono">8 en grupo</span>
                 </div>
                 <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2 py-0.5 rounded bg-[#d4ff32]/20 text-[#d4ff32] border border-[#d4ff32]/40 font-[800] text-[10px] font-mono">Las Vegas Strip (Sede)</span>
-                  <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Monza</span>
-                  <span class="px-2 py-0.5 rounded bg-[#C084FC]/20 text-[#C084FC] border border-[#C084FC]/40 font-[700] text-[10px] font-mono transition-all">Baku City ★</span>
+                  <span class="px-2 py-0.5 rounded bg-[#d4ff32]/20 text-[#d4ff32] border border-[#d4ff32]/40 font-[800] text-[10px] font-mono">Yas Marina (Sede)</span>
+                  <span class="px-2 py-0.5 rounded bg-[#C084FC]/20 text-[#C084FC] border border-[#C084FC]/40 font-[700] text-[10px] font-mono transition-all">Monza ★</span>
+                  <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Las Vegas Strip</span>
+                  <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Baku City</span>
                   <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Albert Park</span>
                   <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Montreal</span>
                   <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Miami</span>
-                  <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Yas Marina</span>
                   <span class="px-2 py-0.5 rounded bg-white/5 group-hover:bg-white/15 border border-white/10 group-hover:border-white/30 text-[10px] font-mono text-zinc-300 group-hover:text-white transition-all">Red Bull Ring</span>
                 </div>
               </div>
@@ -1198,7 +1217,7 @@
        - Fondo Verde Oliva #778562 con degradés suaves superior e inferior
        - Hook editorial informal y limpio (sin austin, sin botón, sin telemetría duplicada)
        ======================================================== -->
-  <section id="transition-weather" class="relative w-full min-h-screen bg-[#778562] text-pureWhite overflow-hidden select-none scroll-mt-0 flex flex-col justify-center items-center py-36 sm:py-52 px-6 sm:px-12">
+  <section id="transition-weather" class="relative w-full min-h-screen bg-[#778562] text-pureWhite overflow-hidden select-text scroll-mt-0 flex flex-col justify-center items-center py-36 sm:py-52 px-6 sm:px-12">
     
     <!-- GRADIENTE SUPERIOR: NACE DEL NEGRO DE SUPERFICIE Y SE FUNDE CON EL VERDE -->
     <div class="absolute top-0 inset-x-0 h-44 sm:h-64 bg-gradient-to-b from-[#000000] via-[#000000]/60 to-transparent pointer-events-none z-20"></div>
@@ -1224,17 +1243,17 @@
         </span>
         <!-- 3. Square Peg cursiva manuscrita contrastante -->
         <span class="block font-square text-4xl sm:text-6xl md:text-7xl lg:text-[5.4rem] text-white/95 lowercase tracking-normal leading-[1.05] my-2 sm:my-3 select-none -rotate-1">
-          que hace 10°c en el desierto?
+          que el asfalto cae 11°c en carrera?
         </span>
         <!-- 4. Inter 900 con acento en verde flúor #d4ff32 (TAMAÑO MÁS BAJO Y EDITORIAL) -->
         <span class="block font-[900] text-base sm:text-xl md:text-2xl lg:text-[1.85rem] text-[#d4ff32] tracking-tight uppercase leading-[1.1] mt-3 sm:mt-4 drop-shadow-[0_0_20px_rgba(212,255,50,0.35)]">
-          ASFALTO A 12°C: LA TRAMPA DEL GRAINING.
+          DE 42°C A 31°C: EL GIRO CREPUSCULAR.
         </span>
       </h2>
 
       <!-- BAJADA EDITORIAL -->
       <p class="max-w-xl mx-auto text-xs sm:text-sm md:text-base font-[300] text-white/85 lowercase leading-relaxed pt-2">
-        en el desierto de mojave la madrugada congela los neumáticos: 1.9 km a más de 345 km/h subenfrían el caucho y la frenada de curva 14 se vuelve una ruleta rusa.
+        en yas island la largada es con sol y el final de noche: el asfalto cae más de 10°c durante las 58 vueltas y cambia el agarre trasero en cada stint.
       </p>
 
     </div>
@@ -1250,7 +1269,7 @@
        - Primera vista casi vacía con apenas el primer bloque asomándose
        - Amplio espacio entre bloques para máxima elegancia y legibilidad
        ======================================================== -->
-  <section id="pressure" class="relative w-full h-[340vh] bg-[#778562] text-pureWhite select-none scroll-mt-0">
+  <section id="pressure" class="relative w-full h-[340vh] bg-[#778562] text-pureWhite select-text scroll-mt-0">
     
     <!-- GRADIENTE SUPERIOR DE INTEGRACIÓN CON LA TRANSICIÓN -->
     <div class="absolute top-0 inset-x-0 h-32 sm:h-44 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-20"></div>
@@ -1275,12 +1294,12 @@
 
         <div class="flex items-center gap-3">
           <div class="hidden sm:flex items-center gap-2 text-[10px] font-mono text-white/70 uppercase">
-            <span>noche desértica</span>
+            <span>atardecer yas island</span>
             <span class="text-[#d4ff32]">·</span>
-            <span class="text-white font-[700]">10°c aire / 12°c asfalto</span>
+            <span class="text-white font-[700]">27°c aire / 42°c→31°c asfalto</span>
           </div>
           <div class="flex items-center gap-2 bg-[#d4ff32] text-[#111114] text-[11px] font-[900] px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-md">
-            <span>r22 las vegas</span>
+            <span>r24 abu dhabi</span>
           </div>
         </div>
       </div>
@@ -1510,27 +1529,27 @@
           03 / GEMELO CINEMÁTICO
         </span>
         <h2 class="font-[900] text-3xl sm:text-5xl lg:text-6xl uppercase leading-[1.02] tracking-tight text-carbon">
-          LAS VEGAS Y BAKÚ COMPARTEN ADN
+          YAS MARINA Y MONZA COMPARTEN ADN
         </h2>
         <p class="text-xs sm:text-sm font-[300] text-carbon/75 leading-tight pt-2 max-w-2xl">
-          trazados espejo: aceleración continua a fondo en rectas kilométricas seguidas de frenadas salvajes a 90° con alerones ultra-planos.
+          trazados espejo: misma familia stop-and-go con aceleraciones largas seguidas de frenadas fuertes 4/5 y compromiso entre baja resistencia al avance y tracción.
         </p>
       </div>
 
       <!-- COMPARATIVA EN 3 COLUMNAS: REVELACIÓN PROGRESIVA Y GENEROSA RESPIRACIÓN -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center my-auto py-12 sm:py-16">
         
-        <!-- PASO 1: LAS VEGAS / STRIP CIRCUIT (REVELACIÓN INICIAL) -->
+        <!-- PASO 1: YAS MARINA (REVELACIÓN INICIAL) -->
         <div id="gemeloColInterlagos" class="lg:col-span-5 flex flex-col justify-between relative group opacity-0 translate-y-8 transition-all duration-700 ease-out">
           <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end">
             <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
-              LAS<br>VEGAS
+              YAS<br>MARINA
             </h3>
             
             <!-- CONTENEDOR ESCRITO LETRA POR LETRA EN VERDE FLÚOR -->
             <div id="typewriterInterlagos" 
                  class="font-caveat font-[700] text-3xl sm:text-4xl md:text-5xl absolute -top-2 sm:-top-4 left-0 lg:left-2 select-none pointer-events-none z-20 leading-none text-[#111114] bg-[#d4ff32] px-3.5 py-1 rounded-xl shadow-[0_4px_25px_rgba(212,255,50,0.7)] border border-black/15 whitespace-nowrap">
-              Las Vegas Strip
+              Yas Marina
             </div>
           </div>
 
@@ -1538,12 +1557,12 @@
           <div class="mt-8 sm:mt-12 space-y-4">
             <div class="flex items-center gap-2">
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
-                1.9 KM DE RECTA INFINITA
+                1.2 KM RECTA &amp; DOBLE DRS
               </strong>
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4ff32] text-black font-[900] shadow-xs">352 km/h</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#d4ff32] text-black font-[900] shadow-xs">336 km/h</span>
             </div>
             <p class="text-xs sm:text-sm font-[300] text-carbon/80 leading-relaxed max-w-sm">
-              el boulevard del strip exige configurar alerones de mínimo drag y castiga la refrigeración de gomas antes de la curva 14.
+              yas marina combina dos zonas de drs en recta trasera con frenadas de alta severidad (4/5) en curvas 6 y 9 y tracción lenta en el hotel.
             </p>
           </div>
 
@@ -1552,7 +1571,7 @@
               <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
               Trazado Anfitrión
             </span>
-            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 22 · 50 Vueltas</span>
+            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 24 · 58 Vueltas</span>
           </div>
         </div>
 
@@ -1581,35 +1600,35 @@
           </span>
         </div>
 
-        <!-- PASO 2: BAKU / CITY CIRCUIT (SE REVELA DESPUÉS DE LAS VEGAS) -->
+        <!-- PASO 2: MONZA (SE REVELA DESPUÉS DE YAS MARINA) -->
         <div id="gemeloColRedBull" class="lg:col-span-5 flex flex-col justify-between relative group text-left lg:text-right opacity-0 translate-y-8 transition-all duration-700 ease-out">
           <div class="relative h-[110px] sm:h-[135px] flex flex-col justify-end items-start lg:items-end">
             <h3 class="font-[900] text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-carbon leading-[0.85] select-none z-10">
-              BAKU<br>CITY
+              MONZA<br>GP
             </h3>
             
             <!-- CONTENEDOR ESCRITO EN LILA ELEGANTE Y DE ALTA LEGIBILIDAD -->
             <div id="typewriterRedBull" 
                  class="font-caveat font-[700] text-3xl sm:text-4xl md:text-5xl absolute -top-2 sm:-top-4 right-0 lg:right-2 select-none pointer-events-none z-20 leading-none text-[#0A0A0C] bg-[#C084FC] px-4 py-1.5 rounded-xl shadow-[0_4px_25px_rgba(192,132,252,0.45)] border border-black/10 whitespace-nowrap">
-              Baku City Circuit
+              Monza
             </div>
           </div>
 
           <!-- BLOQUE DE DATOS CON AIRE Y RESPIRACIÓN EXPANSIVA -->
           <div class="mt-8 sm:mt-12 space-y-4">
             <div class="flex items-center gap-2 justify-start lg:justify-end">
-              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#C084FC] text-black font-[900] shadow-xs">2.2 km recta</span>
+              <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#C084FC] text-black font-[900] shadow-xs">76% gas a fondo</span>
               <strong class="font-[900] text-carbon uppercase text-sm tracking-wider">
-                VELOCIDAD PUNTA & FRENADA 90°
+                STOP-AND-GO &amp; FRENADA 5/5
               </strong>
             </div>
             <p class="text-xs sm:text-sm font-[300] text-carbon/80 leading-relaxed max-w-sm lg:ml-auto">
-              velocidad pura al final de la recta del mar caspio y frenadas violentas entre muros de hormigón idénticas a curva 14 del strip.
+              misma familia stop-and-go con abrasión 3/5: exige frenar estable tras rectas largas y conservar la tracción a la salida de chicanas.
             </p>
           </div>
 
           <div class="flex items-center gap-2 justify-start lg:justify-end pt-3">
-            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 17 · Correlación directa</span>
+            <span class="text-[11px] font-[600] text-carbon/60 uppercase">Ronda 16 · Correlación directa</span>
             <span class="text-[11px] font-[800] uppercase tracking-wider text-[#C084FC] bg-[#C084FC]/15 px-3.5 py-1 rounded-full flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-[#C084FC]"></span>
               El Gemelo Oculto
@@ -1770,7 +1789,7 @@
        - Sin animaciones de aparición escalonadas
        - Información visualmente integrada, clara y atractiva
        ======================================================== -->
-  <section id="crossover" class="relative w-full min-h-screen bg-[#0A0A0C] text-pureWhite select-none scroll-mt-20 py-20 sm:py-28 px-6 sm:px-10 flex flex-col justify-center border-t border-white/10">
+  <section id="crossover" class="relative w-full min-h-screen bg-[#0A0A0C] text-pureWhite select-text scroll-mt-20 py-20 sm:py-28 px-6 sm:px-10 flex flex-col justify-center border-t border-white/10">
     
     <!-- GRADIENTE CINEMÁTICO DE FONDO -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(212,255,50,0.04),transparent_70%)] pointer-events-none"></div>
@@ -1785,8 +1804,8 @@
           </span>
           <h2 class="font-[900] text-3xl sm:text-5xl uppercase leading-[0.98] tracking-tight text-white max-w-2xl">
             NO GANA EL MÁS RÁPIDO. <br>
-            <span class="font-[200] text-white/60 normal-case">gana el que sobrevive</span> <br>
-            A LA TRAMPA DEL FRÍO.
+            <span class="font-[200] text-white/60 normal-case">gana el que domina</span> <br>
+            EL CAMBIO DE LUZ.
           </h2>
         </div>
 
@@ -1798,18 +1817,18 @@
           <div class="grid grid-cols-3 gap-2 font-mono text-left">
             <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
               <span class="text-[9px] text-[#FFA726] uppercase font-[700] block">PISTA</span>
-              <span class="text-xs text-white font-[800] block mt-0.5">1.9 km Strip</span>
-              <span class="text-[9px] text-white/50 block">&gt;350 km/h</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">5.281 km Yas</span>
+              <span class="text-[9px] text-white/50 block">1.2 km · Doble DRS</span>
             </div>
             <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
               <span class="text-[9px] text-[#60A5FA] uppercase font-[700] block">CLIMA</span>
-              <span class="text-xs text-white font-[800] block mt-0.5">12°C Asfalto</span>
-              <span class="text-[9px] text-white/50 block">Graining Severo</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">42°C → 31°C</span>
+              <span class="text-[9px] text-white/50 block">Atardecer a noche</span>
             </div>
             <div class="p-2.5 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-[9px] text-[#d4ff32] uppercase font-[700] block">CAOS</span>
-              <span class="text-xs text-white font-[800] block mt-0.5">76.5% SC</span>
-              <span class="text-[9px] text-white/50 block">-12s en Boxes</span>
+              <span class="text-[9px] text-[#d4ff32] uppercase font-[700] block">ESTRATEGIAS</span>
+              <span class="text-xs text-white font-[800] block mt-0.5">58 Vueltas</span>
+              <span class="text-[9px] text-white/50 block">1 Parada C4→C3</span>
             </div>
           </div>
         </div>
@@ -1984,7 +2003,7 @@
        PANTALLA COMPLETA 100% BLANCA: TRANSICIÓN A LA REDACCIÓN
        Ocupa la pantalla entera (min-h-screen) sin franjas oscuras
        ======================================================== -->
-  <section id="transition-desk" class="relative w-full min-h-screen bg-pureWhite text-carbon select-none flex flex-col justify-center items-center px-6 sm:px-12 py-16 sm:py-24 z-30 scroll-mt-0">
+  <section id="transition-desk" class="relative w-full min-h-screen bg-pureWhite text-carbon select-text flex flex-col justify-center items-center px-6 sm:px-12 py-16 sm:py-24 z-30 scroll-mt-0">
     
     <!-- NÚCLEO EDITORIAL EN EL CENTRO EXACTO DE LA PANTALLA -->
     <div class="max-w-4xl mx-auto text-center space-y-5 sm:space-y-6 my-auto py-4">
@@ -2011,7 +2030,7 @@
 
     <!-- REMATE INFERIOR INTEGRADO EN LA PANTALLA BLANCA -->
     <div class="shrink-0 text-center text-[10px] sm:text-[11px] font-mono text-carbon/40 uppercase tracking-widest pb-4">
-      UNDERTRACK REDACCIÓN DESK · EDICIÓN GP DE LAS VEGAS 2026
+      UNDERTRACK REDACCIÓN DESK · EDICIÓN GP DE ABU DHABI 2026
     </div>
 
   </section>
@@ -2212,6 +2231,7 @@
       const section = document.getElementById('transition');
       const qWrap = document.getElementById('transQuestionWrap');
       const sWrap = document.getElementById('transSecondaryWrap');
+      const bgNoVel = document.getElementById('transNoVelocidadBg');
       if (!section || !qWrap || !sWrap) return;
 
       const rect = section.getBoundingClientRect();
@@ -2231,6 +2251,7 @@
         qWrap.style.transform = `translate3d(${winW * 0.45}px, 0, 0)`;
         sWrap.style.opacity = '0';
         sWrap.style.pointerEvents = 'none';
+        if (bgNoVel) bgNoVel.style.opacity = '0';
         return;
       }
 
@@ -2245,6 +2266,7 @@
 
         sWrap.style.opacity = '0';
         sWrap.style.pointerEvents = 'none';
+        if (bgNoVel) bgNoVel.style.opacity = '0';
         return;
       }
 
@@ -2255,6 +2277,7 @@
 
         sWrap.style.opacity = '0';
         sWrap.style.pointerEvents = 'none';
+        if (bgNoVel) bgNoVel.style.opacity = '0';
         return;
       }
 
@@ -2270,6 +2293,7 @@
 
         sWrap.style.opacity = '0';
         sWrap.style.pointerEvents = 'none';
+        if (bgNoVel) bgNoVel.style.opacity = '0';
         return;
       }
 
@@ -2281,6 +2305,7 @@
       sWrap.style.opacity = revealP.toFixed(2);
       sWrap.style.transform = 'translate3d(0, 0, 0)';
       sWrap.style.pointerEvents = revealP > 0.6 ? 'auto' : 'none';
+      if (bgNoVel) bgNoVel.style.opacity = revealP.toFixed(2);
     }
 
     // 1c. ANIMACIÓN DE SCROLL EN PANTALLA 03 (SUPERFICIE):
@@ -2433,8 +2458,8 @@
     updateSurfaceScrollAnimation();
     updatePressureGalleryAnimation();
 
-    // 2. TIMER EN VIVO CON ANIMACIÓN CIPHER / SCRAMBLE INICIAL (COMO EL VIDEO, RÍTMICA Y MÁS DESPACIO)
-    const targetRace = new Date("2026-11-22T01:00:00-03:00").getTime();
+    // 2. TIMER EN VIVO CON ANIMACIÓN CIPHER / SCRAMBLE INICIAL (6 DE DICIEMBRE, 10:00HS ABU DHABI)
+    const targetRace = new Date("2026-12-06T10:00:00-03:00").getTime();
     
     function getRemainingTime() {
       const now = new Date().getTime();
@@ -3031,7 +3056,7 @@
       hook: "«Colapinto sabe estirar la goma dura y aprovechar el caos: su ritmo de carrera le permite avanzar hacia el Top 10 el domingo.»"
     }
   ];
-  let activeCard = null; // Ninguna carta seleccionada de entrada (todas en gris)
+  let activeCard = null; // Ninguna carta preseleccionada al cargar la web
   let hoveredCard = null; // { deck: 1 | 2, index: number } | null
 
   const fanStage1 = document.getElementById('fanDeckContainer1');
@@ -3361,7 +3386,7 @@
     
     if (elInterlagos) {
       elInterlagos.textContent = "";
-      const text1 = "Las Vegas Strip";
+      const text1 = "Yas Marina";
       let i = 0;
       const timer1 = setInterval(() => {
         i++;
@@ -3377,7 +3402,7 @@
 
       if (elRedBull) {
         elRedBull.textContent = "";
-        const text2 = "Baku City Circuit";
+        const text2 = "Monza";
         let j = 0;
         const timer2 = setInterval(() => {
           j++;
@@ -3469,6 +3494,26 @@
   // INICIALIZACIÓN DEL DOBLE ABANICO SEMICIRCULAR COMPLEMENTARIO
   createAllFanCards();
   renderBothFans(1.0);
+
+  // EFECTO LINTERNA LOCALIZADO SOBRE EL NOMBRE DEL CIRCUITO EN PORTADA
+  (function initCircuitSpotlight() {
+    const titleEl = document.getElementById('heroCircuitTitle');
+    const spotEl = document.getElementById('heroCircuitSpotlight');
+    if (!titleEl || !spotEl) return;
+
+    titleEl.addEventListener('mousemove', (e) => {
+      const rect = titleEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      spotEl.style.setProperty('--spot-x', `${x.toFixed(1)}px`);
+      spotEl.style.setProperty('--spot-y', `${y.toFixed(1)}px`);
+      spotEl.style.opacity = '1';
+    });
+
+    titleEl.addEventListener('mouseleave', () => {
+      spotEl.style.opacity = '0';
+    });
+  })();
 
 // 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
     window.addEventListener('scroll', () => {
