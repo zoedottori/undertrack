@@ -178,9 +178,9 @@
          VISTA 1: CONTENIDO COMPLETO DEL RACIONAL
          INCLUYE LOS 8 PUNTOS + LOS 8 INSIGHTS DE ENTREGA 3 EXPLICADOS
          ======================================================== -->
-    <main id="vistaRacional" class="flex-1 w-full max-w-6xl px-6 sm:px-12 lg:px-16 py-12 lg:py-16 space-y-28 transition-opacity duration-500">
+    <main id="vistaRacional" class="flex-1 w-full max-w-6xl px-6 sm:px-12 lg:px-16 py-12 lg:py-16 space-y-24 transition-opacity duration-500">
 
-      <header class="space-y-4 pb-12">
+      <header class="space-y-4 pb-6">
         <h1 class="text-3xl sm:text-5xl font-[900] uppercase tracking-tight text-tinta leading-[1.02]">
           RACIONAL DEL PROYECTO: <br>
           <span class="font-[300] lowercase">por qué esto es como es</span> Y NO DE OTRA FORMA.
@@ -189,6 +189,65 @@
           este documento justifica las decisiones tomadas en <strong class="font-[900] text-tinta">undertrack</strong>: qué problema resolvemos, qué hipótesis pusimos a prueba, de dónde salen los datos, cómo organizamos el modelo, por qué diseñamos este flujo para mateo y qué le frenamos a la inteligencia artificial.
         </p>
       </header>
+
+      <!-- GRÁFICO INICIAL: EL PROCESO CREATIVO -->
+      <section class="w-full space-y-6">
+        <h2 class="text-xl sm:text-3xl font-[900] tracking-tight lowercase text-tinta">
+          el proceso creativo:
+        </h2>
+
+        <div class="w-full overflow-x-auto pb-2">
+          <div class="min-w-[600px] space-y-3">
+            <!-- ETIQUETAS SUPERIORES (2, 4, 6) -->
+            <div class="grid gap-1.5 items-end text-center text-[11px] sm:text-xs font-[700] lowercase" style="grid-template-columns: 10fr 12fr 28fr 13fr 25fr 12fr;">
+              <div></div>
+              <div class="flex flex-col items-center text-[#5c6b66]">
+                <span>pensar hipótesis</span>
+                <span class="text-sm leading-none mt-1">↓</span>
+              </div>
+              <div></div>
+              <div class="flex flex-col items-center text-[#b83e4b]">
+                <span>prototipar</span>
+                <span class="text-sm leading-none mt-1">↓</span>
+              </div>
+              <div></div>
+              <div class="flex flex-col items-center text-[#5c6b66]">
+                <span>perfeccionar e iterar</span>
+                <span class="text-sm leading-none mt-1">↓</span>
+              </div>
+            </div>
+
+            <!-- BARRA SEGMENTADA -->
+            <div class="grid gap-1.5 h-10 sm:h-12" style="grid-template-columns: 10fr 12fr 28fr 13fr 25fr 12fr;">
+              <div class="rounded-sm bg-[#f7dcad]" title="definición del tema"></div>
+              <div class="rounded-sm bg-[#93a29d]" title="pensar hipótesis"></div>
+              <div class="rounded-sm bg-[#736428]" title="trabajar datasets"></div>
+              <div class="rounded-sm bg-[#b83e4b]" title="prototipar"></div>
+              <div class="rounded-sm bg-[#f7dcad]" title="ejecutar"></div>
+              <div class="rounded-sm bg-[#93a29d]" title="perfeccionar e iterar"></div>
+            </div>
+
+            <!-- ETIQUETAS INFERIORES (1, 3, 5) -->
+            <div class="grid gap-1.5 items-start text-center text-[11px] sm:text-xs font-[700] lowercase" style="grid-template-columns: 10fr 12fr 28fr 13fr 25fr 12fr;">
+              <div class="flex flex-col items-center text-[#736428]">
+                <span class="text-sm leading-none mb-1">↑</span>
+                <span>definición del tema</span>
+              </div>
+              <div></div>
+              <div class="flex flex-col items-center text-[#736428]">
+                <span class="text-sm leading-none mb-1">↑</span>
+                <span>trabajar datasets</span>
+              </div>
+              <div></div>
+              <div class="flex flex-col items-center text-[#736428]">
+                <span class="text-sm leading-none mb-1">↑</span>
+                <span>ejecutar</span>
+              </div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- 01. PROBLEMA Y CONTEXTO -->
       <section id="sec-01" class="space-y-8 scroll-mt-20">
@@ -643,68 +702,21 @@
       <!-- 1. SIMULADOR CINEMÁTICO EN TIEMPO REAL: RECTA PRINCIPAL DE INTERLAGOS -->
       <!-- BOTÓN ÚNICO DE PLAY ANTES DE INICIAR LA PIRUETA -->
       <div id="piruetaPlayGate" class="min-h-[60vh] flex flex-col items-center justify-center">
-        <button type="button" onclick="startPiruetaExperience()" class="group inline-flex items-center gap-4 px-10 py-5 rounded-full bg-[#111114] hover:bg-[#d4ff32] text-white hover:text-[#111114] font-[900] text-sm sm:text-base uppercase tracking-widest shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer">
-          <span class="w-3.5 h-3.5 rounded-full bg-[#d4ff32] group-hover:bg-[#111114] transition-colors"></span>
-          <span>▶ Play</span>
+        <button type="button" onclick="startPiruetaExperience()" class="group inline-flex items-center gap-3.5 px-6 py-3 rounded-full border border-[#111114]/20 bg-transparent hover:border-[#111114] hover:bg-[#111114]/5 text-[#111114] transition-all duration-300 cursor-pointer">
+          <svg class="w-11 h-4 text-[#111114] transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 64 20" fill="currentColor" aria-hidden="true">
+            <path d="M5 13.5h5.5a3.5 3.5 0 0 0 6.8 0h25.4a3.5 3.5 0 0 0 6.8 0H58c1.7 0 3-.9 3-2 0-.9-.9-1.6-2.2-1.8l-7.8-1-5.5-2.7c-1.8-.9-3.9-1.3-6-1.3H28.5L25 2.5h-4l2 2.2H13L9.5 1.5H5l1.8 4.2L4 7.5v4.2c0 1 .4 1.8 1 1.8Zm9 2a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6Zm32.2 0a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6Z"/>
+          </svg>
+          <span class="text-[11px] font-[500] uppercase tracking-[0.22em]">play</span>
         </button>
       </div>
 
-      <div id="piruetaSimulatorWrap" class="hidden w-full bg-[#111114] text-pureWhite rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
-        
-        <!-- ENCABEZADO TÉCNICO Y CONTROLES -->
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-          <div class="flex items-center gap-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#FF1801] animate-ping"></span>
-            <div>
-              <span class="text-xs sm:text-sm font-[900] text-white uppercase tracking-tight block">RECTA PRINCIPAL DE VEGAS</span>
-            </div>
-          </div>
-          
-          <div class="flex items-center gap-3">
-            <!-- Botón de sonido -->
-            <button id="btnSoundToggle" onclick="toggleF1Sound()" type="button" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-[11px] font-mono font-[700] text-white flex items-center gap-1.5 transition-all border border-white/10">
-              <span id="soundIcon">🔊</span>
-              <span id="soundLabel">SONIDO V6 TURBO</span>
-            </button>
+      <div id="piruetaSimulatorWrap" class="hidden w-full">
 
-            <!-- Botón de reproducir cruce -->
-            <button onclick="lanzarAutoEnTiempoReal()" type="button" class="px-4 py-1.5 rounded-full bg-[#d4ff32] hover:bg-[#c2f01f] text-black text-xs font-mono font-[900] uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg active:scale-95">
-              <span>▶</span>
-              <span>LARGAR CRUCE (320 KM/H)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- PISTA DE ASFALTO CON AUTO Y LÍNEA DE CUADROS -->
-        <div id="trackAsphalt" class="relative w-full h-24 sm:h-28 bg-[#18181C] rounded-xl overflow-hidden border border-white/10 flex items-center shadow-inner">
-          <!-- Asfalto textura y líneas de carril -->
-          <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] border-b border-dashed border-white/20 pointer-events-none"></div>
-          <div class="absolute inset-x-0 top-0 h-2 bg-[#FF1801] pointer-events-none opacity-40"></div>
-          <div class="absolute inset-x-0 bottom-0 h-2 bg-[#FFFFFF] pointer-events-none opacity-40"></div>
-
-          <!-- MARCADORES DE METROS EN LA PISTA -->
-          <div class="absolute inset-x-0 bottom-1 flex justify-between px-6 text-[9px] font-mono text-white/30 pointer-events-none select-none">
-            <span>0m (SUBIDA DOS BOXES)</span>
-            <span>200m</span>
-            <span>400m</span>
-            <span class="text-white/70 font-[800]">META (0.000s)</span>
-            <span>800m</span>
-            <span>1.297m (VERSTAPPEN)</span>
-          </div>
-
-          <!-- LÍNEA DE META A CUADROS (FINISH LINE) -->
-          <div id="finishLineBeam" class="absolute top-0 bottom-0 left-[62%] w-5 z-10 transition-all duration-300 pointer-events-none" 
-               style="background: repeating-conic-gradient(#FFFFFF 0% 25%, #000000 0% 50%) 50% / 8px 8px; box-shadow: 0 0 15px rgba(255,255,255,0.2);">
-            <div class="absolute -top-1 left-1/2 -translate-x-1/2 px-1.5 py-0.5 rounded bg-black text-[#d4ff32] font-mono text-[8px] font-[900] tracking-tighter whitespace-nowrap border border-white/20">
-              🏁 META
-            </div>
-          </div>
+        <!-- PISTA TRANSPARENTE: ÚNICAMENTE LOS AUTOS PASANDO -->
+        <div id="trackAsphalt" class="relative w-full h-20 sm:h-24 overflow-hidden flex items-center">
 
           <!-- AUTO DE F1 ANIMADO EN TIEMPO REAL -->
           <div id="f1CarWrap" class="absolute top-1/2 -translate-y-1/2 z-20 pointer-events-none transition-none" style="left: -160px;">
-            <!-- ESTELA AERODINÁMICA Y FUEGO DEL ESCAPE -->
-            <div id="carExhaustGlow" class="absolute right-full top-1/2 -translate-y-1/2 w-28 h-2.5 bg-gradient-to-l from-[#FF4500] via-[#FF8000]/60 to-transparent blur-[2px] rounded-full"></div>
-            
             <!-- SVG MONOPLAZA F1 AERODINÁMICO -->
             <svg class="w-24 sm:w-28 h-auto drop-shadow-[0_4px_12px_rgba(255,128,0,0.5)]" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="8" width="6" height="24" rx="2" fill="#FF8000" />
