@@ -225,84 +225,72 @@
     <!-- WORKSPACE SPLIT EN DOS COLUMNAS (SIDEBAR CONFIGURACIÓN + PIZARRA EDITORIAL) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
-      <!-- COLUMNA IZQUIERDA (4/12): 1. CANAL Y FORMATO + HISTORIAL (ALINEADO CON ESPERANDO SELECCIÓN) -->
+      <!-- COLUMNA IZQUIERDA (4/12): HISTORIAL PROTAGONISTA + CANAL Y FORMATO COMPACTO -->
       <div class="lg:col-span-4 flex flex-col gap-4">
-        <aside class="flex-1 bg-pureWhite p-6 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col justify-between gap-6" style="background-color: #FFFFFF !important;">
-        <div class="space-y-6">
-          <div class="flex items-center gap-2 border-b border-black/10 pb-3.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] border border-black/25 shrink-0"></span>
-            <span class="text-xs font-[900] uppercase tracking-wider text-carbon">
-              1. CANAL Y FORMATO
+        <!-- HISTORIAL DE ANÁLISIS POR PROYECTO (AVATAR GROUP DE CIRCUITOS) -->
+        <div class="flex-1 bg-pureWhite p-5 rounded-3xl border border-black/12 shadow-[0_16px_36px_rgba(0,0,0,0.06)] flex flex-col gap-3.5" style="background-color: #FFFFFF !important;">
+          <div class="flex items-center justify-between border-b border-black/10 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#d4ff32] border border-black/25 shrink-0"></span>
+              <span class="text-xs font-[900] uppercase tracking-wider text-carbon">
+                PROYECTOS
+              </span>
+            </div>
+            <button type="button" onclick="saveCurrentSessionToHistory()" class="text-[10px] font-[800] px-2.5 py-1 rounded-full bg-[#EEF0F4] hover:bg-carbon hover:text-pureWhite text-carbon transition-colors cursor-pointer">
+              + guardar
+            </button>
+          </div>
+
+          <!-- AVATAR GROUP DE BANDERAS POR CIRCUITO -->
+          <div class="flex items-center justify-between pt-2 pb-1">
+            <div id="projectAvatarGroup" class="flex items-center pl-3">
+              <!-- Inyectado dinámicamente con JS -->
+            </div>
+            <span id="activeProjectLabel" class="text-[10px] font-mono font-[700] uppercase tracking-wider text-muted">
+              Abu Dhabi
             </span>
           </div>
 
-          <!-- SELECCIÓN DE RED SOCIAL (GRID 2x2) -->
-          <div class="space-y-2.5">
-            <span class="text-[11px] font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
-              ¿EN QUÉ RED VAS A PUBLICAR?
+          <div id="editorialHistoryList" class="flex-1 space-y-2 max-h-56 overflow-y-auto pr-1">
+            <!-- Inyectado dinámicamente desde localStorage por proyecto -->
+          </div>
+        </div>
+
+        <!-- CANAL Y FORMATO COMPACTO -->
+        <aside class="shrink-0 bg-pureWhite p-5 rounded-3xl border border-black/12 shadow-sm flex flex-col gap-3.5" style="background-color: #FFFFFF !important;">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-[900] uppercase tracking-wider text-carbon/70">
+              CANAL Y FORMATO
             </span>
-            <div class="grid grid-cols-2 gap-2.5">
-              <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
-                Instagram
-              </button>
-              <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
-                TikTok
-              </button>
-              <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
-                X (Twitter)
-              </button>
-              <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn !py-2.5 !px-3 !text-xs">
-                YouTube
-              </button>
-            </div>
+          </div>
+
+          <!-- SELECCIÓN DE RED SOCIAL (COMPACTA 4 EN FILA) -->
+          <div class="grid grid-cols-4 gap-1.5">
+            <button type="button" onclick="selectDeskPlatform('instagram')" id="deskPlatformBtn-instagram" class="desk-choice-btn !py-1.5 !px-2 !text-[10px]">
+              IG
+            </button>
+            <button type="button" onclick="selectDeskPlatform('tiktok')" id="deskPlatformBtn-tiktok" class="desk-choice-btn !py-1.5 !px-2 !text-[10px]">
+              TikTok
+            </button>
+            <button type="button" onclick="selectDeskPlatform('x')" id="deskPlatformBtn-x" class="desk-choice-btn !py-1.5 !px-2 !text-[10px]">
+              X
+            </button>
+            <button type="button" onclick="selectDeskPlatform('youtube')" id="deskPlatformBtn-youtube" class="desk-choice-btn !py-1.5 !px-2 !text-[10px]">
+              YT
+            </button>
           </div>
 
           <!-- SELECCIÓN DINÁMICA DE FORMATO -->
-          <div class="space-y-2.5">
-            <span class="text-[11px] font-sans uppercase text-carbon/70 font-[800] tracking-wider block">
-              ¿QUÉ FORMATO NECESITÁS HOY?
-            </span>
-            <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center gap-2">
-              <!-- Inyectado dinámicamente -->
-            </div>
+          <div id="deskFormatButtonsContainer" class="flex flex-wrap items-center gap-1.5">
+            <!-- Inyectado dinámicamente -->
           </div>
 
-          <p class="text-[11px] font-[400] text-muted leading-snug lowercase">
-            la sugerencia se adapta automáticamente al tocar cualquier opción
-          </p>
-        </div>
-
-        <!-- BOTÓN GENERAR CON IA (GROQ) DESTACADO EN VERDE VOLT -->
-        <div class="pt-5 border-t border-black/10 space-y-2.5">
-          <span class="text-[11px] font-[500] text-muted text-center block">
-            ¿Querés una versión única redactada con IA en vivo?
-          </span>
-          <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full py-3.5 px-5 rounded-full bg-[#d4ff32] hover:bg-[#c5f022] text-[#111114] font-[900] text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-[0_8px_20px_rgba(212,255,50,0.35)] hover:shadow-[0_12px_28px_rgba(212,255,50,0.5)] hover:-translate-y-0.5 active:scale-95">
+          <!-- BOTÓN GENERAR CON IA (GROQ) -->
+          <button onclick="generateCustomScript()" id="btnGenerateCustomScript" class="w-full py-2.5 px-4 rounded-full bg-[#d4ff32] hover:bg-[#c5f022] text-[#111114] font-[900] text-[11px] uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm">
             <span>GENERAR CON IA (GROQ)</span>
-            <span class="text-sm font-bold">➔</span>
+            <span class="text-xs font-bold">➔</span>
           </button>
-        </div>
-      </aside>
-
-        <!-- HISTORIAL COMPRIMIDO DENTRO DE LA COLUMNA IZQUIERDA -->
-        <details class="bg-pureWhite rounded-2xl border border-black/12 shadow-sm overflow-hidden group shrink-0" style="background-color: #FFFFFF !important;">
-          <summary class="px-5 py-3 flex items-center justify-between cursor-pointer list-none select-none">
-            <span class="text-[11px] font-sans uppercase font-[800] tracking-wider text-carbon">
-              HISTORIAL
-            </span>
-            <div class="flex items-center gap-3">
-              <button type="button" onclick="event.preventDefault(); saveCurrentSessionToHistory();" class="text-[10px] font-[700] text-carbon/70 hover:text-carbon underline cursor-pointer">
-                + guardar
-              </button>
-              <span class="text-xs text-muted transition-transform duration-200 group-open:rotate-180">▾</span>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 pt-2 border-t border-black/8">
-            <div id="editorialHistoryList" class="space-y-1.5 max-h-40 overflow-y-auto">
-              <!-- Inyectado dinámicamente desde localStorage -->
-            </div>
-          </div>
-        </details>
+        </aside>
       </div>
 
       <!-- COLUMNA DERECHA (8/12): PIZARRA EDITORIAL Y CHAT EN VIVO -->
@@ -961,32 +949,125 @@ REGLAS ESTRICTAS DE RESPUESTA:
     syncEditorialOutput();
   </script>
   <script>
-    const EDITORIAL_HISTORY_KEY = 'undertrack_editorial_history_v1';
+    const EDITORIAL_HISTORY_KEY = 'undertrack_editorial_projects_v1';
+    const PROJECTS = [
+      { id: 'abudhabi', label: 'Abu Dhabi', flag: 'https://flagcdn.com/w80/ae.png' },
+      { id: 'vegas', label: 'Las Vegas', flag: 'https://flagcdn.com/w80/us.png' },
+      { id: 'qatar', label: 'Qatar', flag: 'https://flagcdn.com/w80/qa.png' },
+      { id: 'interlagos', label: 'Interlagos', flag: 'https://flagcdn.com/w80/br.png' }
+    ];
+    let activeProjectId = 'abudhabi';
+
+    const DEFAULT_PROJECT_THREADS = {
+      abudhabi: [
+        {
+          title: '¿Cómo afecta la caída de >8°C en Yas Marina?',
+          preview: 'Asfalto baja de 33°C a 24°C: obliga a ajustar alerón delantero en pitstop...',
+          date: 'Hoy 10:15',
+          output: 'En Yas Marina la caída térmica crepuscular supera los 8°C (33°C a 24°C). Quienes no ajusten el alerón delantero en la parada única (V20–V26) sufrirán subviraje severo en el Sector 3.',
+          chatHtml: '<div class="flex justify-end"><div class="bg-carbon text-pureWhite px-3.5 py-2 rounded-2xl rounded-tr-xs text-xs max-w-[85%]">¿Qué pasa si no ajustan el alerón en boxes?</div></div><div class="bg-pureWhite p-3.5 rounded-2xl rounded-tl-xs border border-black/8 text-xs text-carbon">Subviraje en las curvas lentas de la Marina (S3), donde Norris y McLaren sacan ventaja de tracción.</div>'
+        },
+        {
+          title: 'Guion TikTok: Colapinto en zona de puntos',
+          preview: 'Consistencia de 1.19s para defender P8–P10 con estrategia de 1 parada...',
+          date: 'Ayer 21:40',
+          output: '[0:00] Dato clave para Abu Dhabi: Franco Colapinto llega con 1.19s de consistencia en stint largo. [0:12] Si estira el Medio hasta la vuelta 24, tiene ventana real para cerrar el año en P8–P10.',
+          chatHtml: ''
+        }
+      ],
+      vegas: [
+        {
+          title: 'Hilo X: Graining a 12°C y 76.5% Safety Car',
+          preview: 'Recta de 1.9 km enfría las gomas delanteras antes de Curva 14...',
+          date: 'Hace 2 días',
+          output: '1/3 Las Vegas a 12°C de asfalto: la recta de 1.9 km subenfría el tren delantero antes de Curva 14.\n2/3 Con 76.5% de probabilidad de Safety Car, estirar el compuesto Duro define la carrera.',
+          chatHtml: ''
+        }
+      ],
+      qatar: [
+        {
+          title: 'Alerta neumáticos en Lusail (>5G)',
+          preview: 'Abrasión 5/5 y pianos piramidales: carrera forzada a 2 o 3 paradas...',
+          date: 'Hace 4 días',
+          output: 'Lusail es gemelo de Silverstone (r=0.828) con fuerzas laterales >5G en Curvas 12–14. La abrasión máxima (5/5) fuerza 2 a 3 paradas.',
+          chatHtml: ''
+        }
+      ],
+      interlagos: [
+        {
+          title: 'Resumen post-carrera: Brechas físicas a 320 km/h',
+          preview: 'Cada 0.001s equivale a 8.8 cm de asfalto (1 mano humana)...',
+          date: 'Hace 1 sem',
+          output: 'A 320 km/h en recta, 0.001s = 8.8 cm de asfalto (el ancho de una mano humana). Dato ideal para explicar diferencias reales en vivo.',
+          chatHtml: ''
+        }
+      ]
+    };
 
     function loadEditorialHistory() {
       try {
-        return JSON.parse(localStorage.getItem(EDITORIAL_HISTORY_KEY) || '[]');
+        const raw = localStorage.getItem(EDITORIAL_HISTORY_KEY);
+        if (!raw) return JSON.parse(JSON.stringify(DEFAULT_PROJECT_THREADS));
+        const parsed = JSON.parse(raw);
+        return Object.keys(parsed).length ? parsed : JSON.parse(JSON.stringify(DEFAULT_PROJECT_THREADS));
       } catch (e) {
-        return [];
+        return JSON.parse(JSON.stringify(DEFAULT_PROJECT_THREADS));
       }
     }
+
+    function renderProjectAvatars() {
+      const container = document.getElementById('projectAvatarGroup');
+      const labelEl = document.getElementById('activeProjectLabel');
+      if (!container) return;
+      const activeProj = PROJECTS.find(p => p.id === activeProjectId) || PROJECTS[0];
+      if (labelEl) labelEl.textContent = activeProj.label;
+
+      container.innerHTML = PROJECTS.map((proj, idx) => {
+        const isActive = proj.id === activeProjectId;
+        return `
+          <button type="button" onclick="selectProject('${proj.id}')"
+            class="group relative w-10 h-10 rounded-full border-4 border-white bg-white cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-2.5 hover:!z-50 focus:outline-none ${isActive ? 'ring-2 ring-[#d4ff32] -translate-y-1' : ''}"
+            style="margin-left: -14px; z-index: ${isActive ? 40 : PROJECTS.length - idx};">
+            <img src="${proj.flag}" alt="${proj.label}" class="w-full h-full rounded-full object-cover" draggable="false">
+            <span class="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-[#111114] text-white text-[10px] font-[700] whitespace-nowrap shadow-lg opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+              ${proj.label}
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    window.selectProject = function(id) {
+      activeProjectId = id;
+      renderProjectAvatars();
+      renderEditorialHistory();
+    };
 
     function renderEditorialHistory() {
       const list = document.getElementById('editorialHistoryList');
       if (!list) return;
-      const items = loadEditorialHistory();
+      const all = loadEditorialHistory();
+      const items = all[activeProjectId] || [];
       if (!items.length) {
-        list.innerHTML = '<p class="text-[11px] text-muted italic">Todavía no guardaste análisis previos.</p>';
+        list.innerHTML = '<p class="text-[11px] text-muted italic">Sin conversaciones guardadas en este circuito.</p>';
         return;
       }
       list.innerHTML = items.map((item, idx) => `
-        <button type="button" onclick="restoreEditorialHistory(${idx})" class="w-full text-left px-3 py-2 rounded-xl bg-[#EEF0F4] hover:bg-carbon hover:text-pureWhite transition-colors flex items-center justify-between gap-2 group cursor-pointer">
-          <div class="min-w-0">
-            <span class="block text-[11px] font-[700] truncate">${item.title}</span>
-            <span class="block text-[9px] font-mono opacity-65">${item.date}</span>
+        <div onclick="restoreEditorialHistory(${idx})" class="w-full text-left p-2.5 rounded-2xl bg-[#EEF0F4]/80 hover:bg-carbon hover:text-pureWhite transition-colors flex items-start gap-2.5 group cursor-pointer border border-black/5">
+          <span class="mt-0.5 text-xs opacity-60 group-hover:opacity-100 shrink-0" aria-hidden="true">💬</span>
+          <div class="min-w-0 flex-1 space-y-0.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="block text-[11px] font-[800] truncate">${item.title}</span>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="text-[9px] font-mono opacity-60">${item.date}</span>
+                <button type="button" onclick="event.stopPropagation(); deleteEditorialHistory(${idx});" title="Borrar conversación" aria-label="Borrar conversación" class="w-4 h-4 rounded-full hover:bg-red-500 hover:text-white text-[10px] flex items-center justify-center opacity-40 group-hover:opacity-100 transition-colors cursor-pointer">
+                  ✕
+                </button>
+              </div>
+            </div>
+            <span class="block text-[10px] opacity-70 truncate font-[400]">${item.preview || (item.output || '').slice(0, 55)}</span>
           </div>
-          <span class="text-[10px] opacity-50 group-hover:opacity-100 shrink-0">↩</span>
-        </button>
+        </div>
       `).join('');
     }
 
@@ -995,26 +1076,43 @@ REGLAS ESTRICTAS DE RESPUESTA:
       if (!output) return;
       const badge = document.getElementById('verdictCardBadge')?.innerText?.trim() || 'Análisis';
       const chatHtml = document.getElementById('verdictChatHistory')?.innerHTML || '';
-      const items = loadEditorialHistory();
-      items.unshift({
-        title: badge + ' — ' + output.slice(0, 32).replace(/\n/g, ' ') + '...',
+      const all = loadEditorialHistory();
+      const list = all[activeProjectId] || [];
+      list.unshift({
+        title: badge + ' — ' + output.slice(0, 30).replace(/\n/g, ' ') + '...',
         date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         output,
         chatHtml
       });
-      localStorage.setItem(EDITORIAL_HISTORY_KEY, JSON.stringify(items.slice(0, 10)));
+      all[activeProjectId] = list.slice(0, 10);
+      localStorage.setItem(EDITORIAL_HISTORY_KEY, JSON.stringify(all));
+      renderEditorialHistory();
+    };
+
+    window.deleteEditorialHistory = function(idx) {
+      const all = loadEditorialHistory();
+      const list = all[activeProjectId] || [];
+      list.splice(idx, 1);
+      all[activeProjectId] = list;
+      localStorage.setItem(EDITORIAL_HISTORY_KEY, JSON.stringify(all));
       renderEditorialHistory();
     };
 
     window.restoreEditorialHistory = function(idx) {
-      const items = loadEditorialHistory();
-      const item = items[idx];
+      const all = loadEditorialHistory();
+      const item = (all[activeProjectId] || [])[idx];
       if (!item) return;
       const out = document.getElementById('verdictOutput');
       const chat = document.getElementById('verdictChatHistory');
       if (out) out.innerText = item.output;
       if (chat) chat.innerHTML = item.chatHtml || '';
     };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProjectAvatars();
+      renderEditorialHistory();
+    });
+  </script>
 
     function updateEvidenceModalFromOutput() {
       const body = document.getElementById('evidenceBody');

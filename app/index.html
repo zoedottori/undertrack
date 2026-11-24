@@ -765,7 +765,7 @@
             <div class="relative inline-flex flex-col items-center justify-center w-full max-w-6xl px-2 sm:px-4 py-2">
 
               <!-- Bloque con dígitos monumentales semi-transparentes sobre el fondo de pista -->
-              <div class="flex items-baseline justify-center font-[900] text-[clamp(2.1rem,9.2vw,10.5rem)] text-white/50 tracking-tight leading-none tabular-nums select-none">
+              <div id="heroTimerWrap" class="flex items-baseline justify-center font-[900] text-[clamp(2.1rem,9.2vw,10.5rem)] text-white tracking-tight leading-none tabular-nums select-none">
                 
                 <!-- DÍAS -->
                 <div class="flex flex-col items-center">
@@ -1525,8 +1525,8 @@
       <div id="pilotFoldersGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-14 items-end justify-items-center">
         <!-- Inyectado dinámicamente con JS -->
       </div>
-      <p class="text-center font-mono text-[10px] sm:text-[11px] tracking-[0.18em] text-muted uppercase mt-10">
-        Hover para inclinar · Click para abrir carpeta · Click en un piloto para ver su ficha
+      <p class="text-center font-sans text-xs tracking-wide text-muted mt-10">
+        hover para inclinar · click para abrir carpeta · click en un piloto para ver su ficha
       </p>
     </div>
 
@@ -1551,7 +1551,7 @@
       }
       .gf-root[data-tone="dark"] { --gf-ink: #f5f5f7; --gf-ink-soft: rgba(245, 245, 247, .62); }
       .gf-root:hover, .gf-root:focus-within { --gf-hinge: -11deg; --gf-lift: -34px; --gf-spread: 8px; --gf-fan: 1.4deg; --gf-stack: 10px; }
-      .gf-root[data-open] { --gf-hinge: -24deg; --gf-lift: -96px; --gf-spread: 40px; --gf-fan: 5deg; --gf-stack: 30px; }
+      .gf-root[data-open] { --gf-hinge: -24deg; --gf-lift: -68px; --gf-spread: 34px; --gf-fan: 4.5deg; --gf-stack: 18px; }
 
       .gf-stage {
         position: absolute;
@@ -1744,15 +1744,17 @@
         color: var(--gf-ink);
       }
       .gf-title {
-        font-size: 18px;
-        font-weight: 800;
+        font-size: 17px;
+        font-weight: 900;
         line-height: 1.15;
-        letter-spacing: -.015em;
+        letter-spacing: .02em;
+        text-transform: uppercase;
       }
       .gf-meta {
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-family: inherit;
         font-size: 11px;
-        letter-spacing: .03em;
+        font-weight: 400;
+        letter-spacing: 0;
         color: var(--gf-ink-soft);
       }
       .gf-key {
@@ -1798,7 +1800,7 @@
             <img id="pilotTeamLogo" src="assets/escuderias/mclaren.png" alt="Escudería" class="h-7 w-auto object-contain">
             <div>
               <span id="pilotTeam" class="text-sm font-[800] text-white uppercase block tracking-wider leading-tight">McLaren F1 Team</span>
-              <span id="pilotCategoryTag" class="text-[10px] text-[#d4ff32] uppercase font-mono tracking-widest block font-[700]">arquetipo conductual</span>
+              <span id="pilotCategoryTag" class="text-[10px] text-[#d4ff32] uppercase font-sans tracking-wider block font-[700]">arquetipo conductual</span>
             </div>
           </div>
 
@@ -1817,8 +1819,8 @@
               <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
               
               <div class="absolute bottom-4 left-4 right-4 flex items-baseline justify-between text-white">
-                <span id="pilotDorsal" class="font-[900] text-4xl leading-none font-mono tracking-tighter">#4</span>
-                <span id="pilotMatchTag" class="text-[10px] uppercase font-mono px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[#d4ff32] font-[800]">revancha</span>
+                <span id="pilotDorsal" class="font-[900] text-4xl leading-none font-sans tracking-tighter">#4</span>
+                <span id="pilotMatchTag" class="text-[10px] uppercase font-sans px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[#d4ff32] font-[800]">revancha</span>
               </div>
             </div>
           </div>
@@ -3110,7 +3112,7 @@
     const groups = [
       {
         id: 'beneficiados',
-        title: 'Beneficiados',
+        title: 'BENEFICIADOS',
         subtitle: 'Yas Marina · ritmo y stint único',
         tone: 'light',
         backGradient: 'linear-gradient(135deg, #f4efe9 0%, #e9c2b8 40%, #22395e 100%)',
@@ -3118,7 +3120,7 @@
       },
       {
         id: 'neutros',
-        title: 'Neutros',
+        title: 'NEUTROS',
         subtitle: 'Dependen del rebalance en pitstop',
         tone: 'light',
         backGradient: 'linear-gradient(135deg, #f7f8fa 0%, #d9e2ea 50%, #9fb4c7 100%)',
@@ -3126,7 +3128,7 @@
       },
       {
         id: 'perjudicados',
-        title: 'Perjudicados',
+        title: 'PERJUDICADOS',
         subtitle: 'Sufren caída térmica (>8°C) o tráfico',
         tone: 'dark',
         backGradient: 'linear-gradient(135deg, #16252c 0%, #a3201a 60%, #ef4a2b 100%)',
@@ -3144,7 +3146,7 @@
 
     grid.innerHTML = '';
     groups.forEach((grp) => {
-      const visible = grp.pilots.slice(0, 4);
+      const visible = grp.pilots;
       const root = document.createElement('div');
       root.className = 'gf-root';
       root.dataset.tone = grp.tone;
@@ -3200,8 +3202,19 @@
       const toggleOpen = () => {
         const isOpen = root.hasAttribute('data-open');
         grid.querySelectorAll('.gf-root[data-open]').forEach(el => { if (el !== root) el.removeAttribute('data-open'); });
-        if (isOpen) root.removeAttribute('data-open');
-        else root.setAttribute('data-open', '');
+        if (isOpen) {
+          root.removeAttribute('data-open');
+          root.style.removeProperty('--gf-stack');
+          root.style.removeProperty('--gf-lift');
+          root.style.removeProperty('--gf-spread');
+        } else {
+          root.setAttribute('data-open', '');
+          if (visible.length > 6) {
+            root.style.setProperty('--gf-stack', Math.max(9, Math.round(130 / visible.length)) + 'px');
+            root.style.setProperty('--gf-lift', '-72px');
+            root.style.setProperty('--gf-spread', '58px');
+          }
+        }
       };
 
       root.querySelector('.gf-hit').addEventListener('click', toggleOpen);
@@ -3449,8 +3462,32 @@
     if (logo) logo.src = p.teamLogo;
     const team = document.getElementById('pilotTeam');
     if (team) team.textContent = p.team;
+    const favoredIds = ['verstappen', 'norris', 'colapinto', 'piastri'];
+    const neutralIds = ['leclerc', 'russell', 'sainz', 'antonelli', 'gasly', 'hulkenberg'];
+    const pid = (p.id || p.name || '').toLowerCase();
+    const abuCategory = favoredIds.some(k => pid.includes(k))
+      ? 'BENEFICIADO'
+      : (neutralIds.some(k => pid.includes(k)) ? 'NEUTRO' : 'PERJUDICADO');
+
     const catTag = document.getElementById('pilotCategoryTag');
-    if (catTag) catTag.textContent = p.category.toUpperCase();
+    if (catTag) {
+      const archetypeMap = {
+        verstappen: 'ÉLITE METRONÓMICO',
+        norris: 'ÉLITE METRONÓMICO',
+        piastri: 'ÉLITE METRONÓMICO',
+        leclerc: 'ÉLITE AGRESIVO',
+        russell: 'ÉLITE METRONÓMICO',
+        hamilton: 'ÉLITE AGRESIVO',
+        sainz: 'GESTOR DE MIDFIELD',
+        colapinto: 'GESTOR DE MIDFIELD',
+        alonso: 'GESTOR DE MIDFIELD',
+        gasly: 'GESTOR DE MIDFIELD',
+        antonelli: 'ÉLITE AGRESIVO',
+        hulkenberg: 'GESTOR DE MIDFIELD'
+      };
+      const matchedKey = Object.keys(archetypeMap).find(k => pid.includes(k));
+      catTag.textContent = matchedKey ? archetypeMap[matchedKey] : 'FONDISTA / OPORTUNISTA';
+    }
     
     const portrait = document.getElementById('pilotPortrait');
     if (portrait) portrait.src = p.portrait;
@@ -3465,7 +3502,7 @@
     const car = document.getElementById('pilotCarModel');
     if (car) car.textContent = p.carModel || p.team;
     const matchTag = document.getElementById('pilotMatchTag');
-    if (matchTag) matchTag.textContent = p.matchTag;
+    if (matchTag) matchTag.textContent = abuCategory;
     
     const gain = document.getElementById('pilotGain');
     if (gain) gain.textContent = p.gain;
@@ -3474,9 +3511,19 @@
     const tyre = document.getElementById('pilotTyre');
     if (tyre) tyre.textContent = p.tyre;
     const fact = document.getElementById('pilotFact');
-    if (fact) fact.textContent = p.fact;
+    if (fact) {
+      if (abuCategory === 'BENEFICIADO') {
+        fact.textContent = `En Yas Marina (Familia 1) su ritmo y gestión de stint único (${p.consist} de consistencia) le permiten capitalizar la caída térmica crepuscular de >8°C.`;
+      } else if (abuCategory === 'NEUTRO') {
+        fact.textContent = `Rendimiento equilibrado en Yas Marina: su resultado depende de ajustar el balance delantero en la parada única (V20–V26) cuando baja la temperatura de pista.`;
+      } else {
+        fact.textContent = `En Yas Marina queda expuesto a la caída térmica nocturna (>8°C) y al tráfico en el Sector 3, dependiendo de neutralizaciones o ventanas tempranas.`;
+      }
+    }
     const hook = document.getElementById('pilotHook');
-    if (hook) hook.textContent = p.hook;
+    if (hook) {
+      hook.textContent = `«${p.name} llega a Abu Dhabi como ${abuCategory.toLowerCase()} en Yas Marina: ${p.consist} de consistencia y ${p.tyre} en gestión de goma para la parada única.»`;
+    }
 
     const wrap = document.getElementById('pilotPortraitWrap');
     if (wrap && p.teamColor) {
@@ -3688,6 +3735,30 @@
     titleEl.addEventListener('mouseleave', () => {
       spotEl.style.opacity = '0';
     });
+
+    const timerWrap = document.getElementById('heroTimerWrap');
+    if (timerWrap) {
+      const timerParts = timerWrap.querySelectorAll('#tDays, #tHours, #tMins, #tSecs');
+      timerParts.forEach(el => {
+        el.style.transition = 'opacity 0.25s ease';
+        el.style.opacity = '0.45';
+      });
+      timerWrap.addEventListener('mousemove', (e) => {
+        timerParts.forEach(el => {
+          const r = el.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+          const op = Math.max(0.42, Math.min(1, 1 - (dist - 40) / 220));
+          el.style.opacity = op.toFixed(2);
+        });
+      });
+      timerWrap.addEventListener('mouseleave', () => {
+        timerParts.forEach(el => {
+          el.style.opacity = '0.45';
+        });
+      });
+    }
   })();
 
 // 5. MOTOR DE SCROLL Y APERTURA DE CARTAS
